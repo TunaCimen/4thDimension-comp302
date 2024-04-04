@@ -11,8 +11,19 @@ import java.io.IOException;
 public class Model {
     private static final String FILE_NAME = "user_data.txt";
 
-    public Model() {
+    private static Model instance;
+
+    public static Model getInstance(){
+        if(instance == null){
+            instance = new Model();
+        }
+        return instance;
     }
+
+    private Model() {
+    }
+
+
 
     public boolean addUser(String username, String password) throws IOException {
         if (this.userExists(username)) {

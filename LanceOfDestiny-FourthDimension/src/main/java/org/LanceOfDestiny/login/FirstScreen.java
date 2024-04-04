@@ -1,5 +1,7 @@
 package main.java.org.LanceOfDestiny.login;
 
+import main.java.org.LanceOfDestiny.UI.Window;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,10 +12,16 @@ import java.io.IOException;
 /**
  * These classes are demo specific and subject to change.
  */
-public class FirstScreen {
-    private final Model userManager;
+public class FirstScreen implements Window {
+    private Model userManager;
 
     public FirstScreen(Model userManager) {
+
+        this.userManager = userManager;
+    }
+
+
+    public void setUserManager(Model userManager){
         this.userManager = userManager;
     }
 
@@ -77,4 +85,5 @@ public class FirstScreen {
         window.add(panel);
         window.setVisible(true);
     }
+
 }
