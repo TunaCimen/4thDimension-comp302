@@ -1,16 +1,15 @@
-import java.awt.Component;
-import java.awt.GridLayout;
+package main.java.org.LanceOfDestiny.login;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
+
+/**
+ * These classes are demo specific and subject to change.
+ */
 public class FirstScreen {
     private final Model userManager;
 

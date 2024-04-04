@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4de0f8c2-5197-4720-b28d-1cd3f1829c75" name="Changes" comment="Login screen done" />
+    <list default="true" id="4de0f8c2-5197-4720-b28d-1cd3f1829c75" name="Changes" comment="Login screen done">
+      <change afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/UI/Window.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/UI/WindowCreater.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/LanceOfDestiny-FourthDimension.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/LanceOfDestiny-FourthDimension.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/test/java/org/LanceOfDestiny/ExampleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/test/java/org/LanceOfDestiny/ExampleTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/login.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/FirstScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/login/FirstScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/src/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/login/Model.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,6 +29,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -31,10 +45,14 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "jdk.selected.JAVA_MODULE": "18",
-    "last_opened_file_path": "/Users/donau/Desktop/Comp202-Proj/LanceOfDestiny-FourthDimension"
+    "last_opened_file_path": "/Users/donau/IdeaProjects/4thDimension-comp302/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/login",
+    "nodejs_package_manager_path": "npm"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/login" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Login" />
     </key>

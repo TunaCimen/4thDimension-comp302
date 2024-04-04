@@ -1,4 +1,4 @@
-package org.LanceOfDestiny;
+package test.java.org.LanceOfDestiny;
 
 import org.junit.jupiter.api.Test;
 

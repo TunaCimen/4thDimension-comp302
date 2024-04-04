@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/LanceOfDestiny-FourthDimension.iml" filepath="$PROJECT_DIR$/.idea/LanceOfDestiny-FourthDimension.iml" />
-      <module fileurl="file://$PROJECT_DIR$/login/login.iml" filepath="$PROJECT_DIR$/login/login.iml" />
     </modules>
   </component>
 </project>
