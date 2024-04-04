@@ -1,6 +1,5 @@
 package main.java.org.LanceOfDestiny;
 
-import main.java.org.LanceOfDestiny.UI.WindowCreater;
 import main.java.org.LanceOfDestiny.login.FirstScreen;
 import main.java.org.LanceOfDestiny.login.Model;
 

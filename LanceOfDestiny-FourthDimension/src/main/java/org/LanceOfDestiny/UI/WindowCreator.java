@@ -1,20 +1,19 @@
 package main.java.org.LanceOfDestiny.UI;
 
 import javax.swing.*;
-import java.awt.*;
 
-public class WindowCreater {
+public class WindowCreator {
 
     private JFrame frame;
-    private static WindowCreater instance;
+    private static WindowCreator instance;
 
-    private WindowCreater(){
+    private WindowCreator(){
 
     }
 
-    public static WindowCreater getInstance(){
+    public static WindowCreator getInstance(){
         if(instance == null){
-            instance = new WindowCreater();
+            instance = new WindowCreator();
         }
         return instance;
     }
