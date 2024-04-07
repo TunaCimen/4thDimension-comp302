@@ -1,5 +1,4 @@
-package test.java.org.LanceOfDestiny;
-
+package org.LanceOfDestiny;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,10 +11,6 @@ public class ExampleTest {
     private final int additionFalse(int a, int b){
         return a-b;
     }
-
-
-
-
 
     @Test
     void multiply_by_zero(){
