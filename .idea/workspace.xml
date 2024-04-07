@@ -4,18 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-
     <list default="true" id="4de0f8c2-5197-4720-b28d-1cd3f1829c75" name="Changes" comment="WindowManager added&#10;Sİngleton Pattern">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/login/FirstScreen$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/login/FirstScreen$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/login/FirstScreen.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/login/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/login/Model.class" beforeDir="false" />
-   
-    <list default="true" id="4de0f8c2-5197-4720-b28d-1cd3f1829c75" name="Changes" comment="Login screen done" />
-      </list>
-
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/test/org/LanceOfDestiny/ExampleTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/reports/tests/test/classes/org.LanceOfDestiny.ExampleTest.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/reports/tests/test/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/reports/tests/test/packages/org.LanceOfDestiny.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/test-results/test/TEST-org.LanceOfDestiny.ExampleTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/test-results/test/binary/results.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/tmp/compileTestJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/tmp/compileTestJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/LanceOfDestiny.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/UI/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/ui/Window.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/UI/WindowCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/ui/WindowCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/UI/WindowManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/ui/WindowManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/UI/Windows.java" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/ui/Windows.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/exampleFolder/ExampleClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/domain/exampleFolder/ExampleClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/login/FirstScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/domain/login/FirstScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/login/Model.java" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/domain/login/Model.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/test/java/org/LanceOfDestiny/ExampleTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/test/java/org/LanceOfDestiny/ExampleTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,6 +57,12 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2dH0eHYUDYi9dum8hsGw3JEV6Vm" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -48,14 +70,23 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.LanceOfDestiny.executor": "Run",
     "Application.Main.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "package-adjustments",
     "jdk.selected.JAVA_MODULE": "18",
-    "last_opened_file_path": "/Users/donau/IdeaProjects/4thDimension-comp302/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/login",
-    "nodejs_package_manager_path": "npm"
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/idilissever/Desktop/KU/JUNIOR2/COMP302/project/4thDimension-comp302",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "project.propVCSSupport.Mappings",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -65,6 +96,34 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Login" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="LanceOfDestiny" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="main.java.org.LanceOfDestiny.LanceOfDestiny" />
+      <module name="LanceOfDestiny-FourthDimension" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="main.java.org.LanceOfDestiny.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.LanceOfDestiny" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -76,6 +135,8 @@
       <updated>1709649789664</updated>
       <workItem from="1709649792529" duration="75000" />
       <workItem from="1709650613860" duration="122000" />
+      <workItem from="1712489046817" duration="29000" />
+      <workItem from="1712489080481" duration="3836000" />
     </task>
     <task id="LOCAL-00001" summary="Login screen done">
       <created>1712235641411</created>
@@ -84,22 +145,6 @@
       <option name="project" value="LOCAL" />
       <updated>1712235641411</updated>
     </task>
-    <task id="LOCAL-00002" summary="gradle, sdk, misc files fixed.">
-      <created>1712236991936</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1712236991936</updated>
-    </task>
-    <task id="LOCAL-00003" summary="WindowManager added&#10;Sİngleton Pattern">
-      <created>1712238487775</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1712238487775</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
-
     <task id="LOCAL-00002" summary="Fixed typo in Window Creator">
       <option name="closed" value="true" />
       <created>1712238177286</created>
@@ -108,8 +153,14 @@
       <option name="project" value="LOCAL" />
       <updated>1712238177286</updated>
     </task>
+    <task id="LOCAL-00003" summary="WindowManager added&#10;Sİngleton Pattern">
+      <created>1712238487775</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1712238487775</updated>
+    </task>
     <option name="localTasksCounter" value="3" />
-
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -128,13 +179,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Login screen done" />
-
     <MESSAGE value="gradle, sdk, misc files fixed." />
     <MESSAGE value="WindowManager added&#10;Sİngleton Pattern" />
-    <option name="LAST_COMMIT_MESSAGE" value="WindowManager added&#10;Sİngleton Pattern" />
-
     <MESSAGE value="Fixed typo in Window Creator" />
     <option name="LAST_COMMIT_MESSAGE" value="Fixed typo in Window Creator" />
-
   </component>
 </project>
