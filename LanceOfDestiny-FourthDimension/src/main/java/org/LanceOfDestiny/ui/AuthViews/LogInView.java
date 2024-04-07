@@ -1,4 +1,5 @@
-package org.LanceOfDestiny.domain.login;
+package org.LanceOfDestiny.ui.AuthViews;
+import org.LanceOfDestiny.domain.AuthModels.LogInController;
 import org.LanceOfDestiny.ui.Window;
 
 import javax.swing.*;
@@ -10,16 +11,16 @@ import java.io.IOException;
 /**
  * These classes are demo specific and subject to change.
  */
-public class FirstScreen implements Window {
-    private Model userManager;
+public class LogInView implements Window {
+    private LogInController userManager;
 
-    public FirstScreen(Model userManager) {
+    public LogInView(LogInController userManager) {
 
         this.userManager = userManager;
     }
 
 
-    public void setUserManager(Model userManager){
+    public void setUserManager(LogInController userManager){
         this.userManager = userManager;
     }
 
@@ -47,7 +48,7 @@ public class FirstScreen implements Window {
                 String enteredPassword = new String(passwordField.getPassword());
 
                 try {
-                    if (FirstScreen.this.userManager.loginUser(enteredUsername, enteredPassword)) {
+                    if (LogInView.this.userManager.loginUser(enteredUsername, enteredPassword)) {
                         JOptionPane.showMessageDialog(window, "Login successful!");
                     } else {
                         JOptionPane.showMessageDialog(window, "Invalid username or password.");
@@ -67,7 +68,7 @@ public class FirstScreen implements Window {
                 String password = new String(passwordField.getPassword());
 
                 try {
-                    if (FirstScreen.this.userManager.addUser(username, password)) {
+                    if (LogInView.this.userManager.addUser(username, password)) {
                         JOptionPane.showMessageDialog(window, "Signup successful!");
                     } else {
                         JOptionPane.showMessageDialog(window, "Error occurred. Please try again.");

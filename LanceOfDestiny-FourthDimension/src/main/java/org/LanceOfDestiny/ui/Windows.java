@@ -1,10 +1,10 @@
 package org.LanceOfDestiny.ui;
 
-import org.LanceOfDestiny.domain.login.FirstScreen;
-import org.LanceOfDestiny.domain.login.Model;
+import org.LanceOfDestiny.domain.AuthModels.LogInController;
+import org.LanceOfDestiny.ui.AuthViews.LogInView;
 
 public enum Windows{
-        Login("Login", new FirstScreen(Model.getInstance()));
+        Login("Login", new LogInView(LogInController.getInstance()));
 
         final String val;
         final Window window;
