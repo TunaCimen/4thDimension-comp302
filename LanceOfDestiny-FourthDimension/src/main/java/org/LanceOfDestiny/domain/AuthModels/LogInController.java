@@ -10,7 +10,7 @@ public class LogInController {
     private static final String FILE_NAME = "user_data.txt";
 
     private static LogInController instance;
-    private DatabaseController dbController;
+    private final DatabaseController dbController;
 
     public static LogInController getInstance(){
         if(instance == null){
