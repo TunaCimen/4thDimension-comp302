@@ -1,2 +1,4 @@
-package org.LanceOfDestiny.domain.managers;public class InputManager {
+package org.LanceOfDestiny.domain.managers;
+
+public class InputManager {
 }
