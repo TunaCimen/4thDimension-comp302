@@ -18,7 +18,7 @@ public class GamePanelDraw extends JPanel implements ActionListener, MouseListen
 
     public GamePanelDraw() {
         setFocusable(true);
-        setPreferredSize(new Dimension(800, 600));
+        setPreferredSize(new Dimension(1280, 720));
         loadImageResources();
         setupTimers();
         addMouseListener(this);
