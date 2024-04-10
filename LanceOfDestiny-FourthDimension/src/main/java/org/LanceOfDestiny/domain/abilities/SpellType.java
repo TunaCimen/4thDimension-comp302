@@ -1,6 +1,6 @@
 package org.LanceOfDestiny.domain.abilities;
 
-public enum SpellTypes {
+public enum SpellType {
 
     INCREASE_CHANCE,
     EXPAND_STAFF,
