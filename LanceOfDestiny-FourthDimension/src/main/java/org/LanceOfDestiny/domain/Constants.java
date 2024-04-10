@@ -8,4 +8,5 @@ public class Constants {
     public static final int FIREBALL_RADIUS = 8; // as in 8 pixels
     public static final int STAFF_WIDTH = T;
     public static final int STAFF_HEIGHT = L;
+    public static final int SPELL_DURATION = 30; // in seconds
 }
