@@ -1,18 +1,21 @@
 package org.LanceOfDestiny.ui;
 
+import org.LanceOfDestiny.domain.barriers.Barrier;
+import org.LanceOfDestiny.domain.barriers.BarrierFactory;
+import org.LanceOfDestiny.domain.barriers.BarrierTypes;
+import org.LanceOfDestiny.domain.barriers.SimpleBarrier;
+
 import java.util.Collections;
 
 public class BuildModeController {
     private static BuildModeController Instance = null;
-    //private final ObstacleFactory obstacleFac = new ObstacleFactory();
-
+    BarrierFactory barrierFactory;
     private BuildModeController() {
-        //initiate the obstacle factory
-        //obstacleFac = new Obstaclefac();
+        barrierFactory = BarrierFactory.getInstance();
 
     }
 
-    public static BuildModeController getInstance() {
+    public static synchronized BuildModeController getInstance() {
         if (Instance == null) Instance = new BuildModeController();
         return Instance;
     }
@@ -25,23 +28,23 @@ public class BuildModeController {
 
         int i;
         for (i = 0; i < simpNum; i++) {
-            Obstacle obstacle = obstacleFac.createObstacle("SimpleBarrier");
+            Barrier barrier = barrierFactory.createBarrier(0, 0, BarrierTypes.SIMPLE);
             //add(obstacle)to_somewhere;
         }
         for (i = 0; i < firmNum; i++) {
-            Obstacle obstacle = obstacleFac.createObstacle("FirmBarrier");
+            Barrier barrier = barrierFactory.createBarrier(0, 0, BarrierTypes.REINFORCED);
             //add(obstacle)to_somewhere;
         }
         for (i = 0; i < expNum; i++) {
-            Obstacle obstacle = obstacleFac.createObstacle("ExplosiveBarrier");
+            Barrier barrier = barrierFactory.createBarrier(0, 0, BarrierTypes.EXPLOSIVE);
             //add(obstacle)to_somewhere;
         }
         for (i = 0; i < giftNum; i++) {
-            Obstacle obstacle = obstacleFac.createObstacle("GiftBarrier");
+            Barrier barrier = barrierFactory.createBarrier(0, 0, BarrierTypes.REWARDING);
             //add(obstacle)to_somewhere;
         }
 
-        Collections.shuffle(obstacleList);
+//        Collections.shuffle(list-of-obstacles-where-they-are-stored);
     }
 
     // todo: barrier sayısı için upper limit belirlenmeli
@@ -52,28 +55,29 @@ public class BuildModeController {
                 ((10 <= giftNum) && (20 >= giftNum));
     }
 
-    public Obstacle getObstacleAt(int x, int y) {
+    public Barrier getObstacleAt(int x, int y) {
         // Code for getting obstacle at given coordinates
+        return null;
     }
 
     public void clearObstacles() {
         // Code for clearing all obstacles
     }
 
-    public void createNewObstacle(int x, int y, String type, ObstacleAnimator obstacleAnimator) {
-        // Code for creating a new obstacle at given coordinates
-        Obstacle obstacle = new ObstacleFactory().createObstacle(type);
-        //add(obstacle)to_gameobject;
-        obstacle.setLocation(x, y);
-        obstacleAnimator.drawObstacle(obstacle);
-    }
+//    public void createNewBarrier(int x, int y, String type, ObstacleAnimator obstacleAnimator) {
+//        // Code for creating a new obstacle at given coordinates
+//        Obstacle obstacle = new ObstacleFactory().createObstacle(type);
+//        //add(obstacle)to_gameobject;
+//        obstacle.setLocation(x, y);
+//        obstacleAnimator.drawObstacle(obstacle);
+//    }
 
 
-    public void removeObstacleAt(int x, int y, Obstacle obstacle, ObstacleAnimator obstacleAnimator) {
-        // Code for removing obstacle
-        //graphics.clearRect(); //todo: obstacle cordinatları ve boyutlarına göre clearRect çağrılmalı
-        //remove(obstacle)from_gameobject;
-    }
+//    public void removeObstacleAt(int x, int y, Barrier barrier, ObstacleAnimator obstacleAnimator) {
+//        // Code for removing obstacle
+//        //graphics.clearRect(); //todo: obstacle cordinatları ve boyutlarına göre clearRect çağrılmalı
+//        //remove(obstacle)from_gameobject;
+//    }
 
 
 }
