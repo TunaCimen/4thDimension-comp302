@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * These classes are demo specific and subject to change.
@@ -15,7 +16,6 @@ public class LogInView implements Window {
     private LogInController userManager;
 
     public LogInView(LogInController userManager) {
-
         this.userManager = userManager;
     }
 
@@ -53,8 +53,8 @@ public class LogInView implements Window {
                     } else {
                         JOptionPane.showMessageDialog(window, "Invalid username or password.");
                     }
-                } catch (IOException var5) {
-                    var5.printStackTrace();
+                }  catch (SQLException ex) {
+                    ex.printStackTrace();
                     JOptionPane.showMessageDialog(window, "Error occurred. Please try again later.");
                 }
 
@@ -73,8 +73,8 @@ public class LogInView implements Window {
                     } else {
                         JOptionPane.showMessageDialog(window, "Error occurred. Please try again.");
                     }
-                } catch (IOException var5) {
-                    var5.printStackTrace();
+                }  catch (SQLException ex) {
+                    ex.printStackTrace();
                     JOptionPane.showMessageDialog(window, "Error occurred. Please try again later.");
                 }
 
