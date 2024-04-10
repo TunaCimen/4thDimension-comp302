@@ -1,2 +1,4 @@
-package org.LanceOfDestiny.domain.abilities;public class CanonSpell {
+package org.LanceOfDestiny.domain.abilities;
+
+public class CanonSpell extends Spell{
 }

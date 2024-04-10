@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 /***
- * Events is a enum that contains all the EventTypes
+ * Events is an enum that contains all the EventTypes
  * Events are defined in the enum structure as follows-->EventName(InvocationType) bkz. types
  * Listeners can be added via addListener(parameter listeners) or addRunnable(no parameter listeners)
  */

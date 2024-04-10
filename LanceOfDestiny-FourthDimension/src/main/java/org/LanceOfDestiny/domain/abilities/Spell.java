@@ -15,4 +15,12 @@ public abstract class Spell extends GameObject {
         return spellType;
     }
 
+    public void activateSpell() {
+        // TODO:
+    }
+
+    public void deactivateSpell() {
+        // TODO:
+    }
+
 }

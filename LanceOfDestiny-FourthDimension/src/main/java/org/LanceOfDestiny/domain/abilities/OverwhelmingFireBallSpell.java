@@ -1,2 +1,4 @@
-package org.LanceOfDestiny.domain.abilities;public class OverwhelmingFireBallSpell {
+package org.LanceOfDestiny.domain.abilities;
+
+public class OverwhelmingFireBallSpell extends Spell{
 }
