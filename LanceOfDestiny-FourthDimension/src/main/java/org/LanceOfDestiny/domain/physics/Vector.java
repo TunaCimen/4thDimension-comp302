@@ -26,12 +26,27 @@ public class Vector {
     }
 
     public Vector getNormalized() {
-        float length = (float) Math.sqrt(x * x + y * y);
+        float length = (float) Math.sqrt(getX() * getX() + getY() * getY());
         if (length != 0) {
-            return new Vector(x / length, y / length);
+            return new Vector(getX() / length, getY() / length);
         }
         return this; // this could only be the zero vector anyways
     }
 
 
+    public float distanceTo(Vector pos2) {
+        return (float) Math.sqrt(Math.pow(getX() - pos2.getX(), 2) + Math.pow(getY() - pos2.getY(), 2));
+    }
+
+    public Vector add(Vector pos2) {
+        return new Vector(getX() + pos2.getX(), getY() + pos2.getY());
+    }
+
+    public Vector subtract(Vector pos2) {
+        return new Vector(getX() - pos2.getX(), getY() - pos2.getY());
+    }
+
+    public Vector scale(float ratio) {
+        return new Vector(getX() * ratio, getY() * ratio);
+    }
 }
