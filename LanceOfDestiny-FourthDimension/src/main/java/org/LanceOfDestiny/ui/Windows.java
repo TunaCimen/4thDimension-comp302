@@ -2,15 +2,15 @@ package org.LanceOfDestiny.ui;
 
 import org.LanceOfDestiny.domain.AuthModels.LogInController;
 import org.LanceOfDestiny.ui.AuthViews.LogInView;
+import org.LanceOfDestiny.ui.AuthViews.PhysicsTestView;
 
 public enum Windows{
-        Login("Login", new LogInView(LogInController.getInstance()));
+        Login(new LogInView(LogInController.getInstance())),
+        PhysicsTest(new PhysicsTestView());
 
-        final String val;
         final Window window;
 
-        Windows(String val, Window window){
-        this.val = val;
+        Windows(Window window){
         this.window = window;
         }
         }
