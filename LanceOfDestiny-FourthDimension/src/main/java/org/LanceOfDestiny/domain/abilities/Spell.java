@@ -19,4 +19,12 @@ public abstract class Spell extends GameObject {
     public void setSpellType(SpellType spellType) {
         this.spellType = spellType;
     }
+
+    public void activateSpell() {
+        // TODO:
+    }
+
+    public void deactivateSpell() {
+        // TODO:
+    }
 }
