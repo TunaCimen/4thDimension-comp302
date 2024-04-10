@@ -5,7 +5,7 @@ import org.LanceOfDestiny.domain.GameObject;
 
 public abstract class Spell extends GameObject {
 
-    private int spellDuration = Constants.SPELL_DURATION; // in seconds, might need to change later
+    private int spellDuration = Constants.SPELL_DURATION;
     private SpellType spellType;
 
     public Spell(){
