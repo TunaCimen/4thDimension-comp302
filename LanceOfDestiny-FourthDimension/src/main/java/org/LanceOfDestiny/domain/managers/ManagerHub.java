@@ -10,7 +10,6 @@ public class ManagerHub {
 
     public static void initialize() {
         // Initialize all managers here
-        // bu metodu bi kez çağırırsak sadece singleton yapmamıza gerek kalmaz ayrıca her manager'ı diye düşünüyorum
         var inputManager = new InputManager();
         var abilityManager = new SpellManager();
         var barrierManager = new BarrierManager();
