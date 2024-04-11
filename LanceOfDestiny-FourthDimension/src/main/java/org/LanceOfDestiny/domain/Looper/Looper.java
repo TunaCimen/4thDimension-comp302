@@ -2,9 +2,11 @@ package org.LanceOfDestiny.domain.Looper;
 
 import org.LanceOfDestiny.domain.Behaviour;
 
+import javax.swing.*;
+
 public abstract class Looper {
 
-    protected double updateRate = 1/50;
+    protected double updateRate = 0.016;
     protected boolean active = false;
 
     protected abstract void routine() throws LoopEndedException;
@@ -38,16 +40,13 @@ public abstract class Looper {
     }
 
     public void execute(Behaviour action) throws LoopEndedException {
-        action.Awake();
-        while(isActiveWithThrow()){
-            long waitTime = (long) updateRate*1000;
-            try{
-                Thread.sleep(waitTime);
+            action.Awake();
+
+            Timer timer = new Timer((int) (1000*updateRate), e->{
+                action.Update();
+            });
+            timer.start();
+
             }
-                catch(InterruptedException e){
-                    e.printStackTrace();
-            }
-            action.Update();
-        }
-    }
 }
+

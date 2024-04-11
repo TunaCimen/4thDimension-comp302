@@ -6,13 +6,8 @@ import java.util.*;
 
 public abstract class GameObject extends Behaviour{
 
-    public Vector getPosition() {
-        return position;
-    }
 
-    public void setPosition(Vector position) {
-        this.position = position;
-    }
+    
 
     protected Vector position;
 
@@ -24,7 +19,17 @@ public abstract class GameObject extends Behaviour{
 
     public GameObject() {
         super();
+        System.out.println("Game Object Init");
+        gameObject = this;
         GameObject.gameObjects.add(this);
+    }
+  
+  public Vector getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vector position) {
+        this.position = position;
     }
 
     public void Awake() {

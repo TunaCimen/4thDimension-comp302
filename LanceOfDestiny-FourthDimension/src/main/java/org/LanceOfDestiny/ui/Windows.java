@@ -5,7 +5,7 @@ import org.LanceOfDestiny.ui.AuthViews.LogInView;
 import org.LanceOfDestiny.ui.AuthViews.PhysicsTestView;
 
 public enum Windows{
-        Login(new LogInView(LogInController.getInstance())),
+        //Login(new LogInView(LogInController.getInstance())),
         PhysicsTest(new PhysicsTestView());
 
         final Window window;
