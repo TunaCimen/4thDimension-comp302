@@ -15,9 +15,12 @@ public class BallSprite extends JPanel {
         this.color  =color;
     }
 
+
+
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
+    public void paintComponent(Graphics g) {
+        System.out.println("Repaint Ball Sprite: " + x);
+        super.paintComponent(g);
         g.setColor(color);
         g.fillOval(x,y,radius,radius);
     }

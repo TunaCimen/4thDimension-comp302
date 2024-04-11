@@ -43,7 +43,8 @@ public class FireBall extends GameObject {
 
     @Override
     public void Update() {
-        super.Update();
+        System.out.println("Fireball Updated");
+        bs.x+=5;
     }
 
     public void enableOverwhelming() {
