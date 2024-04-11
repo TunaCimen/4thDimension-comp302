@@ -1,5 +1,7 @@
 package org.LanceOfDestiny.domain.physics;
 
+import org.LanceOfDestiny.domain.EventSystem.Events;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,21 +36,39 @@ public class PhysicsManager {
                     continue; // Skip checking collider with itself
                 }
 
-                if (collider1 instanceof BallCollider && collider2 instanceof BallCollider) {
+                if (isBallBallCollision(collider1, collider2)) {
                     Vector normal = checkBallBallCollision((BallCollider) collider1, (BallCollider) collider2);
-                    if (normal != null) {
-                        detectedCollisions.add(new Collision(collider1, collider2, normal));
+                    if (normal == null) {
+                        continue;
                     }
-                } else if ((collider1 instanceof RectangleCollider && collider2 instanceof BallCollider) ||
-                        (collider1 instanceof BallCollider && collider2 instanceof RectangleCollider)) {
+                        detectedCollisions.add(new Collision(collider1, collider2, normal));
+                } else if (isBallRectCollision(collider1, collider2)) {
                     Vector normal = checkRectangleToCircleCollision(collider1, collider2);
-                    if (normal != null) {
-                        detectedCollisions.add(new Collision(collider1, collider2, normal));
+                    if (normal == null) {
+                        continue;
                     }
+                    detectedCollisions.add(new Collision(collider1, collider2, normal));
                 }
             }
         }
         return detectedCollisions;
+    }
+
+    public void handleCollisionEvents(List<Collision> collisions) {
+        for (Collision collision : collisions) {
+
+            Events.CollisionEvent.invoke(collision); // Trigger the event
+        }
+    }
+
+
+    private static boolean isBallRectCollision(Collider collider1, Collider collider2) {
+        return (collider1 instanceof RectangleCollider && collider2 instanceof BallCollider) ||
+                (collider1 instanceof BallCollider && collider2 instanceof RectangleCollider);
+    }
+
+    private static boolean isBallBallCollision(Collider collider1, Collider collider2) {
+        return collider1 instanceof BallCollider && collider2 instanceof BallCollider;
     }
 
     private Vector checkBallBallCollision(BallCollider ball1, BallCollider ball2) {

@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.ui.AuthViews;
 
+import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.ui.BallSprite;
 import org.LanceOfDestiny.ui.Window;
@@ -13,7 +14,7 @@ public class PhysicsTestView extends JFrame implements Window {
     FireBall fb;
 
     public PhysicsTestView() {
-        new FireBall();
+        new FireBall(new Vector(20,20));
     }
 
 
