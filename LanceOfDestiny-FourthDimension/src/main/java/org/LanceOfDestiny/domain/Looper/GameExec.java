@@ -7,10 +7,8 @@ import java.util.List;
 
 public class GameExec extends Behaviour {
 
-    protected JFrame frame;
     private List<Behaviour> behaviourList;
-    public GameExec(JFrame frame, List<Behaviour> behaviourList){
-        this.frame = frame;
+    public GameExec(List<Behaviour> behaviourList){
         this.behaviourList = behaviourList;
     }
 
