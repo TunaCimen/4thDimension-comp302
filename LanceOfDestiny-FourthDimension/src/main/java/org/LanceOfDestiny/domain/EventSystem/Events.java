@@ -1,6 +1,9 @@
 package org.LanceOfDestiny.domain.EventSystem;
 
 
+import org.LanceOfDestiny.domain.physics.Collider;
+import org.LanceOfDestiny.domain.physics.Collision;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -14,6 +17,7 @@ public enum Events {
 
     LogEvent(String.class),
     LogIntegerEvent(Integer.class),
+    CollisionEvent(Collision.class);
     ;
 
     private List<Consumer<Object>> listeners = new ArrayList<>(); //List that listeners subscribe to.

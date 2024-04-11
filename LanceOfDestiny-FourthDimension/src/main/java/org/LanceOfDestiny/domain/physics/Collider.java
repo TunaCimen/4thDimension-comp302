@@ -1,28 +1,28 @@
 package org.LanceOfDestiny.domain.physics;
 
+import org.LanceOfDestiny.domain.EventSystem.Events;
+import org.LanceOfDestiny.domain.GameObject;
+
 public abstract class Collider {
-    protected Vector position;
+
     protected Vector velocity;
     protected ColliderType colliderType;
+    private final GameObject gameObject; // the gameObject that it is attached to
 
-    protected Collider(Vector position, Vector velocity, ColliderType colliderType) {
-        this.position = position;
+    protected Collider(Vector velocity, ColliderType colliderType, GameObject gameObject) {
         this.velocity = velocity;
         this.colliderType = colliderType;
-    }
-
-    public void updatePosition(float deltaTime) {
-        this.position.setX(this.position.getX() + this.velocity.getX() * deltaTime);
-        this.position.setY(this.position.getY() + this.velocity.getY() * deltaTime);
+        this.gameObject = gameObject;
+        Events.CollisionEvent.addListener(gameObject::OnCollisionEnter);
     }
 
     // Getters and Setters
     public Vector getPosition() {
-        return position;
+        return gameObject.getPosition();
     }
 
     public void setPosition(Vector position) {
-        this.position = position;
+        gameObject.setPosition(position);
     }
 
     public Vector getVelocity() {

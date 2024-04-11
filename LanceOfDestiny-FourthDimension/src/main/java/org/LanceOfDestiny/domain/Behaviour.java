@@ -15,4 +15,8 @@ public abstract class Behaviour {
 
 
     }
+
+    public void OnCollisionEnter(Object collision) {
+        return;
+    }
 }

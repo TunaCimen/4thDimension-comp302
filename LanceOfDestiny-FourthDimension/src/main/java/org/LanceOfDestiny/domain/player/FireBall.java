@@ -1,7 +1,12 @@
 package org.LanceOfDestiny.domain.player;
 
 import org.LanceOfDestiny.domain.Constants;
+import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.physics.BallCollider;
+import org.LanceOfDestiny.domain.physics.Collider;
+import org.LanceOfDestiny.domain.physics.ColliderType;
+import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.ui.BallSprite;
 
 import javax.swing.*;
@@ -9,26 +14,18 @@ import javax.swing.*;
 import java.awt.*;
 
 public class FireBall extends GameObject {
-    private MagicalStaff magicalStaff;
-
-    private boolean isAttached = true;
+    private Collider collider;
     private boolean isOverwhelming = false;
-
     private double defaultSpeed;
     private double currentSpeed;
-
-    private double x;
-    private double y;
     private final int radius = Constants.FIREBALL_RADIUS;
     BallSprite bs;
-
-    public FireBall(MagicalStaff magicalStaff) {
+    public FireBall(Vector position) {
         super();
-        this.magicalStaff = magicalStaff;
-        this.isAttached = true;
-        currentSpeed = defaultSpeed;
-        bs = new BallSprite(40,40,40, Color.red);
-
+        this.position = position;
+        this.currentSpeed = defaultSpeed;
+        this.collider = new BallCollider(new Vector(0, 0), ColliderType.DYNAMIC, radius, this);
+        this.bs = new BallSprite(40,40,40, Color.red);
     }
 
     @Override
@@ -54,15 +51,6 @@ public class FireBall extends GameObject {
     public void disableOverwhelming() {
         isOverwhelming = false;
     }
-
-    public boolean isAttached() {
-        return isAttached;
-    }
-
-    public void reattach() {
-        isAttached = true;
-    }
-
     public double getDefaultSpeed() {
         return defaultSpeed;
     }
@@ -77,22 +65,6 @@ public class FireBall extends GameObject {
 
     public void setCurrentSpeed(double currentSpeed) {
         this.currentSpeed = currentSpeed;
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
     }
 
 }
