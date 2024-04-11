@@ -5,29 +5,35 @@ package org.LanceOfDestiny.domain.AuthModels;//
 
 import org.LanceOfDestiny.database.DatabaseController;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class LogInController {
-    private static final String FILE_NAME = "user_data.txt";
-
     private static LogInController instance;
     private final DatabaseController dbController;
 
-    public static LogInController getInstance(){
-        if(instance == null){
-            instance = new LogInController();
+    public static LogInController getInstance()  {
+        try {
+            if (instance == null) {
+                instance = new LogInController();
+            }
+            return instance;
+        } catch (SQLException e) {
+            // Log the exception or perform error handling
+            e.printStackTrace(); // Or handle the exception in a meaningful wa
         }
-        return instance;
+        return null;
     }
 
-    private LogInController() {
+
+    private LogInController() throws SQLException {
         this.dbController = new DatabaseController();
     }
 
-    public boolean addUser(String username, String password) throws IOException {
+    public boolean addUser(String username, String password) throws SQLException {
         return dbController.addUser(username, password);
     }
 
-    public boolean loginUser(String username, String password) throws IOException {
+    public boolean loginUser(String username, String password) throws SQLException {
         return dbController.loginUser(username, password);
     }
 }

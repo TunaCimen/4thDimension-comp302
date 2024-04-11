@@ -13,4 +13,4 @@ public enum Windows{
         Windows(Window window){
         this.window = window;
         }
-        }
+}
