@@ -23,7 +23,7 @@ public class BarrierFactory {
             case SIMPLE -> new SimpleBarrier(x, y, type);
             case REINFORCED -> new ReinforcedBarrier(x, y, type, calculateHitsRequired());
             case EXPLOSIVE -> new ExplosiveBarrier(x, y, type);
-            case REWARDING -> new RewardingBarrier(x, y, type, getRandomSpellType());
+            case REWARDING -> new RewardingBarrier(x, y, type);
             default -> null;
         };
         if (createdBarrier == null) {
@@ -31,10 +31,6 @@ public class BarrierFactory {
         }
         ManagerHub.getInstance().getBarrierManager().addBarrier(createdBarrier);
         return createdBarrier;
-    }
-
-    public SpellType getRandomSpellType(){
-        return SpellType.values()[new Random().nextInt(SpellType.values().length)];
     }
 
     private int calculateHitsRequired() {

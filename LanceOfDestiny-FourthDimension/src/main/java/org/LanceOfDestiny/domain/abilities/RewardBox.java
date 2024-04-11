@@ -24,4 +24,8 @@ public class RewardBox extends GameObject {
     public void setFalling(boolean isFalling) {
         this.isFalling = isFalling;
     }
+
+    public SpellType getSpellType() {
+        return spellType;
+    }
 }
