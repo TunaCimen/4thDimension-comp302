@@ -1,25 +1,28 @@
 package org.LanceOfDestiny.domain;
+import javax.swing.*;
 import java.util.*;
 
-public abstract class GameObject {
+public abstract class GameObject extends Behaviour{
 
-    private static List<GameObject> gameObjects = new ArrayList<>();
+    public JPanel sprite(){
+        return new JPanel(); // Default Sprite Given to everything.
+    }
+    private static List<Behaviour> gameObjects = new ArrayList<>();
     private LinkedList<Object> components = new LinkedList<>();
 
+
     public GameObject() {
+        super();
         GameObject.gameObjects.add(this);
     }
+
+
+
 
     public void Awake() {
     }
 
-    public void Start() {
-    }
-
-    public void Update() {
-    }
-
-    public static List<GameObject> getGameObjects() {
+    public static List<Behaviour> getGameObjects() {
         return gameObjects;
     }
 

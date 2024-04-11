@@ -1,0 +1,139 @@
+<changelist name="Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]" date="1712783819910" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 11.04.2024 00:16 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/Constants.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/Constants.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/player/FireBall.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/FireBall.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/managers/ManagerHub.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/ManagerHub.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/managers/InputManager.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/InputManager.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/GameObject.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/GameObject.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/barriers/Barrier.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/Barrier.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/barriers/SimpleBarrier.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/SimpleBarrier.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/abilities/SpellContainer.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/SpellContainer.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/abilities/CanonSpell.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/CanonSpell.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/abilities/RewardBox.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/RewardBox.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/AuthViews/PhysicsTestView.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/PhysicsTestView.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/test/org/LanceOfDestiny/PhysicsTest.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/PhysicsTest.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/abilities/ChanceSpell.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/ChanceSpell.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/barriers/ReinforcedBarrier.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/ReinforcedBarrier.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/barriers/RewardingBarrier.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/RewardingBarrier.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/managers/BarrierManager.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/BarrierManager.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/abilities/SpellType.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/SpellType.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/player/MagicalStaff.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/MagicalStaff.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/abilities/Spell.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/Spell.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/managers/SpellManager.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/SpellManager.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/barriers/ExplosiveBarrier.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/ExplosiveBarrier.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/BallSprite.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/BallSprite.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/abilities/ExpansionSpell.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/ExpansionSpell.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/player/Player.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/Player.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/abilities/OverwhelmingFireBallSpell.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/OverwhelmingFireBallSpell.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/barriers/BarrierTypes.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/BarrierTypes.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/managers/ScoreManager.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_16_[Changes]/ScoreManager.class" />
+  </binary>
+</changelist>
