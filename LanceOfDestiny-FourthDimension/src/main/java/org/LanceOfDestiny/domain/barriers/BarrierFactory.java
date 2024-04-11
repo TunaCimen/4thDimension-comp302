@@ -21,33 +21,36 @@ public class BarrierFactory {
     }
 
     public Barrier createBarrier(int x, int y, BarrierTypes type) {
-
-        Random random = new Random();
-        Barrier createdBarrier;
-        switch (type) {
-            case SIMPLE:
-                createdBarrier = new SimpleBarrier(x, y, type);
-                break;
-            case REINFORCED:
-                createdBarrier = new ReinforcedBarrier(x, y, type, 3);
-                break;
-            case EXPLOSIVE:
-                createdBarrier = new ExplosiveBarrier(x, y, type);
-                break;
-            case REWARDING:
-                // Used Random instance to select a random SpellType
-                SpellType randomSpellType = SpellType.values()[random.nextInt(SpellType.values().length)];
-                createdBarrier = new RewardingBarrier(x, y, type, randomSpellType);
-                break;
-            default:
-                createdBarrier = null;
-                break;
-        }
+        Barrier createdBarrier = switch (type) {
+            case SIMPLE -> new SimpleBarrier(x, y, type);
+            case REINFORCED -> new ReinforcedBarrier(x, y, type, calculateHitsRequired());
+            case EXPLOSIVE -> new ExplosiveBarrier(x, y, type);
+            case REWARDING -> new RewardingBarrier(x, y, type, getRandomSpellType());
+            default -> null;
+        };
         if (createdBarrier == null) {
             return null;
         }
         ManagerHub.getInstance().getBarrierManager().addBarrier(createdBarrier);
         return createdBarrier;
     }
+
+    public SpellType getRandomSpellType(){
+        return SpellType.values()[new Random().nextInt(SpellType.values().length)];
+    }
+
+    private int calculateHitsRequired() {
+        int chance = (new Random()).nextInt(100);
+        if (chance < 50) {                // 50% probability
+            return 3;
+        } else if (chance < 70) {         // 20% probability
+            return 2;
+        } else if (chance < 90) {         // 20% probability
+            return 4;
+        } else {                          // 10% probability
+            return 5;
+        }
+    }
+
 
 }
