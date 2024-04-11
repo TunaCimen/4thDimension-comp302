@@ -3,13 +3,13 @@ package org.LanceOfDestiny.domain.physics;
 public class Collision {
     private Collider collider1;
     private Collider collider2;
-    private Vector collisionPoint; // The exact point of collision, may be null or need calculation based on the game's physics
+    private Vector normal; // Normal vector at the point of collision
 
     // Constructor
-    public Collision(Collider collider1, Collider collider2, Vector collisionPoint) {
+    public Collision(Collider collider1, Collider collider2, Vector normal) {
         this.collider1 = collider1;
         this.collider2 = collider2;
-        this.collisionPoint = collisionPoint;
+        this.normal = normal;
     }
 
     // Getters
@@ -21,9 +21,7 @@ public class Collision {
         return collider2;
     }
 
-    public Vector getCollisionPoint() {
-        return collisionPoint;
+    public Vector getNormal() {
+        return normal;
     }
-
-    // You may want to add setters or other methods depending on how you decide to resolve collisions or update game state post-collision
 }
