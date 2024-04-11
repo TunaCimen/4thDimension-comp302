@@ -1,7 +1,7 @@
 package org.LanceOfDestiny.domain;
 import java.util.*;
 
-public abstract class GameObject {
+public abstract class GameObject extends Behaviour{
 
     private static ArrayList<GameObject> gameObjects = new ArrayList<GameObject>();
 
@@ -9,14 +9,6 @@ public abstract class GameObject {
         GameObject.gameObjects.add(this);
     }
 
-    public void Awake() {
-    }
-
-    public void Start() {
-    }
-
-    public void Update() {
-    }
 
     public static ArrayList<GameObject> getGameObjects() {
         return gameObjects;

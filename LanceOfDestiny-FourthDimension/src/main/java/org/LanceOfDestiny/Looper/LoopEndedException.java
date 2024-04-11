@@ -1,4 +1,4 @@
-package org.LanceOfDestiny.domain;
+package org.LanceOfDestiny.Looper;
 
 public class LoopEndedException extends Exception {
 
