@@ -15,7 +15,7 @@ public class PhysicsTestView extends JFrame implements Window {
     FireBall fb;
     LoopExecutor loopExecutor = new LoopExecutor();
     public PhysicsTestView() {
-        new FireBall(new Vector(20,20));
+        fb = new FireBall(new Vector(20,20));
         GameLooper gameLooper = new GameLooper();
         loopExecutor.setLooper(gameLooper);
     }

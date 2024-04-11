@@ -8,10 +8,6 @@ import org.LanceOfDestiny.ui.Windows;
 public class PhysicsTest {
 
     public static void main(String[] args){
-
-
         WindowManager.getInstance().showWindow(Windows.PhysicsTest);
-
-
     }
 }

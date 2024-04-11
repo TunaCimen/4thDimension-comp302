@@ -1,11 +1,13 @@
 package org.LanceOfDestiny.domain.physics;
 
+import org.LanceOfDestiny.domain.GameObject;
+
 public class RectangleCollider extends Collider {
     private float width;
     private float height;
     private float rotation;
-    public RectangleCollider(Vector position, Vector velocity, ColliderType colliderType, float width, float height) {
-        super(position, velocity, colliderType);
+    public RectangleCollider(GameObject gameObject, Vector velocity, ColliderType colliderType, float width, float height) {
+        super(velocity, colliderType,gameObject);
         this.width = width;
         this.height = height;
     }
