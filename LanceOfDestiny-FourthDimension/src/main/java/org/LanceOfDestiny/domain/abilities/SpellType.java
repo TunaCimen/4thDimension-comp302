@@ -5,5 +5,5 @@ public enum SpellType {
     CHANCE,
     EXPANSION,
     OVERWHELMING,
-    CANON;
+    CANON
 }

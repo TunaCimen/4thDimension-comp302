@@ -4,5 +4,5 @@ public enum BarrierTypes {
     SIMPLE,
     REINFORCED,
     EXPLOSIVE,
-    REWARDING;
+    REWARDING
 }
