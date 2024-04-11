@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4de0f8c2-5197-4720-b28d-1cd3f1829c75" name="Changes" comment="Started Component Logic.&#10;Behaviour Class is extended by GameObject">
-      <change afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/domain/LoopEndedException.java" afterDir="false" />
+    <list default="true" id="4de0f8c2-5197-4720-b28d-1cd3f1829c75" name="Changes" comment="looper">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -108,7 +107,7 @@
       <updated>1709649789664</updated>
       <workItem from="1709649792529" duration="75000" />
       <workItem from="1709650613860" duration="122000" />
-      <workItem from="1712751037877" duration="28062000" />
+      <workItem from="1712751037877" duration="28162000" />
     </task>
     <task id="LOCAL-00001" summary="Login screen done">
       <created>1712235641411</created>
@@ -146,7 +145,14 @@
       <option name="project" value="LOCAL" />
       <updated>1712784212110</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="looper">
+      <created>1712828894312</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1712828894312</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -172,7 +178,8 @@
     <MESSAGE value="." />
     <MESSAGE value="Minor changes" />
     <MESSAGE value="Started Component Logic.&#10;Behaviour Class is extended by GameObject" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started Component Logic.&#10;Behaviour Class is extended by GameObject" />
+    <MESSAGE value="looper" />
+    <option name="LAST_COMMIT_MESSAGE" value="looper" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
