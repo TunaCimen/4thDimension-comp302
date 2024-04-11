@@ -10,33 +10,17 @@ import java.awt.*;
 
 public class PhysicsTestView extends JFrame implements Window {
 
-<<<<<<< Updated upstream
     FireBall fb;
 
-    public PhysicsTestView(){
+    public PhysicsTestView() {
         new FireBall();
-=======
-    BallSprite ball1,ball2;
-    FireBall fb;
-
-    public PhysicsTestView(){
-        ball1 = new BallSprite(25,25,20,Color.BLUE);
-        ball2 = new BallSprite(730,730,20,Color.RED);
-        fb = new FireBall();
->>>>>>> Stashed changes
     }
+
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-<<<<<<< Updated upstream
         fb.sprite().paint(g);
-
-=======
-        ball1.paint(g);
-        ball2.paint(g);
-        fb.transform.getSprite().paint(g);
->>>>>>> Stashed changes
     }
 
     @Override
