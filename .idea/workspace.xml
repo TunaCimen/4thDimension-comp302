@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4de0f8c2-5197-4720-b28d-1cd3f1829c75" name="Changes" comment="looper">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -109,7 +110,7 @@
       <updated>1709649789664</updated>
       <workItem from="1709649792529" duration="75000" />
       <workItem from="1709650613860" duration="122000" />
-      <workItem from="1712751037877" duration="32830000" />
+      <workItem from="1712751037877" duration="33205000" />
     </task>
     <task id="LOCAL-00001" summary="Login screen done">
       <created>1712235641411</created>
@@ -196,7 +197,21 @@
       <option name="project" value="LOCAL" />
       <updated>1712833787460</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="looper">
+      <created>1712833927412</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1712833927412</updated>
+    </task>
+    <task id="LOCAL-00014" summary="looper">
+      <created>1712834070905</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1712834070905</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
