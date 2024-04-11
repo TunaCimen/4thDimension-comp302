@@ -1,5 +1,4 @@
 package org.LanceOfDestiny.domain;
-<<<<<<< Updated upstream
 import javax.swing.*;
 import java.util.*;
 
@@ -11,28 +10,17 @@ public abstract class GameObject extends Behaviour{
     private static List<Behaviour> gameObjects = new ArrayList<>();
     private LinkedList<Object> components = new LinkedList<>();
 
-=======
-
-import javax.swing.*;
-import java.util.*;
-
-public abstract class GameObject extends Behaviour {
-
-    private static ArrayList<GameObject> gameObjects = new ArrayList<>();
->>>>>>> Stashed changes
 
     public GameObject() {
         super();
         GameObject.gameObjects.add(this);
     }
 
-<<<<<<< Updated upstream
-=======
+
 
 
     public void Awake() {
     }
->>>>>>> Stashed changes
 
     public static List<Behaviour> getGameObjects() {
         return gameObjects;
