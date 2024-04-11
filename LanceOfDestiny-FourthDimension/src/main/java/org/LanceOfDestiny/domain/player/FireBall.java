@@ -18,7 +18,7 @@ public class FireBall extends GameObject {
     private final int radius = Constants.FIREBALL_RADIUS;
 
 
-    public FireBall(MagicalStaff magicalStaff) {
+    public FireBall(int x, int y, MagicalStaff magicalStaff) {
         super();
         this.magicalStaff = magicalStaff;
         this.isAttached = true;

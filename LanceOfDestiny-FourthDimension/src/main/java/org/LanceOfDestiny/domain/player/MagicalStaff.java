@@ -5,6 +5,7 @@ import org.LanceOfDestiny.domain.GameObject;
 
 public class MagicalStaff extends GameObject {
 
+    private FireBall fireBall;
     private int width = Constants.STAFF_WIDTH;
     private final int height = Constants.STAFF_HEIGHT;
 
@@ -14,8 +15,9 @@ public class MagicalStaff extends GameObject {
     private boolean isCanonActivated = false;
     private boolean isExpanded = false;
 
-    public MagicalStaff() {
+    public MagicalStaff(int x, int y) {
         super();
+        this.fireBall = new FireBall(x, y, this);
     }
 
     public void enableExpansion(){

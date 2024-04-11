@@ -30,7 +30,6 @@ public class Player extends GameObject {
 
     @Override
     public void Start() {
-
         super.Start();
     }
 
