@@ -5,7 +5,6 @@ public class ManagerHub {
     private  InputManager inputManager;
     private  SpellManager spellManager;
     private  BarrierManager barrierManager;
-
     private  ScoreManager scoreManager;
 
     private static ManagerHub instance;

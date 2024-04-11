@@ -8,7 +8,6 @@ import java.util.Random;
 
 public class BarrierFactory {
     private static BarrierFactory instance;
-    private SpellType spellType;
 
     private BarrierFactory() {
     }

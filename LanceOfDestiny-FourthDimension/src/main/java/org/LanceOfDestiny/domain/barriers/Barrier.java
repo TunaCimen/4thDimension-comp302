@@ -9,8 +9,8 @@ public abstract class Barrier extends GameObject {
     public static final int WIDTH = Constants.L / 5;
     public static final int HEIGHT = Constants.L / 5;
 
-    private boolean isMoving;
-    private int hitsLeft;
+    protected boolean isMoving;
+    protected int hitsLeft;
 
     public int x;
     public int y;
@@ -25,6 +25,7 @@ public abstract class Barrier extends GameObject {
         this.barrierType = type;
         this.hitsLeft = hitsRequired;
     }
+
     public Barrier(int x, int y, BarrierTypes type){
         super();
         this.x = x;
@@ -32,7 +33,6 @@ public abstract class Barrier extends GameObject {
         this.barrierType = type;
         this.hitsLeft = 1;
     }
-
     @Override
     public void Destroy() {
         super.Destroy();
