@@ -4,6 +4,7 @@ import java.util.*;
 
 public abstract class GameObject extends Behaviour{
 
+
     public JPanel sprite(){
         return new JPanel(); // Default Sprite Given to everything.
     }
@@ -13,6 +14,8 @@ public abstract class GameObject extends Behaviour{
 
     public GameObject() {
         super();
+        System.out.println("Game Object Init");
+        gameObject = this;
         GameObject.gameObjects.add(this);
     }
 

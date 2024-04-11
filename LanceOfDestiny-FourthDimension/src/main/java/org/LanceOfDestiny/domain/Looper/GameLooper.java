@@ -2,12 +2,18 @@ package org.LanceOfDestiny.domain.Looper;
 
 import org.LanceOfDestiny.domain.GameObject;
 
+import javax.swing.*;
+
 public class GameLooper extends Looper{
+
+    JFrame frame;
+
+
     @Override
     protected void routine() throws LoopEndedException {
-        System.out.println("Main Game Loop");
-        execute(new ParallelExec(
-                GameObject.getGameObjects()
-        ));
+        execute(
+                new GameExec(GameObject.getGameObjects())
+        );
+
     }
 }
