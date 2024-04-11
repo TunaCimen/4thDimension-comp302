@@ -9,4 +9,8 @@ public class Constants {
     public static final int STAFF_WIDTH = T;
     public static final int STAFF_HEIGHT = L;
     public static final int SPELL_DURATION = 30; // in seconds
+    public static final int HEX_LENGTH = 3;
+    public static final double HEX_SPEED = 5;  // value should change, 5 is placeholder
+    public static final int CANON_HEIGHT = 10; // value should change, 10 is placeholder
+    public static final int CANON_WIDTH = 10; // value should change, 10 is placeholder
 }

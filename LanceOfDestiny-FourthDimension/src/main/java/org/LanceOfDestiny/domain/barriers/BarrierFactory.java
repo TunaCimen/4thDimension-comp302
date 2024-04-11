@@ -1,7 +1,6 @@
 package org.LanceOfDestiny.domain.barriers;
 
 import org.LanceOfDestiny.domain.abilities.SpellType;
-import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.ManagerHub;
 
 import java.util.Random;
