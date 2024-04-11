@@ -1,7 +1,6 @@
-package org.LanceOfDestiny.Looper;
+package org.LanceOfDestiny.domain.Looper;
 
 import org.LanceOfDestiny.domain.Behaviour;
-import org.LanceOfDestiny.domain.GameObject;
 
 public abstract class Looper {
 

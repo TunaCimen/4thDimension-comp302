@@ -1,4 +1,4 @@
-package org.LanceOfDestiny.Looper;
+package org.LanceOfDestiny.domain.Looper;
 
 import org.LanceOfDestiny.domain.Behaviour;
 

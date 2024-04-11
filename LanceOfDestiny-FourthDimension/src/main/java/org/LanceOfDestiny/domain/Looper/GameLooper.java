@@ -1,9 +1,6 @@
-package org.LanceOfDestiny.Looper;
+package org.LanceOfDestiny.domain.Looper;
 
-import org.LanceOfDestiny.domain.Behaviour;
 import org.LanceOfDestiny.domain.GameObject;
-
-import java.util.List;
 
 public class GameLooper extends Looper{
     @Override
