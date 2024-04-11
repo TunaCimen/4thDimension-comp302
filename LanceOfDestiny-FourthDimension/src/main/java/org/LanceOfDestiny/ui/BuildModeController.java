@@ -5,11 +5,19 @@ import org.LanceOfDestiny.domain.barriers.BarrierFactory;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
 import org.LanceOfDestiny.domain.barriers.SimpleBarrier;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class BuildModeController {
     private static BuildModeController Instance = null;
     BarrierFactory barrierFactory;
+    private List<Barrier> barrierList = new ArrayList<>();
+
+    public List<Barrier> getBarrierList() {
+        return barrierList;
+    }
+
     private BuildModeController() {
         barrierFactory = BarrierFactory.getInstance();
 

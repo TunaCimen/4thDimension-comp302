@@ -7,7 +7,8 @@ import org.LanceOfDestiny.domain.managers.ManagerHub;
 public abstract class Barrier extends GameObject {
 
     public static final int WIDTH = Constants.L / 5;
-    public static final int HEIGHT = Constants.L / 5;
+    public static final int HEIGHT = Constants.T; //All barriers except explosive barriers are rectangles with dimensions L/5 and 20px.
+
 
     private boolean isMoving;
     private int hitsLeft;
