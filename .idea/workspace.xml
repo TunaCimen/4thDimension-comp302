@@ -4,43 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4de0f8c2-5197-4720-b28d-1cd3f1829c75" name="Changes" comment="Started Component Logic.&#10;Behaviour Class is extended by GameObject">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="4de0f8c2-5197-4720-b28d-1cd3f1829c75" name="Changes" comment="looper">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/LanceOfDestiny.class" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/LanceOfDestiny.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/database/DatabaseController.class" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/database/DatabaseController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/AuthModels/LogInController.class" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/AuthModels/LogInController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/EventSystem/Events.class" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/EventSystem/Events.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/EventSystem/IllegalEventInvocationException.class" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/EventSystem/IllegalEventInvocationException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/AuthViews/LogInView$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/AuthViews/LogInView$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/AuthViews/LogInView$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/AuthViews/LogInView$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/AuthViews/LogInView.class" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/AuthViews/LogInView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/Window.class" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/Window.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/WindowCreator.class" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/WindowCreator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/WindowManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/WindowManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/Windows.class" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/Windows.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/LanceOfDestiny.java" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/LanceOfDestiny.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/database/DatabaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/database/DatabaseController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/database/user_data.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/domain/AuthModels/LogInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/domain/AuthModels/LogInController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/ui/AuthViews/LogInView.java" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/ui/AuthViews/LogInView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/ui/Windows.java" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/ui/Windows.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_data.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +47,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="component-system" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -103,6 +69,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "Git.Branch.Popup.ShowAllRemotes": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -125,6 +92,7 @@
       <recent name="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/login" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/Extrenal Libraries" />
       <recent name="$PROJECT_DIR$/Login" />
     </key>
@@ -142,7 +110,7 @@
       <updated>1709649789664</updated>
       <workItem from="1709649792529" duration="75000" />
       <workItem from="1709650613860" duration="122000" />
-      <workItem from="1712751037877" duration="25671000" />
+      <workItem from="1712751037877" duration="33205000" />
     </task>
     <task id="LOCAL-00001" summary="Login screen done">
       <created>1712235641411</created>
@@ -180,7 +148,70 @@
       <option name="project" value="LOCAL" />
       <updated>1712784212110</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="looper">
+      <created>1712828894312</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1712828894312</updated>
+    </task>
+    <task id="LOCAL-00007" summary="looper">
+      <created>1712828984131</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1712828984131</updated>
+    </task>
+    <task id="LOCAL-00008" summary="looper">
+      <created>1712830393039</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1712830393039</updated>
+    </task>
+    <task id="LOCAL-00009" summary="looper">
+      <created>1712831808726</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1712831808726</updated>
+    </task>
+    <task id="LOCAL-00010" summary="looper">
+      <created>1712833181729</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1712833181729</updated>
+    </task>
+    <task id="LOCAL-00011" summary="looper">
+      <created>1712833465864</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1712833465865</updated>
+    </task>
+    <task id="LOCAL-00012" summary="looper">
+      <created>1712833787460</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1712833787460</updated>
+    </task>
+    <task id="LOCAL-00013" summary="looper">
+      <created>1712833927412</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1712833927412</updated>
+    </task>
+    <task id="LOCAL-00014" summary="looper">
+      <created>1712834070905</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1712834070905</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,7 +237,8 @@
     <MESSAGE value="." />
     <MESSAGE value="Minor changes" />
     <MESSAGE value="Started Component Logic.&#10;Behaviour Class is extended by GameObject" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started Component Logic.&#10;Behaviour Class is extended by GameObject" />
+    <MESSAGE value="looper" />
+    <option name="LAST_COMMIT_MESSAGE" value="looper" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

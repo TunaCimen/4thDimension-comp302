@@ -2,9 +2,13 @@ package org.LanceOfDestiny.domain.player;
 
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.ui.BallSprite;
+
+import javax.swing.*;
+
+import java.awt.*;
 
 public class FireBall extends GameObject {
-
     private MagicalStaff magicalStaff;
 
     private boolean isAttached = true;
@@ -16,14 +20,20 @@ public class FireBall extends GameObject {
     private double x;
     private double y;
     private final int radius = Constants.FIREBALL_RADIUS;
-
+    BallSprite bs;
 
     public FireBall(MagicalStaff magicalStaff) {
         super();
         this.magicalStaff = magicalStaff;
         this.isAttached = true;
         currentSpeed = defaultSpeed;
+        bs = new BallSprite(40,40,40, Color.red);
 
+    }
+
+    @Override
+    public JPanel sprite() {
+        return bs;
     }
 
     @Override
@@ -83,4 +93,5 @@ public class FireBall extends GameObject {
     public void setY(double y) {
         this.y = y;
     }
+
 }
