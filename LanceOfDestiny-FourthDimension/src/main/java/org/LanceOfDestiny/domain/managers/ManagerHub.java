@@ -2,33 +2,37 @@ package org.LanceOfDestiny.domain.managers;
 
 public class ManagerHub {
 
-    private static InputManager inputManager;
-    private static SpellManager spellManager;
-    private static BarrierManager barrierManager;
+    private  InputManager inputManager;
+    private  SpellManager spellManager;
+    private  BarrierManager barrierManager;
 
-    private static ScoreManager scoreManager;
+    private  ScoreManager scoreManager;
 
-    public static void initialize() {
-        // Initialize all managers here
-        var inputManager = new InputManager();
-        var abilityManager = new SpellManager();
-        var barrierManager = new BarrierManager();
-        var scoreManager = new ScoreManager();
+    private static ManagerHub instance;
+    public static ManagerHub getInstance() {
+            if (instance == null) {
+                instance = new ManagerHub();
+                instance.inputManager = new InputManager();
+                instance.spellManager = new SpellManager();
+                instance.barrierManager = new BarrierManager();
+                instance.scoreManager = new ScoreManager();
+            }
+        return instance;
     }
 
-    public static InputManager getInputManager() {
+    public InputManager getInputManager() {
         return inputManager;
     }
 
-    public static SpellManager getAbilityManager() {
+    public  SpellManager getSpellManager() {
         return spellManager;
     }
 
-    public static BarrierManager getBarrierManager() {
+    public BarrierManager getBarrierManager() {
         return barrierManager;
     }
 
-    public static ScoreManager getScoreManager() {
+    public  ScoreManager getScoreManager() {
         return scoreManager;
     }
 }

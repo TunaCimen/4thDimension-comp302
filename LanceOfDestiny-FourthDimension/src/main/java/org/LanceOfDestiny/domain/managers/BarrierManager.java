@@ -10,7 +10,7 @@ public class BarrierManager {
 
     protected BarrierManager() {}
 
-    private void addBarrier(Barrier barrier){
+    public void addBarrier(Barrier barrier){
         barriers.add(barrier);
     }
 

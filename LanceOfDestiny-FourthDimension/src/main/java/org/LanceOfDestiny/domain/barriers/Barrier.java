@@ -36,7 +36,7 @@ public abstract class Barrier extends GameObject {
     @Override
     public void Destroy() {
         super.Destroy();
-        ManagerHub.getBarrierManager().removeBarrier(this);
+        ManagerHub.getInstance().getBarrierManager().removeBarrier(this);
     }
 
     public boolean isDestroyed() {
