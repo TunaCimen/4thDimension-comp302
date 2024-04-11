@@ -4,64 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4de0f8c2-5197-4720-b28d-1cd3f1829c75" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_04_2024_00_13_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_04_2024_00_13__Changes_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_15__Changes_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/test/org/LanceOfDestiny/PhysicsTest.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/ui/AuthViews/PhysicsTestView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/ui/BallSprite.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/test/java/org/LanceOfDestiny/PhysicsTest.java" afterDir="false" />
+    <list default="true" id="4de0f8c2-5197-4720-b28d-1cd3f1829c75" name="Changes" comment="Started Component Logic.&#10;Behaviour Class is extended by GameObject">
+      <change afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/domain/LoopEndedException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/7.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/LanceOfDestiny.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/database/DatabaseController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/AuthModels/LogInController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/Constants.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/EventSystem/Events.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/EventSystem/IllegalEventInvocationException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/GameObject.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/abilities/Spell.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/abilities/SpellContainer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/abilities/SpellTypes.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/barriers/Barrier.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/barriers/BarrierTypes.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/barriers/ExplosiveBarrier.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/barriers/ReinforcedBarrier.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/barriers/RewardingBarrier.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/barriers/SimpleBarrier.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/managers/BarrierManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/managers/InputManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/managers/ManagerHub.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/managers/ScoreManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/managers/SpellManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/player/FireBall.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/player/MagicalStaff.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/domain/player/Player.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/AuthViews/LogInView$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/AuthViews/LogInView$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/AuthViews/LogInView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/BuildModeController$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/BuildModeController$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/BuildModeController$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/BuildModeController$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/BuildModeController$5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/BuildModeController$6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/BuildModeController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/GamePanelDraw.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/GameView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/Window.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/WindowCreator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/WindowManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/classes/java/main/org/LanceOfDestiny/ui/Windows.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/ui/Windows.java" beforeDir="false" afterPath="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/ui/Windows.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,6 +39,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -101,11 +47,10 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="physics/initialization" />
+        <entry key="$PROJECT_DIR$" value="component-system" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file:///private/var/folders/m3/2m8_fl_d4ddgncptvm0qqhsh0000gn/T/tmp_1_LanceOfDestiny.class" root0="SKIP_INSPECTION" />
@@ -123,6 +68,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "Git.Branch.Popup.ShowAllRemotes": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -137,6 +83,10 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.LanceOfDestiny.domain" />
+      <recent name="org.LanceOfDestiny.ui" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/login" />
     </key>
@@ -158,7 +108,7 @@
       <updated>1709649789664</updated>
       <workItem from="1709649792529" duration="75000" />
       <workItem from="1709650613860" duration="122000" />
-      <workItem from="1712751037877" duration="20953000" />
+      <workItem from="1712751037877" duration="28062000" />
     </task>
     <task id="LOCAL-00001" summary="Login screen done">
       <created>1712235641411</created>
@@ -182,7 +132,21 @@
       <option name="project" value="LOCAL" />
       <updated>1712754543700</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Minor changes">
+      <created>1712784198756</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1712784198756</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Minor changes">
+      <created>1712784212110</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1712784212110</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -206,7 +170,9 @@
     <MESSAGE value="Fixed typo in Window Creator" />
     <MESSAGE value="Conflicst Managed" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="Minor changes" />
+    <MESSAGE value="Started Component Logic.&#10;Behaviour Class is extended by GameObject" />
+    <option name="LAST_COMMIT_MESSAGE" value="Started Component Logic.&#10;Behaviour Class is extended by GameObject" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
