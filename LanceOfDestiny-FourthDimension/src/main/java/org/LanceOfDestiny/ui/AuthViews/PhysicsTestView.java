@@ -28,8 +28,7 @@ public class PhysicsTestView extends JFrame implements Window {
     public PhysicsTestView() {
         fb = new FireBall(new Vector(50,50));
         fb2 = new FireBall(new Vector(500,500));
-        //fb3 = new FireBall(new Vector(3,500));
-        fb3 = new FireBall(new Vector(340,340));
+
         magicalStaff = new MagicalStaff(new Vector(200,700));
         GameLooper gameLooper = new GameLooper();
         loopExecutor.setLooper(gameLooper);
@@ -41,7 +40,7 @@ public class PhysicsTestView extends JFrame implements Window {
     public void createAndShowUI() {
         addKeyListener(InputManager.getInstance());
         add(fb.sprite());
-        add(fb3.sprite());
+        //add(fb3.sprite());
         add(fb2.sprite());
         add(magicalStaff.sprite());
         setDefaultCloseOperation(EXIT_ON_CLOSE);

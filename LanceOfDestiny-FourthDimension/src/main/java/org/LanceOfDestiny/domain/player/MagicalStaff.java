@@ -51,8 +51,9 @@ public class MagicalStaff extends GameObject {
         // TODO
     }
 
-    public void moveRight(Object integer){
-        int sign = ((Integer) integer) > 0 ? 1: -1;
-        setPosition(position.add(new Vector(sign*Constants.STAFF_WIDTH/2.0f,0)));
+    public void moveRight(Object integer) {
+        int sign = ((Integer) integer) > 0 ? 1 : -1;
+        setPosition(position.add(new Vector(sign * Constants.STAFF_WIDTH / 2.0f, 0)));
     }
+
 }
