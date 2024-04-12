@@ -2,22 +2,26 @@ package org.LanceOfDestiny.domain.player;
 
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.managers.ManagerHub;
+import org.LanceOfDestiny.domain.physics.ColliderFactory;
+import org.LanceOfDestiny.domain.physics.Vector;
 
 public class MagicalStaff extends GameObject {
 
     private FireBall fireBall;
     private int width = Constants.STAFF_WIDTH;
     private final int height = Constants.STAFF_HEIGHT;
+    private Vector position;
 
-    private double x;
-    private double y;
+
 
     private boolean isCanonActivated = false;
     private boolean isExpanded = false;
 
-    public MagicalStaff(int x, int y) {
+    public MagicalStaff(Vector position) {
         super();
-        this.fireBall = new FireBall(x, y, this);
+        this.position = position;
+        ColliderFactory.createRectangleCollider(this, )
     }
 
     public void enableExpansion(){
@@ -35,5 +39,9 @@ public class MagicalStaff extends GameObject {
 
     public void disableCanons() {
         // TODO
+    }
+
+    public void setFireBall(FireBall fireBall) {
+        this.fireBall = fireBall;
     }
 }

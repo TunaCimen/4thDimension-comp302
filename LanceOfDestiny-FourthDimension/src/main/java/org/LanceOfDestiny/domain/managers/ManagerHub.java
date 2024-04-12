@@ -5,14 +5,15 @@ import org.LanceOfDestiny.domain.player.MagicalStaff;
 import org.LanceOfDestiny.domain.player.Player;
 
 public class ManagerHub {
-    MagicalStaff magicalStaff;
-    Player player;
-    FireBall fireBall;
+    private MagicalStaff magicalStaff;
+    private Player player;
+    private FireBall fireBall;
 
     private  InputManager inputManager;
     private  SpellManager spellManager;
     private  BarrierManager barrierManager;
     private  ScoreManager scoreManager;
+    private SessionManager sessionManager;
 
     private static ManagerHub instance;
 
@@ -26,10 +27,9 @@ public class ManagerHub {
             }
         return instance;
     }
-    /**
-     * Initializes the dependencies required for managers.
-     * Needs to be invoked in the beginning of play mode.*/
-    public void initDependencies(MagicalStaff magicalStaff, Player player, FireBall fireBall){
+
+    public void initDependencies(MagicalStaff magicalStaff, Player player, FireBall fireBall, SessionManager sessionManager){
+        this.sessionManager = sessionManager;
         this.magicalStaff = magicalStaff;
         this.player = player;
         this.fireBall = fireBall;
@@ -54,4 +54,22 @@ public class ManagerHub {
     public  ScoreManager getScoreManager() {
         return scoreManager;
     }
+
+    public SessionManager getSessionManager() {
+        return sessionManager;
+    }
+
+    public MagicalStaff getMagicalStaff() {
+        return magicalStaff;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public FireBall getFireBall() {
+        return fireBall;
+    }
+
+
 }
