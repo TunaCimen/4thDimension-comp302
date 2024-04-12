@@ -1,0 +1,278 @@
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_15__Changes_.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_15__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_15__Changes_.xml
+new file mode 100644
+--- /dev/null	(date 1712783745314)
++++ b/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_15__Changes_.xml	(date 1712783745314)
+@@ -0,0 +1,4 @@
++<changelist name="Uncommitted_changes_before_Update_at_11_04_2024_00_15_[Changes]" date="1712783741945" recycled="false" toDelete="true">
++  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2024_00_15_[Changes]/shelved.patch" />
++  <option name="DESCRIPTION" value="Uncommitted changes before Update at 11.04.2024 00:15 [Changes]" />
++</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_11_04_2024_00_13_[Changes]/shelved.patch
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_04_2024_00_13_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_04_2024_00_13_[Changes]/shelved.patch
+new file mode 100644
+--- /dev/null	(date 1712783630450)
++++ b/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_04_2024_00_13_[Changes]/shelved.patch	(date 1712783630450)
+@@ -0,0 +1,138 @@
++Index: .idea/workspace.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"4de0f8c2-5197-4720-b28d-1cd3f1829c75\" name=\"Changes\" comment=\"WindowManager added&#10;Sİngleton Pattern\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"ExternalProjectsData\">\n    <projectState path=\"$PROJECT_DIR$/LanceOfDestiny-FourthDimension\">\n      <ProjectState />\n    </projectState>\n  </component>\n  <component name=\"ExternalProjectsManager\">\n    <system id=\"GRADLE\">\n      <state>\n        <projects_view>\n          <tree_state>\n            <expand>\n              <path>\n                <item name=\"\" type=\"6a2764b6:ExternalProjectsStructure$RootNode\" />\n                <item name=\"LanceOfDestiny-FourthDimension\" type=\"f1a62948:ProjectNode\" />\n              </path>\n            </expand>\n            <select />\n          </tree_state>\n        </projects_view>\n      </state>\n    </system>\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Class\" />\n        <option value=\"Enum\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\n      <map>\n        <entry key=\"$PROJECT_DIR$\" value=\"Typo-Fix\" />\n      </map>\n    </option>\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n    <option name=\"UPDATE_TYPE\" value=\"REBASE\" />\n  </component>\n  <component name=\"HighlightingSettingsPerFile\">\n    <setting file=\"file:///private/var/folders/m3/2m8_fl_d4ddgncptvm0qqhsh0000gn/T/tmp_1_LanceOfDestiny.class\" root0=\"SKIP_INSPECTION\" />\n    <setting file=\"file:///private/var/folders/m3/2m8_fl_d4ddgncptvm0qqhsh0000gn/T/tmp_2_LanceOfDestiny.class\" root0=\"SKIP_INSPECTION\" />\n    <setting file=\"file:///private/var/folders/m3/2m8_fl_d4ddgncptvm0qqhsh0000gn/T/tmp__LanceOfDestiny.class\" root0=\"SKIP_INSPECTION\" />\n  </component>\n  <component name=\"MarkdownSettingsMigration\">\n    <option name=\"stateVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProjectId\" id=\"2dH0eHYUDYi9dum8hsGw3JEV6Vm\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;Application.Main.executor&quot;: &quot;Run&quot;,\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\n    &quot;git-widget-placeholder&quot;: &quot;main&quot;,\n    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;18&quot;,\n    &quot;last_opened_file_path&quot;: &quot;/Users/donau/IdeaProjects/4thDimension-comp302/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/login&quot;,\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\n    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,\n    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,\n    &quot;project.structure.side.proportion&quot;: &quot;0.28653628&quot;\n  }\n}</component>\n  <component name=\"RecentsManager\">\n    <key name=\"CopyFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/login\" />\n    </key>\n    <key name=\"MoveFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/LanceOfDestiny-FourthDimension/Extrenal Libraries\" />\n      <recent name=\"$PROJECT_DIR$/Login\" />\n    </key>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"4de0f8c2-5197-4720-b28d-1cd3f1829c75\" name=\"Changes\" comment=\"\" />\n      <created>1709649789664</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1709649789664</updated>\n      <workItem from=\"1709649792529\" duration=\"75000\" />\n      <workItem from=\"1709650613860\" duration=\"122000\" />\n      <workItem from=\"1712751037877\" duration=\"1106000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"Login screen done\">\n      <created>1712235641411</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1712235641411</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"Fixed typo in Window Creator\">\n      <option name=\"closed\" value=\"true\" />\n      <created>1712238177286</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1712238177286</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"WindowManager added&#10;Sİngleton Pattern\">\n      <created>1712238487775</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1712238487775</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"3\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"Login screen done\" />\n    <MESSAGE value=\"gradle, sdk, misc files fixed.\" />\n    <MESSAGE value=\"WindowManager added&#10;Sİngleton Pattern\" />\n    <MESSAGE value=\"Fixed typo in Window Creator\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Fixed typo in Window Creator\" />\n  </component>\n</project>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/.idea/workspace.xml b/.idea/workspace.xml
++--- a/.idea/workspace.xml	(revision 1b231e8161e8926ef6a6cccf5f70f764d9b15ea3)
+++++ b/.idea/workspace.xml	(date 1712783622960)
++@@ -4,9 +4,7 @@
++     <option name="autoReloadType" value="SELECTIVE" />
++   </component>
++   <component name="ChangeListManager">
++-    <list default="true" id="4de0f8c2-5197-4720-b28d-1cd3f1829c75" name="Changes" comment="WindowManager added&#10;Sİngleton Pattern">
++-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++-    </list>
+++    <list default="true" id="4de0f8c2-5197-4720-b28d-1cd3f1829c75" name="Changes" comment="Conflicst Managed" />
++     <option name="SHOW_DIALOG" value="false" />
++     <option name="HIGHLIGHT_CONFLICTS" value="true" />
++     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
++@@ -37,19 +35,18 @@
++   <component name="FileTemplateManagerImpl">
++     <option name="RECENT_TEMPLATES">
++       <list>
+++        <option value="Enum" />
++         <option value="Class" />
++-        <option value="Enum" />
++       </list>
++     </option>
++   </component>
++   <component name="Git.Settings">
++     <option name="RECENT_BRANCH_BY_REPOSITORY">
++       <map>
++-        <entry key="$PROJECT_DIR$" value="Typo-Fix" />
+++        <entry key="$PROJECT_DIR$" value="physics/initialization" />
++       </map>
++     </option>
++     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++-    <option name="UPDATE_TYPE" value="REBASE" />
++   </component>
++   <component name="HighlightingSettingsPerFile">
++     <setting file="file:///private/var/folders/m3/2m8_fl_d4ddgncptvm0qqhsh0000gn/T/tmp_1_LanceOfDestiny.class" root0="SKIP_INSPECTION" />
++@@ -64,21 +61,22 @@
++     <option name="hideEmptyMiddlePackages" value="true" />
++     <option name="showLibraryContents" value="true" />
++   </component>
++-  <component name="PropertiesComponent">{
++-  &quot;keyToString&quot;: {
++-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
++-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
++-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
++-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;18&quot;,
++-    &quot;last_opened_file_path&quot;: &quot;/Users/donau/IdeaProjects/4thDimension-comp302/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/login&quot;,
++-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
++-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
++-    &quot;project.structure.side.proportion&quot;: &quot;0.28653628&quot;
+++  <component name="PropertiesComponent"><![CDATA[{
+++  "keyToString": {
+++    "Application.Main.executor": "Run",
+++    "RunOnceActivity.OpenProjectViewOnStart": "true",
+++    "RunOnceActivity.ShowReadmeOnStart": "true",
+++    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+++    "WebServerToolWindowFactoryState": "false",
+++    "git-widget-placeholder": "main",
+++    "jdk.selected.JAVA_MODULE": "18",
+++    "last_opened_file_path": "/Users/donau/IdeaProjects/4thDimension-comp302/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/login",
+++    "nodejs_package_manager_path": "npm",
+++    "project.structure.last.edited": "SDKs",
+++    "project.structure.proportion": "0.0",
+++    "project.structure.side.proportion": "0.28653628"
++   }
++-}</component>
+++}]]></component>
++   <component name="RecentsManager">
++     <key name="CopyFile.RECENT_KEYS">
++       <recent name="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/login" />
++@@ -87,6 +85,9 @@
++       <recent name="$PROJECT_DIR$/LanceOfDestiny-FourthDimension/Extrenal Libraries" />
++       <recent name="$PROJECT_DIR$/Login" />
++     </key>
+++    <key name="ExtractSuperBase.RECENT_KEYS">
+++      <recent name="org.LanceOfDestiny.ui" />
+++    </key>
++   </component>
++   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
++   <component name="TaskManager">
++@@ -98,7 +99,7 @@
++       <updated>1709649789664</updated>
++       <workItem from="1709649792529" duration="75000" />
++       <workItem from="1709650613860" duration="122000" />
++-      <workItem from="1712751037877" duration="1106000" />
+++      <workItem from="1712751037877" duration="20563000" />
++     </task>
++     <task id="LOCAL-00001" summary="Login screen done">
++       <created>1712235641411</created>
++@@ -115,14 +116,14 @@
++       <option name="project" value="LOCAL" />
++       <updated>1712238177286</updated>
++     </task>
++-    <task id="LOCAL-00003" summary="WindowManager added&#10;Sİngleton Pattern">
++-      <created>1712238487775</created>
+++    <task id="LOCAL-00003" summary="Conflicst Managed">
+++      <created>1712754543700</created>
++       <option name="number" value="00003" />
++       <option name="presentableId" value="LOCAL-00003" />
++       <option name="project" value="LOCAL" />
++-      <updated>1712238487775</updated>
+++      <updated>1712754543700</updated>
++     </task>
++-    <option name="localTasksCounter" value="3" />
+++    <option name="localTasksCounter" value="4" />
++     <servers />
++   </component>
++   <component name="TypeScriptGeneratedFilesManager">
++@@ -144,6 +145,17 @@
++     <MESSAGE value="gradle, sdk, misc files fixed." />
++     <MESSAGE value="WindowManager added&#10;Sİngleton Pattern" />
++     <MESSAGE value="Fixed typo in Window Creator" />
++-    <option name="LAST_COMMIT_MESSAGE" value="Fixed typo in Window Creator" />
+++    <MESSAGE value="Conflicst Managed" />
+++    <option name="LAST_COMMIT_MESSAGE" value="Conflicst Managed" />
+++  </component>
+++  <component name="XDebuggerManager">
+++    <breakpoint-manager>
+++      <breakpoints>
+++        <breakpoint enabled="true" type="java-exception">
+++          <properties class="java.lang.NullPointerException" package="java.lang" />
+++          <option name="timeStamp" value="1" />
+++        </breakpoint>
+++      </breakpoints>
+++    </breakpoint-manager>
++   </component>
++ </project>
++\ No newline at end of file
+Index: LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/ui/BallSprite.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/ui/BallSprite.java b/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/ui/BallSprite.java
+new file mode 100644
+--- /dev/null	(date 1712782860507)
++++ b/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/ui/BallSprite.java	(date 1712782860507)
+@@ -0,0 +1,24 @@
++package org.LanceOfDestiny.ui;
++
++import javax.swing.*;
++import java.awt.*;
++
++public class BallSprite extends JPanel {
++
++    public int x,y,radius;
++    public Color color;
++
++    public BallSprite(int x, int y, int radius, Color color){
++        this.x = x;
++        this.y = y;
++        this.radius = radius;
++        this.color  =color;
++    }
++
++    @Override
++    public void paint(Graphics g) {
++        super.paint(g);
++        g.setColor(color);
++        g.fillOval(x,y,radius,radius);
++    }
++}
+Index: .idea/shelf/Uncommitted_changes_before_Checkout_at_11_04_2024_00_13__Changes_.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_04_2024_00_13__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_04_2024_00_13__Changes_.xml
+new file mode 100644
+--- /dev/null	(date 1712783658176)
++++ b/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_04_2024_00_13__Changes_.xml	(date 1712783658176)
+@@ -0,0 +1,4 @@
++<changelist name="Uncommitted_changes_before_Checkout_at_11_04_2024_00_13_[Changes]" date="1712783652010" recycled="true" deleted="true">
++  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_04_2024_00_13_[Changes]/shelved.patch" />
++  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 11.04.2024 00:13 [Changes]" />
++</changelist>
+\ No newline at end of file
+Index: LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/ui/AuthViews/PhysicsTestView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/ui/AuthViews/PhysicsTestView.java b/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/ui/AuthViews/PhysicsTestView.java
+new file mode 100644
+--- /dev/null	(date 1712783541443)
++++ b/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/ui/AuthViews/PhysicsTestView.java	(date 1712783541443)
+@@ -0,0 +1,35 @@
++package org.LanceOfDestiny.ui.AuthViews;
++
++import org.LanceOfDestiny.ui.BallSprite;
++import org.LanceOfDestiny.ui.Window;
++
++import javax.swing.*;
++import java.awt.*;
++
++
++public class PhysicsTestView extends JFrame implements Window {
++
++    BallSprite ball1,ball2;
++
++    public PhysicsTestView(){
++        ball1 = new BallSprite(25,25,20,Color.BLUE);
++        ball2 = new BallSprite(730,730,20,Color.RED);
++    }
++
++    @Override
++    public void paint(Graphics g) {
++        super.paint(g);
++        ball1.paint(g);
++        ball2.paint(g);
++    }
++
++    @Override
++    public void createAndShowUI() {
++        setDefaultCloseOperation(EXIT_ON_CLOSE);
++        setSize(new Dimension(750,750));
++        setDefaultLookAndFeelDecorated(true);
++        setResizable(false);
++        setVisible(true);
++
++    }
++}
+Index: LanceOfDestiny-FourthDimension/src/test/java/org/LanceOfDestiny/PhysicsTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/LanceOfDestiny-FourthDimension/src/test/java/org/LanceOfDestiny/PhysicsTest.java b/LanceOfDestiny-FourthDimension/src/test/java/org/LanceOfDestiny/PhysicsTest.java
+new file mode 100644
+--- /dev/null	(date 1712782860510)
++++ b/LanceOfDestiny-FourthDimension/src/test/java/org/LanceOfDestiny/PhysicsTest.java	(date 1712782860510)
+@@ -0,0 +1,11 @@
++package org.LanceOfDestiny;
++
++import org.LanceOfDestiny.ui.WindowManager;
++import org.LanceOfDestiny.ui.Windows;
++
++public class PhysicsTest {
++
++    public static void main(String[] args){
++        WindowManager.getInstance().showWindow(Windows.PhysicsTest);
++    }
++}

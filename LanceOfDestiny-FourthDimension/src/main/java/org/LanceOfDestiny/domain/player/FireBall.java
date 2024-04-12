@@ -1,29 +1,34 @@
 package org.LanceOfDestiny.domain.player;
 
 import org.LanceOfDestiny.domain.Constants;
+import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.physics.*;
+import org.LanceOfDestiny.ui.BallSprite;
+
+import javax.swing.*;
+
+import java.awt.*;
 
 public class FireBall extends GameObject {
-
-    private MagicalStaff magicalStaff;
-
-    private boolean isAttached = true;
+    private Collider collider;
     private boolean isOverwhelming = false;
-
     private double defaultSpeed;
     private double currentSpeed;
-
-    private double x;
-    private double y;
     private final int radius = Constants.FIREBALL_RADIUS;
-
-
-    public FireBall(int x, int y, MagicalStaff magicalStaff) {
+    BallSprite bs;
+    public FireBall(Vector position) {
         super();
-        this.magicalStaff = magicalStaff;
-        this.isAttached = true;
-        currentSpeed = defaultSpeed;
+        this.position = position;
+        this.currentSpeed = defaultSpeed;
+        this.collider = ColliderFactory.createBallCollider(this,new Vector(5,-10),ColliderType.DYNAMIC,radius);
+       // this.collider = new BallCollider(new Vector(5, 0), ColliderType.DYNAMIC, radius, this);
+        this.bs = new BallSprite(this,Constants.FIREBALL_RADIUS, Color.red);
+    }
 
+    @Override
+    public JPanel sprite() {
+        return bs;
     }
 
     @Override
@@ -33,7 +38,8 @@ public class FireBall extends GameObject {
 
     @Override
     public void Update() {
-        super.Update();
+        setPosition(getPosition().add(collider.getVelocity()));
+
     }
 
     public void enableOverwhelming() {
@@ -43,15 +49,6 @@ public class FireBall extends GameObject {
     public void disableOverwhelming() {
         isOverwhelming = false;
     }
-
-    public boolean isAttached() {
-        return isAttached;
-    }
-
-    public void reattach() {
-        isAttached = true;
-    }
-
     public double getDefaultSpeed() {
         return defaultSpeed;
     }
@@ -68,19 +65,4 @@ public class FireBall extends GameObject {
         this.currentSpeed = currentSpeed;
     }
 
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
 }

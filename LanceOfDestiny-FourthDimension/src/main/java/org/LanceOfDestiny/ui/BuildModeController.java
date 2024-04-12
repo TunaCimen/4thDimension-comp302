@@ -5,11 +5,19 @@ import org.LanceOfDestiny.domain.barriers.BarrierFactory;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
 import org.LanceOfDestiny.domain.barriers.SimpleBarrier;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class BuildModeController {
     private static BuildModeController Instance = null;
     BarrierFactory barrierFactory;
+    private List<Barrier> barrierList = new ArrayList<>();
+
+    public List<Barrier> getBarrierList() {
+        return barrierList;
+    }
+
     private BuildModeController() {
         barrierFactory = BarrierFactory.getInstance();
 
@@ -64,16 +72,16 @@ public class BuildModeController {
         // Code for clearing all obstacles
     }
 
-//    public void createNewBarrier(int x, int y, String type, ObstacleAnimator obstacleAnimator) {
+//    public void createNewBarrier(int x, int y, String type, BarrierAnimator barrierAnimator) {
 //        // Code for creating a new obstacle at given coordinates
-//        Obstacle obstacle = new ObstacleFactory().createObstacle(type);
+//        Barrier barrier = new BarrierFactory().createBarrier(type);
 //        //add(obstacle)to_gameobject;
-//        obstacle.setLocation(x, y);
-//        obstacleAnimator.drawObstacle(obstacle);
+//        barrier.setLocation(x, y);
+//        barrierAnimator.drawObstacle(obstacle);
 //    }
 
 
-//    public void removeObstacleAt(int x, int y, Barrier barrier, ObstacleAnimator obstacleAnimator) {
+//    public void removeBarrierAt(int x, int y, Barrier barrier, BarrierAnimator barrierAnimator) {
 //        // Code for removing obstacle
 //        //graphics.clearRect(); //todo: obstacle cordinatları ve boyutlarına göre clearRect çağrılmalı
 //        //remove(obstacle)from_gameobject;
