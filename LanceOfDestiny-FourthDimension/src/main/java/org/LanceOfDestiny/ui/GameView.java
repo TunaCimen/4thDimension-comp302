@@ -78,11 +78,23 @@ public class GameView {
     }
 
     public void setVisibility() {
-        // This is where we gonna set visibilities of the buttons and labels
+        // This is where we are setting visibilities of the buttons and labels
+        newGameButton.setVisible(true);
+        loadGameButton.setVisible(true);
+        saveGameButton.setVisible(true);
+        switchToRunningModeButton.setVisible(true);
+        helpButton.setVisible(true);
+        // Set the spell buttons and labels to invisible initially
+        cannonSpellButton.setVisible(false);
+        chanceSpellButton.setVisible(false);
+        expansionSpellButton.setVisible(false);
+        scoreLabel.setVisible(false);
+        livesLabel.setVisible(false);
     }
 
 
     public void createActionListeners() {
+        // todo: we need to implement action listeners for the buttons
         newGameButton.addActionListener(e -> barrierSelection());
         loadGameButton.addActionListener(e -> loadMap());
         saveGameButton.addActionListener(e -> saveGame());
@@ -101,30 +113,44 @@ public class GameView {
         Map<String, JSpinner> barrierFields = new HashMap<>();
         String[] barrierTypes = {"Simple", "Reinforced", "Explosive", "Rewarding"};
         int[] minimumCounts = {75, 10, 5, 10}; // Minimum counts for each type
+        int maximumTotal = 120; // Maximum count for all barriers combined
 
         for (int i = 0; i < barrierTypes.length; i++) {
             barrierDialog.add(new JLabel(barrierTypes[i] + " Barriers:"));
-            JSpinner spinner = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
+            JSpinner spinner = new JSpinner(new SpinnerNumberModel(minimumCounts[i], minimumCounts[i], maximumTotal, 1));
             barrierDialog.add(spinner);
             barrierFields.put(barrierTypes[i], spinner);
         }
 
         JButton confirmButton = new JButton("Confirm Barrier Selection");
         barrierDialog.add(confirmButton);
+
+        // Validation logic for barrier counts
         confirmButton.addActionListener(e -> {
             try {
                 StringBuilder errorMessage = new StringBuilder();
+                int totalBarriers = 0;
                 for (int i = 0; i < barrierTypes.length; i++) {
                     int count = (Integer) barrierFields.get(barrierTypes[i]).getValue();
+                    totalBarriers += count;
                     if (count < minimumCounts[i]) {
                         errorMessage.append(barrierTypes[i]).append(" barriers must be at least ").append(minimumCounts[i]).append(".\n");
                     }
                 }
+                if (totalBarriers > maximumTotal) {
+                    errorMessage.append("The total number of barriers must not exceed ").append(maximumTotal).append(".\n");
+                }
+
                 if (!errorMessage.isEmpty()) {
                     JOptionPane.showMessageDialog(barrierDialog, errorMessage.toString(), "Input Error", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    //TODO: implement build map
-                    //buildMap();
+                    // If all inputs are valid, build the map
+                    buildMap(
+                            (Integer) barrierFields.get("Simple").getValue(),
+                            (Integer) barrierFields.get("Reinforced").getValue(),
+                            (Integer) barrierFields.get("Explosive").getValue(),
+                            (Integer) barrierFields.get("Rewarding").getValue()
+                    );
                     barrierDialog.dispose();
                 }
             } catch (Exception ex) {
@@ -135,11 +161,13 @@ public class GameView {
         barrierDialog.pack();
         barrierDialog.setLocationRelativeTo(LanceOfDestiny.getInstance().getMainFrame());
         barrierDialog.setVisible(true);
-
     }
 
+
+
     public void loadMap() {
-        // Implement the logic for loading a map here
+        // need to implement the logic for getting the map from the database and loading it
+
     }
 
     public void saveGame() {
@@ -165,7 +193,7 @@ public class GameView {
     public void castExpansionSpell() {
         // Implement the logic for casting an expansion spell here
     }
-    public void buildMap() {
+    public void buildMap(int simpleBarrierCount, int reinforcedBarrierCount, int explosiveBarrierCount, int rewardingBarrierCount) {
         //this is where we gonna create a map from the barrier numbers with the help of the BuildModeController
 
     }
