@@ -19,6 +19,8 @@ public class PhysicsTestView extends JFrame implements Window {
 
     FireBall fb3;
 
+    MagicalStaff magicalStaff;
+
 
 
     LoopExecutor loopExecutor = new LoopExecutor();
@@ -27,6 +29,7 @@ public class PhysicsTestView extends JFrame implements Window {
         fb2 = new FireBall(new Vector(500,500));
         //fb3 = new FireBall(new Vector(3,500));
         fb3 = new FireBall(new Vector(340,340));
+        magicalStaff = new MagicalStaff(new Vector(100,100));
         GameLooper gameLooper = new GameLooper();
         loopExecutor.setLooper(gameLooper);
     }
@@ -39,6 +42,7 @@ public class PhysicsTestView extends JFrame implements Window {
         add(fb.sprite());
         add(fb3.sprite());
         add(fb2.sprite());
+        add(magicalStaff.sprite());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(new Dimension(Constants.SCREEN_WIDTH,Constants.SCREEN_HEIGHT));
         setDefaultLookAndFeelDecorated(true);
