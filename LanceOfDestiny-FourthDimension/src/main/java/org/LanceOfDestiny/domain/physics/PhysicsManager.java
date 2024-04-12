@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.domain.physics;
 
+import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.EventSystem.Events;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class PhysicsManager {
     private List<Collider> colliders;
 
     private PhysicsManager() {
+
         colliders = new ArrayList<>();
     }
 
@@ -29,16 +31,61 @@ public class PhysicsManager {
     }
 
     public List<Collision> checkCollisions() {
+
+
         List<Collision> detectedCollisions = new ArrayList<>();
+
+        //Boundaries of the Map.
+        for (Collider collider : colliders) {
+            if(collider instanceof BallCollider ballCollider){
+
+
+                if (collider.getPosition().getX() + ballCollider.getRadius() >= Constants.SCREEN_WIDTH) {
+                    //System.out.println(collider.getPosition().getX() + " ---"  + collider.getPosition().getY() + " --r-- " + ballCollider.getRadius());
+                    Vector normal = new Vector(-1, 0); // Pointing left
+                    detectedCollisions.add(new Collision(collider, null, normal));
+                    //collider.setPosition(new Vector(Constants.SCREEN_WIDTH - ballCollider.getRadius(), collider.getPosition().getY()));
+                }
+
+// Left boundary collision
+                if (collider.getPosition().getX() - ballCollider.getRadius() <= 0) {
+                    //System.out.println(collider.getPosition().getX() + " ---"  + collider.getPosition().getY() + " --r-- " + ballCollider.getRadius());
+                    Vector normal = new Vector(1, 0); // Pointing right
+                    detectedCollisions.add(new Collision(collider, null, normal));
+                    //collider.setPosition(new Vector(ballCollider.getRadius(), collider.getPosition().getY()));
+                }
+
+// Bottom boundary collision
+                if (collider.getPosition().getY() + ballCollider.getRadius() >= Constants.SCREEN_HEIGHT) {
+                    //System.out.println(collider.getPosition().getX() + " ---"  + collider.getPosition().getY());
+                    Vector normal = new Vector(0, -1); // Pointing up
+                    detectedCollisions.add(new Collision(collider, null, normal));
+                    //collider.setPosition(new Vector(collider.getPosition().getX(), Constants.SCREEN_HEIGHT - ballCollider.getRadius()));
+                }
+
+// Top boundary collision
+                if (collider.getPosition().getY() - ballCollider.getRadius() <= 0) {
+                    //System.out.println(collider.getPosition().getX() + " ---"  + collider.getPosition().getY() );
+                    Vector normal = new Vector(0, 1); // Pointing down
+                    detectedCollisions.add(new Collision(collider, null, normal));
+                    //collider.setPosition(new Vector(collider.getPosition().getX(), ballCollider.getRadius()));
+                }
+            }
+            // Check right boundary
+
+        }
+
+
         for (Collider collider1 : colliders) {
+            //TODO:DUPLİCATE COLLİSİON CHECK
             for (Collider collider2 : colliders) {
                 if (collider1 == collider2) {
                     continue; // Skip checking collider with itself
                 }
 
                 if (isBallBallCollision(collider1, collider2)) {
-                    Vector normal = checkBallBallCollision((BallCollider) collider1, (BallCollider) collider2);
-                    if (normal == null) {
+                    Vector normal = getBallBallCollisionNormal((BallCollider) collider1, (BallCollider) collider2);
+                    if (normal == null) { //There is no collision it means.
                         continue;
                     }
                         detectedCollisions.add(new Collision(collider1, collider2, normal));
@@ -55,10 +102,28 @@ public class PhysicsManager {
     }
 
     public void handleCollisionEvents(List<Collision> collisions) {
+        System.out.println(collisions.size());
+
         for (Collision collision : collisions) {
 
+            handleBounce(collision);
             Events.CollisionEvent.invoke(collision); // Trigger the event
         }
+    }
+
+    private void handleBounce(Collision collision) {
+
+        //Screen Boundary
+        if(collision.getCollider2() == null){
+
+            Vector incoming = collision.getCollider1().getVelocity();
+            Vector normal = collision.getNormal();
+            Vector reflection = incoming.subtract(normal.scale(2).scale(incoming.dotProduct(normal)));
+
+            collision.getCollider1().setVelocity(reflection);
+            System.out.println("Velocity of collider1 = " + collision.getCollider1().getVelocity().getY());
+        }
+
     }
 
 
@@ -71,7 +136,7 @@ public class PhysicsManager {
         return collider1 instanceof BallCollider && collider2 instanceof BallCollider;
     }
 
-    private Vector checkBallBallCollision(BallCollider ball1, BallCollider ball2) {
+    private Vector getBallBallCollisionNormal(BallCollider ball1, BallCollider ball2) {
         float dx = ball1.getPosition().getX() - ball2.getPosition().getX();
         float dy = ball1.getPosition().getY() - ball2.getPosition().getY();
         float distanceSquared = dx * dx + dy * dy;
