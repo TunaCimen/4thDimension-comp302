@@ -1,6 +1,7 @@
 package org.LanceOfDestiny.ui.AuthViews;
 
 import org.LanceOfDestiny.domain.Constants;
+import org.LanceOfDestiny.domain.managers.InputManager;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.Looper.GameLooper;
 import org.LanceOfDestiny.domain.Looper.LoopExecutor;
@@ -29,7 +30,7 @@ public class PhysicsTestView extends JFrame implements Window {
         fb2 = new FireBall(new Vector(500,500));
         //fb3 = new FireBall(new Vector(3,500));
         fb3 = new FireBall(new Vector(340,340));
-        magicalStaff = new MagicalStaff(new Vector(100,100));
+        magicalStaff = new MagicalStaff(new Vector(200,700));
         GameLooper gameLooper = new GameLooper();
         loopExecutor.setLooper(gameLooper);
     }
@@ -38,7 +39,7 @@ public class PhysicsTestView extends JFrame implements Window {
 
     @Override
     public void createAndShowUI() {
-
+        addKeyListener(InputManager.getInstance());
         add(fb.sprite());
         add(fb3.sprite());
         add(fb2.sprite());

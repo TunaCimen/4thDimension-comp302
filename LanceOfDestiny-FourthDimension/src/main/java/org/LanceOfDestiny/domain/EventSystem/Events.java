@@ -1,7 +1,6 @@
 package org.LanceOfDestiny.domain.EventSystem;
 
 
-import org.LanceOfDestiny.domain.physics.Collider;
 import org.LanceOfDestiny.domain.physics.Collision;
 
 import java.util.ArrayList;
@@ -17,8 +16,9 @@ public enum Events {
 
     LogEvent(String.class),
     LogIntegerEvent(Integer.class),
-    CollisionEvent(Collision.class);
-    ;
+    CollisionEvent(Collision.class),
+    MoveStaff(Integer.class); //Right Now I dont care about it's
+
 
     private List<Consumer<Object>> listeners = new ArrayList<>(); //List that listeners subscribe to.
     final Class<?> paramType; //It is the Class that the particular event wants the invocation.

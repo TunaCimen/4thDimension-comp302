@@ -1,6 +1,7 @@
 package org.LanceOfDestiny.domain.player;
 
 import org.LanceOfDestiny.domain.Constants;
+import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.ui.RectangleSprite;
@@ -23,6 +24,7 @@ public class MagicalStaff extends GameObject {
 
     public MagicalStaff(Vector position) {
         super();
+        Events.MoveStaff.addListener(this::moveRight);
         this.position = position;
         rectangleSprite = new RectangleSprite(this, Color.DARK_GRAY,Constants.STAFF_WIDTH,Constants.STAFF_HEIGHT);
     }
@@ -47,5 +49,10 @@ public class MagicalStaff extends GameObject {
 
     public void disableCanons() {
         // TODO
+    }
+
+    public void moveRight(Object integer){
+        int sign = ((Integer) integer) > 0 ? 1: -1;
+        setPosition(position.add(new Vector(sign*Constants.STAFF_WIDTH/2.0f,0)));
     }
 }
