@@ -31,7 +31,6 @@ public class BuildModeController {
 
 
     //Creates obstacles(from given input) and places them in a list where they will be stored and shuffled for randomization
-    //todo: obstacle factory createObstacle methodu oluşturulmalı
     //todo: obstacleları ekleyebileceğimiz bir listeye ihtiyacımız var gameobjesinde olabilir
     public void setObstacles(int simpNum, int firmNum, int expNum, int giftNum) {
 
