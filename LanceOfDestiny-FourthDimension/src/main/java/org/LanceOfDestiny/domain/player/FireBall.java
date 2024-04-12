@@ -3,10 +3,7 @@ package org.LanceOfDestiny.domain.player;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
-import org.LanceOfDestiny.domain.physics.BallCollider;
-import org.LanceOfDestiny.domain.physics.Collider;
-import org.LanceOfDestiny.domain.physics.ColliderType;
-import org.LanceOfDestiny.domain.physics.Vector;
+import org.LanceOfDestiny.domain.physics.*;
 import org.LanceOfDestiny.ui.BallSprite;
 
 import javax.swing.*;
@@ -24,8 +21,9 @@ public class FireBall extends GameObject {
         super();
         this.position = position;
         this.currentSpeed = defaultSpeed;
-        this.collider = new BallCollider(new Vector(0, 0), ColliderType.DYNAMIC, radius, this);
-        this.bs = new BallSprite(40,40,40, Color.red);
+        this.collider = ColliderFactory.createBallCollider(this,new Vector(5,-10),ColliderType.DYNAMIC,radius);
+       // this.collider = new BallCollider(new Vector(5, 0), ColliderType.DYNAMIC, radius, this);
+        this.bs = new BallSprite(this,Constants.FIREBALL_RADIUS, Color.red);
     }
 
     @Override
@@ -40,8 +38,8 @@ public class FireBall extends GameObject {
 
     @Override
     public void Update() {
-        System.out.println("Fireball Updated");
-        bs.x+=5;
+        setPosition(getPosition().add(collider.getVelocity()));
+
     }
 
     public void enableOverwhelming() {

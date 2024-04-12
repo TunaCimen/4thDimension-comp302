@@ -49,4 +49,8 @@ public class Vector {
     public Vector scale(float ratio) {
         return new Vector(getX() * ratio, getY() * ratio);
     }
+
+    public float dotProduct(Vector v){
+        return getX() * v.getX() + getY()* v.getY();
+    }
 }
