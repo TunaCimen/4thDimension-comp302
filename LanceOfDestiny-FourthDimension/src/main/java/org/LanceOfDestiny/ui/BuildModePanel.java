@@ -49,4 +49,8 @@ public class BuildModePanel extends JPanel {
             default: return Color.BLACK; //
         }
     }
+
+    private void setUIComponents() {
+
+    }
 }
