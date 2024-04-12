@@ -2,6 +2,7 @@ package org.LanceOfDestiny.domain.abilities;
 
 import org.LanceOfDestiny.domain.barriers.*;
 import org.LanceOfDestiny.domain.managers.ManagerHub;
+import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,12 +23,12 @@ public class RewardBoxFactory {
         return instance;
     }
 
-    public RewardBox generateRandomRewardBox(int x, int y) {
-        return createRewardBox(x, y, getRandomSpellType());
+    public RewardBox generateRandomRewardBox(Vector position) {
+        return createRewardBox(position, getRandomSpellType());
     }
 
-    public RewardBox createRewardBox(int x, int y, SpellType spellType) {
-        var rewardBox = new RewardBox(x, y, spellType);
+    public RewardBox createRewardBox(Vector position, SpellType spellType) {
+        var rewardBox = new RewardBox(position, spellType);
         rewardBoxes.add(rewardBox);
         return rewardBox;
     }

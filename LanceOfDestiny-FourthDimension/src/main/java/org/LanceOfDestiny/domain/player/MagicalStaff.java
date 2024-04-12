@@ -10,11 +10,12 @@ import java.awt.*;
 
 public class MagicalStaff extends GameObject {
 
+    private FireBall fireBall;
     private int width = Constants.STAFF_WIDTH;
     private final int height = Constants.STAFF_HEIGHT;
+    private Vector position;
 
-    private double x;
-    private double y;
+
 
     private boolean isCanonActivated = false;
     private boolean isExpanded = false;
@@ -47,5 +48,9 @@ public class MagicalStaff extends GameObject {
 
     public void disableCanons() {
         // TODO
+    }
+
+    public void setFireBall(FireBall fireBall) {
+        this.fireBall = fireBall;
     }
 }

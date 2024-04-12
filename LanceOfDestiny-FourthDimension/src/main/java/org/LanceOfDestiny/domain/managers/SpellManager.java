@@ -13,14 +13,12 @@ public class SpellManager {
     }
 
     public Spell createSpell(SpellType spellType) {
-        Spell spell = switch (spellType) {
+        return switch (spellType) {
             case CHANCE -> new ChanceSpell();
             case EXPANSION -> new ExpansionSpell(magicalStaff);
             case OVERWHELMING -> new OverwhelmingFireBallSpell(fireBall);
             case CANON -> new CanonSpell(magicalStaff);
         };
-        return spell;
     }
-
 
 }
