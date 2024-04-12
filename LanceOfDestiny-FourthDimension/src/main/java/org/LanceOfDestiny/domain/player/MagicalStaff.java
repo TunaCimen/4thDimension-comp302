@@ -3,7 +3,7 @@ package org.LanceOfDestiny.domain.player;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
-import org.LanceOfDestiny.domain.physics.Vector;
+import org.LanceOfDestiny.domain.physics.*;
 import org.LanceOfDestiny.ui.RectangleSprite;
 import org.LanceOfDestiny.ui.Sprite;
 
@@ -17,13 +17,17 @@ public class MagicalStaff extends GameObject {
     private boolean isCanonActivated = false;
     private boolean isExpanded = false;
 
+    private RectangleCollider collider;
     RectangleSprite rectangleSprite;
 
     public MagicalStaff(Vector position) {
         super();
         Events.MoveStaff.addListener(this::moveRight);
         this.position = position;
-        this.rectangleSprite = new RectangleSprite(this, Color.DARK_GRAY,Constants.STAFF_WIDTH,Constants.STAFF_HEIGHT);
+
+        this.rectangleSprite = new RectangleSprite(this, Color.orange,Constants.STAFF_WIDTH,Constants.STAFF_HEIGHT);
+        this.collider = ColliderFactory.createRectangleCollider(this, new Vector(0,0), ColliderType.STATIC, Constants.STAFF_WIDTH, Constants.STAFF_HEIGHT);
+
     }
 
     @Override

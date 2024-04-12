@@ -163,17 +163,33 @@ public class PhysicsManager {
         RectangleCollider rectangle = collider1 instanceof RectangleCollider ? (RectangleCollider) collider1 : (RectangleCollider) collider2;
         BallCollider ball = collider1 instanceof BallCollider ? (BallCollider) collider1 : (BallCollider) collider2;
 
-        if (testRectangleToCircle(rectangle.getWidth(), rectangle.getHeight(), rectangle.getRotation(),
-                rectangle.getPosition().getX(), rectangle.getPosition().getY(),
-                ball.getPosition().getX(), ball.getPosition().getY(), ball.getRadius())) {
-            // Assuming a simplistic approach for the normal calculation - this should be refined for accurate physics responses
-            float dx = rectangle.getPosition().getX() - ball.getPosition().getX();
-            float dy = rectangle.getPosition().getY() - ball.getPosition().getY();
-            float magnitude = (float) Math.sqrt(dx * dx + dy * dy);
-            return new Vector(dx / magnitude, dy / magnitude);
+        // Determine the closest point on the rectangle to the center of the circle
+        // Since the rectangle is represented by the top-left corner:
+        float rectLeft = rectangle.getPosition().getX();
+        float rectTop = rectangle.getPosition().getY();
+        float rectRight = rectLeft + rectangle.getWidth();
+        float rectBottom = rectTop + rectangle.getHeight();
+
+        // Using clamping to find the closest x and y on the rectangle to the circle's center
+        float closestX = Math.max(rectLeft, Math.min(ball.getPosition().getX(), rectRight));
+        float closestY = Math.max(rectTop, Math.min(ball.getPosition().getY(), rectBottom));
+
+        // Calculate the distance from the closest point to the circle's center
+        float distanceX = ball.getPosition().getX() - closestX;
+        float distanceY = ball.getPosition().getY() - closestY;
+
+        // Check if the distance is less than the radius, indicating a collision
+        double sqrt = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+        if (sqrt < ball.getRadius()) {
+            // Normalize the vector from the closest point to the center of the circle to get the normal
+            float magnitude = ((float) sqrt);
+            return new Vector(distanceX / magnitude, distanceY / magnitude);
         }
-        return null;
+
+        return null; // No collision
     }
+
+
 
     // Rectangle to Point Collision Check
     private boolean testRectangleToPoint(double rectWidth, double rectHeight, double rectRotation, double rectCenterX, double rectCenterY, double pointX, double pointY) {
