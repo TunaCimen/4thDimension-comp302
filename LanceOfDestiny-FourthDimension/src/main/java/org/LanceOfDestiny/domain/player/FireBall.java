@@ -35,14 +35,14 @@ public class FireBall extends GameObject {
         this.position = position;
         this.currentSpeed = defaultSpeed;
         this.collider = ColliderFactory.createBallCollider(this,velocity, ColliderType.DYNAMIC, radius);
-        this.bs = new BallSprite(this,Constants.FIREBALL_RADIUS, Color.red);
+        this.bs = new BallSprite(this, Color.black,Constants.FIREBALL_RADIUS);
     }
     public FireBall(Vector position, ColliderType colliderType) {
         super();
         this.position = position;
         this.currentSpeed = defaultSpeed;
         this.collider = ColliderFactory.createBallCollider(this,new Vector(0,0),colliderType, radius);
-        this.bs = new BallSprite(this,Constants.FIREBALL_RADIUS, Color.red);
+        this.bs = new BallSprite(this, Color.cyan,Constants.FIREBALL_RADIUS);
     }
 
 

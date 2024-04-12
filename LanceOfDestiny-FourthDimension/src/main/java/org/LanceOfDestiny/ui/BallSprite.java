@@ -25,9 +25,9 @@ public class BallSprite extends Sprite {
 
     @Override
     public void drawShape(Graphics g) {
-        g.fillOval((int) attachedGameObject.getPosition().getX(),
-        (int) attachedGameObject.getPosition().getY(),
-        radius,radius);
+        g.fillOval((int) attachedGameObject.getPosition().getX() - radius,
+        (int) attachedGameObject.getPosition().getY() - radius,
+        2* radius,2*radius);
     }
 
 
