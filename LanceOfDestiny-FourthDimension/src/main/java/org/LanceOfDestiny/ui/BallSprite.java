@@ -19,7 +19,7 @@ public class BallSprite extends JPanel {
         ballList.add(this);
         this.attachedObject = attachedObject;
         this.radius = radius;
-        this.color  =color;
+        this.color  = color;
     }
 
 
@@ -30,7 +30,7 @@ public class BallSprite extends JPanel {
         //super.paintComponent(g);
         for(BallSprite bs : ballList){
             g.setColor(bs.color);
-            g.fillOval((int) bs.attachedObject.getPosition().getX(), (int) bs.attachedObject.getPosition().getY(),bs.radius,bs.radius);
+            g.fillOval((int) bs.attachedObject.getPosition().getX() - bs.radius, (int) bs.attachedObject.getPosition().getY() - bs.radius, 2*bs.radius,2*bs.radius);
         }
         //g.setColor(color);
         //g.fillOval((int) attachedObject.getPosition().getX(), (int) attachedObject.getPosition().getY(),radius,radius);
