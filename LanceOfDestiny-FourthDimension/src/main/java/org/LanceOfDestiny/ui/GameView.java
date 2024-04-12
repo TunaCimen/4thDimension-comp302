@@ -112,8 +112,12 @@ public class GameView {
         // Map to store barrier types and their corresponding spinners
         Map<String, JSpinner> barrierFields = new HashMap<>();
         String[] barrierTypes = {"Simple", "Reinforced", "Explosive", "Rewarding"};
-        int[] minimumCounts = {75, 10, 5, 10}; // Minimum counts for each type
-        int maximumTotal = 120; // Maximum count for all barriers combined
+
+        // Minimum counts for each type of barrier
+        int[] minimumCounts = {75, 10, 5, 10};
+
+        // Maximum count for all barriers combined
+        int maximumTotal = 120;
 
         for (int i = 0; i < barrierTypes.length; i++) {
             barrierDialog.add(new JLabel(barrierTypes[i] + " Barriers:"));
@@ -194,7 +198,10 @@ public class GameView {
         // Implement the logic for casting an expansion spell here
     }
     public void buildMap(int simpleBarrierCount, int reinforcedBarrierCount, int explosiveBarrierCount, int rewardingBarrierCount) {
-        //this is where we gonna create a map from the barrier numbers with the help of the BuildModeController
+        BuildModeController.getInstance().initializeMap();
+        BuildModeController.getInstance().cons
+
+
 
     }
 
