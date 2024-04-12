@@ -17,12 +17,9 @@ public class PhysicsTestView extends JFrame implements Window {
 
     FireBall fb;
     FireBall fb2;
-
     FireBall fb3;
-
     FireBall fb4;
-
-
+    MagicalStaff magicalStaff;
 
     LoopExecutor loopExecutor = new LoopExecutor();
     public PhysicsTestView() {
@@ -32,6 +29,7 @@ public class PhysicsTestView extends JFrame implements Window {
         fb4 = new FireBall(new Vector(250+Constants.FIREBALL_RADIUS,190+Constants.FIREBALL_RADIUS),ColliderType.STATIC);
         //fb3 = new FireBall(new Vector(3,500));
         //fb3 = new FireBall(new Vector(Constants.SCREEN_WIDTH-3*Constants.FIREBALL_RADIUS,Constants.SCREEN_HEIGHT-4*Constants.FIREBALL_RADIUS), new Vector(3,2));
+        magicalStaff = new MagicalStaff(new Vector(100,100));
         GameLooper gameLooper = new GameLooper();
         loopExecutor.setLooper(gameLooper);
     }
@@ -44,6 +42,7 @@ public class PhysicsTestView extends JFrame implements Window {
         add(fb3.sprite());
         add(fb4.sprite());
         add(fb2.sprite());
+        add(magicalStaff.sprite());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(new Dimension(Constants.SCREEN_WIDTH,Constants.SCREEN_HEIGHT));
         setDefaultLookAndFeelDecorated(true);

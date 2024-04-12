@@ -1,38 +1,43 @@
 package org.LanceOfDestiny.ui;
 
+import org.LanceOfDestiny.domain.Behaviour;
 import org.LanceOfDestiny.domain.GameObject;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BallSprite extends JPanel {
+public class BallSprite extends Sprite {
 
     int radius;
 
     static List<BallSprite> ballList = new ArrayList<>();
-    GameObject attachedObject;
-    public Color color;
 
-    public BallSprite(GameObject attachedObject, int radius, Color color){
+
+    public BallSprite(GameObject attachedObject,Color color, int radius ){
+        super(attachedObject,color);
         ballList.add(this);
-        this.attachedObject = attachedObject;
         this.radius = radius;
         this.color  = color;
     }
 
 
 
-
     @Override
-    public void paintComponent(Graphics g) {
-        //super.paintComponent(g);
-        for(BallSprite bs : ballList){
-            g.setColor(bs.color);
-            g.fillOval((int) bs.attachedObject.getPosition().getX() - bs.radius, (int) bs.attachedObject.getPosition().getY() - bs.radius, 2*bs.radius,2*bs.radius);
-        }
-        //g.setColor(color);
-        //g.fillOval((int) attachedObject.getPosition().getX(), (int) attachedObject.getPosition().getY(),radius,radius);
+    public void drawShape(Graphics g) {
+        g.fillOval((int) attachedGameObject.getPosition().getX(),
+        (int) attachedGameObject.getPosition().getY(),
+        radius,radius);
     }
+
+
+    //super.paintComponent(g);
+
+                //g.setColor(bs.color);
+                //g.fillOval((int) bs.attachedGameObject.getPosition().getX(),
+                        //(int) bs.attachedGameObject.getPosition().getY(),
+                        //bs.radius,bs.radius);
+
+
+
 }
