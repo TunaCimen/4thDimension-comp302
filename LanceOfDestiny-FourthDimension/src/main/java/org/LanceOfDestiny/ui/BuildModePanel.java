@@ -1,6 +1,8 @@
 package org.LanceOfDestiny.ui;
 
 import org.LanceOfDestiny.domain.barriers.Barrier;
+import org.LanceOfDestiny.domain.barriers.BarrierTypes;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -38,7 +40,7 @@ public class BuildModePanel extends JPanel {
         }
     }
 
-    private Color getColorForBarrierType(Barrier.BarrierTypes type) {
+    private Color getColorForBarrierType(BarrierTypes type) {
         switch (type) { // random colored boxes for demo purposes
             case SIMPLE: return Color.GRAY;
             case REINFORCED: return Color.CYAN;
