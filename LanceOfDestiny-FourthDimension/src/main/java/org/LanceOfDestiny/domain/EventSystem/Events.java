@@ -17,7 +17,8 @@ public enum Events {
     LogEvent(String.class),
     LogIntegerEvent(Integer.class),
     CollisionEvent(Collision.class),
-    MoveStaff(Integer.class); //Right Now I dont care about it's
+    MoveStaff(Integer.class),//Right Now I dont care Integer or Not I might create different.
+    RotateStaff(Double.class);
 
 
     private List<Consumer<Object>> listeners = new ArrayList<>(); //List that listeners subscribe to.
