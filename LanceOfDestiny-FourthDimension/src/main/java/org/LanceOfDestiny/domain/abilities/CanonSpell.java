@@ -1,14 +1,15 @@
 package org.LanceOfDestiny.domain.abilities;
 
+import org.LanceOfDestiny.domain.managers.ManagerHub;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
 
 public class CanonSpell extends Spell{
 
     MagicalStaff magicalStaff;
-    public CanonSpell(MagicalStaff magicalStaff) {
+    public CanonSpell() {
         super();
         setSpellType(SpellType.CANON);
-        this.magicalStaff = magicalStaff;
+        this.magicalStaff = ManagerHub.getInstance().getMagicalStaff();
     }
 
     @Override

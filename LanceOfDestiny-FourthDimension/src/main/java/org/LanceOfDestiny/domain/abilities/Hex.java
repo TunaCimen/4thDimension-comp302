@@ -2,13 +2,13 @@ package org.LanceOfDestiny.domain.abilities;
 
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.util.ArrayList;
 
 public class Hex extends GameObject {
 
-    protected int x;
-    protected int y;
+    protected Vector position;
 
     public static final int HEX_WIDTH = Constants.HEX_LENGTH;
     public static final int HEX_HEIGHT = Constants.HEX_LENGTH;
@@ -16,18 +16,16 @@ public class Hex extends GameObject {
 
     public static ArrayList<Hex> hexes = new ArrayList<>();
 
-    public Hex(int x, int y) {
+    public Hex(Vector position) {
         super();
-        this.x = x;
-        this.y = y;
+        this.position = position;
         addHex(this);
-
-
     }
 
     public static ArrayList<Hex> getHexes() {
         return hexes;
     }
+
     public static void setHexes(ArrayList<Hex> hexes) {
         Hex.hexes = hexes;
     }

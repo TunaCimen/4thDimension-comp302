@@ -2,38 +2,42 @@ package org.LanceOfDestiny.domain.abilities;
 
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.managers.ManagerHub;
+import org.LanceOfDestiny.domain.physics.Vector;
+import org.LanceOfDestiny.domain.player.MagicalStaff;
 
 public class Canon extends GameObject {
 
-    protected int x;
-    protected int y;
+    private Vector position;
+    private MagicalStaff magicalStaff;
 
     public static final int CANON_HEIGHT = Constants.CANON_HEIGHT;
     public static final int CANON_WIDTH = Constants.CANON_WIDTH;
 
     public boolean isActive;
 
-    public Canon(int x, int y) {
+    public Canon(Vector position) {
         super();
-        this.x = x;
-        this.y = y;
+        this.position = position;
         isActive = false;
+        magicalStaff = ManagerHub.getInstance().getMagicalStaff();
     }
 
     @Override
     public void Update() {
         if(!isActive)
             return;
-        // TODO
+        setPosition(magicalStaff.getPosition());
     }
 
     public Hex createHex(){
-        return new Hex(x,y);
+        return new Hex(position);
     }
 
     public void activateCanon(){
         isActive = true;
     }
+
     public void deactivateCanon(){
         isActive = false;
     }

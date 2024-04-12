@@ -20,9 +20,8 @@ public class Player extends GameObject {
     private int chancesLeft;
 
 
-    public Player(MagicalStaff magicalStaff) {
+    public Player() {
         super();
-        this.magicalStaff = magicalStaff;
         this.spellContainer = new SpellContainer();
         this.chancesLeft = DEFAULT_CHANCES;
 
@@ -30,7 +29,6 @@ public class Player extends GameObject {
 
     @Override
     public void Start() {
-
         super.Start();
     }
 
@@ -50,5 +48,9 @@ public class Player extends GameObject {
     private void setChances(int chance) {
         this.chancesLeft = chance;
         this.chancesLeft = Math.max(this.chancesLeft, MIN_CHANCES);
+    }
+
+    public void setMagicalStaff(MagicalStaff magicalStaff){
+        this.magicalStaff = magicalStaff;
     }
 }

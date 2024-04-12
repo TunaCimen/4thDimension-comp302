@@ -33,7 +33,6 @@ public class Sprite extends JPanel {
                 g.setColor(bs.color);
                 bs.drawShape(g);
             }
-
         }
     }
 
