@@ -18,6 +18,7 @@ public class BallSprite extends Sprite {
         super(attachedObject,color);
         ballList.add(this);
         this.radius = radius;
+        this.color  = color;
     }
 
 

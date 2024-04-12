@@ -22,10 +22,29 @@ public class FireBall extends GameObject {
         super();
         this.position = position;
         this.currentSpeed = defaultSpeed;
-        this.collider = ColliderFactory.createBallCollider(this,new Vector(5,-10),ColliderType.DYNAMIC,radius);
+
+        this.collider = ColliderFactory.createBallCollider(this,new Vector(0,0), ColliderType.DYNAMIC, radius);
+        //this.bs = new BallSprite(this,Constants.FIREBALL_RADIUS, Color.red);
+        //this.collider = ColliderFactory.createBallCollider(this,new Vector(5,-10),ColliderType.DYNAMIC,radius);
        // this.collider = new BallCollider(new Vector(5, 0), ColliderType.DYNAMIC, radius, this);
         this.bs = new BallSprite(this, Color.red,Constants.FIREBALL_RADIUS);
     }
+
+    public FireBall(Vector position, Vector velocity) {
+        super();
+        this.position = position;
+        this.currentSpeed = defaultSpeed;
+        this.collider = ColliderFactory.createBallCollider(this,velocity, ColliderType.DYNAMIC, radius);
+        this.bs = new BallSprite(this,Constants.FIREBALL_RADIUS, Color.red);
+    }
+    public FireBall(Vector position, ColliderType colliderType) {
+        super();
+        this.position = position;
+        this.currentSpeed = defaultSpeed;
+        this.collider = ColliderFactory.createBallCollider(this,new Vector(0,0),colliderType, radius);
+        this.bs = new BallSprite(this,Constants.FIREBALL_RADIUS, Color.red);
+    }
+
 
     @Override
     public Sprite sprite() {
@@ -40,7 +59,6 @@ public class FireBall extends GameObject {
     @Override
     public void Update() {
         setPosition(getPosition().add(collider.getVelocity()));
-
     }
 
     public void enableOverwhelming() {
