@@ -6,6 +6,14 @@ public class Constants {
     public static final int SCREEN_WIDTH = 750; //can be changed later
     public static final int SCREEN_HEIGHT = 600; //can be changed later
     public static final int L = SCREEN_WIDTH / 10;
+
+    public static final float UPDATE_RATE = 0.016f;
+
+    public static final float STAFF_SPEED = L*UPDATE_RATE*2;
+
+
+    public static final double STAFF_ANGULAR_SPEED = UPDATE_RATE*50*Math.PI/180; //20 is sooo sloow :(
+
     public static final int T = 20; // as in 20 px
     public static final int FIREBALL_RADIUS = 10; // as in 8 pixels
     public static final int STAFF_HEIGHT = T;

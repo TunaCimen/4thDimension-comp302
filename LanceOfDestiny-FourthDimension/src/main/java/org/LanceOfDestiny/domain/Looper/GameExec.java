@@ -1,6 +1,7 @@
 package org.LanceOfDestiny.domain.Looper;
 
 import org.LanceOfDestiny.domain.Behaviour;
+import org.LanceOfDestiny.domain.managers.InputManager;
 import org.LanceOfDestiny.domain.physics.PhysicsManager;
 
 import javax.swing.*;
@@ -24,6 +25,7 @@ public class GameExec extends Behaviour {
     @Override
     public void Update() {
         PhysicsManager.getInstance().handleCollisionEvents(PhysicsManager.getInstance().checkCollisions());
+        InputManager.getInstance().updateActions();
         for(Behaviour b : behaviourList){
             b.Update();
             b.gameObject.sprite().repaint();

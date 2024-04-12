@@ -18,7 +18,8 @@ public enum Events {
     LogIntegerEvent(Integer.class),
     CollisionEvent(Collision.class),
     MoveStaff(Integer.class),//Right Now I dont care Integer or Not I might create different.
-    RotateStaff(Double.class);
+    RotateStaff(Double.class),
+    ResetStaff(Object.class);
 
 
     private List<Consumer<Object>> listeners = new ArrayList<>(); //List that listeners subscribe to.
@@ -37,9 +38,20 @@ public enum Events {
                     consumer.accept(l);
                 }
                 catch(Exception e){
-                    System.out.println("Wrong Argument to Invoke for:" + this.name());
+                    System.out.println("Wrong Argument to Invoke for:" + this.name() + "\n" + "Check your casting for listeners.Note:Tunic");
                 }
             }
+    }
+
+    public void invoke(){
+        for(Consumer<Object> consumer : listeners){
+            try{
+                consumer.accept(new Object());
+            }
+            catch(Exception e){
+                System.out.println("Wrong Argument to Invoke for:" + this.name() + "\n" + "Check your casting for listeners.Note:Tunic");
+            }
+        }
     }
     public void addListener(Consumer<Object> subscriber){
         listeners.add(subscriber);

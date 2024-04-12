@@ -1,12 +1,13 @@
 package org.LanceOfDestiny.domain.Looper;
 
 import org.LanceOfDestiny.domain.Behaviour;
+import org.LanceOfDestiny.domain.Constants;
 
 import javax.swing.*;
 
 public abstract class Looper {
 
-    protected double updateRate = 0.016;
+
     protected boolean active = false;
 
     protected abstract void routine() throws LoopEndedException;
@@ -42,7 +43,7 @@ public abstract class Looper {
     public void execute(Behaviour action) throws LoopEndedException {
             action.Awake();
 
-            Timer timer = new Timer((int) (1000*updateRate), e->{
+            Timer timer = new Timer((int) (1000* Constants.UPDATE_RATE), e->{
                 action.Update();
             });
             timer.start();
