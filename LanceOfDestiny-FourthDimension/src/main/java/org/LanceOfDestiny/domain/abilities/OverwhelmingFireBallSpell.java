@@ -1,15 +1,15 @@
 package org.LanceOfDestiny.domain.abilities;
 
+import org.LanceOfDestiny.domain.managers.ManagerHub;
 import org.LanceOfDestiny.domain.player.FireBall;
 
 public class OverwhelmingFireBallSpell extends Spell{
-
     FireBall fireBall;
 
-    public OverwhelmingFireBallSpell(FireBall fireBall) {
+    public OverwhelmingFireBallSpell() {
         super();
         setSpellType(SpellType.OVERWHELMING);
-        this.fireBall = fireBall;
+        this.fireBall = ManagerHub.getInstance().getFireBall();
     }
 
     @Override

@@ -31,15 +31,10 @@ public class PhysicsManager {
     }
 
     public List<Collision> checkCollisions() {
-
-
         List<Collision> detectedCollisions = new ArrayList<>();
-
         //Boundaries of the Map.
         for (Collider collider : colliders) {
             if(collider instanceof BallCollider ballCollider){
-
-
                 if (collider.getPosition().getX() + ballCollider.getRadius() >= Constants.SCREEN_WIDTH) {
                     //System.out.println(collider.getPosition().getX() + " ---"  + collider.getPosition().getY() + " --r-- " + ballCollider.getRadius());
                     Vector normal = new Vector(-1, 0); // Pointing left
@@ -47,7 +42,7 @@ public class PhysicsManager {
                     //collider.setPosition(new Vector(Constants.SCREEN_WIDTH - ballCollider.getRadius(), collider.getPosition().getY()));
                 }
 
-// Left boundary collision
+                    // Left boundary collision
                 if (collider.getPosition().getX() - ballCollider.getRadius() <= 0) {
                     //System.out.println(collider.getPosition().getX() + " ---"  + collider.getPosition().getY() + " --r-- " + ballCollider.getRadius());
                     Vector normal = new Vector(1, 0); // Pointing right
@@ -55,17 +50,19 @@ public class PhysicsManager {
                     //collider.setPosition(new Vector(ballCollider.getRadius(), collider.getPosition().getY()));
                 }
 
-// Bottom boundary collision
-                if (collider.getPosition().getY() + ballCollider.getRadius() >= Constants.SCREEN_HEIGHT) {
-                    //System.out.println(collider.getPosition().getX() + " ---"  + collider.getPosition().getY());
+                // Bottom boundary collision
+                // TODO: Why do we need 2* bruh idk but we need to
+                if (collider.getPosition().getY() + 2*ballCollider.getRadius() >= Constants.SCREEN_HEIGHT) {
+                    System.out.println("Bottom " + collider.getPosition().getX() + " ---"  + collider.getPosition().getY());
                     Vector normal = new Vector(0, -1); // Pointing up
                     detectedCollisions.add(new Collision(collider, null, normal));
                     //collider.setPosition(new Vector(collider.getPosition().getX(), Constants.SCREEN_HEIGHT - ballCollider.getRadius()));
                 }
 
-// Top boundary collision
+
+                // Top boundary collision
                 if (collider.getPosition().getY() - ballCollider.getRadius() <= 0) {
-                    //System.out.println(collider.getPosition().getX() + " ---"  + collider.getPosition().getY() );
+                    System.out.println("Top " + collider.getPosition().getX() + " ---"  + collider.getPosition().getY() );
                     Vector normal = new Vector(0, 1); // Pointing down
                     detectedCollisions.add(new Collision(collider, null, normal));
                     //collider.setPosition(new Vector(collider.getPosition().getX(), ballCollider.getRadius()));
@@ -76,19 +73,17 @@ public class PhysicsManager {
         }
 
 
-        for (Collider collider1 : colliders) {
-            //TODO:DUPLİCATE COLLİSİON CHECK
-            for (Collider collider2 : colliders) {
-                if (collider1 == collider2) {
-                    continue; // Skip checking collider with itself
-                }
-
+        for (int i = 0; i < colliders.size(); i++) {
+            for (int j = i + 1; j < colliders.size(); j++) {
+                Collider collider1 = colliders.get(i);
+                Collider collider2 = colliders.get(j);
                 if (isBallBallCollision(collider1, collider2)) {
                     Vector normal = getBallBallCollisionNormal((BallCollider) collider1, (BallCollider) collider2);
                     if (normal == null) { //There is no collision it means.
                         continue;
                     }
-                        detectedCollisions.add(new Collision(collider1, collider2, normal));
+                    // System.out.println("BALL BALL COLLISINNNNNNNNNNN");
+                    detectedCollisions.add(new Collision(collider1, collider2, normal));
                 } else if (isBallRectCollision(collider1, collider2)) {
                     Vector normal = checkRectangleToCircleCollision(collider1, collider2);
                     if (normal == null) {
@@ -102,28 +97,43 @@ public class PhysicsManager {
     }
 
     public void handleCollisionEvents(List<Collision> collisions) {
-        System.out.println(collisions.size());
-
         for (Collision collision : collisions) {
-
             handleBounce(collision);
             Events.CollisionEvent.invoke(collision); // Trigger the event
         }
     }
 
     private void handleBounce(Collision collision) {
-
         //Screen Boundary
         if(collision.getCollider2() == null){
-
-            Vector incoming = collision.getCollider1().getVelocity();
-            Vector normal = collision.getNormal();
-            Vector reflection = incoming.subtract(normal.scale(2).scale(incoming.dotProduct(normal)));
-
+            Vector reflection = computeReflection(collision, true);
             collision.getCollider1().setVelocity(reflection);
-            System.out.println("Velocity of collider1 = " + collision.getCollider1().getVelocity().getY());
+            // System.out.println("Velocity of collider1 = " + collision.getCollider1().getVelocity().getY());
+        } else {
+            Vector reflection1 = computeReflection(collision, true);
+            Vector reflection2 = computeReflection(collision, false);
+            // If the objects are objects that are allowed to change their velocity based on collisions, do so
+            if (collision.getCollider1().getColliderType() == ColliderType.DYNAMIC) {
+                collision.getCollider1().setVelocity(reflection1);
+            }
+            if (collision.getCollider2().getColliderType() == ColliderType.DYNAMIC) {
+                collision.getCollider2().setVelocity(reflection2);
+            }
         }
 
+    }
+
+    private static Vector computeReflection(Collision collision, boolean isFirstCollider) {
+        Collider collider;
+        if (isFirstCollider) {
+            collider = collision.getCollider1();
+        } else {
+            collider = collision.getCollider2();
+        }
+        Vector incoming = collider.getVelocity();
+        Vector normal = collision.getNormal();
+        Vector reflection = incoming.subtract(normal.scale(2).scale(incoming.dotProduct(normal)));
+        return reflection;
     }
 
 
