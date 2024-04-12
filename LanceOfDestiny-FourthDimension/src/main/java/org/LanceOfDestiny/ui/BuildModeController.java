@@ -1,5 +1,8 @@
 package org.LanceOfDestiny.ui;
 
+import org.LanceOfDestiny.Coordinate;
+import org.LanceOfDestiny.LanceOfDestiny;
+import org.LanceOfDestiny.domain.GameMap;
 import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.barriers.BarrierFactory;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
@@ -32,36 +35,65 @@ public class BuildModeController {
 
     //Creates obstacles(from given input) and places them in a list where they will be stored and shuffled for randomization
     //todo: obstacleları ekleyebileceğimiz bir listeye ihtiyacımız var gameobjesinde olabilir
-    public void setObstacles(int simpNum, int firmNum, int expNum, int giftNum) {
+    public void addBarriers(int simpNum, int firmNum, int expNum, int giftNum) {
 
         int i;
         for (i = 0; i < simpNum; i++) {
             Barrier barrier = barrierFactory.createBarrier(new Vector(0,0), BarrierTypes.SIMPLE);
-            //add(obstacle)to_somewhere;
+            LanceOfDestiny.getInstance().getGameMap().getBarriers().add(barrier);
         }
         for (i = 0; i < firmNum; i++) {
             Barrier barrier = barrierFactory.createBarrier(new Vector(0,0), BarrierTypes.REINFORCED);
-            //add(obstacle)to_somewhere;
+            LanceOfDestiny.getInstance().getGameMap().getBarriers().add(barrier);
         }
         for (i = 0; i < expNum; i++) {
             Barrier barrier = barrierFactory.createBarrier(new Vector(0,0), BarrierTypes.EXPLOSIVE);
-            //add(obstacle)to_somewhere;
+            LanceOfDestiny.getInstance().getGameMap().getBarriers().add(barrier);
         }
         for (i = 0; i < giftNum; i++) {
             Barrier barrier = barrierFactory.createBarrier(new Vector(0,0), BarrierTypes.REWARDING);
-            //add(obstacle)to_somewhere;
+            LanceOfDestiny.getInstance().getGameMap().getBarriers().add(barrier);
         }
-
-//        Collections.shuffle(list-of-obstacles-where-they-are-stored);
+        // everyday i'm shuffling
+        // shuffling for randomization
+        Collections.shuffle(LanceOfDestiny.getInstance().getGameMap().getBarriers());
     }
 
-    // todo: barrier sayısı için upper limit belirlenmeli
-    public boolean checkObstacleCriteria(int simpNum, int firmNum, int expNum, int giftNum) {
-        return ((75 <= simpNum) && (100 >= simpNum)) &&
-                ((10 <= firmNum) && (20 >= firmNum)) &&
-                ((5 <= expNum) && (10 >= expNum)) &&
-                ((10 <= giftNum) && (20 >= giftNum));
+
+    public void initializeMap() {
+        LanceOfDestiny.getInstance().setGameMap(new GameMap());
     }
+
+    public void intializeBarrierCoordinates() {
+        barrierList = LanceOfDestiny.getInstance().getGameMap().getBarriers();
+        if (barrierList.isEmpty()) return;
+        Barrier barrierZero = barrierList.get(0);
+        barrierZero.setCoordinate(new Coordinate(60.0, 30.0));
+        double barrierAndGapWidth = 55.6; // 25.6 is the width of the barrier and 30 is the gap between barriers
+        int barrierAndGapPairs = 1;
+        double verticalGap = 0.0;
+        for(int i =1; i < barrierList.size(); i++) {
+            double widthCheck = barrierAndGapWidth * barrierAndGapPairs + 40;
+            Barrier nextBarrier = barrierList.get(i);
+            if (widthCheck + barrierAndGapWidth > 1280) {
+                barrierAndGapPairs = 1;
+                verticalGap += 40;
+                barrierAndGapWidth = 55.6;
+            }
+            else {
+                barrierAndGapPairs++;
+            }
+            nextBarrier.setCoordinate(new Coordinate(barrierAndGapWidth, 30.0 + verticalGap));
+        }
+    }
+
+    // todo: barrier sayısı için limitleri gameview'da belirledim bunu kullanmaya gerek kalmadı
+//    public boolean checkObstacleCriteria(int simpNum, int firmNum, int expNum, int giftNum) {
+//        return ((75 <= simpNum) && (100 >= simpNum)) &&
+//                ((10 <= firmNum) && (20 >= firmNum)) &&
+//                ((5 <= expNum) && (10 >= expNum)) &&
+//                ((10 <= giftNum) && (20 >= giftNum));
+//    }
 
     public Barrier getObstacleAt(int x, int y) {
         // Code for getting obstacle at given coordinates
@@ -72,7 +104,7 @@ public class BuildModeController {
         // Code for clearing all obstacles
     }
 
-//    public void createNewBarrier(int x, int y, String type, BarrierAnimator barrierAnimator) {
+//    public void createNewBarrierAt(int x, int y, String type, BarrierAnimator barrierAnimator) {
 //        // Code for creating a new obstacle at given coordinates
 //        Barrier barrier = new BarrierFactory().createBarrier(type);
 //        //add(obstacle)to_gameobject;

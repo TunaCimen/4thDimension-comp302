@@ -2,6 +2,7 @@ package org.LanceOfDestiny.domain;
 
 import org.LanceOfDestiny.domain.barriers.Barrier;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,10 +15,9 @@ public class GameMap {
 
     /**
      * Constructor for the GameMap class.
-     * @param barriers A list of barriers to be placed on the map.
      */
-    public GameMap(List<Barrier> barriers) {
-        this.barriers = barriers;
+    public GameMap() {
+        this.barriers = new ArrayList<>();
     }
 
     /**
@@ -26,5 +26,9 @@ public class GameMap {
      */
     public List<Barrier> getBarriers() {
         return barriers;
+    }
+
+    public void setBarriers(List<Barrier> barriers) {
+        this.barriers = barriers;
     }
 }

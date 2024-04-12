@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.domain.barriers;
 
+import org.LanceOfDestiny.Coordinate;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.GameObject;
 import org.LanceOfDestiny.domain.managers.ManagerHub;
@@ -14,6 +15,7 @@ public abstract class Barrier extends GameObject {
     private Collider collider;
     protected boolean isMoving;
     protected int hitsLeft;
+    private Coordinate coordinate;
 
     public BarrierTypes barrierType;
 
@@ -51,6 +53,10 @@ public abstract class Barrier extends GameObject {
     public void kill() {
         Destroy();
         // method call for adding score should be added after event system I think
+    }
+
+    public void setCoordinate(Coordinate coordinate) {
+        this.coordinate = coordinate;
     }
 
 
