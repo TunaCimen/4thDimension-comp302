@@ -5,6 +5,7 @@ import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
 import org.LanceOfDestiny.domain.physics.*;
 import org.LanceOfDestiny.ui.BallSprite;
+import org.LanceOfDestiny.ui.Sprite;
 
 import javax.swing.*;
 
@@ -23,11 +24,11 @@ public class FireBall extends GameObject {
         this.currentSpeed = defaultSpeed;
         this.collider = ColliderFactory.createBallCollider(this,new Vector(5,-10),ColliderType.DYNAMIC,radius);
        // this.collider = new BallCollider(new Vector(5, 0), ColliderType.DYNAMIC, radius, this);
-        this.bs = new BallSprite(this,Constants.FIREBALL_RADIUS, Color.red);
+        this.bs = new BallSprite(this, Color.red,Constants.FIREBALL_RADIUS);
     }
 
     @Override
-    public JPanel sprite() {
+    public Sprite sprite() {
         return bs;
     }
 
