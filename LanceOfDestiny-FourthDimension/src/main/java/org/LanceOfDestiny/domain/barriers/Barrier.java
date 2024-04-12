@@ -4,35 +4,30 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.GameObject;
 import org.LanceOfDestiny.domain.managers.ManagerHub;
 import org.LanceOfDestiny.domain.physics.Collider;
+import org.LanceOfDestiny.domain.physics.Vector;
 
 public abstract class Barrier extends GameObject {
 
     public static final int WIDTH = Constants.L / 5;
-    public static final int HEIGHT = Constants.T; //All barriers except explosive barriers are rectangles with dimensions L/5 and 20px.
-
+    public static final int HEIGHT = Constants.T; // All barriers except explosive barriers are rectangles with dimensions L/5 and 20px.
 
     private Collider collider;
     protected boolean isMoving;
     protected int hitsLeft;
 
-    public int x;
-    public int y;
-
     public BarrierTypes barrierType;
 
 
-    public Barrier(int x, int y, BarrierTypes type, int hitsRequired){
+    public Barrier(Vector position, BarrierTypes type, int hitsRequired){
         super();
-        this.x = x;
-        this.y = y;
+        this.position = position;
         this.barrierType = type;
         this.hitsLeft = hitsRequired;
     }
 
-    public Barrier(int x, int y, BarrierTypes type){
+    public Barrier(Vector position, BarrierTypes type){
         super();
-        this.x = x;
-        this.y = y;
+        this.position = position;
         this.barrierType = type;
         this.hitsLeft = 1;
     }

@@ -2,6 +2,7 @@ package org.LanceOfDestiny.domain.barriers;
 
 import org.LanceOfDestiny.domain.abilities.SpellType;
 import org.LanceOfDestiny.domain.managers.ManagerHub;
+import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.util.Random;
 
@@ -18,12 +19,12 @@ public class BarrierFactory {
         return instance;
     }
 
-    public Barrier createBarrier(int x, int y, BarrierTypes type) {
+    public Barrier createBarrier(Vector position, BarrierTypes type) {
         Barrier createdBarrier = switch (type) {
-            case SIMPLE -> new SimpleBarrier(x, y, type);
-            case REINFORCED -> new ReinforcedBarrier(x, y, type, calculateHitsRequired());
-            case EXPLOSIVE -> new ExplosiveBarrier(x, y, type);
-            case REWARDING -> new RewardingBarrier(x, y, type);
+            case SIMPLE -> new SimpleBarrier(position);
+            case REINFORCED -> new ReinforcedBarrier(position, calculateHitsRequired());
+            case EXPLOSIVE -> new ExplosiveBarrier(position);
+            case REWARDING -> new RewardingBarrier(position);
             default -> null;
         };
         if (createdBarrier == null) {

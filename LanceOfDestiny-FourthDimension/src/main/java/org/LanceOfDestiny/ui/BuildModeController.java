@@ -4,6 +4,7 @@ import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.barriers.BarrierFactory;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
 import org.LanceOfDestiny.domain.barriers.SimpleBarrier;
+import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,19 +37,19 @@ public class BuildModeController {
 
         int i;
         for (i = 0; i < simpNum; i++) {
-            Barrier barrier = barrierFactory.createBarrier(0, 0, BarrierTypes.SIMPLE);
+            Barrier barrier = barrierFactory.createBarrier(new Vector(0,0), BarrierTypes.SIMPLE);
             //add(obstacle)to_somewhere;
         }
         for (i = 0; i < firmNum; i++) {
-            Barrier barrier = barrierFactory.createBarrier(0, 0, BarrierTypes.REINFORCED);
+            Barrier barrier = barrierFactory.createBarrier(new Vector(0,0), BarrierTypes.REINFORCED);
             //add(obstacle)to_somewhere;
         }
         for (i = 0; i < expNum; i++) {
-            Barrier barrier = barrierFactory.createBarrier(0, 0, BarrierTypes.EXPLOSIVE);
+            Barrier barrier = barrierFactory.createBarrier(new Vector(0,0), BarrierTypes.EXPLOSIVE);
             //add(obstacle)to_somewhere;
         }
         for (i = 0; i < giftNum; i++) {
-            Barrier barrier = barrierFactory.createBarrier(0, 0, BarrierTypes.REWARDING);
+            Barrier barrier = barrierFactory.createBarrier(new Vector(0,0), BarrierTypes.REWARDING);
             //add(obstacle)to_somewhere;
         }
 

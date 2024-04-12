@@ -17,4 +17,5 @@ public class Constants {
     public static final int CANON_WIDTH = 10; // value should change, 10 is placeholder
     public static final Vector FIREBALL_POSITION = new Vector(0, 0); // initial position
     public static final Vector STAFF_POSITION = new Vector(0, 0);
+    public static final double EXPLOSIVE_RADIUS = 15;
 }
