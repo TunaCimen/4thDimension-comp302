@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.domain.physics;
 
+import org.LanceOfDestiny.domain.Behaviour;
 import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
 
