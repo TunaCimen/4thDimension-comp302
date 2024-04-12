@@ -10,7 +10,6 @@ public class ManagerHub {
     private FireBall fireBall;
 
     private  InputManager inputManager;
-    private  SpellManager spellManager;
     private  BarrierManager barrierManager;
     private  ScoreManager scoreManager;
     private SessionManager sessionManager;
@@ -21,7 +20,6 @@ public class ManagerHub {
             if (instance == null) {
                 instance = new ManagerHub();
                 instance.inputManager = new InputManager();
-                instance.spellManager = new SpellManager();
                 instance.barrierManager = new BarrierManager();
                 instance.scoreManager = new ScoreManager();
             }
@@ -37,14 +35,6 @@ public class ManagerHub {
 
     public InputManager getInputManager() {
         return inputManager;
-    }
-
-    public  SpellManager getSpellManager() {
-        if(spellManager.fireBall == null){
-            spellManager.fireBall = fireBall;
-            spellManager.magicalStaff = magicalStaff;
-        }
-        return spellManager;
     }
 
     public BarrierManager getBarrierManager() {

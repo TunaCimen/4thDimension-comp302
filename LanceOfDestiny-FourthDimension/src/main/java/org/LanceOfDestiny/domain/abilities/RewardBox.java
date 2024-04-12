@@ -18,9 +18,18 @@ public class RewardBox extends GameObject {
         this.isFalling = false;
     }
 
+    @Override
+    public void Update() {
+        super.Update();
+        if (isFalling) {
+            // TODO:
+        }
+    }
+
     public boolean isFalling() {
         return isFalling;
     }
+
     public void setFalling(boolean isFalling) {
         this.isFalling = isFalling;
     }
