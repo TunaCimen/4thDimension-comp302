@@ -2,7 +2,6 @@ package org.LanceOfDestiny.domain.Looper;
 
 public class LoopExecutor {
 
-
     private Looper mLoop;
     private Thread mThread = null;
 

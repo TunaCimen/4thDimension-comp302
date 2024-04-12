@@ -10,9 +10,6 @@ import java.util.List;
 
 public abstract class GameObject extends Behaviour{
 
-
-    
-
     protected Vector position;
 
     public Sprite sprite(){
