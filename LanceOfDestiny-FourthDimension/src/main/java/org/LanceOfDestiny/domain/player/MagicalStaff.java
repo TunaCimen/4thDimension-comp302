@@ -23,6 +23,7 @@ public class MagicalStaff extends GameObject {
     public MagicalStaff(Vector position) {
         super();
         Events.MoveStaff.addListener(this::moveRight);
+        Events.RotateStaff.addListener(this::rotate);
         this.position = position;
 
         this.rectangleSprite = new RectangleSprite(this, Color.orange,Constants.STAFF_WIDTH,Constants.STAFF_HEIGHT);
@@ -55,6 +56,10 @@ public class MagicalStaff extends GameObject {
     public void moveRight(Object integer) {
         int sign = ((Integer) integer) > 0 ? 1 : -1;
         setPosition(position.add(new Vector(sign * Constants.STAFF_WIDTH / 2.0f, 0)));
+    }
+
+    public void rotate(Object angle){
+        setAngle(getAngle() + (Double) angle);
     }
 
     public void setFireBall(FireBall fireBall) {

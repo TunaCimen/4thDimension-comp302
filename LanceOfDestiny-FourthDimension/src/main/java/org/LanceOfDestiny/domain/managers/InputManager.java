@@ -33,6 +33,8 @@ public class InputManager implements KeyListener {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_A -> Events.MoveStaff.invoke(-1);
             case KeyEvent.VK_D -> Events.MoveStaff.invoke(1);
+            case KeyEvent.VK_L -> Events.RotateStaff.invoke(0.2);
+            case KeyEvent.VK_K -> Events.RotateStaff.invoke(-0.2);
         }
 
         //Events.MoveStaff.invoke(1);

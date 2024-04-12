@@ -11,6 +11,7 @@ import java.util.List;
 public abstract class GameObject extends Behaviour{
 
     protected Vector position;
+    protected double angle;
 
     public Sprite sprite(){
         return new RectangleSprite(this, Color.white,15,35); // Default Sprite Given to everything.
@@ -26,6 +27,13 @@ public abstract class GameObject extends Behaviour{
   public Vector getPosition() {
 
         return position;
+    }
+
+    public double getAngle(){
+        return angle;
+    }
+    public void setAngle(double angle){
+        this.angle = angle;
     }
 
     public void setPosition(Vector position) {
