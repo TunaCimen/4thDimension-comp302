@@ -14,10 +14,6 @@ public class MagicalStaff extends GameObject {
     private FireBall fireBall;
     private int width = Constants.STAFF_WIDTH;
     private final int height = Constants.STAFF_HEIGHT;
-    private Vector position;
-
-
-
     private boolean isCanonActivated = false;
     private boolean isExpanded = false;
 
@@ -27,7 +23,7 @@ public class MagicalStaff extends GameObject {
         super();
         Events.MoveStaff.addListener(this::moveRight);
         this.position = position;
-        rectangleSprite = new RectangleSprite(this, Color.DARK_GRAY,Constants.STAFF_WIDTH,Constants.STAFF_HEIGHT);
+        this.rectangleSprite = new RectangleSprite(this, Color.DARK_GRAY,Constants.STAFF_WIDTH,Constants.STAFF_HEIGHT);
     }
 
     @Override

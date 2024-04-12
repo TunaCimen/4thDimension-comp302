@@ -19,12 +19,12 @@ public abstract class GameObject extends Behaviour{
 
 
     public GameObject() {
-        System.out.println("Game Object Init");
         gameObject = this;
         GameObject.gameObjects.add(this);
     }
 
   public Vector getPosition() {
+
         return position;
     }
 

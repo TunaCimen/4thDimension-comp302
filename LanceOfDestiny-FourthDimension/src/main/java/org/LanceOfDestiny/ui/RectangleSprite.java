@@ -22,11 +22,7 @@ public class RectangleSprite extends Sprite{
 
     @Override
     public void drawShape(Graphics g) {
-        g.fillRect((int) attachedGameObject.getPosition().getX(),(int) attachedGameObject.getPosition().getY(), width,height);
+        g.fillRect((int) attachedGameObject.getPosition().getX(), (int) attachedGameObject.getPosition().getY(), width,height);
     }
 
-    public void setAngle(double angle){
-        this.angle = angle;
-
-    }
 }

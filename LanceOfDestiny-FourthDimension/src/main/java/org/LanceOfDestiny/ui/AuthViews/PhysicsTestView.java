@@ -25,11 +25,11 @@ public class PhysicsTestView extends JFrame implements Window {
     LoopExecutor loopExecutor = new LoopExecutor();
     public PhysicsTestView() {
 
-        fb = new FireBall(new Vector(50,50));
-        fb2 = new FireBall(new Vector(50+Constants.FIREBALL_RADIUS,90+Constants.FIREBALL_RADIUS),ColliderType.STATIC);
-        fb3 = new FireBall(new Vector(120+Constants.FIREBALL_RADIUS,490+Constants.FIREBALL_RADIUS),ColliderType.STATIC);
-        fb4 = new FireBall(new Vector(250+Constants.FIREBALL_RADIUS,190+Constants.FIREBALL_RADIUS),ColliderType.STATIC);
-        magicalStaff = new MagicalStaff(new Vector(200,700));
+        //fb = new FireBall(new Vector(50,50));
+        //fb2 = new FireBall(new Vector(50+Constants.FIREBALL_RADIUS,90+Constants.FIREBALL_RADIUS),ColliderType.STATIC);
+        //fb3 = new FireBall(new Vector(120+Constants.FIREBALL_RADIUS,490+Constants.FIREBALL_RADIUS),ColliderType.STATIC);
+        //fb4 = new FireBall(new Vector(250+Constants.FIREBALL_RADIUS,190+Constants.FIREBALL_RADIUS),ColliderType.STATIC);
+        magicalStaff = new MagicalStaff(new Vector(375,500));
         GameLooper gameLooper = new GameLooper();
         loopExecutor.setLooper(gameLooper);
     }
@@ -39,10 +39,10 @@ public class PhysicsTestView extends JFrame implements Window {
     @Override
     public void createAndShowUI() {
         addKeyListener(InputManager.getInstance());
-        add(fb.sprite());
-        add(fb3.sprite());
-        add(fb4.sprite());
-        add(fb2.sprite());
+        //add(fb.sprite());
+        //add(fb3.sprite());
+        //add(fb4.sprite());
+        //add(fb2.sprite());
         add(magicalStaff.sprite());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(new Dimension(Constants.SCREEN_WIDTH,Constants.SCREEN_HEIGHT));
