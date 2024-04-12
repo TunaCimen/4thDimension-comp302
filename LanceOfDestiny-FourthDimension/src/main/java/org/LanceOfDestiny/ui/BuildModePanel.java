@@ -34,8 +34,8 @@ public class BuildModePanel extends JPanel {
         for (Barrier barrier : barriers) {
             Color color = getColorForBarrierType(barrier.barrierType);
             g.setColor(color);
-            g.fillRect(barrier.x * CELL_SIZE + SPACING ,
-                    barrier.y * CELL_SIZE + SPACING ,
+            g.fillRect((int) (barrier.getPosition().getX() * CELL_SIZE + SPACING),
+                    (int) (barrier.getPosition().getY() * CELL_SIZE + SPACING),
                     CELL_SIZE - 2*SPACING , CELL_SIZE - 2*SPACING);
         }
     }

@@ -5,7 +5,6 @@ import org.LanceOfDestiny.domain.GameObject;
 public class RectangleCollider extends Collider {
     private float width;
     private float height;
-    private float rotation;
     public RectangleCollider(GameObject gameObject, Vector velocity, ColliderType colliderType, float width, float height) {
         super(velocity, colliderType,gameObject);
         this.width = width;
@@ -30,11 +29,11 @@ public class RectangleCollider extends Collider {
         this.height = height;
     }
 
-    public float getRotation() {
-        return rotation;
+    public double getAngle() {
+        return gameObject.getAngle();
     }
 
-    public void setRotation(float rotation) {
-        this.rotation = rotation;
+    public void setAngle(double angle) {
+        gameObject.setAngle(angle);
     }
 }

@@ -8,7 +8,7 @@ public abstract class Collider {
 
     protected Vector velocity;
     protected ColliderType colliderType;
-    private final GameObject gameObject; // the gameObject that it is attached to
+    protected final GameObject gameObject; // the gameObject that it is attached to
 
     protected Collider(Vector velocity, ColliderType colliderType, GameObject gameObject) {
         this.velocity = velocity;
@@ -37,6 +37,7 @@ public abstract class Collider {
     public ColliderType getColliderType() {
         return colliderType;
     }
+
 
     public void setColliderType(ColliderType colliderType) {
         this.colliderType = colliderType;
