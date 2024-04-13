@@ -24,8 +24,8 @@ public class GameExec extends Behaviour {
     }
     @Override
     public void Update() {
-        PhysicsManager.getInstance().handleCollisionEvents(PhysicsManager.getInstance().checkCollisions());
         InputManager.getInstance().updateActions();
+        PhysicsManager.getInstance().handleCollisionEvents(PhysicsManager.getInstance().checkCollisions());
         for(Behaviour b : behaviourList){
             b.Update();
             b.gameObject.sprite().repaint();
