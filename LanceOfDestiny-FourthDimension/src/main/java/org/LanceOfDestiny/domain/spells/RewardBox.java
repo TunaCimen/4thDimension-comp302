@@ -1,4 +1,4 @@
-package org.LanceOfDestiny.domain.abilities;
+package org.LanceOfDestiny.domain.spells;
 
 import org.LanceOfDestiny.domain.GameObject;
 import org.LanceOfDestiny.domain.physics.Vector;
@@ -24,6 +24,7 @@ public class RewardBox extends GameObject {
         if (isFalling) {
             // TODO:
         }
+
     }
 
     public boolean isFalling() {

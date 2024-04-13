@@ -67,6 +67,10 @@ public class MagicalStaff extends GameObject {
         setAngle(newAngle);
     }
 
+    public void hitExplosiveBarrier(){
+        Events.UpdateChance.invoke(-1);
+    }
+
     public void resetStaff(){
         setAngle(0);
     }

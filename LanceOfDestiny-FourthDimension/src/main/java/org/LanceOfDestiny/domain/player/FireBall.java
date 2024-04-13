@@ -59,6 +59,11 @@ public class FireBall extends GameObject {
     @Override
     public void Update() {
         setPosition(getPosition().add(collider.getVelocity()));
+        if(getPosition().getY() >= Constants.SCREEN_HEIGHT) fireBallDropped();
+    }
+
+    public void fireBallDropped(){
+        Events.UpdateChance.invoke(-1);
     }
 
     public void enableOverwhelming() {

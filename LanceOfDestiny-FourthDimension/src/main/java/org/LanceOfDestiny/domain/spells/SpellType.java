@@ -1,4 +1,4 @@
-package org.LanceOfDestiny.domain.abilities;
+package org.LanceOfDestiny.domain.spells;
 
 public enum SpellType {
 

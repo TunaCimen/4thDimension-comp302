@@ -1,8 +1,8 @@
 package org.LanceOfDestiny.domain.barriers;
 
-import org.LanceOfDestiny.domain.abilities.RewardBox;
-import org.LanceOfDestiny.domain.abilities.RewardBoxFactory;
-import org.LanceOfDestiny.domain.abilities.SpellType;
+import org.LanceOfDestiny.domain.spells.RewardBox;
+import org.LanceOfDestiny.domain.spells.RewardBoxFactory;
+import org.LanceOfDestiny.domain.spells.SpellType;
 import org.LanceOfDestiny.domain.physics.Vector;
 
 public class RewardingBarrier extends Barrier{

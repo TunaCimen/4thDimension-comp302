@@ -42,11 +42,11 @@ public class InputManager implements KeyListener {
     }
 
     public void updateActions() {
-            if(moveKey==KeyEvent.VK_A)Events.MoveStaff.invoke(-1);
-            if(moveKey==KeyEvent.VK_D)Events.MoveStaff.invoke(1);
-            if(rotateKey==KeyEvent.VK_LEFT)Events.RotateStaff.invoke(-1d);
-            if(rotateKey==KeyEvent.VK_RIGHT)Events.RotateStaff.invoke(1d);
-            if(rotateKey==-1)Events.ResetStaff.invoke();
+        if(moveKey==KeyEvent.VK_A)Events.MoveStaff.invoke(-1);
+        if(moveKey==KeyEvent.VK_D)Events.MoveStaff.invoke(1);
+        if(rotateKey==KeyEvent.VK_LEFT)Events.RotateStaff.invoke(-1d);
+        if(rotateKey==KeyEvent.VK_RIGHT)Events.RotateStaff.invoke(1d);
+        if(rotateKey==-1)Events.ResetStaff.invoke();
 
     }
 

@@ -1,7 +1,5 @@
-package org.LanceOfDestiny.domain.abilities;
+package org.LanceOfDestiny.domain.spells;
 
-import org.LanceOfDestiny.domain.barriers.*;
-import org.LanceOfDestiny.domain.managers.ManagerHub;
 import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.util.ArrayList;
