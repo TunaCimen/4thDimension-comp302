@@ -35,7 +35,7 @@ public class PhysicsManager {
         //Boundaries of the Map.
         for (Collider collider : colliders) {
             if(collider instanceof BallCollider ballCollider){
-                if (collider.getPosition().getX() + ballCollider.getRadius() >= Constants.SCREEN_WIDTH) {
+                if (collider.getPosition(1).getX() + ballCollider.getRadius() >= Constants.SCREEN_WIDTH) {
                     //System.out.println(collider.getPosition().getX() + " ---"  + collider.getPosition().getY() + " --r-- " + ballCollider.getRadius());
                     Vector normal = new Vector(-1, 0); // Pointing left
                     detectedCollisions.add(new Collision(collider, null, normal));
@@ -43,7 +43,7 @@ public class PhysicsManager {
                 }
 
                     // Left boundary collision
-                if (collider.getPosition().getX() - ballCollider.getRadius() <= 0) {
+                if (collider.getPosition(1).getX() - ballCollider.getRadius() <= 0) {
                     //System.out.println(collider.getPosition().getX() + " ---"  + collider.getPosition().getY() + " --r-- " + ballCollider.getRadius());
                     Vector normal = new Vector(1, 0); // Pointing right
                     detectedCollisions.add(new Collision(collider, null, normal));
@@ -52,7 +52,7 @@ public class PhysicsManager {
 
                 // Bottom boundary collision
                 // TODO: Why do we need 2* bruh idk but we need to
-                if (collider.getPosition().getY() + 2*ballCollider.getRadius() >= Constants.SCREEN_HEIGHT) {
+                if (collider.getPosition(1).getY() + 2*ballCollider.getRadius() >= Constants.SCREEN_HEIGHT) {
                     System.out.println("Bottom " + collider.getPosition().getX() + " ---"  + collider.getPosition().getY());
                     Vector normal = new Vector(0, -1); // Pointing up
                     detectedCollisions.add(new Collision(collider, null, normal));
@@ -61,7 +61,7 @@ public class PhysicsManager {
 
 
                 // Top boundary collision
-                if (collider.getPosition().getY() - ballCollider.getRadius() <= 0) {
+                if (collider.getPosition(1).getY() - ballCollider.getRadius() <= 0) {
                     System.out.println("Top " + collider.getPosition().getX() + " ---"  + collider.getPosition().getY() );
                     Vector normal = new Vector(0, 1); // Pointing down
                     detectedCollisions.add(new Collision(collider, null, normal));
@@ -147,8 +147,8 @@ public class PhysicsManager {
     }
 
     private Vector getBallBallCollisionNormal(BallCollider ball1, BallCollider ball2) {
-        float dx = ball1.getPosition().getX() - ball2.getPosition().getX();
-        float dy = ball1.getPosition().getY() - ball2.getPosition().getY();
+        float dx = ball1.getPosition(1).getX() - ball2.getPosition(1).getX();
+        float dy = ball1.getPosition(1).getY() - ball2.getPosition(1).getY();
         float distanceSquared = dx * dx + dy * dy;
         float radiusSum = ball1.getRadius() + ball2.getRadius();
 
@@ -164,12 +164,12 @@ public class PhysicsManager {
         BallCollider ball = collider1 instanceof BallCollider ? (BallCollider) collider1 : (BallCollider) collider2;
         System.out.println(rectangle.getAngle());
         // Calculate the center of the rectangle
-        float centerX = rectangle.getPosition().getX() + rectangle.getWidth() / 2.0f;
-        float centerY = rectangle.getPosition().getY() + rectangle.getHeight() / 2.0f;
+        float centerX = rectangle.getPosition(1).getX() + rectangle.getWidth() / 2.0f;
+        float centerY = rectangle.getPosition(1).getY() + rectangle.getHeight() / 2.0f;
 
         // Translate and rotate the circle's center to the rectangle's local coordinate system
-        float translatedX = ball.getPosition().getX() - centerX;
-        float translatedY = ball.getPosition().getY() - centerY;
+        float translatedX = ball.getPosition(1).getX() - centerX;
+        float translatedY = ball.getPosition(1).getY() - centerY;
 
         // Apply reverse rotation to align to the rectangle's axis
         double angle = -rectangle.getAngle();
