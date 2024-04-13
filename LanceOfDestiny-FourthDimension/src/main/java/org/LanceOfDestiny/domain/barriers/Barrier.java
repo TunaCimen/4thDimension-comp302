@@ -37,6 +37,14 @@ public abstract class Barrier extends GameObject {
         this.collider = ColliderFactory.createRectangleCollider(this, Vector.getZeroVector(), ColliderType.STATIC, WIDTH, HEIGHT);
         this.sprite = new RectangleSprite(this, Color.red, WIDTH, HEIGHT);
     }
+
+    public void createColliderAndSprite(){
+        if(this instanceof ExplosiveBarrier) {
+            this.collider = ColliderFactory.createBallCollider(this, Vector.getZeroVector(), ColliderType.STATIC, Constants.EXPLOSIVE_RADIUS);
+        }
+        this.collider = ColliderFactory.createRectangleCollider(this, Vector.getZeroVector(), ColliderType.STATIC, WIDTH, HEIGHT);
+        this.sprite = new RectangleSprite(this, Color.red, WIDTH, HEIGHT);
+    }
     @Override
     public void Destroy() {
         super.Destroy();

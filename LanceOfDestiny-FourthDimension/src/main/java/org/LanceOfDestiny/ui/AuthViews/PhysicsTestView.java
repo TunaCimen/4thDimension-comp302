@@ -32,7 +32,7 @@ public class PhysicsTestView extends JFrame implements Window {
         //fb3 = new FireBall(new Vector(Constants.SCREEN_WIDTH-3*Constants.FIREBALL_RADIUS,Constants.SCREEN_HEIGHT-4*Constants.FIREBALL_RADIUS), new Vector(3,2));
         for (int i = 10; i < Constants.SCREEN_WIDTH - 10; i += 30) {
             for (int j = 10; j < Constants.SCREEN_HEIGHT - 400; j += 30) {
-                BarrierFactory.getInstance().createBarrier(new Vector(i , j), BarrierTypes.SIMPLE);
+                BarrierFactory.getInstance().createBarrier(new Vector(i , j), BarrierTypes.REINFORCED);
             }
         }
         magicalStaff = new MagicalStaff(new Vector(350,500));
