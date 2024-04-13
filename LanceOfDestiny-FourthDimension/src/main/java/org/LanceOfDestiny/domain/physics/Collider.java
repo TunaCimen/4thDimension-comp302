@@ -34,8 +34,8 @@ public abstract class Collider {
         this.velocity = velocity;
     }
 
-    public Vector getPosition(int framesAhead) {
-        return gameObject.getPosition().add(getVelocity().scale(framesAhead));
+    public Vector getPosition(double framesAhead) {
+        return gameObject.getPosition().add(getVelocity().scale((float) framesAhead));
     }
 
     public ColliderType getColliderType() {
