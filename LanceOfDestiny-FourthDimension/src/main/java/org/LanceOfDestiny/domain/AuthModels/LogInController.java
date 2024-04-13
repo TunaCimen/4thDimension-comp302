@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class LogInController {
     private static LogInController instance;
-    private final DatabaseController dbController;
+    private  DatabaseController dbController;
 
     public static LogInController getInstance()  {
         try {
@@ -18,8 +18,7 @@ public class LogInController {
             }
             return instance;
         } catch (SQLException e) {
-            // Log the exception or perform error handling
-            e.printStackTrace(); // Or handle the exception in a meaningful wa
+            e.printStackTrace();
         }
         return null;
     }

@@ -8,19 +8,14 @@ public class DatabaseController {
 
     public DatabaseController() throws SQLException {
         connection = DriverManager.getConnection(
-                "jdbc:mysql://127.0.0.1:3306/Users302",
-                "root",
-                "Whitewolf2206"
+                "jdbc:mysql://sql11.freesqldatabase.com:3306/sql11698733",
+                "sql11698733",
+                "UI1TfUfkQa"
         );
-        Statement statement = connection.createStatement();
-        ResultSet resultset = statement.executeQuery("SELECT * FROM USERS");
-        while(resultset.next()) {
-            System.out.println(resultset.getString("username"));
-        }
     }
 
     public boolean addUser(String username, String password) throws SQLException {
-        try (PreparedStatement pstmt = connection.prepareStatement("INSERT INTO USERS (username, password) VALUES (?, ?)")) {
+        try (PreparedStatement pstmt = connection.prepareStatement("INSERT INTO User (username, password) VALUES (?, ?)")) {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             int rowsAffected = pstmt.executeUpdate();
@@ -29,7 +24,7 @@ public class DatabaseController {
     }
 
     public boolean loginUser(String username, String password) throws SQLException {
-        try (PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM USERS WHERE username = ? AND password = ?")) {
+        try (PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM User WHERE username = ? AND password = ?")) {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             ResultSet resultSet = pstmt.executeQuery();
@@ -38,7 +33,7 @@ public class DatabaseController {
     }
 
     public boolean userExists(String username) throws SQLException {
-        try (PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM USERS WHERE username = ?")) {
+        try (PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM User WHERE username = ?")) {
             pstmt.setString(1, username);
             ResultSet resultSet = pstmt.executeQuery();
             return resultSet.next();

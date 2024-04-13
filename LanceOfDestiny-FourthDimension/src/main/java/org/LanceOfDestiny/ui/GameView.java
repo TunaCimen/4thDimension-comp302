@@ -199,7 +199,7 @@ public class GameView {
     }
     public void buildMap(int simpleBarrierCount, int reinforcedBarrierCount, int explosiveBarrierCount, int rewardingBarrierCount) {
         BuildModeController.getInstance().initializeMap();
-        BuildModeController.getInstance().cons
+        BuildModeController.getInstance();
 
 
 
