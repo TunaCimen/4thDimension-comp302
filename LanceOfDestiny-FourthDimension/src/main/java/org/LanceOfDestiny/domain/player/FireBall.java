@@ -47,7 +47,7 @@ public class FireBall extends GameObject {
 
 
     @Override
-    public Sprite sprite() {
+    public Sprite getSprite() {
         return bs;
     }
 

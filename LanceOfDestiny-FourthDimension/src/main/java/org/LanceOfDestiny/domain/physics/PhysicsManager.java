@@ -2,6 +2,7 @@ package org.LanceOfDestiny.domain.physics;
 
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.EventSystem.Events;
+import org.LanceOfDestiny.domain.GameObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,9 @@ import java.util.List;
 public class PhysicsManager {
     private static PhysicsManager instance;
     private List<Collider> colliders;
+    private final double framesAhead = 1;
+    // this allows for precalculating where the ball will be so the ball doesn't get stuck hopefully
+    // not using these for ball-ball collisions as they seem fine for the most part
 
     private PhysicsManager() {
 
@@ -35,7 +39,7 @@ public class PhysicsManager {
         //Boundaries of the Map.
         for (Collider collider : colliders) {
             if(collider instanceof BallCollider ballCollider){
-                if (collider.getPosition().getX() + ballCollider.getRadius() >= Constants.SCREEN_WIDTH) {
+                if (collider.getPosition(framesAhead).getX() + ballCollider.getRadius() >= Constants.SCREEN_WIDTH) {
                     //System.out.println(collider.getPosition().getX() + " ---"  + collider.getPosition().getY() + " --r-- " + ballCollider.getRadius());
                     Vector normal = new Vector(-1, 0); // Pointing left
                     detectedCollisions.add(new Collision(collider, null, normal));
@@ -43,7 +47,7 @@ public class PhysicsManager {
                 }
 
                     // Left boundary collision
-                if (collider.getPosition().getX() - ballCollider.getRadius() <= 0) {
+                if (collider.getPosition(framesAhead).getX() - ballCollider.getRadius() <= 0) {
                     //System.out.println(collider.getPosition().getX() + " ---"  + collider.getPosition().getY() + " --r-- " + ballCollider.getRadius());
                     Vector normal = new Vector(1, 0); // Pointing right
                     detectedCollisions.add(new Collision(collider, null, normal));
@@ -52,7 +56,7 @@ public class PhysicsManager {
 
                 // Bottom boundary collision
                 // TODO: Why do we need 2* bruh idk but we need to
-                if (collider.getPosition().getY() + 2*ballCollider.getRadius() >= Constants.SCREEN_HEIGHT) {
+                if (collider.getPosition(framesAhead).getY() + 2*ballCollider.getRadius() >= Constants.SCREEN_HEIGHT) {
                     System.out.println("Bottom " + collider.getPosition().getX() + " ---"  + collider.getPosition().getY());
                     Vector normal = new Vector(0, -1); // Pointing up
                     detectedCollisions.add(new Collision(collider, null, normal));
@@ -61,7 +65,7 @@ public class PhysicsManager {
 
 
                 // Top boundary collision
-                if (collider.getPosition().getY() - ballCollider.getRadius() <= 0) {
+                if (collider.getPosition(framesAhead).getY() - ballCollider.getRadius() <= 0) {
                     System.out.println("Top " + collider.getPosition().getX() + " ---"  + collider.getPosition().getY() );
                     Vector normal = new Vector(0, 1); // Pointing down
                     detectedCollisions.add(new Collision(collider, null, normal));
@@ -99,7 +103,13 @@ public class PhysicsManager {
     public void handleCollisionEvents(List<Collision> collisions) {
         for (Collision collision : collisions) {
             handleBounce(collision);
-            Events.CollisionEvent.invoke(collision); // Trigger the event
+            GameObject gameObject1 = collision.getCollider1().gameObject;
+            gameObject1.onCollisionEnter(collision);
+            if (collision.getCollider2() == null) {
+                continue;
+            }
+            GameObject gameObject2 = collision.getCollider2().gameObject;
+            gameObject2.onCollisionEnter(collision);
         }
     }
 
@@ -164,12 +174,12 @@ public class PhysicsManager {
         BallCollider ball = collider1 instanceof BallCollider ? (BallCollider) collider1 : (BallCollider) collider2;
         System.out.println(rectangle.getAngle());
         // Calculate the center of the rectangle
-        float centerX = rectangle.getPosition().getX() + rectangle.getWidth() / 2.0f;
-        float centerY = rectangle.getPosition().getY() + rectangle.getHeight() / 2.0f;
+        float centerX = rectangle.getPosition(framesAhead).getX() + rectangle.getWidth() / 2.0f;
+        float centerY = rectangle.getPosition(framesAhead).getY() + rectangle.getHeight() / 2.0f;
 
         // Translate and rotate the circle's center to the rectangle's local coordinate system
-        float translatedX = ball.getPosition().getX() - centerX;
-        float translatedY = ball.getPosition().getY() - centerY;
+        float translatedX = ball.getPosition(framesAhead).getX() - centerX;
+        float translatedY = ball.getPosition(framesAhead).getY() - centerY;
 
         // Apply reverse rotation to align to the rectangle's axis
         double angle = -rectangle.getAngle();

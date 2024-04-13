@@ -50,6 +50,10 @@ public class Vector {
         return new Vector(getX() * ratio, getY() * ratio);
     }
 
+    public static Vector getZeroVector() {
+        return new Vector(0,0);
+    }
+
     public float dotProduct(Vector v){
         return getX() * v.getX() + getY()* v.getY();
     }

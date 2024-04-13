@@ -1,5 +1,7 @@
 package org.LanceOfDestiny.domain.physics;
 
+import org.LanceOfDestiny.domain.GameObject;
+
 public class Collision {
     private Collider collider1;
     private Collider collider2;
@@ -23,5 +25,14 @@ public class Collision {
 
     public Vector getNormal() {
         return normal;
+    }
+
+    public GameObject getOther(GameObject self) {
+        if (collider1.getGameObject().equals(self)) {
+            return collider2.getGameObject();
+        } else if (collider2.getGameObject().equals(self)) {
+            return collider1.getGameObject();
+        }
+        return null;
     }
 }

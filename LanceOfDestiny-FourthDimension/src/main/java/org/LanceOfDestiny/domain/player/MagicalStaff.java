@@ -33,7 +33,7 @@ public class MagicalStaff extends GameObject {
     }
 
     @Override
-    public Sprite sprite() {
+    public Sprite getSprite() {
         return rectangleSprite;
     }
 

@@ -5,7 +5,6 @@ import org.LanceOfDestiny.domain.GameObject;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 public class Sprite extends JPanel {
 
@@ -29,7 +28,7 @@ public class Sprite extends JPanel {
     public void paintComponent(Graphics g) {
         for(Behaviour behaviour : GameObject.getGameObjects()) {
             if (behaviour.gameObject != null) {
-                Sprite bs = behaviour.gameObject.sprite();
+                Sprite bs = behaviour.gameObject.getSprite();
                 g.setColor(bs.color);
                 bs.drawShape(g);
             }
