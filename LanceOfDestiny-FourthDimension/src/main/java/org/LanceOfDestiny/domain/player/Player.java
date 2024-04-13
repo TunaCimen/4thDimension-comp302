@@ -1,7 +1,8 @@
 package org.LanceOfDestiny.domain.player;
 
+import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
-import org.LanceOfDestiny.domain.abilities.SpellContainer;
+import org.LanceOfDestiny.domain.spells.SpellContainer;
 import org.LanceOfDestiny.domain.managers.InputManager;
 import org.LanceOfDestiny.domain.managers.ManagerHub;
 import org.LanceOfDestiny.domain.managers.ScoreManager;
@@ -24,6 +25,7 @@ public class Player extends GameObject {
         super();
         this.spellContainer = new SpellContainer();
         this.chancesLeft = DEFAULT_CHANCES;
+        Events.UpdateChance.addListener(this::updateChances);
 
     }
 
@@ -48,9 +50,15 @@ public class Player extends GameObject {
     private void setChances(int chance) {
         this.chancesLeft = chance;
         this.chancesLeft = Math.max(this.chancesLeft, MIN_CHANCES);
+        if(this.chancesLeft == MIN_CHANCES) Events.LoseGame.invoke();
     }
 
     public void setMagicalStaff(MagicalStaff magicalStaff){
         this.magicalStaff = magicalStaff;
     }
+
+    public void updateChances(Object change){
+        setChances(chancesLeft + (Integer) change);
+    }
+
 }

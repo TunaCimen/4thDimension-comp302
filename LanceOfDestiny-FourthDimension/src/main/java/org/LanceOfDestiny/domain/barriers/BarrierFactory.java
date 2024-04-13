@@ -1,6 +1,5 @@
 package org.LanceOfDestiny.domain.barriers;
 
-import org.LanceOfDestiny.domain.abilities.SpellType;
 import org.LanceOfDestiny.domain.managers.ManagerHub;
 import org.LanceOfDestiny.domain.physics.Vector;
 
