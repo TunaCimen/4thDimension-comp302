@@ -17,9 +17,28 @@ public enum Events {
     LogEvent(String.class),
     LogIntegerEvent(Integer.class),
     CollisionEvent(Collision.class),
-    MoveStaff(Integer.class),//Right Now I dont care Integer or Not I might create different.
+
+    MoveStaff(Integer.class), // Right Now I dont care Integer or Not I might create different.
+
     RotateStaff(Double.class),
-    ResetStaff(Object.class);
+    ResetStaff(Object.class),
+
+    PauseGame(Object.class),
+    ResumeGame(Object.class),
+
+    UpdateChance(Integer.class), 
+
+    UpdateScore(Integer.class),
+
+    GainAbility(Object.class),
+
+    LoseGame(Object.class),
+    WinGame(Object.class),
+
+    SaveGame(Object.class),
+    LoadGame(Object.class),
+
+    ResetFireBall(Object.class);
 
 
     private List<Consumer<Object>> listeners = new ArrayList<>(); //List that listeners subscribe to.

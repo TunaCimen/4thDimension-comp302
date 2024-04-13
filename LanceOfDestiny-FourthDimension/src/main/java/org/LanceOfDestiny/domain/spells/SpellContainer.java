@@ -1,10 +1,12 @@
-package org.LanceOfDestiny.domain.abilities;
+package org.LanceOfDestiny.domain.spells;
+
+import org.LanceOfDestiny.domain.EventSystem.Events;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-// abilities gained by the player will be held here
+// spells gained by the player will be held here
 public class SpellContainer {
     private List<Spell> spells;
     private HashMap<SpellType, Boolean> spellMap = new HashMap<>(); // for saving to database
@@ -19,6 +21,11 @@ public class SpellContainer {
     public void addSpell(Spell spell) {
         if(spellExists(spell.getSpellType()))
             return;
+
+        if(spell.getSpellType().equals(SpellType.CHANCE)){
+            Events.UpdateChance.invoke(1);
+            return;
+        }
 
         spells.add(spell);
         spellMap.put(spell.getSpellType(), true);

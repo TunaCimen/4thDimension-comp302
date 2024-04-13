@@ -1,4 +1,4 @@
-package org.LanceOfDestiny.domain.abilities;
+package org.LanceOfDestiny.domain.spells;
 
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.GameObject;
