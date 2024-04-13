@@ -1,32 +1,32 @@
 package org.LanceOfDestiny.domain.physics;
 
 public class Vector {
-    private double x;
-    private double y;
+    private float x;
+    private float y;
 
-    public Vector(double x, double y) {
+    public Vector(float x, float y) {
         this.x = x;
         this.y = y;
     }
 
-    public double getX() {
+    public float getX() {
         return x;
     }
 
-    public void setX(double x) {
+    public void setX(float x) {
         this.x = x;
     }
 
-    public double getY() {
+    public float getY() {
         return y;
     }
 
-    public void setY(double y) {
+    public void setY(float y) {
         this.y = y;
     }
 
     public Vector getNormalized() {
-        double length = (double) Math.sqrt(getX() * getX() + getY() * getY());
+        float length = (float) Math.sqrt(getX() * getX() + getY() * getY());
         if (length != 0) {
             return new Vector(getX() / length, getY() / length);
         }
@@ -34,8 +34,8 @@ public class Vector {
     }
 
 
-    public double distanceTo(Vector pos2) {
-        return (double) Math.sqrt(Math.pow(getX() - pos2.getX(), 2) + Math.pow(getY() - pos2.getY(), 2));
+    public float distanceTo(Vector pos2) {
+        return (float) Math.sqrt(Math.pow(getX() - pos2.getX(), 2) + Math.pow(getY() - pos2.getY(), 2));
     }
 
     public Vector add(Vector pos2) {
@@ -46,7 +46,7 @@ public class Vector {
         return new Vector(getX() - pos2.getX(), getY() - pos2.getY());
     }
 
-    public Vector scale(double ratio) {
+    public Vector scale(float ratio) {
         return new Vector(getX() * ratio, getY() * ratio);
     }
 
@@ -54,7 +54,7 @@ public class Vector {
         return new Vector(0,0);
     }
 
-    public double dotProduct(Vector v){
+    public float dotProduct(Vector v){
         return getX() * v.getX() + getY()* v.getY();
     }
 }

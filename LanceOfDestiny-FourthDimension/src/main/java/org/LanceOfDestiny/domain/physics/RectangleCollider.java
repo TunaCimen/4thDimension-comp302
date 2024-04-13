@@ -3,9 +3,9 @@ package org.LanceOfDestiny.domain.physics;
 import org.LanceOfDestiny.domain.GameObject;
 
 public class RectangleCollider extends Collider {
-    private double width;
-    private double height;
-    public RectangleCollider(GameObject gameObject, Vector velocity, ColliderType colliderType, double width, double height) {
+    private float width;
+    private float height;
+    public RectangleCollider(GameObject gameObject, Vector velocity, ColliderType colliderType, float width, float height) {
         super(velocity, colliderType,gameObject);
         this.width = width;
         this.height = height;
@@ -13,7 +13,7 @@ public class RectangleCollider extends Collider {
 
     // Additional functionality specific to RectangleCollider can go here
 
-    public double getWidth() {
+    public float getWidth() {
         return width;
     }
 
@@ -21,7 +21,7 @@ public class RectangleCollider extends Collider {
         this.width = width;
     }
 
-    public double getHeight() {
+    public float getHeight() {
         return height;
     }
 

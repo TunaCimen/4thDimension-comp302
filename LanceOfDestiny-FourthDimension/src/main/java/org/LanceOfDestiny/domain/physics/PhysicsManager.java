@@ -157,13 +157,13 @@ public class PhysicsManager {
     }
 
     private Vector getBallBallCollisionNormal(BallCollider ball1, BallCollider ball2) {
-        double dx = ball1.getPosition().getX() - ball2.getPosition().getX();
-        double dy = ball1.getPosition().getY() - ball2.getPosition().getY();
-        double distanceSquared = dx * dx + dy * dy;
-        double radiusSum = ball1.getRadius() + ball2.getRadius();
+        float dx = ball1.getPosition().getX() - ball2.getPosition().getX();
+        float dy = ball1.getPosition().getY() - ball2.getPosition().getY();
+        float distanceSquared = dx * dx + dy * dy;
+        float radiusSum = ball1.getRadius() + ball2.getRadius();
 
         if (distanceSquared < radiusSum * radiusSum) {
-            double distance = (double) Math.sqrt(distanceSquared);
+            float distance = (float) Math.sqrt(distanceSquared);
             return new Vector(dx / distance, dy / distance); // Normalized vector
         }
         return null;
@@ -174,37 +174,37 @@ public class PhysicsManager {
         BallCollider ball = collider1 instanceof BallCollider ? (BallCollider) collider1 : (BallCollider) collider2;
         System.out.println(rectangle.getAngle());
         // Calculate the center of the rectangle
-        double centerX = rectangle.getPosition(framesAhead).getX() + rectangle.getWidth() / 2.0f;
-        double centerY = rectangle.getPosition(framesAhead).getY() + rectangle.getHeight() / 2.0f;
+        float centerX = rectangle.getPosition(framesAhead).getX() + rectangle.getWidth() / 2.0f;
+        float centerY = rectangle.getPosition(framesAhead).getY() + rectangle.getHeight() / 2.0f;
 
         // Translate and rotate the circle's center to the rectangle's local coordinate system
-        double translatedX = ball.getPosition(framesAhead).getX() - centerX;
-        double translatedY = ball.getPosition(framesAhead).getY() - centerY;
+        float translatedX = ball.getPosition(framesAhead).getX() - centerX;
+        float translatedY = ball.getPosition(framesAhead).getY() - centerY;
 
         // Apply reverse rotation to align to the rectangle's axis
         double angle = -rectangle.getAngle();
-        double rotatedX = (double) (translatedX * Math.cos(angle) - translatedY * Math.sin(angle));
-        double rotatedY = (double) (translatedX * Math.sin(angle) + translatedY * Math.cos(angle));
+        float rotatedX = (float) (translatedX * Math.cos(angle) - translatedY * Math.sin(angle));
+        float rotatedY = (float) (translatedX * Math.sin(angle) + translatedY * Math.cos(angle));
 
         // Determine the closest point on the axis-aligned rectangle in local space
-        double rectHalfWidth = rectangle.getWidth() / 2.0f;
-        double rectHalfHeight = rectangle.getHeight() / 2.0f;
-        double closestX = Math.max(-rectHalfWidth, Math.min(rotatedX, rectHalfWidth));
-        double closestY = Math.max(-rectHalfHeight, Math.min(rotatedY, rectHalfHeight));
+        float rectHalfWidth = rectangle.getWidth() / 2.0f;
+        float rectHalfHeight = rectangle.getHeight() / 2.0f;
+        float closestX = Math.max(-rectHalfWidth, Math.min(rotatedX, rectHalfWidth));
+        float closestY = Math.max(-rectHalfHeight, Math.min(rotatedY, rectHalfHeight));
 
         // Calculate the distance from the closest point to the rotated circle's center
-        double distanceX = rotatedX - closestX;
-        double distanceY = rotatedY - closestY;
-        double distance = (double) Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+        float distanceX = rotatedX - closestX;
+        float distanceY = rotatedY - closestY;
+        float distance = (float) Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
         if (distance < ball.getRadius()) {
             // Normal vector calculation from the closest point back to the circle center
-            double magnitude = (double) Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+            float magnitude = (float) Math.sqrt(distanceX * distanceX + distanceY * distanceY);
             Vector normal = new Vector(distanceX / magnitude, distanceY / magnitude);
 
             // Rotate the normal vector back to align with the world coordinates
-            double normalWorldX = (double) (normal.getX() * Math.cos(-angle) - normal.getY() * Math.sin(-angle));
-            double normalWorldY = (double) (normal.getX() * Math.sin(-angle) + normal.getY() * Math.cos(-angle));
+            float normalWorldX = (float) (normal.getX() * Math.cos(-angle) - normal.getY() * Math.sin(-angle));
+            float normalWorldY = (float) (normal.getX() * Math.sin(-angle) + normal.getY() * Math.cos(-angle));
 
             return new Vector(normalWorldX, normalWorldY);  // Return the transformed normal vector
         }

@@ -3,20 +3,20 @@ package org.LanceOfDestiny.domain.physics;
 import org.LanceOfDestiny.domain.GameObject;
 
 public class BallCollider extends Collider {
-    private double radius;
+    private float radius;
 
-    public BallCollider(Vector velocity, ColliderType colliderType, double radius, GameObject gameObject) {
+    public BallCollider(Vector velocity, ColliderType colliderType, float radius, GameObject gameObject) {
         super(velocity, colliderType, gameObject);
         this.radius = radius;
     }
 
     // Additional functionality specific to BallCollider can go here
 
-    public double getRadius() {
+    public float getRadius() {
         return radius;
     }
 
-    public void setRadius(double radius) {
+    public void setRadius(float radius) {
         this.radius = radius;
     }
 }
