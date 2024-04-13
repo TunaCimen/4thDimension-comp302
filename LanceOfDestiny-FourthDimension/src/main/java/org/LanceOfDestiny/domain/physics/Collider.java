@@ -8,16 +8,22 @@ public abstract class Collider {
 
     protected Vector velocity;
     protected ColliderType colliderType;
+
+    public GameObject getGameObject() {
+        return gameObject;
+    }
+
     protected final GameObject gameObject; // the gameObject that it is attached to
 
     protected Collider(Vector velocity, ColliderType colliderType, GameObject gameObject) {
         this.velocity = velocity;
         this.colliderType = colliderType;
         this.gameObject = gameObject;
-        Events.CollisionEvent.addListener(gameObject::OnCollisionEnter);
     }
 
     // Getters and Setters
+
+
     public Vector getPosition() {
         return gameObject.getPosition();
     }
@@ -46,4 +52,6 @@ public abstract class Collider {
     public void setColliderType(ColliderType colliderType) {
         this.colliderType = colliderType;
     }
+
+
 }
