@@ -1,9 +1,9 @@
 package org.LanceOfDestiny.domain;
+import org.LanceOfDestiny.domain.physics.Collision;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.ui.RectangleSprite;
 import org.LanceOfDestiny.ui.Sprite;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -13,7 +13,7 @@ public abstract class GameObject extends Behaviour{
     protected Vector position;
     protected double angle;
 
-    public Sprite sprite(){
+    public Sprite getSprite(){
         return new RectangleSprite(this, Color.white,15,35); // Default Sprite Given to everything.
     }
     private static List<Behaviour> gameObjects = new ArrayList<>();
@@ -55,5 +55,7 @@ public abstract class GameObject extends Behaviour{
         gameObjects.clear();
     }
 
-
+    public void onCollisionEnter(Collision collision) {
+        return;
+    }
 }

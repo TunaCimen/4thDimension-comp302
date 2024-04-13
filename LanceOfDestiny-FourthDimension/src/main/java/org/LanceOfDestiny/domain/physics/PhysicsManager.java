@@ -2,6 +2,7 @@ package org.LanceOfDestiny.domain.physics;
 
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.EventSystem.Events;
+import org.LanceOfDestiny.domain.GameObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,7 +103,13 @@ public class PhysicsManager {
     public void handleCollisionEvents(List<Collision> collisions) {
         for (Collision collision : collisions) {
             handleBounce(collision);
-            Events.CollisionEvent.invoke(collision); // Trigger the event
+            GameObject gameObject1 = collision.getCollider1().gameObject;
+            gameObject1.onCollisionEnter(collision);
+            if (collision.getCollider2() == null) {
+                continue;
+            }
+            GameObject gameObject2 = collision.getCollider2().gameObject;
+            gameObject2.onCollisionEnter(collision);
         }
     }
 
