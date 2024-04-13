@@ -26,7 +26,6 @@ public class Player extends GameObject {
         this.spellContainer = new SpellContainer();
         this.chancesLeft = DEFAULT_CHANCES;
         Events.UpdateChance.addListener(this::updateChances);
-
     }
 
     @Override

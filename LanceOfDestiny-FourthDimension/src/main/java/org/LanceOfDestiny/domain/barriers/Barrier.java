@@ -27,10 +27,7 @@ public abstract class Barrier extends GameObject {
     }
 
     public Barrier(Vector position, BarrierTypes type){
-        super();
-        this.position = position;
-        this.barrierType = type;
-        this.hitsLeft = 1;
+        this(position, type, 1);
     }
     @Override
     public void Destroy() {

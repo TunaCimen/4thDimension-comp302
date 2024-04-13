@@ -2,6 +2,7 @@ package org.LanceOfDestiny.domain.EventSystem;
 
 
 import org.LanceOfDestiny.domain.physics.Collision;
+import org.LanceOfDestiny.domain.spells.SpellType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,14 +24,19 @@ public enum Events {
     RotateStaff(Double.class),
     ResetStaff(Object.class),
 
+    UpdateChance(Integer.class),
+
     PauseGame(Object.class),
     ResumeGame(Object.class),
 
-    UpdateChance(Integer.class), 
-
     UpdateScore(Integer.class),
 
-    GainAbility(Object.class),
+    GainSpell(SpellType.class), // ui will be subscriber of this event to show the spells at hand
+    UseSpell(SpellType.class),
+
+    ActivateCanons(Object.class),
+    ActivateOverwhelming(Object.class),
+    ActivateExpansion(Object.class),
 
     LoseGame(Object.class),
     WinGame(Object.class),
@@ -39,7 +45,6 @@ public enum Events {
     LoadGame(Object.class),
 
     ResetFireBall(Object.class);
-
 
     private List<Consumer<Object>> listeners = new ArrayList<>(); //List that listeners subscribe to.
     final Class<?> paramType; //It is the Class that the particular event wants the invocation.

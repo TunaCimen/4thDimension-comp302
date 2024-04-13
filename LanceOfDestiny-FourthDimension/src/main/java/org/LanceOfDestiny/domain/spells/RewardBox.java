@@ -24,6 +24,7 @@ public class RewardBox extends GameObject {
         if (isFalling) {
             // TODO:
         }
+
     }
 
     public boolean isFalling() {

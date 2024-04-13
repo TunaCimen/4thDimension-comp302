@@ -14,21 +14,34 @@ public class SpellContainer {
     public SpellContainer() {
         spells = new LinkedList<>();
         for (SpellType spellType : SpellType.values()) {
+            if(spellType.equals(SpellType.CHANCE)) continue;
             spellMap.put(spellType, false);
         }
     }
 
     public void addSpell(Spell spell) {
-        if(spellExists(spell.getSpellType()))
-            return;
-
         if(spell.getSpellType().equals(SpellType.CHANCE)){
             Events.UpdateChance.invoke(1);
             return;
         }
 
+        if(spellExists(spell.getSpellType()))
+            return;
+
+        Events.GainSpell.invoke(spell.getSpellType());
         spells.add(spell);
         spellMap.put(spell.getSpellType(), true);
+    }
+
+    public void activateSpell(SpellType spellType) {
+        if(!spellExists(spellType)) return;
+
+        var spell = getSpell(spellType);
+        spell.activateSpell();
+
+        spellMap.put(spellType, false);
+        spells.remove(spell);
+        Events.UseSpell.invoke(spellType);
     }
 
     public void removeSpell(Spell spell) {
