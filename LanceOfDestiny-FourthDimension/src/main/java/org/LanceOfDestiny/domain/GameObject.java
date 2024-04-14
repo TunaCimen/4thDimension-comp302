@@ -58,4 +58,7 @@ public abstract class GameObject extends Behaviour{
     public void onCollisionEnter(Collision collision) {
         return;
     }
+    public void onTriggerEnter(Collision collision) {
+        return;
+    }
 }

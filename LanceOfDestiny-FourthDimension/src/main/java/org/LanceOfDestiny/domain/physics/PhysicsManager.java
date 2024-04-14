@@ -36,86 +36,101 @@ public class PhysicsManager {
 
     public List<Collision> checkCollisions() {
         List<Collision> detectedCollisions = new ArrayList<>();
-        //Boundaries of the Map.
-        for (Collider collider : colliders) {
-            if(collider instanceof BallCollider ballCollider){
-                if (collider.getPosition(framesAhead).getX() + ballCollider.getRadius() >= Constants.SCREEN_WIDTH) {
-                    //System.out.println(collider.getPosition().getX() + " ---"  + collider.getPosition().getY() + " --r-- " + ballCollider.getRadius());
-                    Vector normal = new Vector(-1, 0); // Pointing left
-                    detectedCollisions.add(new Collision(collider, null, normal));
-                    //collider.setPosition(new Vector(Constants.SCREEN_WIDTH - ballCollider.getRadius(), collider.getPosition().getY()));
-                }
-
-                    // Left boundary collision
-                if (collider.getPosition(framesAhead).getX() - ballCollider.getRadius() <= 0) {
-                    //System.out.println(collider.getPosition().getX() + " ---"  + collider.getPosition().getY() + " --r-- " + ballCollider.getRadius());
-                    Vector normal = new Vector(1, 0); // Pointing right
-                    detectedCollisions.add(new Collision(collider, null, normal));
-                    //collider.setPosition(new Vector(ballCollider.getRadius(), collider.getPosition().getY()));
-                }
-
-                // Bottom boundary collision
-                // TODO: Why do we need 2* bruh idk but we need to
-                if (collider.getPosition(framesAhead).getY() + 2*ballCollider.getRadius() >= Constants.SCREEN_HEIGHT) {
-                    System.out.println("Bottom " + collider.getPosition().getX() + " ---"  + collider.getPosition().getY());
-                    Vector normal = new Vector(0, -1); // Pointing up
-                    detectedCollisions.add(new Collision(collider, null, normal));
-                    //collider.setPosition(new Vector(collider.getPosition().getX(), Constants.SCREEN_HEIGHT - ballCollider.getRadius()));
-                }
-
-
-                // Top boundary collision
-                if (collider.getPosition(framesAhead).getY() - ballCollider.getRadius() <= 0) {
-                    System.out.println("Top " + collider.getPosition().getX() + " ---"  + collider.getPosition().getY() );
-                    Vector normal = new Vector(0, 1); // Pointing down
-                    detectedCollisions.add(new Collision(collider, null, normal));
-                    //collider.setPosition(new Vector(collider.getPosition().getX(), ballCollider.getRadius()));
-                }
-            }
-            // Check right boundary
-
-        }
-
-
-        for (int i = 0; i < colliders.size(); i++) {
-            for (int j = i + 1; j < colliders.size(); j++) {
-                Collider collider1 = colliders.get(i);
-                Collider collider2 = colliders.get(j);
-                if (isBallBallCollision(collider1, collider2)) {
-                    Vector normal = getBallBallCollisionNormal((BallCollider) collider1, (BallCollider) collider2);
-                    if (normal == null) { //There is no collision it means.
-                        continue;
-                    }
-                    // System.out.println("BALL BALL COLLISINNNNNNNNNNN");
-                    detectedCollisions.add(new Collision(collider1, collider2, normal));
-                } else if (isBallRectCollision(collider1, collider2)) {
-                    Vector normal = getRectangleToCircleCollisionNormal(collider1, collider2);
-                    if (normal == null) {
-                        continue;
-                    }
-                    detectedCollisions.add(new Collision(collider1, collider2, normal));
-                }
-            }
-        }
+        processBoundaryCollisions(detectedCollisions);
+        processObjectCollisions(detectedCollisions);
         return detectedCollisions;
     }
 
-    public void handleCollisionEvents(List<Collision> collisions) {
-        for (Collision collision : collisions) {
-            handleBounce(collision);
-            GameObject gameObject1 = collision.getCollider1().gameObject;
-            gameObject1.onCollisionEnter(collision);
-            if (collision.getCollider2() == null) {
-                continue;
+    private void processObjectCollisions(List<Collision> detectedCollisions) {
+        for (int i = 0; i < colliders.size(); i++) {
+            Collider collider1 = colliders.get(i);
+            if (!collider1.isEnabled()) continue;
+
+            for (int j = i + 1; j < colliders.size(); j++) {
+                Collider collider2 = colliders.get(j);
+                if (!collider2.isEnabled()) continue;
+
+                if (isRectRectCollision(collider1, collider2)) {
+                    Vector normal = getRectRectCollisionNormal((RectangleCollider) collider1, (RectangleCollider) collider2);
+                    if (normal != null) {
+                        detectedCollisions.add(new Collision(collider1, collider2, normal));
+                    }
+                } else if (isBallBallCollision(collider1, collider2)) {
+                    Vector normal = getBallBallCollisionNormal((BallCollider) collider1, (BallCollider) collider2);
+                    if (normal != null) {
+                        detectedCollisions.add(new Collision(collider1, collider2, normal));
+                    }
+                } else if (isBallRectCollision(collider1, collider2)) {
+                    Vector normal = getRectangleToCircleCollisionNormal(collider1, collider2);
+                    if (normal != null) {
+                        detectedCollisions.add(new Collision(collider1, collider2, normal));
+                    }
+                }
             }
-            GameObject gameObject2 = collision.getCollider2().gameObject;
-            gameObject2.onCollisionEnter(collision);
         }
     }
 
+    private void processBoundaryCollisions(List<Collision> detectedCollisions) {
+        for (Collider collider : colliders) {
+            if (!collider.isEnabled()) continue;
+
+            if (collider instanceof BallCollider ballCollider) {
+                checkBoundaryCollision(ballCollider, detectedCollisions);
+            }
+        }
+    }
+
+    private void checkBoundaryCollision(BallCollider ballCollider, List<Collision> detectedCollisions) {
+        // Boundary checks for each direction using helper method
+        handleBoundary(ballCollider, new Vector(-1, 0), Constants.SCREEN_WIDTH - ballCollider.getRadius(), true, detectedCollisions);
+        handleBoundary(ballCollider, new Vector(1, 0), 0 + ballCollider.getRadius(), false, detectedCollisions);
+        handleBoundary(ballCollider, new Vector(0, -1), Constants.SCREEN_HEIGHT - ballCollider.getRadius(), true, detectedCollisions);
+        handleBoundary(ballCollider, new Vector(0, 1), 0 + ballCollider.getRadius(), false, detectedCollisions);
+    }
+
+    private void handleBoundary(BallCollider ballCollider, Vector normal, double boundary, boolean isMaxBoundary, List<Collision> detectedCollisions) {
+        double position = (normal.getX() != 0) ? ballCollider.getPosition(framesAhead).getX() : ballCollider.getPosition(framesAhead).getY();
+        double radiusAdjust = (normal.getX() != 0) ? ballCollider.getRadius() : 2 * ballCollider.getRadius();
+        if ((isMaxBoundary && position + radiusAdjust >= boundary) || (!isMaxBoundary && position - radiusAdjust <= boundary)) {
+            detectedCollisions.add(new Collision(ballCollider, null, normal));
+        }
+    }
+
+
+    public void handleCollisionEvents(List<Collision> collisions) {
+        for (Collision collision : collisions) {
+            GameObject gameObject1 = collision.getCollider1().getGameObject();
+            GameObject gameObject2 = collision.getCollider2() != null ? collision.getCollider2().getGameObject() : null;
+
+            // Check if either collider is a trigger
+            if (collision.getCollider1().isTrigger() || (gameObject2 != null && collision.getCollider2().isTrigger())) {
+                // Invoke onTriggerEnter on the first game object
+                gameObject1.onTriggerEnter(collision);
+
+                // If there's a second game object, invoke onTriggerEnter on it too
+                if (gameObject2 != null) {
+                    gameObject2.onTriggerEnter(collision);
+                }
+            } else {
+                // Handle physical collision responses
+                handleBounce(collision);
+
+                // Invoke onCollisionEnter on the first game object
+                gameObject1.onCollisionEnter(collision);
+
+                // If there's a second game object, invoke onCollisionEnter on it too
+                if (gameObject2 != null) {
+                    gameObject2.onCollisionEnter(collision);
+                }
+            }
+        }
+    }
+
+
+
     private void handleBounce(Collision collision) {
         //Screen Boundary
-        if(collision.getCollider2() == null){
+        if (collision.getCollider2() == null) {
             Vector reflection = getReflection(collision, true);
             collision.getCollider1().setVelocity(reflection);
             // System.out.println("Velocity of collider1 = " + collision.getCollider1().getVelocity().getY());
@@ -148,12 +163,15 @@ public class PhysicsManager {
 
 
     private static boolean isBallRectCollision(Collider collider1, Collider collider2) {
-        return (collider1 instanceof RectangleCollider && collider2 instanceof BallCollider) ||
-                (collider1 instanceof BallCollider && collider2 instanceof RectangleCollider);
+        return (collider1 instanceof RectangleCollider && collider2 instanceof BallCollider) || (collider1 instanceof BallCollider && collider2 instanceof RectangleCollider);
     }
 
     private static boolean isBallBallCollision(Collider collider1, Collider collider2) {
         return collider1 instanceof BallCollider && collider2 instanceof BallCollider;
+    }
+
+    private boolean isRectRectCollision(Collider collider1, Collider collider2) {
+        return collider1 instanceof RectangleCollider && collider2 instanceof RectangleCollider;
     }
 
     private Vector getBallBallCollisionNormal(BallCollider ball1, BallCollider ball2) {
@@ -172,7 +190,6 @@ public class PhysicsManager {
     private Vector getRectangleToCircleCollisionNormal(Collider collider1, Collider collider2) {
         RectangleCollider rectangle = collider1 instanceof RectangleCollider ? (RectangleCollider) collider1 : (RectangleCollider) collider2;
         BallCollider ball = collider1 instanceof BallCollider ? (BallCollider) collider1 : (BallCollider) collider2;
-        System.out.println(rectangle.getAngle());
         // Calculate the center of the rectangle
         double centerX = rectangle.getPosition(framesAhead).getX() + rectangle.getWidth() / 2.0f;
         double centerY = rectangle.getPosition(framesAhead).getY() + rectangle.getHeight() / 2.0f;
@@ -212,7 +229,54 @@ public class PhysicsManager {
         return null;  // No collision detected
     }
 
+    private Vector getRectRectCollisionNormal(RectangleCollider rect1, RectangleCollider rect2) {
+        // Extract the corners of the first rectangle
+        Vector[] rect1Corners = rect1.getCorners(framesAhead);
+        // Extract the corners of the second rectangle
+        Vector[] rect2Corners = rect2.getCorners(framesAhead);
 
+        Vector minimumTranslationVector = null;
+        double minimumOverlap = Double.POSITIVE_INFINITY;
+
+        // Test the normal axes of the first rectangle
+        Vector[] axes = new Vector[]{
+                rect1Corners[1].subtract(rect1Corners[0]).perpendicular().normalize(),
+                rect1Corners[3].subtract(rect1Corners[0]).perpendicular().normalize(),
+                rect2Corners[1].subtract(rect2Corners[0]).perpendicular().normalize(),
+                rect2Corners[3].subtract(rect2Corners[0]).perpendicular().normalize()
+        };
+
+        for (Vector axis : axes) {
+            // Project both rectangles onto the axis
+            double[] rect1Projection = projectRectangle(rect1Corners, axis);
+            double[] rect2Projection = projectRectangle(rect2Corners, axis);
+
+            // Check for overlap
+            double overlap = Math.min(rect1Projection[1], rect2Projection[1]) - Math.max(rect1Projection[0], rect2Projection[0]);
+            if (overlap < 0) {
+                return null;  // Separating axis found, no collision
+            }
+
+            // Track the axis with the minimum overlap
+            if (overlap < minimumOverlap) {
+                minimumOverlap = overlap;
+                minimumTranslationVector = axis.scale(overlap);
+            }
+        }
+
+        return minimumTranslationVector;  // Return the collision normal based on the minimum translation vector
+    }
+
+    private double[] projectRectangle(Vector[] corners, Vector axis) {
+        double min = axis.dotProduct(corners[0]);
+        double max = min;
+        for (int i = 1; i < corners.length; i++) {
+            double projection = axis.dotProduct(corners[i]);
+            if (projection < min) min = projection;
+            if (projection > max) max = projection;
+        }
+        return new double[] { min, max };
+    }
 
 
 

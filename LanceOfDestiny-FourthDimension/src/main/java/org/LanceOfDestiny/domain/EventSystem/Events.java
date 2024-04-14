@@ -33,19 +33,22 @@ public enum Events {
     RotateStaff(Double.class),
     ResetStaff(Object.class),
 
-    UpdateChance(Integer.class),
+    UpdateChance(Integer.class), // invoked with parameter -> change: change in chances
+    // ui will be subscriber of this event to show the chances at hand but it is also fine to just use player.getChances()
 
     PauseGame(Object.class),
     ResumeGame(Object.class),
 
-    UpdateScore(Integer.class),
+    UpdateScore(Integer.class), //invoked with parameter -> change: change in score
 
     GainSpell(SpellType.class), // ui will be subscriber of this event to show the spells at hand
-    UseSpell(SpellType.class),
+    TryUsingSpell(SpellType.class), // invoked when the player inputs spell related keys, does not concern ui.
 
-    ActivateCanons(Object.class),
-    ActivateOverwhelming(Object.class),
-    ActivateExpansion(Object.class),
+    // These three spell activation events concern ui:
+    // invoked with true when player actually activates the spell and false when deactivated
+    ActivateCanons(Boolean.class),
+    ActivateOverwhelming(Boolean.class),
+    ActivateExpansion(Boolean.class),
 
     LoseGame(Object.class),
     WinGame(Object.class),

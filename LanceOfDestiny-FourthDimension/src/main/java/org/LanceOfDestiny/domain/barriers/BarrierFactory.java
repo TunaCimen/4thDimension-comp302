@@ -1,6 +1,6 @@
 package org.LanceOfDestiny.domain.barriers;
 
-import org.LanceOfDestiny.domain.managers.ManagerHub;
+import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.util.Random;
@@ -29,7 +29,7 @@ public class BarrierFactory {
         if (createdBarrier == null) {
             return null;
         }
-        ManagerHub.getInstance().getBarrierManager().addBarrier(createdBarrier);
+        BarrierManager.getInstance().addBarrier(createdBarrier);
         return createdBarrier;
     }
 

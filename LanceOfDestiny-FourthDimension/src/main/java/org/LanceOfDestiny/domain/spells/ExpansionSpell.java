@@ -1,26 +1,29 @@
 package org.LanceOfDestiny.domain.spells;
 
-import org.LanceOfDestiny.domain.managers.ManagerHub;
+import org.LanceOfDestiny.domain.EventSystem.Events;
+import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
 
 public class ExpansionSpell extends Spell{
-    MagicalStaff magicalStaff;
+//    MagicalStaff magicalStaff;
 
     public ExpansionSpell() {
         super();
         setSpellType(SpellType.EXPANSION);
-        this.magicalStaff = ManagerHub.getInstance().getMagicalStaff();
+//        this.magicalStaff = SessionManager.getInstance().getMagicalStaff();
     }
 
     @Override
     public void activateSpell() {
         super.activateSpell();
-        magicalStaff.enableExpansion();
+        Events.ActivateExpansion.invoke(true);
+//        magicalStaff.enableExpansion();
     }
 
     @Override
     public void deactivateSpell() {
         super.deactivateSpell();
-        magicalStaff.disableExpansion();
+        Events.ActivateExpansion.invoke(false);
+//        magicalStaff.disableExpansion();
     }
 }
