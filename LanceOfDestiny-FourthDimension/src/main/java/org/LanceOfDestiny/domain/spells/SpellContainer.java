@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 // spells gained by the player will be held here
+// needs a timer object to activate and deactivate spell
 public class SpellContainer {
     private List<Spell> spells;
     private HashMap<SpellType, Boolean> spellMap = new HashMap<>(); // for saving to database
@@ -42,7 +43,8 @@ public class SpellContainer {
 
         spellMap.put(spellType, false);
         spells.remove(spell);
-        Events.UseSpell.invoke(spellType);
+
+        //spell.deactivateSpell(); // after timer ends
     }
 
     public void removeSpell(Spell spell) {
