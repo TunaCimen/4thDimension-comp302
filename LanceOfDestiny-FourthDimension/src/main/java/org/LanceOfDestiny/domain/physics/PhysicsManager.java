@@ -127,19 +127,6 @@ public class PhysicsManager {
     }
 
 
-    private void invokeOnCollisionEnter(Collision collision) {
-        GameObject gameObject1 = collision.getCollider1().gameObject;
-        gameObject1.onCollisionEnter(collision);
-        if (collision.getCollider2() == null) {
-            return;
-        }
-        GameObject gameObject2 = collision.getCollider2().gameObject;
-        gameObject2.onCollisionEnter(collision);
-    }
-
-    private void invokeOnTriggerEnter() {
-
-    }
 
     private void handleBounce(Collision collision) {
         //Screen Boundary
