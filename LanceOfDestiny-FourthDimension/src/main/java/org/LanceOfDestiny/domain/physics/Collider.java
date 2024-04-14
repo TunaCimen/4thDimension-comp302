@@ -80,4 +80,7 @@ public abstract class Collider {
     public void setTrigger(boolean trigger) {
         isTrigger = trigger;
     }
+
+
+
 }

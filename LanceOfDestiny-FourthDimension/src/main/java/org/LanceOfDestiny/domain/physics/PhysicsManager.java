@@ -3,20 +3,23 @@ package org.LanceOfDestiny.domain.physics;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.player.FireBall;
+import org.LanceOfDestiny.domain.player.MagicalStaff;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class PhysicsManager {
     private static PhysicsManager instance;
     private List<Collider> colliders;
-    private final double framesAhead = 1;
-    // this allows for precalculating where the ball will be so the ball doesn't get stuck hopefully
-    // not using these for ball-ball collisions as they seem fine for the most part
+    // this will be made non-zero if need predictive collision detection code
+    private double framesAhead = 0.8;
+    private int currentFrame = 0;
+    private int frameTreshold = 5;
+    private Map<String, Integer> recentCollisions;  // Stores collision pairs with the frame of their last occurrence
 
     private PhysicsManager() {
-
         colliders = new ArrayList<>();
+        recentCollisions = new HashMap<>();
     }
 
     public static PhysicsManager getInstance() {
@@ -35,13 +38,15 @@ public class PhysicsManager {
     }
 
     public List<Collision> checkCollisions() {
+        currentFrame++; // Assume a method to get the current frame
         List<Collision> detectedCollisions = new ArrayList<>();
         processBoundaryCollisions(detectedCollisions);
-        processObjectCollisions(detectedCollisions);
+        processObjectCollisions(detectedCollisions, currentFrame);
+        cleanupRecentCollisions(currentFrame);
         return detectedCollisions;
     }
 
-    private void processObjectCollisions(List<Collision> detectedCollisions) {
+    private void processObjectCollisions(List<Collision> detectedCollisions, int currentFrame) {
         for (int i = 0; i < colliders.size(); i++) {
             Collider collider1 = colliders.get(i);
             if (!collider1.isEnabled()) continue;
@@ -50,24 +55,50 @@ public class PhysicsManager {
                 Collider collider2 = colliders.get(j);
                 if (!collider2.isEnabled()) continue;
 
-                if (isRectRectCollision(collider1, collider2)) {
-                    Vector normal = getRectRectCollisionNormal((RectangleCollider) collider1, (RectangleCollider) collider2);
-                    if (normal != null) {
-                        detectedCollisions.add(new Collision(collider1, collider2, normal));
-                    }
-                } else if (isBallBallCollision(collider1, collider2)) {
-                    Vector normal = getBallBallCollisionNormal((BallCollider) collider1, (BallCollider) collider2);
-                    if (normal != null) {
-                        detectedCollisions.add(new Collision(collider1, collider2, normal));
-                    }
-                } else if (isBallRectCollision(collider1, collider2)) {
-                    Vector normal = getRectangleToCircleCollisionNormal(collider1, collider2);
-                    if (normal != null) {
-                        detectedCollisions.add(new Collision(collider1, collider2, normal));
+                String collisionKey = generateCollisionKey(collider1, collider2);
+                if (isSpecialCollision(collider1, collider2) && recentCollisions.containsKey(collisionKey) && (currentFrame - recentCollisions.get(collisionKey) <= frameTreshold)) {
+                    continue;  // Skip this collision for the special cases within the timeframe
+                }
+
+                if (checkAndHandleCollision(collider1, collider2, detectedCollisions)) {
+                    if (isSpecialCollision(collider1, collider2)) {
+                        recentCollisions.put(collisionKey, currentFrame); // Update the frame of the last collision
                     }
                 }
             }
         }
+    }
+
+    private boolean checkAndHandleCollision(Collider c1, Collider c2, List<Collision> collisions) {
+        Vector normal = null;
+        if (isRectRectCollision(c1, c2)) {
+            normal = getRectRectCollisionNormal((RectangleCollider) c1, (RectangleCollider) c2);
+        } else if (isBallBallCollision(c1, c2)) {
+            normal = getBallBallCollisionNormal((BallCollider) c1, (BallCollider) c2);
+        } else if (isBallRectCollision(c1, c2)) {
+            normal = getRectangleToCircleCollisionNormal(c1, c2);
+        }
+
+        if (normal != null) {
+            collisions.add(new Collision(c1, c2, normal));
+            return true;
+        }
+        return false;
+    }
+
+    private boolean isSpecialCollision(Collider a, Collider b) {
+        return (a.gameObject instanceof FireBall && b.gameObject instanceof MagicalStaff) ||
+                (a.gameObject instanceof MagicalStaff && b.gameObject instanceof FireBall);
+    }
+
+    private String generateCollisionKey(Collider a, Collider b) {
+        int id1 = System.identityHashCode(a);
+        int id2 = System.identityHashCode(b);
+        return id1 < id2 ? id1 + "-" + id2 : id2 + "-" + id1;  // Ensure consistent ordering
+    }
+
+    private void cleanupRecentCollisions(int currentFrame) {
+        recentCollisions.entrySet().removeIf(entry -> currentFrame - entry.getValue() > frameTreshold);
     }
 
     private void processBoundaryCollisions(List<Collision> detectedCollisions) {
