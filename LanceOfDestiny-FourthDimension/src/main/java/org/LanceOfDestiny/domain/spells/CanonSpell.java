@@ -1,26 +1,29 @@
 package org.LanceOfDestiny.domain.spells;
 
-import org.LanceOfDestiny.domain.managers.ManagerHub;
+import org.LanceOfDestiny.domain.EventSystem.Events;
+import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
 
 public class CanonSpell extends Spell{
 
-    MagicalStaff magicalStaff;
+//    MagicalStaff magicalStaff;
     public CanonSpell() {
         super();
         setSpellType(SpellType.CANON);
-        this.magicalStaff = ManagerHub.getInstance().getMagicalStaff();
+//        this.magicalStaff = SessionManager.getInstance().getMagicalStaff();
     }
 
     @Override
     public void activateSpell() {
         super.activateSpell();
-        magicalStaff.enableCanons();
+//        magicalStaff.enableCanons();
+        Events.ActivateCanons.invoke(true);
     }
 
     @Override
     public void deactivateSpell() {
         super.deactivateSpell();
-        magicalStaff.disableCanons();
+//        magicalStaff.disableCanons();
+        Events.ActivateCanons.invoke(false);
     }
 }

@@ -1,6 +1,7 @@
 package org.LanceOfDestiny.domain.managers;
 
 import org.LanceOfDestiny.domain.EventSystem.Events;
+import org.LanceOfDestiny.domain.spells.SpellType;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -11,15 +12,13 @@ import java.util.Set;
 
 public class InputManager implements KeyListener {
 
-    public static InputManager instance;
+    private static InputManager instance;
     public int moveKey;
     public int rotateKey;
+    public int activateSpellKey;
 
-    //Manager Hub tripping using that public constructor.
-    //TODO:Change it
-    public InputManager(){
 
-    }
+    private InputManager(){}
 
     public static InputManager getInstance() {
         if(instance == null) {
@@ -35,19 +34,17 @@ public class InputManager implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode()==KeyEvent.VK_A || e.getKeyCode()==KeyEvent.VK_D)moveKey = e.getKeyCode();
-        if(e.getKeyCode()==KeyEvent.VK_LEFT || e.getKeyCode()==KeyEvent.VK_RIGHT)rotateKey = e.getKeyCode();
+        if(e.getKeyCode()==KeyEvent.VK_A || e.getKeyCode()==KeyEvent.VK_D)rotateKey = e.getKeyCode();
+        if(e.getKeyCode()==KeyEvent.VK_LEFT || e.getKeyCode()==KeyEvent.VK_RIGHT)moveKey = e.getKeyCode();
+        if(e.getKeyCode()==KeyEvent.VK_O || e.getKeyCode()==KeyEvent.VK_E || e.getKeyCode()==KeyEvent.VK_C) activateSpellKey = e.getKeyCode();
         updateActions();
 
     }
 
     public void updateActions() {
-        if(moveKey==KeyEvent.VK_A)Events.MoveStaff.invoke(-1);
-        if(moveKey==KeyEvent.VK_D)Events.MoveStaff.invoke(1);
-        if(rotateKey==KeyEvent.VK_LEFT)Events.RotateStaff.invoke(-1d);
-        if(rotateKey==KeyEvent.VK_RIGHT)Events.RotateStaff.invoke(1d);
-        if(rotateKey==-1)Events.ResetStaff.invoke();
-
+        updateRotation();
+        updateMovement();
+        updateSpellActivation();
     }
 
     @Override
@@ -55,4 +52,22 @@ public class InputManager implements KeyListener {
         if(moveKey == e.getKeyCode())moveKey=-1;
         if(rotateKey == e.getKeyCode())rotateKey=-1;
     }
+
+    private void updateRotation(){
+        if(rotateKey==KeyEvent.VK_A)Events.RotateStaff.invoke(-1d);
+        if(rotateKey==KeyEvent.VK_D)Events.RotateStaff.invoke(1d);
+        if(rotateKey==-1)Events.ResetStaff.invoke();
+    }
+
+    private void updateMovement(){
+        if(moveKey==KeyEvent.VK_LEFT)Events.MoveStaff.invoke(-1);
+        if(moveKey==KeyEvent.VK_RIGHT)Events.MoveStaff.invoke(1);
+    }
+
+    private void updateSpellActivation(){
+        if(activateSpellKey == KeyEvent.VK_E) Events.TryUsingSpell.invoke(SpellType.EXPANSION);
+        if(activateSpellKey == KeyEvent.VK_C) Events.TryUsingSpell.invoke(SpellType.CANON);
+        if(activateSpellKey == KeyEvent.VK_O) Events.TryUsingSpell.invoke(SpellType.OVERWHELMING);
+    }
+
 }

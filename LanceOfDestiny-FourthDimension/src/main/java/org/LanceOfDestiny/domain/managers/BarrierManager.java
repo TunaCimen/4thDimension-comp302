@@ -6,9 +6,15 @@ import java.util.ArrayList;
 
 public class BarrierManager {
 
+    private static BarrierManager instance;
     private ArrayList<Barrier> barriers = new ArrayList<Barrier>();
 
-    protected BarrierManager() {}
+    private BarrierManager() {}
+
+    public static BarrierManager getInstance() {
+        if (instance== null) instance = new BarrierManager();
+        return instance;
+    }
 
     public void addBarrier(Barrier barrier){
         barriers.add(barrier);

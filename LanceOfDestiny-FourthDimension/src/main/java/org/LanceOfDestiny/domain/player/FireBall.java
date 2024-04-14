@@ -18,6 +18,7 @@ public class FireBall extends GameObject {
     private double currentSpeed;
     private final int radius = Constants.FIREBALL_RADIUS;
     BallSprite bs;
+
     public FireBall(Vector position) {
         super();
         this.position = position;
@@ -28,6 +29,11 @@ public class FireBall extends GameObject {
         //this.collider = ColliderFactory.createBallCollider(this,new Vector(5,-10),ColliderType.DYNAMIC,radius);
        // this.collider = new BallCollider(new Vector(5, 0), ColliderType.DYNAMIC, radius, this);
         this.bs = new BallSprite(this, Color.red,Constants.FIREBALL_RADIUS);
+        Events.ActivateOverwhelming.addListener(this::handleOverwhelming);
+    }
+
+    private void handleOverwhelming(Object object) {
+        isOverwhelming = (Boolean) object;
     }
 
     public FireBall(Vector position, Vector velocity) {
@@ -36,6 +42,7 @@ public class FireBall extends GameObject {
         this.currentSpeed = defaultSpeed;
         this.collider = ColliderFactory.createBallCollider(this,velocity, ColliderType.DYNAMIC, radius);
         this.bs = new BallSprite(this, Color.black,Constants.FIREBALL_RADIUS);
+        Events.ActivateOverwhelming.addListener(this::handleOverwhelming);
     }
     public FireBall(Vector position, ColliderType colliderType) {
         super();
@@ -43,6 +50,7 @@ public class FireBall extends GameObject {
         this.currentSpeed = defaultSpeed;
         this.collider = ColliderFactory.createBallCollider(this,new Vector(0,0),colliderType, radius);
         this.bs = new BallSprite(this, Color.cyan,Constants.FIREBALL_RADIUS);
+        Events.ActivateOverwhelming.addListener(this::handleOverwhelming);
     }
 
 

@@ -25,12 +25,15 @@ public class MagicalStaff extends GameObject {
         Events.MoveStaff.addListener(this::moveRight);
         Events.RotateStaff.addListener(this::rotate);
         Events.ResetStaff.addRunnableListener(this::resetStaff);
+        Events.ActivateCanons.addListener(this::handleCanons);
+        Events.ActivateExpansion.addListener(this::handleExpansion);
         this.position = position;
 
         this.rectangleSprite = new RectangleSprite(this, Color.orange,Constants.STAFF_WIDTH,Constants.STAFF_HEIGHT);
         this.collider = ColliderFactory.createRectangleCollider(this, new Vector(0,0), ColliderType.STATIC, Constants.STAFF_WIDTH, Constants.STAFF_HEIGHT);
 
     }
+
 
     @Override
     public Sprite getSprite() {
@@ -79,5 +82,16 @@ public class MagicalStaff extends GameObject {
         this.fireBall = fireBall;
     }
 
+    private void handleCanons(Object object) {
+        isCanonActivated = (boolean) object;
+        if (isCanonActivated) enableCanons();
+        else disableCanons();
+    }
+
+    private void handleExpansion(Object object) {
+        isExpanded = (boolean) object;
+        if (isExpanded) enableExpansion();
+        else disableExpansion();
+    }
 
 }
