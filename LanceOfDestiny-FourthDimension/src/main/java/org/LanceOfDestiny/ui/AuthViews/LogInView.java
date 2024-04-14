@@ -191,6 +191,7 @@ public class LogInView extends javax.swing.JFrame implements Window {
 
         getAccessibleContext().setAccessibleName("LOGIN");
         this.setVisible(true);
+        this.setResizable(false);
         pack();
 
     }
