@@ -25,17 +25,12 @@ public class Vector {
         this.y = y;
     }
 
-    public Vector getNormalized() {
+    public Vector normalize() {
         double length = (double) Math.sqrt(getX() * getX() + getY() * getY());
         if (length != 0) {
             return new Vector(getX() / length, getY() / length);
         }
         return this; // this could only be the zero vector anyways
-    }
-
-
-    public double distanceTo(Vector pos2) {
-        return (double) Math.sqrt(Math.pow(getX() - pos2.getX(), 2) + Math.pow(getY() - pos2.getY(), 2));
     }
 
     public Vector add(Vector pos2) {
@@ -56,5 +51,12 @@ public class Vector {
 
     public double dotProduct(Vector v){
         return getX() * v.getX() + getY()* v.getY();
+    }
+
+    public Vector perpendicular() {
+        return new Vector(-y, x); // Clockwise rotation
+    }
+    public String toString() {
+        return "(" + x + ", " + y + ")";
     }
 }

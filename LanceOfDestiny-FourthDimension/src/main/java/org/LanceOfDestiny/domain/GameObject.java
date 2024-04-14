@@ -14,7 +14,7 @@ public abstract class GameObject extends Behaviour{
     protected double angle;
 
     public Sprite getSprite(){
-        return new RectangleSprite(this, Color.white,15,35); // Default Sprite Given to everything.
+        return new RectangleSprite(this, Color.magenta,0,0); // Default Sprite Given to everything.
     }
     private static List<Behaviour> gameObjects = new ArrayList<>();
 
