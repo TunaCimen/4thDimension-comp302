@@ -7,6 +7,15 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
+
+
+/**
+ * The GameView class represents the view of the game, which includes the control panel and game panel.
+ * It initializes the control panel, game buttons, spell buttons, and labels for score and lives.
+ * It also sets the layout for the main frame of the game.
+ */
+
+
 public class GameView {
     private GamePanelDraw gamePanel;
     private JPanel controlPanel;
@@ -199,7 +208,6 @@ public class GameView {
     }
     public void buildMap(int simpleBarrierCount, int reinforcedBarrierCount, int explosiveBarrierCount, int rewardingBarrierCount) {
         BuildModeController.getInstance().initializeMap();
-        BuildModeController.getInstance();
 
 
 

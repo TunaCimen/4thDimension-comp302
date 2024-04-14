@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * This class is responsible for drawing the game objects with respoct to mouse and key actions.
+ * It extends JPanel and implements ActionListener, MouseListener, and MouseMotionListener.
+ * It contains methods for drawing the background, game elements, and handling game interactions.
+ */
 public class GamePanelDraw extends JPanel implements ActionListener, MouseListener, MouseMotionListener {
     //todo: animatorlar eklenmeli
     private Timer repaintTimer;
@@ -13,6 +18,7 @@ public class GamePanelDraw extends JPanel implements ActionListener, MouseListen
 
 
 
+    // TODO: timerlar kaldırılmalı loop system kullanılmalı
     private static final int REPAINT_DELAY_MS = 16; // Approx 60 FPS
     private static final String BACKGROUND_IMAGE_PATH = "java/org/LanceOfDestiny/Resources/Image/200Background.png"; //todo:image scale için bir çözüm lazım olucak
 

@@ -1,12 +1,10 @@
 package org.LanceOfDestiny.ui;
 
-import org.LanceOfDestiny.Coordinate;
 import org.LanceOfDestiny.LanceOfDestiny;
 import org.LanceOfDestiny.domain.GameMap;
 import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.barriers.BarrierFactory;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
-import org.LanceOfDestiny.domain.barriers.SimpleBarrier;
 import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.util.ArrayList;
@@ -34,7 +32,6 @@ public class BuildModeController {
 
 
     //Creates obstacles(from given input) and places them in a list where they will be stored and shuffled for randomization
-    //todo: obstacleları ekleyebileceğimiz bir listeye ihtiyacımız var gameobjesinde olabilir
     public void addBarriers(int simpNum, int firmNum, int expNum, int giftNum) {
 
         int i;
@@ -64,26 +61,29 @@ public class BuildModeController {
         LanceOfDestiny.getInstance().setGameMap(new GameMap());
     }
 
+    // todo: burada gapler daha sonra tekrardan kontrol edilmeli çünkü
+    //  control panel'ın ekrandaki konumu bu değerleri etkileyecek mi emin değilim
+
     public void intializeBarrierCoordinates() {
         barrierList = LanceOfDestiny.getInstance().getGameMap().getBarriers();
         if (barrierList.isEmpty()) return;
         Barrier barrierZero = barrierList.get(0);
-        barrierZero.setCoordinate(new Coordinate(60.0, 30.0));
-        double barrierAndGapWidth = 55.6; // 25.6 is the width of the barrier and 30 is the gap between barriers
+        barrierZero.setCoordinate(new Vector(60.0F, 30.0F));
+        float barrierAndGapWidth = 55.6F; // 25.6 is the width of the barrier and 30 is the gap between barriers
         int barrierAndGapPairs = 1;
-        double verticalGap = 0.0;
+        float verticalGap = 0.0F;
         for(int i =1; i < barrierList.size(); i++) {
-            double widthCheck = barrierAndGapWidth * barrierAndGapPairs + 40;
+            float widthCheck = barrierAndGapWidth * barrierAndGapPairs + 40F;
             Barrier nextBarrier = barrierList.get(i);
             if (widthCheck + barrierAndGapWidth > 1280) {
                 barrierAndGapPairs = 1;
-                verticalGap += 40;
-                barrierAndGapWidth = 55.6;
+                verticalGap += 40F;
+                barrierAndGapWidth = 55.6F;
             }
             else {
                 barrierAndGapPairs++;
             }
-            nextBarrier.setCoordinate(new Coordinate(barrierAndGapWidth, 30.0 + verticalGap));
+            nextBarrier.setCoordinate(new Vector(barrierAndGapWidth, 30.0F + verticalGap));
         }
     }
 
