@@ -9,6 +9,7 @@ public abstract class Collider {
     protected Vector velocity;
     protected ColliderType colliderType;
     private boolean isEnabled;
+    private boolean isTrigger;
 
     public GameObject getGameObject() {
         return gameObject;
@@ -70,5 +71,13 @@ public abstract class Collider {
 
     public void setEnabled(boolean enabled) {
         isEnabled = enabled;
+    }
+
+    public boolean isTrigger() {
+        return isTrigger;
+    }
+
+    public void setTrigger(boolean trigger) {
+        isTrigger = trigger;
     }
 }
