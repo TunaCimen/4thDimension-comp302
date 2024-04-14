@@ -26,7 +26,7 @@ public class PhysicsTestView extends JFrame implements Window {
         new FireBall(Constants.FIREBALL_POSITION, new Vector(0,5));
 
         // Generate barriers
-        for (int i = 10; i < Constants.SCREEN_WIDTH - 10; i += 30) {
+        for (int i = 20; i < Constants.SCREEN_WIDTH - 10; i += 30) {
             for (int j = 10; j < Constants.SCREEN_HEIGHT - 400; j += 30) {
                 if (j == 190) {  // Check if it's the first row
                     BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.EXPLOSIVE);

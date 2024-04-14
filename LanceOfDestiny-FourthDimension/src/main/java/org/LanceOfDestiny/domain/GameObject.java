@@ -12,6 +12,8 @@ public abstract class GameObject extends Behaviour{
 
     protected Vector position;
     protected double angle;
+    private static int idCounter;
+    private int id;
 
     public Sprite getSprite(){
         return new RectangleSprite(this, Color.magenta,0,0); // Default Sprite Given to everything.
@@ -21,6 +23,7 @@ public abstract class GameObject extends Behaviour{
 
     public GameObject() {
         gameObject = this;
+        this.id = idCounter++;
         GameObject.gameObjects.add(this);
     }
 
@@ -60,5 +63,13 @@ public abstract class GameObject extends Behaviour{
     }
     public void onTriggerEnter(Collision collision) {
         return;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
