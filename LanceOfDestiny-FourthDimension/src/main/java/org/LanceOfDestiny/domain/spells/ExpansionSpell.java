@@ -1,6 +1,6 @@
 package org.LanceOfDestiny.domain.spells;
 
-import org.LanceOfDestiny.domain.managers.ManagerHub;
+import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
 
 public class ExpansionSpell extends Spell{
@@ -9,7 +9,7 @@ public class ExpansionSpell extends Spell{
     public ExpansionSpell() {
         super();
         setSpellType(SpellType.EXPANSION);
-        this.magicalStaff = ManagerHub.getInstance().getMagicalStaff();
+        this.magicalStaff = SessionManager.getInstance().getMagicalStaff();
     }
 
     @Override

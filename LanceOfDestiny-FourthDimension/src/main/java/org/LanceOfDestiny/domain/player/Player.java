@@ -3,9 +3,6 @@ package org.LanceOfDestiny.domain.player;
 import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
 import org.LanceOfDestiny.domain.spells.SpellContainer;
-import org.LanceOfDestiny.domain.managers.InputManager;
-import org.LanceOfDestiny.domain.managers.ManagerHub;
-import org.LanceOfDestiny.domain.managers.ScoreManager;
 
 public class Player extends GameObject {
 

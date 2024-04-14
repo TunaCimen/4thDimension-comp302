@@ -11,15 +11,12 @@ import java.util.Set;
 
 public class InputManager implements KeyListener {
 
-    public static InputManager instance;
+    private static InputManager instance;
     public int moveKey;
     public int rotateKey;
 
-    //Manager Hub tripping using that public constructor.
-    //TODO:Change it
-    public InputManager(){
 
-    }
+    private InputManager(){}
 
     public static InputManager getInstance() {
         if(instance == null) {
@@ -55,4 +52,5 @@ public class InputManager implements KeyListener {
         if(moveKey == e.getKeyCode())moveKey=-1;
         if(rotateKey == e.getKeyCode())rotateKey=-1;
     }
+
 }

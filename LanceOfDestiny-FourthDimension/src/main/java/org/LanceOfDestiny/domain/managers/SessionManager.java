@@ -29,6 +29,17 @@ public class SessionManager {
         this.fireBall = new FireBall(Constants.FIREBALL_POSITION);
         magicalStaff.setFireBall(fireBall);
         player.setMagicalStaff(magicalStaff);
-        ManagerHub.getInstance().initDependencies(magicalStaff, player, fireBall, this);
+    }
+
+    public MagicalStaff getMagicalStaff() {
+        return magicalStaff;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public FireBall getFireBall() {
+        return fireBall;
     }
 }

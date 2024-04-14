@@ -2,7 +2,7 @@ package org.LanceOfDestiny.domain.barriers;
 
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.GameObject;
-import org.LanceOfDestiny.domain.managers.ManagerHub;
+import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.physics.*;
 import org.LanceOfDestiny.ui.BallSprite;
 import org.LanceOfDestiny.ui.RectangleSprite;
@@ -49,7 +49,7 @@ public abstract class Barrier extends GameObject {
     public void Destroy() {
         super.Destroy();
         PhysicsManager.getInstance().removeCollider(getCollider());
-        ManagerHub.getInstance().getBarrierManager().removeBarrier(this);
+        BarrierManager.getInstance().removeBarrier(this);
     }
 
     public boolean isDestroyed() {

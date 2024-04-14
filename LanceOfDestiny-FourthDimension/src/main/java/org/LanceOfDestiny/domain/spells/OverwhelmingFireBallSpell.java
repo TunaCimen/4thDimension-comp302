@@ -1,6 +1,6 @@
 package org.LanceOfDestiny.domain.spells;
 
-import org.LanceOfDestiny.domain.managers.ManagerHub;
+import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.player.FireBall;
 
 public class OverwhelmingFireBallSpell extends Spell{
@@ -9,7 +9,7 @@ public class OverwhelmingFireBallSpell extends Spell{
     public OverwhelmingFireBallSpell() {
         super();
         setSpellType(SpellType.OVERWHELMING);
-        this.fireBall = ManagerHub.getInstance().getFireBall();
+        this.fireBall = SessionManager.getInstance().getFireBall();
     }
 
     @Override
