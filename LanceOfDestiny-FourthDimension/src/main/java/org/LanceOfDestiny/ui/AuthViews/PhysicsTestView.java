@@ -4,6 +4,7 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.barriers.BarrierFactory;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
+import org.LanceOfDestiny.domain.barriers.SimpleBarrier;
 import org.LanceOfDestiny.domain.managers.InputManager;
 import org.LanceOfDestiny.domain.physics.ColliderFactory;
 import org.LanceOfDestiny.domain.physics.ColliderType;
@@ -20,7 +21,7 @@ import java.awt.*;
 public class PhysicsTestView extends JFrame implements Window {
     MagicalStaff magicalStaff;
     LoopExecutor loopExecutor = new LoopExecutor();
-
+    Barrier barrier;
     public PhysicsTestView() {
         // Create a FireBall
         new FireBall(Constants.FIREBALL_POSITION, new Vector(0,5));
@@ -35,9 +36,9 @@ public class PhysicsTestView extends JFrame implements Window {
                 }
             }
         }
-
-        // Create MagicalStaff
+        barrier = new SimpleBarrier(new Vector(500,500));
         magicalStaff = new MagicalStaff(Constants.STAFF_POSITION);
+        // Create MagicalStaff
 
         // Setup game looper
         GameLooper gameLooper = new GameLooper();

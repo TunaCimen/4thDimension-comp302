@@ -3,11 +3,14 @@ package org.LanceOfDestiny.domain.player;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.Looper.Waiter;
 import org.LanceOfDestiny.domain.physics.*;
 import org.LanceOfDestiny.ui.RectangleSprite;
 import org.LanceOfDestiny.ui.Sprite;
 
+import javax.swing.*;
 import java.awt.*;
+import java.time.LocalTime;
 
 public class MagicalStaff extends GameObject {
 
@@ -25,13 +28,17 @@ public class MagicalStaff extends GameObject {
         Events.MoveStaff.addListener(this::moveRight);
         Events.RotateStaff.addListener(this::rotate);
         Events.ResetStaff.addRunnableListener(this::resetStaff);
+        Events.TimedTestEvent.addListener(this::changeColor);
+        Events.ResetColorEvent.addRunnableListener(this::resetColor);
         Events.ActivateCanons.addListener(this::handleCanons);
         Events.ActivateExpansion.addListener(this::handleExpansion);
         this.position = position;
-
         this.rectangleSprite = new RectangleSprite(this, Color.orange,Constants.STAFF_WIDTH,Constants.STAFF_HEIGHT);
         this.collider = ColliderFactory.createRectangleCollider(this, new Vector(0,0), ColliderType.STATIC, Constants.STAFF_WIDTH, Constants.STAFF_HEIGHT);
+    }
 
+    private void resetColor() {
+        rectangleSprite.color = Color.orange;
     }
 
 
@@ -55,6 +62,10 @@ public class MagicalStaff extends GameObject {
 
     public void disableCanons() {
         // TODO
+    }
+
+    public void changeColor(Object color){
+        rectangleSprite.color = (Color) color;
     }
 
     public void moveRight(Object integer) {
