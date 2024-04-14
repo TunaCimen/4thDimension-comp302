@@ -10,6 +10,7 @@ public class Sprite extends JPanel {
 
     public GameObject attachedGameObject;
     public Color color;
+    public Integer number;
 
 
     public Sprite(GameObject attachedGameObject, Color color){

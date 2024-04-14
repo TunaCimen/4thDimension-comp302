@@ -4,6 +4,7 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.GameObject;
 import org.LanceOfDestiny.domain.managers.ManagerHub;
 import org.LanceOfDestiny.domain.physics.*;
+import org.LanceOfDestiny.ui.BallSprite;
 import org.LanceOfDestiny.ui.RectangleSprite;
 import org.LanceOfDestiny.ui.Sprite;
 
@@ -11,8 +12,8 @@ import java.awt.*;
 
 public abstract class Barrier extends GameObject {
 
-    public static final int WIDTH = Constants.T;
-    public static final int HEIGHT = Constants.L / 5;  // All barriers except explosive barriers are rectangles with dimensions L/5 and 20px.
+    public static final int WIDTH = Constants.BARRIER_WIDTH;
+    public static final int HEIGHT = Constants.BARRIER_HEIGHT;  // All barriers except explosive barriers are rectangles with dimensions L/5 and 20px.
 
     private Collider collider;
     protected boolean isMoving;
@@ -28,14 +29,21 @@ public abstract class Barrier extends GameObject {
         this.position = position;
         this.barrierType = type;
         this.hitsLeft = hitsRequired;
-        this.collider = ColliderFactory.createRectangleCollider(this, Vector.getZeroVector(), ColliderType.STATIC, WIDTH, HEIGHT);
-        this.sprite = new RectangleSprite(this, Color.red, WIDTH, HEIGHT);
+        createColliderAndSprite();
     }
 
     public Barrier(Vector position, BarrierTypes type){
         this(position, type, 1);
+    }
+
+    public void createColliderAndSprite(){
+        if(this instanceof ExplosiveBarrier) {
+            this.collider = ColliderFactory.createBallCollider(this, new Vector(0, 1), ColliderType.STATIC, Constants.EXPLOSIVE_RADIUS);
+            this.sprite = new BallSprite(this, Color.RED, (int) Constants.EXPLOSIVE_RADIUS);
+            return;
+        }
         this.collider = ColliderFactory.createRectangleCollider(this, Vector.getZeroVector(), ColliderType.STATIC, WIDTH, HEIGHT);
-        this.sprite = new RectangleSprite(this, Color.red, WIDTH, HEIGHT);
+        this.sprite = new RectangleSprite(this, Color.DARK_GRAY, WIDTH, HEIGHT);
     }
     @Override
     public void Destroy() {

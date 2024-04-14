@@ -21,17 +21,17 @@ public class RewardBoxFactory {
         return instance;
     }
 
-    public RewardBox generateRandomRewardBox(Vector position) {
+    public static RewardBox generateRandomRewardBox(Vector position) {
         return createRewardBox(position, getRandomSpellType());
     }
 
-    public RewardBox createRewardBox(Vector position, SpellType spellType) {
+    public static RewardBox createRewardBox(Vector position, SpellType spellType) {
         var rewardBox = new RewardBox(position, spellType);
         rewardBoxes.add(rewardBox);
         return rewardBox;
     }
 
-    public SpellType getRandomSpellType(){
+    public static SpellType getRandomSpellType(){
         return SpellType.values()[new Random().nextInt(SpellType.values().length)];
     }
 

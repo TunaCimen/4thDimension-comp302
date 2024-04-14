@@ -11,15 +11,18 @@ public class SpellContainer {
     private List<Spell> spells;
     private HashMap<SpellType, Boolean> spellMap = new HashMap<>(); // for saving to database
 
+
     public SpellContainer() {
         spells = new LinkedList<>();
         for (SpellType spellType : SpellType.values()) {
             if(spellType.equals(SpellType.CHANCE)) continue;
             spellMap.put(spellType, false);
         }
+        Events.GainSpell.addListener(this::addSpell);
     }
 
-    public void addSpell(Spell spell) {
+    public void addSpell(Object spellObject) {
+        var spell = (Spell) spellObject;
         if(spell.getSpellType().equals(SpellType.CHANCE)){
             Events.UpdateChance.invoke(1);
             return;
@@ -27,8 +30,6 @@ public class SpellContainer {
 
         if(spellExists(spell.getSpellType()))
             return;
-
-        Events.GainSpell.invoke(spell.getSpellType());
         spells.add(spell);
         spellMap.put(spell.getSpellType(), true);
     }

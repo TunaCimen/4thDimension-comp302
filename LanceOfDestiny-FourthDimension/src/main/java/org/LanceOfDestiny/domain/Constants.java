@@ -1,6 +1,7 @@
 package org.LanceOfDestiny.domain;
 
 import org.LanceOfDestiny.domain.physics.Vector;
+import org.LanceOfDestiny.domain.player.FireBall;
 
 public class Constants {
     public static final int SCREEN_WIDTH = 750; //can be changed later
@@ -23,7 +24,12 @@ public class Constants {
     public static final double HEX_SPEED = 5;  // value should change, 5 is placeholder
     public static final int CANON_HEIGHT = 10; // value should change, 10 is placeholder
     public static final int CANON_WIDTH = 10; // value should change, 10 is placeholder
-    public static final Vector FIREBALL_POSITION = new Vector(0, 0); // initial position
-    public static final Vector STAFF_POSITION = new Vector(0, 0);
-    public static final double EXPLOSIVE_RADIUS = 15;
+    public static final Vector FIREBALL_POSITION = new Vector(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 80); // initial position
+    public static final Vector STAFF_POSITION = new Vector(SCREEN_WIDTH / 2 - (STAFF_WIDTH / 2),SCREEN_HEIGHT - 50 );
+    public static final int BARRIER_WIDTH = T;
+    public static final int BARRIER_HEIGHT = L/5;
+    public static final int REWARD_BOX_WIDTH = BARRIER_WIDTH;
+    public static final int REWARD_BOX_HEIGHT = BARRIER_HEIGHT;
+    public static final double EXPLOSIVE_RADIUS = 5;
+
 }
