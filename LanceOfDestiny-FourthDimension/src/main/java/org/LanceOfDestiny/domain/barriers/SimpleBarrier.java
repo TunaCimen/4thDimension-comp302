@@ -24,7 +24,6 @@ public class SimpleBarrier extends Barrier{
             this.Destroy();  // Assuming a method to handle destruction or deactivation
         }
 
-
     }
 
     @Override
