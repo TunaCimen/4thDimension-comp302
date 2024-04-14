@@ -1,5 +1,7 @@
 package org.LanceOfDestiny.domain.barriers;
 
+import org.LanceOfDestiny.domain.physics.Collision;
+import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.spells.RewardBox;
 import org.LanceOfDestiny.domain.spells.RewardBoxFactory;
 import org.LanceOfDestiny.domain.spells.SpellType;
@@ -19,5 +21,15 @@ public class RewardingBarrier extends Barrier{
         this.getSprite().color = Color.GREEN;
     }
 
+    @Override
+    public void onCollisionEnter(Collision collision) {
+        super.onCollisionEnter(collision);
+        var other = collision.getOther(this);
 
+        if(!(other instanceof FireBall)) return;
+
+
+
+
+    }
 }
