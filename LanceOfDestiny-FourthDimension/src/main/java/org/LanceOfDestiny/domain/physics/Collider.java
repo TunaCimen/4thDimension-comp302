@@ -8,6 +8,7 @@ public abstract class Collider {
 
     protected Vector velocity;
     protected ColliderType colliderType;
+    private boolean isEnabled;
 
     public GameObject getGameObject() {
         return gameObject;
@@ -19,7 +20,16 @@ public abstract class Collider {
         this.velocity = velocity;
         this.colliderType = colliderType;
         this.gameObject = gameObject;
+        this.isEnabled = true;
     }
+
+    protected Collider(Vector velocity, ColliderType colliderType, GameObject gameObject, boolean isEnabled) {
+        this.velocity = velocity;
+        this.colliderType = colliderType;
+        this.gameObject = gameObject;
+        this.isEnabled = isEnabled;
+    }
+
 
     // Getters and Setters
 
@@ -54,4 +64,11 @@ public abstract class Collider {
     }
 
 
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
 }
