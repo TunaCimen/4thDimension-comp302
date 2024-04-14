@@ -24,7 +24,7 @@ public class PhysicsTestView extends JFrame implements Window {
     LoopExecutor loopExecutor = new LoopExecutor();
     public PhysicsTestView() {
 
-        new FireBall(new Vector(Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT - 40), new Vector(0,7));
+        new FireBall(Constants.FIREBALL_POSITION, new Vector(0,7));
         //fb2 = new FireBall(new Vector(50+Constants.FIREBALL_RADIUS,90+Constants.FIREBALL_RADIUS),ColliderType.STATIC);
         //fb3 = new FireBall(new Vector(120+Constants.FIREBALL_RADIUS,490+Constants.FIREBALL_RADIUS),ColliderType.STATIC);
         //fb4 = new FireBall(new Vector(250+Constants.FIREBALL_RADIUS,190+Constants.FIREBALL_RADIUS),ColliderType.STATIC);
@@ -32,10 +32,10 @@ public class PhysicsTestView extends JFrame implements Window {
         //fb3 = new FireBall(new Vector(Constants.SCREEN_WIDTH-3*Constants.FIREBALL_RADIUS,Constants.SCREEN_HEIGHT-4*Constants.FIREBALL_RADIUS), new Vector(3,2));
         for (int i = 10; i < Constants.SCREEN_WIDTH - 10; i += 30) {
             for (int j = 10; j < Constants.SCREEN_HEIGHT - 400; j += 30) {
-                BarrierFactory.getInstance().createBarrier(new Vector(i , j), BarrierTypes.REINFORCED);
+                BarrierFactory.createBarrier(new Vector(i , j), BarrierTypes.REINFORCED);
             }
         }
-        magicalStaff = new MagicalStaff(new Vector(350,500));
+        magicalStaff = new MagicalStaff(Constants.STAFF_POSITION);
 
         GameLooper gameLooper = new GameLooper();
         loopExecutor.setLooper(gameLooper);

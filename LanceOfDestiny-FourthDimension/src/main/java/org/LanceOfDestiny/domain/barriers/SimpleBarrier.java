@@ -23,5 +23,12 @@ public class SimpleBarrier extends Barrier{
         if (other instanceof FireBall) {
             this.Destroy();  // Assuming a method to handle destruction or deactivation
         }
+
+
+    }
+
+    @Override
+    public void Update() {
+        super.Update();
     }
 }
