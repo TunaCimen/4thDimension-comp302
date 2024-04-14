@@ -12,10 +12,6 @@ public class Player extends GameObject {
     private MagicalStaff magicalStaff;
     private SpellContainer spellContainer;
 
-    private InputManager inputManager = ManagerHub.getInstance().getInputManager();
-    private ScoreManager scoreManager = ManagerHub.getInstance().getScoreManager();
-
-
     private final int DEFAULT_CHANCES = 3;
     private final int MIN_CHANCES = 0;
     private int chancesLeft;

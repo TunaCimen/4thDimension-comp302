@@ -12,8 +12,8 @@ import java.awt.*;
 
 public abstract class Barrier extends GameObject {
 
-    public static final int WIDTH = Constants.T;
-    public static final int HEIGHT = Constants.L / 5;  // All barriers except explosive barriers are rectangles with dimensions L/5 and 20px.
+    public static final int WIDTH = Constants.BARRIER_WIDTH;
+    public static final int HEIGHT = Constants.BARRIER_HEIGHT;  // All barriers except explosive barriers are rectangles with dimensions L/5 and 20px.
 
     private Collider collider;
     protected boolean isMoving;

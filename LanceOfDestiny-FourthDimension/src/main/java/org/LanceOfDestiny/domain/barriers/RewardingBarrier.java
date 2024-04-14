@@ -16,7 +16,7 @@ public class RewardingBarrier extends Barrier{
 
     public RewardingBarrier(Vector position) {
         super(position, BarrierTypes.REWARDING);
-        this.rewardBox = RewardBoxFactory.getInstance().generateRandomRewardBox(position);
+        this.rewardBox = RewardBoxFactory.generateRandomRewardBox(position);
         this.spellType = rewardBox.getSpellType();
         this.getSprite().color = Color.GREEN;
     }
@@ -27,9 +27,7 @@ public class RewardingBarrier extends Barrier{
         var other = collision.getOther(this);
 
         if(!(other instanceof FireBall)) return;
-
-
-
-
+        rewardBox.setFalling(true);
     }
+
 }
