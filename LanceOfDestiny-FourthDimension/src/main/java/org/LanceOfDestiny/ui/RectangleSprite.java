@@ -17,6 +17,18 @@ public class RectangleSprite extends Sprite{
         this.height = height;
     }
 
+    private void drawNumber(Graphics g, int number) {
+        g.setColor(Color.BLACK); // Text color
+        g.setFont(new Font("Arial", Font.BOLD, 12)); // Text font
+
+        String numberText = String.valueOf(number);
+        FontMetrics metrics = g.getFontMetrics();
+        int x = (int) attachedGameObject.getPosition().getX() + (20 - metrics.stringWidth(numberText)) / 2;
+        int y = (int) attachedGameObject.getPosition().getY() + ((20 - metrics.getHeight()) / 2) + metrics.getAscent();
+
+        g.drawString(numberText, x, y);
+    }
+
 
     @Override
     public void drawShape(Graphics g) {
@@ -31,6 +43,10 @@ public class RectangleSprite extends Sprite{
         // Perform the rotation
         g2d.rotate(attachedGameObject.getAngle(), centerX, centerY);
         g.fillRect((int) attachedGameObject.getPosition().getX(), (int) attachedGameObject.getPosition().getY(), width,height);
+
+        if (number != null) {
+            drawNumber(g, number);
+        }
     }
 
 

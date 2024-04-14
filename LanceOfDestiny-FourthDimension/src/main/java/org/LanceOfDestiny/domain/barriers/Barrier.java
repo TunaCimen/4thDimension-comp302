@@ -4,6 +4,7 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.GameObject;
 import org.LanceOfDestiny.domain.managers.ManagerHub;
 import org.LanceOfDestiny.domain.physics.*;
+import org.LanceOfDestiny.ui.BallSprite;
 import org.LanceOfDestiny.ui.RectangleSprite;
 import org.LanceOfDestiny.ui.Sprite;
 
@@ -28,22 +29,20 @@ public abstract class Barrier extends GameObject {
         this.position = position;
         this.barrierType = type;
         this.hitsLeft = hitsRequired;
-        this.collider = ColliderFactory.createRectangleCollider(this, Vector.getZeroVector(), ColliderType.STATIC, WIDTH, HEIGHT);
-        this.sprite = new RectangleSprite(this, Color.red, WIDTH, HEIGHT);
+        createColliderAndSprite();
     }
 
     public Barrier(Vector position, BarrierTypes type){
         this(position, type, 1);
-        this.collider = ColliderFactory.createRectangleCollider(this, Vector.getZeroVector(), ColliderType.STATIC, WIDTH, HEIGHT);
-        this.sprite = new RectangleSprite(this, Color.red, WIDTH, HEIGHT);
     }
 
     public void createColliderAndSprite(){
         if(this instanceof ExplosiveBarrier) {
             this.collider = ColliderFactory.createBallCollider(this, Vector.getZeroVector(), ColliderType.STATIC, Constants.EXPLOSIVE_RADIUS);
+            this.sprite = new BallSprite(this, Color.RED, (int) Constants.EXPLOSIVE_RADIUS);
         }
         this.collider = ColliderFactory.createRectangleCollider(this, Vector.getZeroVector(), ColliderType.STATIC, WIDTH, HEIGHT);
-        this.sprite = new RectangleSprite(this, Color.red, WIDTH, HEIGHT);
+        this.sprite = new RectangleSprite(this, Color.DARK_GRAY, WIDTH, HEIGHT);
     }
     @Override
     public void Destroy() {

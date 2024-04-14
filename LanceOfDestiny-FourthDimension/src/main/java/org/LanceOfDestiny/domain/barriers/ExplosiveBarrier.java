@@ -3,6 +3,7 @@ package org.LanceOfDestiny.domain.barriers;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.physics.Vector;
 
+import java.awt.*;
 import java.util.Random;
 
 public class ExplosiveBarrier extends Barrier{
@@ -12,5 +13,10 @@ public class ExplosiveBarrier extends Barrier{
     public ExplosiveBarrier(Vector position) {
         super(position, BarrierTypes.EXPLOSIVE);
         if((new Random()).nextDouble() <= MOVE_PROBABILITY) isMoving = true;
+    }
+
+    @Override
+    public void Update() {
+        super.Update();
     }
 }
