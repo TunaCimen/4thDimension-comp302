@@ -3,11 +3,12 @@ package org.LanceOfDestiny.domain.player;
 import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
 import org.LanceOfDestiny.domain.spells.SpellContainer;
+import org.LanceOfDestiny.domain.spells.SpellType;
 
 public class Player extends GameObject {
 
     private MagicalStaff magicalStaff;
-    private SpellContainer spellContainer;
+    private final SpellContainer spellContainer;
 
     private final int DEFAULT_CHANCES = 3;
     private final int MIN_CHANCES = 0;
@@ -19,7 +20,14 @@ public class Player extends GameObject {
         this.spellContainer = new SpellContainer();
         this.chancesLeft = DEFAULT_CHANCES;
         Events.UpdateChance.addListener(this::updateChances);
+        Events.TryUsingSpell.addListener(this::tryUsingSpell);
     }
+
+    private void tryUsingSpell(Object objectSpellType) {
+        SpellType spellType = (SpellType) objectSpellType;
+        spellContainer.activateSpell(spellType);
+    }
+
 
     @Override
     public void Start() {
