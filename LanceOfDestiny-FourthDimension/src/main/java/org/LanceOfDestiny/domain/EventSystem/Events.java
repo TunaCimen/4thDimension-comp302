@@ -15,6 +15,12 @@ import java.util.function.Consumer;
  * Events is an enum that contains all the EventTypes
  * Events are defined in the enum structure as follows-->EventName(InvocationType) bkz. types
  * Listeners can be added via addListener(parameter listeners) or addRunnable(no parameter listeners)
+ *
+ * Timed Events:
+ * You can define a timed event by specifying an Events enum with the parameters:
+ * @Param -> Class with which the event will be invoked.
+ * @Param -> Duration of the event.
+ * @Param -> Follow-up event you want to invoke.//TODO:It can be optional(?).
  */
 public enum Events {
 
