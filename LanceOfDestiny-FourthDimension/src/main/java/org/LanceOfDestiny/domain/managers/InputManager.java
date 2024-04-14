@@ -2,6 +2,7 @@ package org.LanceOfDestiny.domain.managers;
 
 import org.LanceOfDestiny.domain.EventSystem.Events;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashMap;
@@ -37,6 +38,7 @@ public class InputManager implements KeyListener {
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode()==KeyEvent.VK_A || e.getKeyCode()==KeyEvent.VK_D)moveKey = e.getKeyCode();
         if(e.getKeyCode()==KeyEvent.VK_LEFT || e.getKeyCode()==KeyEvent.VK_RIGHT)rotateKey = e.getKeyCode();
+        if(e.getKeyCode()==KeyEvent.VK_SPACE)Events.TimedTestEvent.invoke(Color.BLACK);
         updateActions();
 
     }

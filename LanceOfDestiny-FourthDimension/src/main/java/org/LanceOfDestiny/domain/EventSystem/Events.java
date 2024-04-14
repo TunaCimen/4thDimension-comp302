@@ -4,6 +4,9 @@ package org.LanceOfDestiny.domain.EventSystem;
 import org.LanceOfDestiny.domain.physics.Collision;
 import org.LanceOfDestiny.domain.spells.SpellType;
 
+import javax.swing.*;
+import java.awt.*;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -44,15 +47,52 @@ public enum Events {
     SaveGame(Object.class),
     LoadGame(Object.class),
 
-    ResetFireBall(Object.class);
+    ResetFireBall(Object.class),
+    WaitEvent(Object.class),
+    ResetColorEvent(Object.class),
+    TimedTestEvent(Color.class, 2000,ResetColorEvent);
 
     private List<Consumer<Object>> listeners = new ArrayList<>(); //List that listeners subscribe to.
+    private List<Consumer<Object>> followerList = new ArrayList<>();
+
+
+    Timer timer = null;
+    boolean isActive = false;
     final Class<?> paramType; //It is the Class that the particular event wants the invocation.
     Events(Class<?> stringClass) {
         paramType = stringClass;
     }
+    Events(Class<?> stringClass,int duration,Events onFinish){
+            paramType = stringClass;
+            timer = new Timer(duration,e->{
+                onFinish.invoke();
+                System.out.println(LocalTime.now().getSecond());
+                isActive = false;
+                ((Timer)e.getSource()).stop();
 
-    public void invoke(Object l) throws IllegalEventInvocationException{
+            });
+    }
+
+    public void invoke(Object l){
+        if(timer == null){
+            invokeUntimed(l);
+        }
+        else{
+            if(isActive){
+                System.out.println("Already invoked wait!!!!!");
+                return;
+            }
+            System.out.println("Started Time Event " + LocalTime.now().getSecond());
+            isActive = true;
+            timer.start();
+            for(Consumer<Object> consumer : listeners){
+                consumer.accept(l);
+            }
+        }
+
+
+    }
+    private void invokeUntimed(Object l) throws IllegalEventInvocationException{
             if(!paramType.isAssignableFrom(l.getClass())){
                 throw new IllegalEventInvocationException(name() + " expected " + paramType.getName() + "\n"
                         + "Received: "+l.getClass().getName());
@@ -82,6 +122,10 @@ public enum Events {
     }
     public void addRunnableListener(Runnable r){
         listeners.add(e-> r.run());
+    }
+
+    public void addFollowerListener(){
+
     }
 
     public void removeListener(Consumer<Object> subscriber){
