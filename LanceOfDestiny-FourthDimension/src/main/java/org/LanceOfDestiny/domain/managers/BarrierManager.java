@@ -30,7 +30,7 @@ public class BarrierManager {
 
     public void removeAllBarriers(){
         for (Barrier barrier : barriers) {
-            barrier.Destroy();
+            barrier.destroy();
         }
         barriers.clear();
     }

@@ -30,13 +30,13 @@ public class Player extends GameObject {
 
 
     @Override
-    public void Start() {
-        super.Start();
+    public void start() {
+        super.start();
     }
 
     @Override
-    public void Update() {
-        super.Update();
+    public void update() {
+        super.update();
     }
 
     public void loseChance(){

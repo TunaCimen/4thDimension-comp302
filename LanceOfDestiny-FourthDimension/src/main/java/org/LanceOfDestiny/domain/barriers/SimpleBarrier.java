@@ -4,7 +4,6 @@ import org.LanceOfDestiny.domain.GameObject;
 import org.LanceOfDestiny.domain.physics.Collision;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.player.FireBall;
-import org.LanceOfDestiny.ui.Sprite;
 
 import java.util.Random;
 
@@ -22,7 +21,7 @@ public class SimpleBarrier extends Barrier{
         super.onCollisionEnter(collision);
         GameObject other = collision.getOther(this);
         if (other instanceof FireBall) {
-            this.Destroy();  // Assuming a method to handle destruction or deactivation
+            this.destroy();  // Assuming a method to handle destruction or deactivation
         }
         if(other instanceof Barrier && isMoving){
             this.direction = direction*-1;
@@ -31,7 +30,7 @@ public class SimpleBarrier extends Barrier{
     }
 
     @Override
-    public void Update() {
-        super.Update();
+    public void update() {
+        super.update();
     }
 }

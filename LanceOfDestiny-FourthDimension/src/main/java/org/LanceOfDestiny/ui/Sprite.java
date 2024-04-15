@@ -12,12 +12,10 @@ public abstract class Sprite {
     public Color color;
     public String number;
 
-
     public Sprite(GameObject attachedGameObject, Color color){
         this.attachedGameObject = attachedGameObject;
         this.color = color;
     }
-
 
     public abstract void drawShape(Graphics g);
 
