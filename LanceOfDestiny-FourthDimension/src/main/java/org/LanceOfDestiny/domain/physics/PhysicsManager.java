@@ -14,7 +14,7 @@ public class PhysicsManager {
     // this will be made non-zero if need predictive collision detection code
     private double framesAhead = 0.8;
     private int currentFrame = 0;
-    private int frameTreshold = 5;
+    private int frameTreshold = 10;
     private Map<String, Integer> recentCollisions;  // Stores collision pairs with the frame of their last occurrence
 
     private PhysicsManager() {

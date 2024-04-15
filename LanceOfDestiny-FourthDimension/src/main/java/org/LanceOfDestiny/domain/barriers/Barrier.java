@@ -23,7 +23,6 @@ public abstract class Barrier extends GameObject {
     protected int direction;
     protected boolean isMoving;
     protected int hitsLeft;
-    private Collider collider;
     private Sprite sprite;
 
     public Barrier(Vector position, BarrierTypes type, int hitsRequired) {
