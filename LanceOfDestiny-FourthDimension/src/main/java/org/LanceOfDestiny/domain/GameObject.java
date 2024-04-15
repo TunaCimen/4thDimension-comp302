@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.domain;
 
+import org.LanceOfDestiny.domain.physics.Collider;
 import org.LanceOfDestiny.domain.physics.Collision;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
@@ -16,6 +17,8 @@ public abstract class GameObject extends Behaviour {
     protected Vector position;
     protected double angle;
     private int id;
+
+    protected Collider collider;
 
     public GameObject() {
         gameObject = this;
@@ -73,4 +76,9 @@ public abstract class GameObject extends Behaviour {
     public void setAngle(double angle) {
         this.angle = angle;
     }
+
+    public Collider getCollider(){
+        return collider;
+    }
+
 }

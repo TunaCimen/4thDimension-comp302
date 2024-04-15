@@ -69,7 +69,6 @@ public abstract class Barrier extends GameObject {
     @Override
     public void update() {
         if (isMoving) {
-            //Test
             setPosition(getPosition().add(new Vector(direction, 0)));
         }
     }

@@ -16,11 +16,9 @@ public class MagicalStaff extends GameObject {
     private final int height = Constants.STAFF_HEIGHT;
     private boolean isCanonActivated = false;
     private boolean isExpanded = false;
-
-    private RectangleCollider collider;
     RectangleSprite rectangleSprite;
 
-    public MagicalStaff(Vector position) {
+    public MagicalStaff() {
         super();
         Events.MoveStaff.addListener(this::moveRight);
         Events.RotateStaff.addListener(this::rotate);
@@ -29,7 +27,7 @@ public class MagicalStaff extends GameObject {
         Events.ResetColorEvent.addRunnableListener(this::resetColor);
         Events.ActivateCanons.addListener(this::handleCanons);
         Events.ActivateExpansion.addListener(this::handleExpansion);
-        this.position = position;
+        this.position = Constants.STAFF_POSITION;
         this.rectangleSprite = new RectangleSprite(this, Color.orange,Constants.STAFF_WIDTH,Constants.STAFF_HEIGHT);
         this.collider = ColliderFactory.createRectangleCollider(this, new Vector(0,0), ColliderType.STATIC, Constants.STAFF_WIDTH, Constants.STAFF_HEIGHT);
     }

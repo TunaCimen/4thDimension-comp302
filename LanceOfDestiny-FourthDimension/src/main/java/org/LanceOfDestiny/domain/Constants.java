@@ -27,4 +27,5 @@ public class Constants {
     public static final int REWARD_BOX_WIDTH = BARRIER_WIDTH;
     public static final double EXPLOSIVE_RADIUS = 5;
 
+    public static final int FIREBALL_SPEED = 5;
 }

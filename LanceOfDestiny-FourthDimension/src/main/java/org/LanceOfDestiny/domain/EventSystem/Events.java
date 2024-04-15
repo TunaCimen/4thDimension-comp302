@@ -60,7 +60,8 @@ public enum Events {
     WaitEvent(Object.class),
     ResetColorEvent(Object.class),
     TimedTestEvent(Color.class, 2000,ResetColorEvent),
-    PauseGameEvent(Object.class);
+    PauseGameEvent(Object.class),
+    ShootBall(Object.class);
 
     private List<Consumer<Object>> listeners = new ArrayList<>(); //List that listeners subscribe to.
 

@@ -37,9 +37,9 @@ public class SessionManager {
 
     public void initializeSession() {
         //Generate FireBall
-        fireBall = new FireBall(Constants.FIREBALL_POSITION, new Vector(0, 5));
+        fireBall = new FireBall();
         //Generate Magical Staff
-        magicalStaff = new MagicalStaff(Constants.STAFF_POSITION);
+        magicalStaff = new MagicalStaff();
         // Generate barriers
         for (int i = 10; i < Constants.SCREEN_WIDTH - 10; i += 30) {
             for (int j = 10; j < Constants.SCREEN_HEIGHT - 400; j += 30) {

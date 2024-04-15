@@ -30,7 +30,6 @@ public class ExplosiveBarrier extends Barrier {
 
     @Override
     public void update() {
-        super.update();
         if (isFalling) {
             setPosition(getPosition().add(this.getCollider().getVelocity()));
             return;

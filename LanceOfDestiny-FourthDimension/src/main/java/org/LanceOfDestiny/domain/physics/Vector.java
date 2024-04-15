@@ -56,6 +56,12 @@ public class Vector {
     public Vector perpendicular() {
         return new Vector(-y, x); // Clockwise rotation
     }
+    public static Vector getVelocityByAngleAndMagnitude(int speed, double angle) {
+        angle += Math.PI / 2;
+        double vx = speed * Math.cos(angle);
+        double vy = speed * Math.sin(angle);
+        return new Vector(vx,vy);
+    }
     public String toString() {
         return "(" + x + ", " + y + ")";
     }
