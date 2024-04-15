@@ -22,6 +22,7 @@ public class GameMap {
 
     /**
      * This method is used to get the list of barriers on the map.
+     *
      * @return List<Barrier> This returns the list of barriers.
      */
     public List<Barrier> getBarriers() {

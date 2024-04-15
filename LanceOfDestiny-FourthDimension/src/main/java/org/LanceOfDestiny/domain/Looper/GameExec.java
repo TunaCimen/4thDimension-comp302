@@ -17,19 +17,19 @@ public class GameExec extends Behaviour {
     }
 
     @Override
-    public void Awake() {
+    public void awake() {
         for(Behaviour b : behaviourList){
-            b.Awake();
+            b.awake();
 
         }
 
     }
     @Override
-    public void Update() {
+    public void update() {
         InputManager.getInstance().updateActions();
         PhysicsManager.getInstance().handleCollisionEvents(PhysicsManager.getInstance().checkCollisions());
         for(Behaviour b : behaviourList){
-            b.Update();
+            b.update();
             drawCanvas.repaint();
         }
 
@@ -40,9 +40,9 @@ public class GameExec extends Behaviour {
     }
 
     @Override
-    public void Start() {
+    public void start() {
         for(Behaviour b : behaviourList){
-            b.Start();
+            b.start();
         }
 
 
