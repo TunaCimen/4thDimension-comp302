@@ -21,7 +21,6 @@ public class BuildModeController {
     }
 
     private BuildModeController() {
-        barrierFactory = BarrierFactory.getInstance();
 
     }
 
