@@ -13,6 +13,7 @@ import org.LanceOfDestiny.domain.Looper.GameLooper;
 import org.LanceOfDestiny.domain.Looper.LoopExecutor;
 import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
+import org.LanceOfDestiny.ui.DrawCanvas;
 import org.LanceOfDestiny.ui.Window;
 
 import javax.swing.*;
@@ -22,8 +23,14 @@ public class PhysicsTestView extends JFrame implements Window {
     MagicalStaff magicalStaff;
     LoopExecutor loopExecutor = new LoopExecutor();
     Barrier barrier;
+    DrawCanvas drawCanvas;
     public PhysicsTestView() {
-        // Create a FireBall
+        drawCanvas = new DrawCanvas();
+        GameLooper gameLooper = new GameLooper(drawCanvas);
+        loopExecutor.setLooper(gameLooper);
+    }
+
+    public void initializeTestObjects(){
         new FireBall(Constants.FIREBALL_POSITION, new Vector(0,5));
 
         // Generate barriers
@@ -38,22 +45,20 @@ public class PhysicsTestView extends JFrame implements Window {
         }
         barrier = new SimpleBarrier(new Vector(500,500));
         magicalStaff = new MagicalStaff(Constants.STAFF_POSITION);
-        // Create MagicalStaff
 
-        // Setup game looper
-        GameLooper gameLooper = new GameLooper();
-        loopExecutor.setLooper(gameLooper);
     }
 
     @Override
     public void createAndShowUI() {
-        addKeyListener(InputManager.getInstance());
-        add(magicalStaff.getSprite());
+        add(drawCanvas);
+        initializeTestObjects();
+
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(new Dimension(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT));
         setDefaultLookAndFeelDecorated(true);
         setResizable(false);
         setVisible(true);
+        addKeyListener(InputManager.getInstance());
         loopExecutor.start();
     }
 }

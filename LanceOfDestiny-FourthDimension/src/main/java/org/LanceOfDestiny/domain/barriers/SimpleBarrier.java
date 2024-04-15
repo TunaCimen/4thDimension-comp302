@@ -13,7 +13,8 @@ public class SimpleBarrier extends Barrier{
 
     public SimpleBarrier(Vector position) {
         super(position, BarrierTypes.SIMPLE);
-        if((new Random()).nextDouble() <= MOVE_PROBABILITY) isMoving = true;
+        if((new Random()).nextDouble() <= MOVE_PROBABILITY)isMoving = true;
+        initDirection();
     }
 
     @Override
@@ -22,6 +23,9 @@ public class SimpleBarrier extends Barrier{
         GameObject other = collision.getOther(this);
         if (other instanceof FireBall) {
             this.Destroy();  // Assuming a method to handle destruction or deactivation
+        }
+        if(other instanceof Barrier && isMoving){
+            this.direction = direction*-1;
         }
 
     }

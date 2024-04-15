@@ -6,13 +6,17 @@ import javax.swing.*;
 
 public class GameLooper extends Looper{
 
-    JFrame frame;
+    JPanel drawCanvas;
+    public GameLooper(JPanel drawCanvas){
+        this.drawCanvas = drawCanvas;
+    }
+
 
 
     @Override
     protected void routine() throws LoopEndedException {
         execute(
-                new GameExec(GameObject.getGameObjects())
+                new GameExec(GameObject.getGameObjects(), drawCanvas)
         );
 
     }

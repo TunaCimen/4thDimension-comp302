@@ -17,14 +17,14 @@ public class RectangleSprite extends Sprite{
         this.height = height;
     }
 
-    private void drawNumber(Graphics g, int number) {
+    private void drawNumber(Graphics g, String number) {
         g.setColor(Color.BLACK); // Text color
         g.setFont(new Font("Arial", Font.BOLD, 12)); // Text font
 
         String numberText = String.valueOf(number);
         FontMetrics metrics = g.getFontMetrics();
-        int x = (int) attachedGameObject.getPosition().getX() + (20 - metrics.stringWidth(numberText)) / 2;
-        int y = (int) attachedGameObject.getPosition().getY() + ((20 - metrics.getHeight()) / 2) + metrics.getAscent();
+        int x = (int) attachedGameObject.getPosition().getX() + (width - metrics.stringWidth(numberText)) / 2;
+        int y = (int) attachedGameObject.getPosition().getY() + ((height - metrics.getHeight()) / 2) + metrics.getAscent();
 
         g.drawString(numberText, x, y);
     }

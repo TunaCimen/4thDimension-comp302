@@ -6,11 +6,11 @@ import org.LanceOfDestiny.domain.GameObject;
 import javax.swing.*;
 import java.awt.*;
 
-public class Sprite extends JPanel {
+public abstract class Sprite {
 
     public GameObject attachedGameObject;
     public Color color;
-    public Integer number;
+    public String number;
 
 
     public Sprite(GameObject attachedGameObject, Color color){
@@ -19,22 +19,11 @@ public class Sprite extends JPanel {
     }
 
 
-    public void drawShape(Graphics g){
-        g.fillRect((int) attachedGameObject.getPosition().getX()
-                , (int) attachedGameObject.getPosition().getY(),
-                20,20);
-    }
-
-    @Override
-    public void paintComponent(Graphics g) {
-        for(Behaviour behaviour : GameObject.getGameObjects()) {
-            if (behaviour.gameObject != null) {
-                Sprite bs = behaviour.gameObject.getSprite();
-                g.setColor(bs.color);
-                bs.drawShape(g);
-            }
-        }
-    }
+    public abstract void drawShape(Graphics g);
 
 
 }
+
+
+
+
