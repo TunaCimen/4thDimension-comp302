@@ -1,9 +1,11 @@
 package org.LanceOfDestiny.domain;
 
+import org.LanceOfDestiny.domain.physics.Collider;
 import org.LanceOfDestiny.domain.physics.Collision;
+import org.LanceOfDestiny.domain.physics.PhysicsManager;
 import org.LanceOfDestiny.domain.physics.Vector;
-import org.LanceOfDestiny.ui.RectangleSprite;
-import org.LanceOfDestiny.ui.Sprite;
+import org.LanceOfDestiny.domain.sprite.RectangleSprite;
+import org.LanceOfDestiny.domain.sprite.Sprite;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -16,6 +18,8 @@ public abstract class GameObject extends Behaviour {
     protected Vector position;
     protected double angle;
     private int id;
+
+    protected Collider collider;
 
     public GameObject() {
         gameObject = this;
@@ -37,15 +41,14 @@ public abstract class GameObject extends Behaviour {
 
     public void destroy() {
         gameObjects.remove(this);
+        PhysicsManager.getInstance().removeCollider(getCollider());
     }
 
     public void onCollisionEnter(Collision collision) {
         return;
     }
 
-    public void onTriggerEnter(Collision collision) {
-        return;
-    }
+    public void onTriggerEnter(Collision collision) { return;}
 
     public int getId() {
         return id;
@@ -73,4 +76,9 @@ public abstract class GameObject extends Behaviour {
     public void setAngle(double angle) {
         this.angle = angle;
     }
+
+    public Collider getCollider(){
+        return collider;
+    }
+
 }

@@ -21,7 +21,7 @@ public class SimpleBarrier extends Barrier{
         super.onCollisionEnter(collision);
         GameObject other = collision.getOther(this);
         if (other instanceof FireBall) {
-            this.destroy();  // Assuming a method to handle destruction or deactivation
+            this.reduceLife();
         }
         if(other instanceof Barrier && isMoving){
             this.direction = direction*-1;

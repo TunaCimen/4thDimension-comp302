@@ -23,16 +23,18 @@ public class SpellContainer {
     }
 
     public void addSpell(Object spellObject) {
-        var spell = (Spell) spellObject;
-        if(spell.getSpellType().equals(SpellType.CHANCE)){
+        var spellType = (SpellType) spellObject;
+        var spell = SpellFactory.createSpell(spellType);
+        if(spellType.equals(SpellType.CHANCE)){
             Events.UpdateChance.invoke(1);
             return;
         }
+        System.out.println(spellType);
 
-        if(spellExists(spell.getSpellType()))
+        if(spellExists(spellType))
             return;
         spells.add(spell);
-        spellMap.put(spell.getSpellType(), true);
+        spellMap.put(spellType, true);
     }
 
     public void activateSpell(SpellType spellType) {

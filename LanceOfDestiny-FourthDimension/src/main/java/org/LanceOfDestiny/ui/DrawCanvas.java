@@ -2,6 +2,7 @@ package org.LanceOfDestiny.ui;
 
 import org.LanceOfDestiny.domain.Behaviour;
 import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.sprite.Sprite;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,9 +21,10 @@ public class DrawCanvas extends JPanel {
     protected void paintComponent(Graphics g) {
         for(Behaviour behaviour : GameObject.getGameObjects()) {
             if (behaviour.gameObject != null) {
-                Sprite bs = behaviour.gameObject.getSprite();
-                g.setColor(bs.color);
-                bs.drawShape(g);
+                Sprite gameObjectSprite = behaviour.gameObject.getSprite();
+                if(!gameObjectSprite.isVisible) continue;
+                g.setColor(gameObjectSprite.color);
+                gameObjectSprite.drawShape(g);
             }
         }
     }

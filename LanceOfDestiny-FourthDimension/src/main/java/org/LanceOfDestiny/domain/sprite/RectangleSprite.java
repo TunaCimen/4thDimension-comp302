@@ -1,4 +1,4 @@
-package org.LanceOfDestiny.ui;
+package org.LanceOfDestiny.domain.sprite;
 
 import org.LanceOfDestiny.domain.GameObject;
 
@@ -37,6 +37,7 @@ public class RectangleSprite extends Sprite{
         AffineTransform originalTransform = ((Graphics2D) g).getTransform();
 
         // Calculate the center of the rectangle
+        if(attachedGameObject.getPosition() == null) return;
         int x = (int) attachedGameObject.getPosition().getX();
         int y = (int) attachedGameObject.getPosition().getY();
         int centerX = x + width / 2;

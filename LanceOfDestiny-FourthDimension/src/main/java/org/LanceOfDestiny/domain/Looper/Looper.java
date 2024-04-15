@@ -41,7 +41,7 @@ public abstract class Looper {
     }
 
     public void execute(Behaviour action) throws LoopEndedException {
-            action.awake();
+            action.start();
 
             Timer timer = new Timer((int) (1000* Constants.UPDATE_RATE), e->{
                 action.update();
@@ -49,5 +49,8 @@ public abstract class Looper {
             timer.start();
 
             }
+    abstract int getSecondsPassed();
+
+
 }
 

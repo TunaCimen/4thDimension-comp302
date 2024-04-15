@@ -31,7 +31,7 @@ public class PhysicsTestView extends JFrame implements Window {
     }
 
     public void initializeTestObjects(){
-        new FireBall(Constants.FIREBALL_POSITION, new Vector(0,5));
+        new FireBall();
 
         // Generate barriers
         for (int i = 20; i < Constants.SCREEN_WIDTH - 10; i += 30) {
@@ -44,7 +44,7 @@ public class PhysicsTestView extends JFrame implements Window {
             }
         }
         barrier = new SimpleBarrier(new Vector(500,500));
-        magicalStaff = new MagicalStaff(Constants.STAFF_POSITION);
+        magicalStaff = new MagicalStaff();
 
     }
 

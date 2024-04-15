@@ -30,8 +30,6 @@ public class ReinforcedBarrier extends Barrier {
 
         if (!(other instanceof FireBall)) return;
 
-        hitsLeft--;
-
-        if (hitsLeft <= 0) this.destroy();
+        this.reduceLife();
     }
 }

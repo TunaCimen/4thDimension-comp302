@@ -3,74 +3,80 @@ package org.LanceOfDestiny.domain.player;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
-import org.LanceOfDestiny.domain.physics.*;
-import org.LanceOfDestiny.ui.BallSprite;
-import org.LanceOfDestiny.ui.Sprite;
+import org.LanceOfDestiny.domain.managers.SessionManager;
+import org.LanceOfDestiny.domain.physics.Collider;
+import org.LanceOfDestiny.domain.physics.ColliderFactory;
+import org.LanceOfDestiny.domain.physics.ColliderType;
+import org.LanceOfDestiny.domain.physics.Vector;
+import org.LanceOfDestiny.domain.sprite.BallSprite;
+import org.LanceOfDestiny.domain.sprite.Sprite;
 
 import java.awt.*;
 
 public class FireBall extends GameObject {
+    private final int radius = Constants.FIREBALL_RADIUS;
+    BallSprite ballSprite;
     private Collider collider;
     private boolean isOverwhelming = false;
-    private double defaultSpeed;
+
+    private boolean isAttached = true;
+    private int defaultSpeed = Constants.FIREBALL_SPEED;
     private double currentSpeed;
-    private final int radius = Constants.FIREBALL_RADIUS;
-    BallSprite bs;
+    private MagicalStaff magicalStaff;
 
-    public FireBall(Vector position) {
+
+    public FireBall() {
         super();
-        this.position = position;
+        this.position = Constants.FIREBALL_POSITION;
         this.currentSpeed = defaultSpeed;
-
-        this.collider = ColliderFactory.createBallCollider(this,new Vector(0,0), ColliderType.DYNAMIC, radius);
-        //this.bs = new BallSprite(this,Constants.FIREBALL_RADIUS, Color.red);
-        //this.collider = ColliderFactory.createBallCollider(this,new Vector(5,-10),ColliderType.DYNAMIC,radius);
-       // this.collider = new BallCollider(new Vector(5, 0), ColliderType.DYNAMIC, radius, this);
-        this.bs = new BallSprite(this, Color.red,Constants.FIREBALL_RADIUS);
+        this.collider = ColliderFactory.createBallCollider(this, Vector.getZeroVector(), ColliderType.DYNAMIC, radius);
+        this.ballSprite = new BallSprite(this, Color.black, Constants.FIREBALL_RADIUS);
         Events.ActivateOverwhelming.addListener(this::handleOverwhelming);
+        Events.ShootBall.addRunnableListener(this::shootBall);
+    }
+
+    private void shootBall() {
+        isAttached = false;
+        Vector velocity = Vector.getVelocityByAngleAndMagnitude(defaultSpeed, magicalStaff.getAngle());
+        collider.setVelocity(velocity);
+    }
+
+
+    @Override
+    public void start() {
+        super.start();
+        magicalStaff = SessionManager.getInstance().getMagicalStaff();
+
+
+    }
+
+    @Override
+    public void update() {
+        if (getPosition().getY() >= Constants.SCREEN_HEIGHT - 40) fireBallDropped();
+        if (isAttached) {
+            var attachedPosition = new Vector(
+                    magicalStaff.getPosition().getX() + Constants.STAFF_WIDTH / 2f + (Constants.STAFF_WIDTH / 4f) * Math.sin(magicalStaff.getAngle()),
+                    magicalStaff.getPosition().getY() + Constants.FIREBALL_RADIUS * 0.5+ (Constants.STAFF_WIDTH / 4f) * Math.cos(magicalStaff.getAngle() + Math.PI)
+            );
+            collider.setPosition(attachedPosition);
+        }
+        else setPosition(getPosition().add(collider.getVelocity()));
     }
 
     private void handleOverwhelming(Object object) {
         isOverwhelming = (Boolean) object;
     }
 
-    public FireBall(Vector position, Vector velocity) {
-        super();
-        this.position = position;
-        this.currentSpeed = defaultSpeed;
-        this.collider = ColliderFactory.createBallCollider(this,velocity, ColliderType.DYNAMIC, radius);
-        this.bs = new BallSprite(this, Color.black,Constants.FIREBALL_RADIUS);
-        Events.ActivateOverwhelming.addListener(this::handleOverwhelming);
-    }
-    public FireBall(Vector position, ColliderType colliderType) {
-        super();
-        this.position = position;
-        this.currentSpeed = defaultSpeed;
-        this.collider = ColliderFactory.createBallCollider(this,new Vector(0,0),colliderType, radius);
-        this.bs = new BallSprite(this, Color.cyan,Constants.FIREBALL_RADIUS);
-        Events.ActivateOverwhelming.addListener(this::handleOverwhelming);
-    }
-
-
     @Override
     public Sprite getSprite() {
-        return bs;
+        return ballSprite;
     }
 
-    @Override
-    public void awake() {
-        super.awake();
-    }
-
-    @Override
-    public void update() {
-        setPosition(getPosition().add(collider.getVelocity()));
-        if(getPosition().getY() >= Constants.SCREEN_HEIGHT) fireBallDropped();
-    }
-
-    public void fireBallDropped(){
+    public void fireBallDropped() {
         Events.UpdateChance.invoke(-1);
+        isAttached = true;
     }
+
 
     public void enableOverwhelming() {
         isOverwhelming = true;
@@ -79,20 +85,6 @@ public class FireBall extends GameObject {
     public void disableOverwhelming() {
         isOverwhelming = false;
     }
-    public double getDefaultSpeed() {
-        return defaultSpeed;
-    }
 
-    public void setDefaultSpeed(double defaultSpeed) {
-        this.defaultSpeed = defaultSpeed;
-    }
-
-    public double getCurrentSpeed() {
-        return currentSpeed;
-    }
-
-    public void setCurrentSpeed(double currentSpeed) {
-        this.currentSpeed = currentSpeed;
-    }
 
 }

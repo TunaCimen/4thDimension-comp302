@@ -12,21 +12,16 @@ import org.LanceOfDestiny.domain.player.Player;
 import org.LanceOfDestiny.ui.DrawCanvas;
 import org.LanceOfDestiny.ui.GameViews.Status;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 public class SessionManager {
 
     private static SessionManager instance;
-
-    public Status currentMode;
+    GameLooper gameLooper;
+    private Status currentMode;
     private MagicalStaff magicalStaff;
     private FireBall fireBall;
-    public LoopExecutor loopExecutor = new LoopExecutor();
-    public DrawCanvas drawCanvas;
-    GameLooper gameLooper;
+    private Player player;
+    private LoopExecutor loopExecutor = new LoopExecutor();
+    private DrawCanvas drawCanvas;
 
     private SessionManager() {
         drawCanvas = new DrawCanvas();
@@ -43,22 +38,23 @@ public class SessionManager {
     }
 
     public void initializeSession() {
-        //Generate FireBall
-        fireBall = new FireBall(Constants.FIREBALL_POSITION, new Vector(0, 5));
-        //Generate Magical Staff
-        magicalStaff = new MagicalStaff(Constants.STAFF_POSITION);
-        // Generate barriers
+        fireBall = new FireBall();
+        magicalStaff = new MagicalStaff();
+        player = new Player();
+
         for (int i = 10; i < Constants.SCREEN_WIDTH - 10; i += 30) {
             for (int j = 10; j < Constants.SCREEN_HEIGHT - 400; j += 30) {
                 if (j == 190) {  // Check if it's the first row
-                    BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.EXPLOSIVE);
+                    BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.REWARDING);
                 } else {
-                    BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.REINFORCED);
+                    //BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.EXPLOSIVE);
                 }
             }
         }
 
     }
+
+
 
     public MagicalStaff getMagicalStaff() {
         return magicalStaff;
@@ -68,4 +64,15 @@ public class SessionManager {
         return fireBall;
     }
 
+    public LoopExecutor getLoopExecutor() {
+        return loopExecutor;
+    }
+
+    public DrawCanvas getDrawCanvas() {
+        return drawCanvas;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
 }

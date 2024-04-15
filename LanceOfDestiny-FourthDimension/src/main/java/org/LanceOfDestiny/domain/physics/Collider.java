@@ -18,9 +18,7 @@ public abstract class Collider {
     }
 
     protected Collider(Vector velocity, ColliderType colliderType, GameObject gameObject, boolean isEnabled) {
-        this.velocity = velocity;
-        this.colliderType = colliderType;
-        this.gameObject = gameObject;
+        this(velocity, colliderType, gameObject);
         this.isEnabled = isEnabled;
     }
 
