@@ -7,42 +7,40 @@ public class LoopExecutor {
     private Looper mLoop;
     private Thread mThread = null;
     private LocalTime startingTime;
-    private LocalTime currentTime;
 
-    public int getSecondsPassed(){
+    public int getSecondsPassed() {
         return mLoop.getSecondsPassed();
     }
 
-    public void setLooper(Looper newLooper){
+    public void setLooper(Looper newLooper) {
         mLoop = newLooper;
         mThread = new Thread(() -> {
-            if (mLoop!=null){
+            if (mLoop != null) {
                 mLoop.run();
             }
         });
     }
 
-    public void start(){
-
-        if (mThread != null){
+    public void start() {
+        if (mThread != null) {
             startingTime = LocalTime.now();
             mThread.start();
         }
     }
 
 
-    public void stop(){
-        if(mLoop!=null){
+    public void stop() {
+        if (mLoop != null) {
             mLoop.stop();
         }
-        mThread=null;
+        mThread = null;
     }
 
-    public Looper getLoop(){
+    public Looper getLoop() {
         return mLoop;
     }
 
-    public LocalTime getStartingTime(){
+    public LocalTime getStartingTime() {
         return startingTime;
     }
 

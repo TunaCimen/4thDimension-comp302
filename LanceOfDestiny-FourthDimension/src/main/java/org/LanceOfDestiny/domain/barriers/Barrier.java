@@ -4,13 +4,11 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
-import org.LanceOfDestiny.domain.physics.Collider;
 import org.LanceOfDestiny.domain.physics.ColliderFactory;
 import org.LanceOfDestiny.domain.physics.ColliderType;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.sprite.BallSprite;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
-import org.LanceOfDestiny.domain.sprite.Sprite;
 
 import java.awt.*;
 import java.util.Random;
@@ -19,11 +17,10 @@ public abstract class Barrier extends GameObject {
 
     public static final int WIDTH = Constants.BARRIER_WIDTH;
     public static final int HEIGHT = Constants.BARRIER_HEIGHT;
-    public BarrierTypes barrierType;
+    private final BarrierTypes barrierType;
     protected int direction;
     protected boolean isMoving;
     protected int hitsLeft;
-    private Sprite sprite;
 
     public Barrier(Vector position, BarrierTypes type, int hitsRequired) {
         super();
@@ -35,15 +32,6 @@ public abstract class Barrier extends GameObject {
 
     public Barrier(Vector position, BarrierTypes type) {
         this(position, type, 1);
-    }
-
-    public void initDirection() {
-        if (isMoving) {
-            Random rand = new Random(31);
-            int directionRand = rand.nextInt(0, 11);
-            if (directionRand % 2 == 0) direction = 1;
-            if (directionRand % 2 != 0) direction = -1;
-        }
     }
 
     @Override
@@ -74,10 +62,6 @@ public abstract class Barrier extends GameObject {
         Events.UpdateScore.invoke();
     }
 
-    public boolean isDestroyed() {
-        return hitsLeft <= 0;
-    }
-
     public void reduceLife() {
         hitsLeft--;
         if (isDestroyed()) {
@@ -85,18 +69,16 @@ public abstract class Barrier extends GameObject {
         }
     }
 
-
-    @Override
-    public Sprite getSprite() {
-        return sprite;
+    public void initDirection() {
+        if (isMoving) {
+            Random rand = new Random(31);
+            int directionRand = rand.nextInt(0, 11);
+            if (directionRand % 2 == 0) direction = 1;
+            if (directionRand % 2 != 0) direction = -1;
+        }
     }
 
-    public Collider getCollider() {
-        return collider;
+    public boolean isDestroyed() {
+        return hitsLeft <= 0;
     }
-
-    public void setCollider(Collider collider) {
-        this.collider = collider;
-    }
-
 }

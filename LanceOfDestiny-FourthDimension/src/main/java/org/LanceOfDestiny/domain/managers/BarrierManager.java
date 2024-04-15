@@ -9,14 +9,15 @@ public class BarrierManager {
     private static BarrierManager instance;
     private ArrayList<Barrier> barriers = new ArrayList<Barrier>();
 
-    private BarrierManager() {}
+    private BarrierManager() {
+    }
 
     public static BarrierManager getInstance() {
-        if (instance== null) instance = new BarrierManager();
+        if (instance == null) instance = new BarrierManager();
         return instance;
     }
 
-    public void addBarrier(Barrier barrier){
+    public void addBarrier(Barrier barrier) {
         barriers.add(barrier);
     }
 
@@ -24,11 +25,11 @@ public class BarrierManager {
         return barriers;
     }
 
-    public void removeBarrier(Barrier barrier){
+    public void removeBarrier(Barrier barrier) {
         barriers.remove(barrier);
     }
 
-    public void removeAllBarriers(){
+    public void removeAllBarriers() {
         for (Barrier barrier : barriers) {
             barrier.destroy();
         }
