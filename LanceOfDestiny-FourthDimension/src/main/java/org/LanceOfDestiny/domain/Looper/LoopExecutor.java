@@ -1,9 +1,12 @@
 package org.LanceOfDestiny.domain.Looper;
 
+import java.time.LocalTime;
+
 public class LoopExecutor {
 
     private Looper mLoop;
     private Thread mThread = null;
+    private LocalTime startingTime;
 
     public void setLooper(Looper newLooper){
         mLoop = newLooper;
@@ -15,7 +18,9 @@ public class LoopExecutor {
     }
 
     public void start(){
+
         if (mThread != null){
+            startingTime = LocalTime.now();
             mThread.start();
         }
     }
@@ -29,6 +34,10 @@ public class LoopExecutor {
 
     public Looper getLoop(){
         return mLoop;
+    }
+
+    public LocalTime getStartingTime(){
+        return startingTime;
     }
 
 }
