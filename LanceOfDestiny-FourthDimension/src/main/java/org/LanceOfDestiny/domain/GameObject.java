@@ -2,6 +2,7 @@ package org.LanceOfDestiny.domain;
 
 import org.LanceOfDestiny.domain.physics.Collider;
 import org.LanceOfDestiny.domain.physics.Collision;
+import org.LanceOfDestiny.domain.physics.PhysicsManager;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
 import org.LanceOfDestiny.domain.sprite.Sprite;
@@ -40,15 +41,14 @@ public abstract class GameObject extends Behaviour {
 
     public void destroy() {
         gameObjects.remove(this);
+        PhysicsManager.getInstance().removeCollider(getCollider());
     }
 
     public void onCollisionEnter(Collision collision) {
         return;
     }
 
-    public void onTriggerEnter(Collision collision) {
-        return;
-    }
+    public void onTriggerEnter(Collision collision) { return;}
 
     public int getId() {
         return id;

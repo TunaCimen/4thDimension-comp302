@@ -21,9 +21,10 @@ public class DrawCanvas extends JPanel {
     protected void paintComponent(Graphics g) {
         for(Behaviour behaviour : GameObject.getGameObjects()) {
             if (behaviour.gameObject != null) {
-                Sprite bs = behaviour.gameObject.getSprite();
-                g.setColor(bs.color);
-                bs.drawShape(g);
+                Sprite gameObjectSprite = behaviour.gameObject.getSprite();
+                if(!gameObjectSprite.isVisible) continue;
+                g.setColor(gameObjectSprite.color);
+                gameObjectSprite.drawShape(g);
             }
         }
     }

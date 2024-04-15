@@ -11,6 +11,7 @@ public abstract class Sprite {
     public GameObject attachedGameObject;
     public Color color;
     public String number;
+    public boolean isVisible = true;
 
     public Sprite(GameObject attachedGameObject, Color color){
         this.attachedGameObject = attachedGameObject;
@@ -18,6 +19,10 @@ public abstract class Sprite {
     }
 
     public abstract void drawShape(Graphics g);
+
+    public void setVisible(boolean visible){
+        isVisible = visible;
+    }
 
 
 }

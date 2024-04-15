@@ -25,7 +25,7 @@ public class Constants {
     public static final Vector FIREBALL_POSITION = new Vector((double) SCREEN_WIDTH / 2, SCREEN_HEIGHT - 120); // initial position
     public static final int BARRIER_WIDTH = T;
     public static final int REWARD_BOX_WIDTH = BARRIER_WIDTH;
-    public static final double EXPLOSIVE_RADIUS = 5;
+    public static final double EXPLOSIVE_RADIUS = 15;
 
     public static final int FIREBALL_SPEED = 5;
 }

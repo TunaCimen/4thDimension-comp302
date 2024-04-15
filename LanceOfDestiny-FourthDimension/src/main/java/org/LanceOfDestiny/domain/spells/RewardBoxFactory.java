@@ -39,6 +39,9 @@ public class RewardBoxFactory {
         return rewardBoxes;
     }
 
+    public void removeRewardBox(RewardBox rewardBox) {
+        rewardBoxes.remove(rewardBox);
+    }
 
 
 

@@ -56,7 +56,7 @@ public class FireBall extends GameObject {
         if (isAttached) {
             var attachedPosition = new Vector(
                     magicalStaff.getPosition().getX() + Constants.STAFF_WIDTH / 2f + (Constants.STAFF_WIDTH / 4f) * Math.sin(magicalStaff.getAngle()),
-                    magicalStaff.getPosition().getY() + Constants.FIREBALL_RADIUS + (Constants.STAFF_WIDTH / 4f) * Math.cos(magicalStaff.getAngle() + Math.PI)
+                    magicalStaff.getPosition().getY() + Constants.FIREBALL_RADIUS * 0.5+ (Constants.STAFF_WIDTH / 4f) * Math.cos(magicalStaff.getAngle() + Math.PI)
             );
             collider.setPosition(attachedPosition);
         }

@@ -4,7 +4,10 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
-import org.LanceOfDestiny.domain.physics.*;
+import org.LanceOfDestiny.domain.physics.Collider;
+import org.LanceOfDestiny.domain.physics.ColliderFactory;
+import org.LanceOfDestiny.domain.physics.ColliderType;
+import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.sprite.BallSprite;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
 import org.LanceOfDestiny.domain.sprite.Sprite;
@@ -21,7 +24,6 @@ public abstract class Barrier extends GameObject {
     protected boolean isMoving;
     protected int hitsLeft;
     private Collider collider;
-    private Vector coordinate;
     private Sprite sprite;
 
     public Barrier(Vector position, BarrierTypes type, int hitsRequired) {
@@ -45,6 +47,13 @@ public abstract class Barrier extends GameObject {
         }
     }
 
+    @Override
+    public void update() {
+        if (isMoving) {
+            setPosition(getPosition().add(new Vector(direction, 0)));
+        }
+    }
+
     public void createColliderAndSprite() {
         if (this instanceof ExplosiveBarrier) {
             this.collider = ColliderFactory.createBallCollider(this, new Vector(0, 1), ColliderType.STATIC, Constants.EXPLOSIVE_RADIUS);
@@ -58,19 +67,16 @@ public abstract class Barrier extends GameObject {
     @Override
     public void destroy() {
         super.destroy();
-        PhysicsManager.getInstance().removeCollider(getCollider());
         BarrierManager.getInstance().removeBarrier(this);
+    }
+
+    public void kill() {
+        destroy();
+        Events.UpdateScore.invoke();
     }
 
     public boolean isDestroyed() {
         return hitsLeft <= 0;
-    }
-
-    @Override
-    public void update() {
-        if (isMoving) {
-            setPosition(getPosition().add(new Vector(direction, 0)));
-        }
     }
 
     public void reduceLife() {
@@ -80,10 +86,6 @@ public abstract class Barrier extends GameObject {
         }
     }
 
-    public void kill() {
-        destroy();
-        Events.UpdateScore.invoke();
-    }
 
     @Override
     public Sprite getSprite() {
@@ -96,14 +98,6 @@ public abstract class Barrier extends GameObject {
 
     public void setCollider(Collider collider) {
         this.collider = collider;
-    }
-
-    public Vector getCoordinate() {
-        return coordinate;
-    }
-
-    public void setCoordinate(Vector coordinate) {
-        this.coordinate = coordinate;
     }
 
 }

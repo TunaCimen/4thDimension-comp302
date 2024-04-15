@@ -1,11 +1,12 @@
 package org.LanceOfDestiny.domain.player;
 
+import org.LanceOfDestiny.domain.Behaviour;
 import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
 import org.LanceOfDestiny.domain.spells.SpellContainer;
 import org.LanceOfDestiny.domain.spells.SpellType;
 
-public class Player extends GameObject {
+public class Player extends Behaviour {
 
     private MagicalStaff magicalStaff;
     private final SpellContainer spellContainer;
@@ -45,6 +46,10 @@ public class Player extends GameObject {
 
     public void gainChance() {
         setChances(chancesLeft + 1);
+    }
+
+    public int getChances() {
+        return chancesLeft;
     }
 
     private void setChances(int chance) {
