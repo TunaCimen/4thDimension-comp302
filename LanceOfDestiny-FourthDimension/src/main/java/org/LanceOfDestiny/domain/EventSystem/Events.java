@@ -59,11 +59,10 @@ public enum Events {
     ResetFireBall(Object.class),
     WaitEvent(Object.class),
     ResetColorEvent(Object.class),
-    TimedTestEvent(Color.class, 2000,ResetColorEvent);
+    TimedTestEvent(Color.class, 2000,ResetColorEvent),
+    PauseGameEvent(Object.class);
 
     private List<Consumer<Object>> listeners = new ArrayList<>(); //List that listeners subscribe to.
-    private List<Consumer<Object>> followerList = new ArrayList<>();
-
 
     Timer timer = null;
     boolean isActive = false;
