@@ -9,40 +9,33 @@ import java.util.List;
 public class GameExec extends Behaviour {
 
     private List<Behaviour> behaviourList;
-    public GameExec(List<Behaviour> behaviourList){
+
+    public GameExec(List<Behaviour> behaviourList) {
         this.behaviourList = behaviourList;
     }
 
     @Override
-    public void Awake() {
-        for(Behaviour b : behaviourList){
-            b.Awake();
-
+    public void awake() {
+        for (Behaviour b : behaviourList) {
+            b.awake();
         }
-
     }
+
     @Override
-    public void Update() {
+    public void update() {
         InputManager.getInstance().updateActions();
         PhysicsManager.getInstance().handleCollisionEvents(PhysicsManager.getInstance().checkCollisions());
-        for(Behaviour b : behaviourList){
-            b.Update();
+        for (Behaviour b : behaviourList) {
+            b.update();
             b.gameObject.getSprite().repaint();
         }
-
-
-
-
-
     }
 
     @Override
-    public void Start() {
-        for(Behaviour b : behaviourList){
-            b.Start();
+    public void start() {
+        for (Behaviour b : behaviourList) {
+            b.start();
             b.gameObject.getSprite().repaint();
         }
-
-
     }
 }

@@ -24,7 +24,7 @@ public abstract class Barrier extends GameObject {
     private Sprite sprite;
 
 
-    public Barrier(Vector position, BarrierTypes type, int hitsRequired){
+    public Barrier(Vector position, BarrierTypes type, int hitsRequired) {
         super();
         this.position = position;
         this.barrierType = type;
@@ -32,12 +32,12 @@ public abstract class Barrier extends GameObject {
         createColliderAndSprite();
     }
 
-    public Barrier(Vector position, BarrierTypes type){
+    public Barrier(Vector position, BarrierTypes type) {
         this(position, type, 1);
     }
 
-    public void createColliderAndSprite(){
-        if(this instanceof ExplosiveBarrier) {
+    public void createColliderAndSprite() {
+        if (this instanceof ExplosiveBarrier) {
             this.collider = ColliderFactory.createBallCollider(this, new Vector(0, 1), ColliderType.STATIC, Constants.EXPLOSIVE_RADIUS);
             this.sprite = new BallSprite(this, Color.RED, (int) Constants.EXPLOSIVE_RADIUS);
             return;
@@ -45,9 +45,10 @@ public abstract class Barrier extends GameObject {
         this.collider = ColliderFactory.createRectangleCollider(this, Vector.getZeroVector(), ColliderType.STATIC, WIDTH, HEIGHT);
         this.sprite = new RectangleSprite(this, Color.DARK_GRAY, WIDTH, HEIGHT);
     }
+
     @Override
-    public void Destroy() {
-        super.Destroy();
+    public void destroy() {
+        super.destroy();
         PhysicsManager.getInstance().removeCollider(getCollider());
         BarrierManager.getInstance().removeBarrier(this);
     }
@@ -64,7 +65,7 @@ public abstract class Barrier extends GameObject {
     }
 
     public void kill() {
-        Destroy();
+        destroy();
         // method call for adding score should be added after event system I think
     }
 

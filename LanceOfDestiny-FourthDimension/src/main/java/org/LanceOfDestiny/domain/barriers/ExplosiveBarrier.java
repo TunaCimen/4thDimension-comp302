@@ -3,7 +3,6 @@ package org.LanceOfDestiny.domain.barriers;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.physics.Collision;
-import org.LanceOfDestiny.domain.physics.Collider;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
@@ -25,8 +24,8 @@ public class ExplosiveBarrier extends Barrier {
     }
 
     @Override
-    public void Update() {
-        super.Update();
+    public void update() {
+        super.update();
         if (isFalling) {
             setPosition(getPosition().add(this.getCollider().getVelocity()));
         }
@@ -48,10 +47,10 @@ public class ExplosiveBarrier extends Barrier {
         if (other instanceof MagicalStaff) {
             Events.UpdateChance.invoke(-1);
             System.out.println("EXPLOSIVEEEE!!!");
-            Destroy();  // Destroy the barrier when hit with a MagicalStaff
+            destroy();  // Destroy the barrier when hit with a MagicalStaff
         }
         if (other == null) {
-            Destroy();
+            destroy();
         }
     }
 }

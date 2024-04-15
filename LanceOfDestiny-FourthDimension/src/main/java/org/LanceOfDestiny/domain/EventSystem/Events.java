@@ -28,7 +28,7 @@ public enum Events {
     LogIntegerEvent(Integer.class),
     CollisionEvent(Collision.class),
 
-    MoveStaff(Integer.class), // Right Now I dont care Integer or Not I might create different.
+    MoveStaff(Integer.class), // Right Now I don't care Integer or Not I might create different.
 
     RotateStaff(Double.class),
     ResetStaff(Object.class),
@@ -59,95 +59,94 @@ public enum Events {
     ResetFireBall(Object.class),
     WaitEvent(Object.class),
     ResetColorEvent(Object.class),
-    TimedTestEvent(Color.class, 2000,ResetColorEvent);
+    TimedTestEvent(Color.class, 2000, ResetColorEvent);
 
-    private List<Consumer<Object>> listeners = new ArrayList<>(); //List that listeners subscribe to.
-    private List<Consumer<Object>> followerList = new ArrayList<>();
-
-
+    final Class<?> paramType; //It is the Class that the particular event wants the invocation.
     Timer timer = null;
     boolean isActive = false;
-    final Class<?> paramType; //It is the Class that the particular event wants the invocation.
+    private List<Consumer<Object>> listeners = new ArrayList<>(); //List that listeners subscribe to.
+
     Events(Class<?> stringClass) {
         paramType = stringClass;
     }
-    Events(Class<?> stringClass,int duration,Events onFinish){
-            paramType = stringClass;
-            timer = new Timer(duration,e->{
-                onFinish.invoke();
-                System.out.println(LocalTime.now().getSecond());
-                isActive = false;
-                ((Timer)e.getSource()).stop();
 
-            });
+    Events(Class<?> stringClass, int duration, Events onFinish) {
+        paramType = stringClass;
+        timer = new Timer(duration, e -> {
+            onFinish.invoke();
+            System.out.println(LocalTime.now().getSecond());
+            isActive = false;
+            ((Timer) e.getSource()).stop();
+        });
     }
 
-    public void invoke(Object l){
-        if(timer == null){
-            invokeUntimed(l);
+    public static void clearAllListeners() {
+        for (Events e : values()) {
+            e.clearListeners();
         }
-        else{
-            if(isActive){
+    }
+
+    public void invoke(Object l) {
+        if (timer == null) {
+            invokeUntimed(l);
+        } else {
+            if (isActive) {
                 System.out.println("Already invoked wait!!!!!");
                 return;
             }
             System.out.println("Started Time Event " + LocalTime.now().getSecond());
             isActive = true;
             timer.start();
-            for(Consumer<Object> consumer : listeners){
+            for (Consumer<Object> consumer : listeners) {
                 consumer.accept(l);
             }
         }
 
 
     }
-    private void invokeUntimed(Object l) throws IllegalEventInvocationException{
-            if(!paramType.isAssignableFrom(l.getClass())){
-                throw new IllegalEventInvocationException(name() + " expected " + paramType.getName() + "\n"
-                        + "Received: "+l.getClass().getName());
-            }
-            for(Consumer<Object> consumer : listeners){
-                try{
-                    consumer.accept(l);
-                }
-                catch(Exception e){
-                    System.out.println("Wrong Argument to Invoke for:" + this.name() + "\n" + "Check your casting for listeners.Note:Tunic");
-                }
-            }
-    }
 
-    public void invoke(){
-        for(Consumer<Object> consumer : listeners){
-            try{
-                consumer.accept(new Object());
-            }
-            catch(Exception e){
+    private void invokeUntimed(Object l) throws IllegalEventInvocationException {
+        if (!paramType.isAssignableFrom(l.getClass())) {
+            throw new IllegalEventInvocationException(name() + " expected " + paramType.getName() + "\n"
+                    + "Received: " + l.getClass().getName());
+        }
+        for (Consumer<Object> consumer : listeners) {
+            try {
+                consumer.accept(l);
+            } catch (Exception e) {
                 System.out.println("Wrong Argument to Invoke for:" + this.name() + "\n" + "Check your casting for listeners.Note:Tunic");
             }
         }
     }
-    public void addListener(Consumer<Object> subscriber){
+
+    public void invoke() {
+        for (Consumer<Object> consumer : listeners) {
+            try {
+                consumer.accept(new Object());
+            } catch (Exception e) {
+                System.out.println("Wrong Argument to Invoke for:" + this.name() + "\n" + "Check your casting for listeners.Note:Tunic");
+            }
+        }
+    }
+
+    public void addListener(Consumer<Object> subscriber) {
         listeners.add(subscriber);
     }
-    public void addRunnableListener(Runnable r){
-        listeners.add(e-> r.run());
+
+    public void addRunnableListener(Runnable r) {
+        listeners.add(e -> r.run());
     }
 
-    public void addFollowerListener(){
+    public void addFollowerListener() {
 
     }
 
-    public void removeListener(Consumer<Object> subscriber){
-        listeners.remove(subscriber);}
+    public void removeListener(Consumer<Object> subscriber) {
+        listeners.remove(subscriber);
+    }
 
-    public void clearListeners(){
+    public void clearListeners() {
         listeners.clear();
-    }
-
-    public static void clearAllListeners(){
-        for(Events e: values()){
-            e.clearListeners();
-        }
     }
 
 }

@@ -12,9 +12,7 @@ public class SessionManager {
     private MagicalStaff magicalStaff;
     private FireBall fireBall;
 
-    private SessionManager() {
-
-    }
+    private SessionManager() {}
 
     public static SessionManager getInstance() {
         if (instance == null) {

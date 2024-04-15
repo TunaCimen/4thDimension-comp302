@@ -13,20 +13,7 @@ public class Collision {
         this.collider2 = collider2;
         this.normal = normal;
     }
-
-    // Getters
-    public Collider getCollider1() {
-        return collider1;
-    }
-
-    public Collider getCollider2() {
-        return collider2;
-    }
-
-    public Vector getNormal() {
-        return normal;
-    }
-
+    
     /**
      * Returns the other GameObject involved in the collision, or null if not applicable.
      * @param self The GameObject calling this method.
@@ -50,5 +37,17 @@ public class Collision {
         }
 
         return null; // Return null if no match was found or if both colliders are null
+    }
+    // Getters
+    public Collider getCollider1() {
+        return collider1;
+    }
+
+    public Collider getCollider2() {
+        return collider2;
+    }
+
+    public Vector getNormal() {
+        return normal;
     }
 }

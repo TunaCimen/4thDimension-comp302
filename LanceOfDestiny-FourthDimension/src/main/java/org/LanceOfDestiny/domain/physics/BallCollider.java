@@ -10,7 +10,6 @@ public class BallCollider extends Collider {
         this.radius = radius;
     }
 
-    // Additional functionality specific to BallCollider can go here
 
     public double getRadius() {
         return radius;
@@ -19,4 +18,6 @@ public class BallCollider extends Collider {
     public void setRadius(double radius) {
         this.radius = radius;
     }
+    // Additional functionality specific to BallCollider can go here
+
 }

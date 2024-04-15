@@ -13,12 +13,12 @@ public class ScoreManager {
     }
 
     public static ScoreManager getInstance() {
-        if(instance == null) instance = new ScoreManager();
+        if (instance == null) instance = new ScoreManager();
         return instance;
     }
 
     private void updateScore(Object objectChange) {
-        var change = (int)objectChange;
+        var change = (int) objectChange;
         setScore(getScore() + change);
     }
 

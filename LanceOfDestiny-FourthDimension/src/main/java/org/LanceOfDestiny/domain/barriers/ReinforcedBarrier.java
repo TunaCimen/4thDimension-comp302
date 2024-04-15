@@ -7,19 +7,19 @@ import org.LanceOfDestiny.domain.player.FireBall;
 import java.awt.*;
 import java.util.Random;
 
-public class ReinforcedBarrier extends Barrier{
+public class ReinforcedBarrier extends Barrier {
     public static final double MOVE_PROBABILITY = 0.2;
 
     public ReinforcedBarrier(Vector position, int hitsRequired) {
         super(position, BarrierTypes.REINFORCED, hitsRequired);
-        if((new Random()).nextDouble() <= MOVE_PROBABILITY) isMoving = true;
+        if ((new Random()).nextDouble() <= MOVE_PROBABILITY) isMoving = true;
         getSprite().color = Color.CYAN;
         getSprite().number = hitsLeft;
     }
 
     @Override
-    public void Update() {
-        super.Update();
+    public void update() {
+        super.update();
         getSprite().number = hitsLeft;
     }
 
@@ -28,12 +28,11 @@ public class ReinforcedBarrier extends Barrier{
         super.onCollisionEnter(collision);
         var other = collision.getOther(this);
 
-        if(!(other instanceof FireBall)) return;
+        if (!(other instanceof FireBall)) return;
 
-        hitsLeft --;
+        hitsLeft--;
 
-        if(hitsLeft <= 0) this.Destroy();
-
+        if (hitsLeft <= 0) this.destroy();
 
 
     }
