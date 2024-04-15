@@ -42,16 +42,17 @@ public class GameView extends JFrame implements Window {
             buttonPause.setVisible(true);
             buttonResume.setVisible(true);
             button.setVisible(false);
-            sessionManager.loopExecutor.start();
+            sessionManager.getLoopExecutor().start();
         });
         buttonPause.addActionListener(e->{
+            System.out.println(sessionManager.getLoopExecutor().getSecondsPassed());
             Events.PauseGame.invoke();});
         buttonResume.addActionListener(e->{
             Events.ResumeGame.invoke();
         });
 
         //Add panels to frame.
-        add(sessionManager.drawCanvas,BorderLayout.CENTER);
+        add(sessionManager.getDrawCanvas(),BorderLayout.CENTER);
         add(pausePanel,BorderLayout.NORTH);
 
         //Initialize the Game Objects

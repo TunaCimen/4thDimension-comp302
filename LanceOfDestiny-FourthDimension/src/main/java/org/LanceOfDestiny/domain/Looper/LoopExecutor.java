@@ -9,6 +9,10 @@ public class LoopExecutor {
     private LocalTime startingTime;
     private LocalTime currentTime;
 
+    public int getSecondsPassed(){
+        return mLoop.getSecondsPassed();
+    }
+
     public void setLooper(Looper newLooper){
         mLoop = newLooper;
         mThread = new Thread(() -> {
