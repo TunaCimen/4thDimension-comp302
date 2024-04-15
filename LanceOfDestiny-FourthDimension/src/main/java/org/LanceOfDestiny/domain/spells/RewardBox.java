@@ -15,7 +15,6 @@ import java.awt.*;
 public class RewardBox extends GameObject {
 
     private final SpellType spellType;
-    private Collider collider;
     private Sprite sprite;
     private final static int WIDTH = Constants.REWARD_BOX_WIDTH;
     private final static int HEIGHT = Constants.REWARD_BOX_HEIGHT;
@@ -37,9 +36,10 @@ public class RewardBox extends GameObject {
         getSprite().setVisible(false);
     }
     public void createCollider(){
-        //this.collider = ColliderFactory.createRectangleCollider(this, new Vector(0, 1), ColliderType.STATIC, WIDTH, HEIGHT);
-        this.collider = ColliderFactory.createBallCollider(this, new Vector(0,1), ColliderType.STATIC, Constants.EXPLOSIVE_RADIUS);
+        this.collider = ColliderFactory.createRectangleCollider(this, new Vector(0, 1), ColliderType.STATIC, WIDTH, HEIGHT);
+        //this.collider = ColliderFactory.createBallCollider(this, new Vector(0,1), ColliderType.STATIC, Constants.EXPLOSIVE_RADIUS);
         collider.setTrigger(true);
+        collider.setEnabled(false);
     }
 
     @Override
@@ -91,8 +91,7 @@ public class RewardBox extends GameObject {
 
     @Override
     public void destroy() {
+        super.destroy();
         RewardBoxFactory.getInstance().removeRewardBox(this);
-        PhysicsManager.getInstance().removeCollider(getCollider());
-        GameObject.getGameObjects().remove(this);
     }
 }

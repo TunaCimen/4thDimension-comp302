@@ -16,9 +16,7 @@ import java.awt.*;
 public class FireBall extends GameObject {
     private final int radius = Constants.FIREBALL_RADIUS;
     BallSprite ballSprite;
-    private Collider collider;
     private boolean isOverwhelming = false;
-
     private boolean isAttached = true;
     private int defaultSpeed = Constants.FIREBALL_SPEED;
     private double currentSpeed;
