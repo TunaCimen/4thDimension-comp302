@@ -8,25 +8,18 @@ import org.LanceOfDestiny.domain.barriers.BarrierTypes;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
-import org.LanceOfDestiny.domain.player.Player;
 import org.LanceOfDestiny.ui.DrawCanvas;
 import org.LanceOfDestiny.ui.GameViews.Status;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class SessionManager {
 
     private static SessionManager instance;
-
-    public Status currentMode;
+    GameLooper gameLooper;
+    private Status currentMode;
     private MagicalStaff magicalStaff;
     private FireBall fireBall;
-    public LoopExecutor loopExecutor = new LoopExecutor();
-    public DrawCanvas drawCanvas;
-    GameLooper gameLooper;
+    private LoopExecutor loopExecutor = new LoopExecutor();
+    private DrawCanvas drawCanvas;
 
     private SessionManager() {
         drawCanvas = new DrawCanvas();
@@ -68,4 +61,11 @@ public class SessionManager {
         return fireBall;
     }
 
+    public LoopExecutor getLoopExecutor() {
+        return loopExecutor;
+    }
+
+    public DrawCanvas getDrawCanvas() {
+        return drawCanvas;
+    }
 }

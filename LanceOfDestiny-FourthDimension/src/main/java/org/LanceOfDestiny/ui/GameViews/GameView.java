@@ -37,11 +37,11 @@ public class GameView extends JFrame implements Window {
             buttonPanel.setVisible(false);
             sessionManager.getMagicalStaff().setPosition(Constants.STAFF_POSITION.add(new Vector(0,45)));
 
-            sessionManager.loopExecutor.start();
+            sessionManager.getLoopExecutor().start();
         });
 
         //Add panels to frame.
-        add(sessionManager.drawCanvas,BorderLayout.CENTER);
+        add(sessionManager.getDrawCanvas(),BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
         //Initialize the Game Objects

@@ -1,6 +1,7 @@
 package org.LanceOfDestiny.domain.barriers;
 
 import org.LanceOfDestiny.domain.Constants;
+import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.physics.*;
@@ -73,7 +74,7 @@ public abstract class Barrier extends GameObject {
         }
     }
 
-    public void ReduceLife() {
+    public void reduceLife() {
         hitsLeft--;
         if (isDestroyed()) {
             kill();
@@ -82,7 +83,7 @@ public abstract class Barrier extends GameObject {
 
     public void kill() {
         destroy();
-        // method call for adding score should be added after event system I think
+        Events.UpdateScore.invoke();
     }
 
     @Override
