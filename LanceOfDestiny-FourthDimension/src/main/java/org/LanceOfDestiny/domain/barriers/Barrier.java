@@ -5,9 +5,9 @@ import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.physics.*;
-import org.LanceOfDestiny.ui.BallSprite;
-import org.LanceOfDestiny.ui.RectangleSprite;
-import org.LanceOfDestiny.ui.Sprite;
+import org.LanceOfDestiny.domain.sprite.BallSprite;
+import org.LanceOfDestiny.domain.sprite.RectangleSprite;
+import org.LanceOfDestiny.domain.sprite.Sprite;
 
 import java.awt.*;
 import java.util.Random;

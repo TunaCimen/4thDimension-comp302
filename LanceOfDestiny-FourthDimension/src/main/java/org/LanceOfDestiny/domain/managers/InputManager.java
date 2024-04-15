@@ -6,10 +6,7 @@ import org.LanceOfDestiny.domain.spells.SpellType;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+
 
 public class InputManager implements KeyListener {
 

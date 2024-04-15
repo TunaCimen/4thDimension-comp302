@@ -2,8 +2,8 @@ package org.LanceOfDestiny.domain;
 
 import org.LanceOfDestiny.domain.physics.Collision;
 import org.LanceOfDestiny.domain.physics.Vector;
-import org.LanceOfDestiny.ui.RectangleSprite;
-import org.LanceOfDestiny.ui.Sprite;
+import org.LanceOfDestiny.domain.sprite.RectangleSprite;
+import org.LanceOfDestiny.domain.sprite.Sprite;
 
 import java.awt.*;
 import java.util.ArrayList;

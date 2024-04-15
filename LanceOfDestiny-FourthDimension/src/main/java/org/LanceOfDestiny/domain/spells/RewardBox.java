@@ -5,8 +5,8 @@ import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
 import org.LanceOfDestiny.domain.physics.*;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
-import org.LanceOfDestiny.ui.RectangleSprite;
-import org.LanceOfDestiny.ui.Sprite;
+import org.LanceOfDestiny.domain.sprite.RectangleSprite;
+import org.LanceOfDestiny.domain.sprite.Sprite;
 
 import java.awt.*;
 
