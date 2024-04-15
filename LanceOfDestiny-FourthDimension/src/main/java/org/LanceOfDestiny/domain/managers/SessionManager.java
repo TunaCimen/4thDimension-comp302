@@ -22,16 +22,11 @@ public class SessionManager {
     private static SessionManager instance;
 
     public Status currentMode;
-
-    private Player player;
     private MagicalStaff magicalStaff;
     private FireBall fireBall;
-
     public LoopExecutor loopExecutor = new LoopExecutor();
     public DrawCanvas drawCanvas;
     GameLooper gameLooper;
-
-
 
     private SessionManager() {
         drawCanvas = new DrawCanvas();
@@ -48,8 +43,10 @@ public class SessionManager {
     }
 
     public void initializeSession() {
-        //this.player = new Player();
+        //Generate FireBall
         fireBall = new FireBall(Constants.FIREBALL_POSITION, new Vector(0, 5));
+        //Generate Magical Staff
+        magicalStaff = new MagicalStaff(Constants.STAFF_POSITION);
         // Generate barriers
         for (int i = 10; i < Constants.SCREEN_WIDTH - 10; i += 30) {
             for (int j = 10; j < Constants.SCREEN_HEIGHT - 400; j += 30) {
@@ -60,39 +57,15 @@ public class SessionManager {
                 }
             }
         }
-        magicalStaff = new MagicalStaff(Constants.STAFF_POSITION);
+
     }
 
     public MagicalStaff getMagicalStaff() {
         return magicalStaff;
     }
 
-    public Player getPlayer() {
-        return player;
-    }
-
     public FireBall getFireBall() {
         return fireBall;
     }
 
-    public void startSession(JFrame frame) {
-        initializeSession();
-        JPanel buttonPanel = new JPanel();
-        DrawCanvas drawCanvas = new DrawCanvas();
-        JButton button = new JButton("Start Game");
-        button.addActionListener(e -> {
-            System.out.println("Session Started");
-            //button.setVisible(false);
-
-        });
-        buttonPanel.add(button);
-
-        Container cp = frame.getContentPane();
-        cp.add(frame.add(drawCanvas),BorderLayout.CENTER);
-        //cp.add(buttonPanel, BorderLayout.SOUTH);
-
-        frame.setVisible(true);
-        loopExecutor.start();
-
-    }
 }

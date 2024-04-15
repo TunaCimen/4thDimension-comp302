@@ -3,6 +3,7 @@ package org.LanceOfDestiny.ui;
 import org.LanceOfDestiny.domain.GameObject;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 public class RectangleSprite extends Sprite{
 
@@ -33,6 +34,7 @@ public class RectangleSprite extends Sprite{
     @Override
     public void drawShape(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
+        AffineTransform originalTransform = ((Graphics2D) g).getTransform();
 
         // Calculate the center of the rectangle
         int x = (int) attachedGameObject.getPosition().getX();
@@ -44,6 +46,7 @@ public class RectangleSprite extends Sprite{
         g2d.rotate(attachedGameObject.getAngle(), centerX, centerY);
         g.fillRect((int) attachedGameObject.getPosition().getX(), (int) attachedGameObject.getPosition().getY(), width,height);
 
+        ((Graphics2D) g).setTransform(originalTransform);
         if (number != null) {
             drawNumber(g, number);
         }
