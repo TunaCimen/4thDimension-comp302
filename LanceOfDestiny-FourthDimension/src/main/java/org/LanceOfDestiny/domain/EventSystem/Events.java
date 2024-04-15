@@ -39,7 +39,7 @@ public enum Events {
     PauseGame(Object.class),
     ResumeGame(Object.class),
 
-    UpdateScore(Integer.class), //invoked with parameter -> change: change in score
+    UpdateScore(Object.class), //invoked with parameter -> change: change in score
 
     GainSpell(SpellType.class), // ui will be subscriber of this event to show the spells at hand
     TryUsingSpell(SpellType.class), // invoked when the player inputs spell related keys, does not concern ui.

@@ -28,6 +28,7 @@ public class RewardingBarrier extends Barrier{
 
         if(!(other instanceof FireBall)) return;
         rewardBox.setFalling(true);
+        this.reduceLife();
     }
 
 }

@@ -52,6 +52,7 @@ public class ExplosiveBarrier extends Barrier {
         if (other instanceof FireBall) {
             isFalling = true; // Fireball causes the barrier to fall
             getCollider().setTrigger(true);
+            this.addScore();
         }
     }
 
@@ -63,8 +64,18 @@ public class ExplosiveBarrier extends Barrier {
             System.out.println("EXPLOSIVEEEE!!!");
             destroy();  // Destroy the barrier when hit with a MagicalStaff
         }
+
         if (other == null) {
             destroy();
         }
+    }
+
+    @Override
+    public void kill() {
+        addScore();
+    }
+
+    private void addScore() {
+        Events.UpdateScore.invoke();
     }
 }

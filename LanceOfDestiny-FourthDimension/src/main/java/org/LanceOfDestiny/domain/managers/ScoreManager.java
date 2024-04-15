@@ -1,15 +1,20 @@
 package org.LanceOfDestiny.domain.managers;
 
 import org.LanceOfDestiny.domain.EventSystem.Events;
+import org.LanceOfDestiny.domain.Looper.LoopExecutor;
+
+import java.time.LocalTime;
 
 public class ScoreManager {
 
     private static ScoreManager instance;
     private int score;
+    private LoopExecutor loopExecutor;
 
     private ScoreManager() {
         this.score = 0;
-        Events.UpdateScore.addListener(this::updateScore);
+        Events.UpdateScore.addRunnableListener(this::updateScore);
+        SessionManager.getInstance();
     }
 
     public static ScoreManager getInstance() {
@@ -17,9 +22,9 @@ public class ScoreManager {
         return instance;
     }
 
-    private void updateScore(Object objectChange) {
-        var change = (int)objectChange;
-        setScore(getScore() + change);
+    private void updateScore() {
+        //newScore = oldScore + 300 / (currentTime - gameStartingTime)
+        setScore(getScore() + 300 / (1)); // TODO: replace 1 with gameLooper.getPassedTime();
     }
 
     public int getScore() {
