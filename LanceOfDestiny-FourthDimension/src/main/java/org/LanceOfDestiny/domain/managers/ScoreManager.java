@@ -22,9 +22,9 @@ public class ScoreManager {
         return instance;
     }
 
+    //newScore = oldScore + 300 / (currentTime - gameStartingTime)
     private void updateScore() {
-        //newScore = oldScore + 300 / (currentTime - gameStartingTime)
-        setScore(getScore() + 300 / (1)); // TODO: replace 1 with gameLooper.getPassedTime();
+        setScore(getScore() + 300 / (loopExecutor.getSecondsPassed()));
     }
 
     public int getScore() {
