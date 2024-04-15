@@ -21,7 +21,6 @@ public class BuildModeController {
     }
 
     private BuildModeController() {
-
     }
 
     public static synchronized BuildModeController getInstance() {
