@@ -14,13 +14,13 @@ public class ReinforcedBarrier extends Barrier{
         super(position, BarrierTypes.REINFORCED, hitsRequired);
         if((new Random()).nextDouble() <= MOVE_PROBABILITY) isMoving = true;
         getSprite().color = Color.CYAN;
-        getSprite().number = hitsLeft;
+        getSprite().number = String.valueOf(hitsLeft);
     }
 
     @Override
     public void Update() {
         super.Update();
-        getSprite().number = hitsLeft;
+        getSprite().number = String.valueOf(hitsLeft);
     }
 
     @Override

@@ -7,9 +7,7 @@ import org.LanceOfDestiny.domain.physics.*;
 import org.LanceOfDestiny.ui.RectangleSprite;
 import org.LanceOfDestiny.ui.Sprite;
 
-import javax.swing.*;
 import java.awt.*;
-import java.time.LocalTime;
 
 public class MagicalStaff extends GameObject {
 

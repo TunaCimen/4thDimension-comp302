@@ -16,12 +16,17 @@ public class ExplosiveBarrier extends Barrier {
     public static final double MOVE_PROBABILITY = 0.2;
     private boolean isFalling = false;
 
+    //Test
+    Vector initPos;
+    private double angleInDegrees = 0;
     public ExplosiveBarrier(Vector position) {
         super(position, BarrierTypes.EXPLOSIVE);
         if ((new Random()).nextDouble() <= MOVE_PROBABILITY) isMoving = true;
         getSprite().color = Color.RED;
         // Make the collider a trigger
         this.getCollider().setTrigger(false);
+        initPos = getPosition();
+
     }
 
     @Override
@@ -29,7 +34,16 @@ public class ExplosiveBarrier extends Barrier {
         super.Update();
         if (isFalling) {
             setPosition(getPosition().add(this.getCollider().getVelocity()));
+            return;
         }
+        if(isMoving){
+            angleInDegrees += 360*Constants.UPDATE_RATE; //Speed 360 deg per second.
+            double angleInRadians = Math.toRadians(angleInDegrees);
+            double x = initPos.getX() + Constants.CIRCULAR_MOTION_RADIUS*Math.cos(angleInRadians);
+            double y = initPos.getY() + Constants.CIRCULAR_MOTION_RADIUS*Math.sin(angleInRadians);
+            setPosition(new Vector(x,y));
+        }
+
     }
 
     @Override

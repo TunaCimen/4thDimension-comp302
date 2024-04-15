@@ -9,11 +9,13 @@ import org.LanceOfDestiny.ui.RectangleSprite;
 import org.LanceOfDestiny.ui.Sprite;
 
 import java.awt.*;
+import java.util.Random;
 
 public abstract class Barrier extends GameObject {
 
     public static final int WIDTH = Constants.BARRIER_WIDTH;
     public static final int HEIGHT = Constants.BARRIER_HEIGHT;  // All barriers except explosive barriers are rectangles with dimensions L/5 and 20px.
+    protected int direction;
 
     private Collider collider;
     protected boolean isMoving;
@@ -30,6 +32,17 @@ public abstract class Barrier extends GameObject {
         this.barrierType = type;
         this.hitsLeft = hitsRequired;
         createColliderAndSprite();
+    }
+
+    public void initDirection(){
+        if(isMoving){
+            Random rand = new Random(31);
+            int directionRand = rand.nextInt(0,11);
+            if(directionRand % 2 == 0)direction = 1;
+            if(directionRand % 2 != 0)direction = -1;
+
+        }
+
     }
 
     public Barrier(Vector position, BarrierTypes type){
@@ -88,5 +101,13 @@ public abstract class Barrier extends GameObject {
 
     public Vector getCoordinate() {
         return coordinate;
+    }
+
+    @Override
+    public void Update() {
+        if(isMoving){
+            //Test
+            setPosition(getPosition().add(new Vector(direction,0)));
+        }
     }
 }
