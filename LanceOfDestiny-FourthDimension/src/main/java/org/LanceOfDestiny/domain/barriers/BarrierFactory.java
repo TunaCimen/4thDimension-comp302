@@ -6,18 +6,6 @@ import org.LanceOfDestiny.domain.physics.Vector;
 import java.util.Random;
 
 public class BarrierFactory {
-    private static BarrierFactory instance;
-
-    private BarrierFactory() {
-    }
-
-    public static BarrierFactory getInstance() {
-        if (instance == null) {
-            instance = new BarrierFactory();
-        }
-        return instance;
-    }
-
     public static Barrier createBarrier(Vector position, BarrierTypes type) {
         Barrier createdBarrier = switch (type) {
             case SIMPLE -> new SimpleBarrier(position);

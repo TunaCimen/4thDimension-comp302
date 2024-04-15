@@ -7,8 +7,6 @@ import org.LanceOfDestiny.domain.physics.*;
 import org.LanceOfDestiny.ui.BallSprite;
 import org.LanceOfDestiny.ui.Sprite;
 
-import javax.swing.*;
-
 import java.awt.*;
 
 public class FireBall extends GameObject {
@@ -60,12 +58,12 @@ public class FireBall extends GameObject {
     }
 
     @Override
-    public void Awake() {
-        super.Awake();
+    public void awake() {
+        super.awake();
     }
 
     @Override
-    public void Update() {
+    public void update() {
         setPosition(getPosition().add(collider.getVelocity()));
         if(getPosition().getY() >= Constants.SCREEN_HEIGHT) fireBallDropped();
     }
