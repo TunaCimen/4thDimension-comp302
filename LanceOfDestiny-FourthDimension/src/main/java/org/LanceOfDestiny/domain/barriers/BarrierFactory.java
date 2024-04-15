@@ -19,7 +19,7 @@ public class BarrierFactory {
         return instance;
     }
 
-    public Barrier createBarrier(Vector position, BarrierTypes type) {
+    public static Barrier createBarrier(Vector position, BarrierTypes type) {
         Barrier createdBarrier = switch (type) {
             case SIMPLE -> new SimpleBarrier(position);
             case REINFORCED -> new ReinforcedBarrier(position, calculateHitsRequired());
@@ -34,7 +34,7 @@ public class BarrierFactory {
         return createdBarrier;
     }
 
-    private int calculateHitsRequired() {
+    private static int calculateHitsRequired() {
         int chance = (new Random()).nextInt(100);
         if (chance < 50) {                // 50% probability
             return 3;

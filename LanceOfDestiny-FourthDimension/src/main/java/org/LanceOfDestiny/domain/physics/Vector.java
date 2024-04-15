@@ -53,4 +53,8 @@ public class Vector {
     public float dotProduct(Vector v){
         return getX() * v.getX() + getY()* v.getY();
     }
+
+    public String toString(){
+        return x +", "+y;
+    }
 }

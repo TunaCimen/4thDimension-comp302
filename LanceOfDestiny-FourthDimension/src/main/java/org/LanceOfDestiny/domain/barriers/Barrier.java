@@ -58,6 +58,31 @@ public abstract class Barrier extends GameObject {
         this.coordinate = coordinate;
     }
 
+    public boolean isMoving() {
+        return isMoving;
+    }
 
+    public void setMoving(boolean moving) {
+        isMoving = moving;
+    }
 
+    public int getHitsLeft() {
+        return hitsLeft;
+    }
+
+    public void setHitsLeft(int hitsLeft) {
+        this.hitsLeft = hitsLeft;
+    }
+
+    public Vector getCoordinate() {
+        return coordinate;
+    }
+
+    public BarrierTypes getBarrierType() {
+        return barrierType;
+    }
+
+    public void setBarrierType(BarrierTypes barrierType) {
+        this.barrierType = barrierType;
+    }
 }

@@ -4,12 +4,16 @@ package org.LanceOfDestiny.domain.AuthModels;//
 //
 
 import org.LanceOfDestiny.database.DatabaseController;
-import java.io.IOException;
+import org.LanceOfDestiny.domain.barriers.Barrier;
+
 import java.sql.SQLException;
+import java.util.List;
 
 public class LogInController {
     private static LogInController instance;
     private  DatabaseController dbController;
+
+    private String username;
 
     public static LogInController getInstance()  {
         try {
@@ -33,6 +37,20 @@ public class LogInController {
     }
 
     public boolean loginUser(String username, String password) throws SQLException {
+        this.username = username;
         return dbController.loginUser(username, password);
+    }
+    public boolean saveGame(String saveName, List<Barrier> blist,int score, int chances, int numberofSpells) throws SQLException {
+        return dbController.saveGame(this.username,saveName, blist,score,chances,numberofSpells);
+    }
+    public List<Barrier> loadBarriers(String saveName){
+        return dbController.loadBarriers(this.username,saveName);
+    }
+    public List<Integer> loadUserInfo(String saveName) throws SQLException {
+        return dbController.loadUserInfo(this.username,saveName);
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

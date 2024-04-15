@@ -2,25 +2,51 @@ package org.LanceOfDestiny.ui.AuthViews;
 
 
 import org.LanceOfDestiny.domain.AuthModels.LogInController;
+import org.LanceOfDestiny.domain.Constants;
+import org.LanceOfDestiny.domain.barriers.Barrier;
+import org.LanceOfDestiny.domain.barriers.BarrierFactory;
+import org.LanceOfDestiny.domain.barriers.BarrierTypes;
+import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.ui.Window;
 import org.LanceOfDestiny.ui.WindowManager;
-import org.LanceOfDestiny.ui.Windows;
-
-import javax.swing.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class LogInView extends javax.swing.JFrame implements Window {
+public class SaveLoadViewDEMO extends javax.swing.JFrame implements Window {
 
     private final LogInController userManager;
     private final WindowManager wm;
-    public LogInView(LogInController userManager) {
+
+    private List<Barrier> blist;
+    private int score;
+    private int chances;
+    private int numberOfSpells;
+
+    private List<Barrier> barrier_list;
+    public SaveLoadViewDEMO(LogInController userManager) {
         this.userManager = userManager;
         this.wm = WindowManager.getInstance();
+        this.blist = new ArrayList<>();
+        barrier_list = new ArrayList<>();
+        score = 0;
+        chances = 0;
+        numberOfSpells = 0;
+        for (int i = 20; i < Constants.SCREEN_WIDTH - 10; i += 30) {
+            for (int j = 10; j < Constants.SCREEN_HEIGHT - 400; j += 30) {
+                if (j == 190) {  // Check if it's the first row
+                    barrier_list.add(BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.EXPLOSIVE));
+                } else {
+                    barrier_list.add(BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.SIMPLE));
+                }
+            }
+        }
     }
 
 
     public void createAndShowUI() {
+        System.out.println(barrier_list.size());
         jPanel1 = new javax.swing.JPanel();
         Right = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -111,7 +137,11 @@ public class LogInView extends javax.swing.JFrame implements Window {
         jButton1.setText("Login");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                try {
+                    jButton1ActionPerformed(evt);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
         jLabel4.setText("I don't have an account");
@@ -121,7 +151,11 @@ public class LogInView extends javax.swing.JFrame implements Window {
         jButton2.setText("Sign Up");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                try {
+                    jButton2ActionPerformed(evt);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -194,24 +228,15 @@ public class LogInView extends javax.swing.JFrame implements Window {
 
     }
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        wm.showWindow(Windows.Signup);
-        this.dispose();
-    }
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        String enteredUsername = jTextField1.getText();
-        String enteredPassword = new String(jPasswordField1.getPassword());
-        try {
-            if (LogInView.this.userManager.loginUser(enteredUsername, enteredPassword)) {
-                wm.showWindow(Windows.DBdemo);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(LogInView.this, "Invalid username or password.");
-            }
-        }  catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(LogInView.this, "Error occurred. Please try again later.");
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+        if (SaveLoadViewDEMO.this.userManager.saveGame("newsave",barrier_list,5,5,5)) {
+            System.out.println("DONE!");
         }
+    }
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
+        blist = SaveLoadViewDEMO.this.userManager.loadBarriers("newsave");
+        List<Integer> userInfol = SaveLoadViewDEMO.this.userManager.loadUserInfo("newsave");
+        System.out.println(userInfol.toString());
     }
     private javax.swing.JPanel Left;
     private javax.swing.JPanel Right;

@@ -184,7 +184,6 @@ public class SignUpView extends javax.swing.JFrame implements Window {
                                 .addGap(0, 126, Short.MAX_VALUE))
         );
         this.setVisible(true);
-        getAccessibleContext().setAccessibleName("SIGNUP");
         pack();
     }
 
