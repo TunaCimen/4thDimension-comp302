@@ -8,6 +8,8 @@ import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.ui.HealthBar;
 import org.LanceOfDestiny.ui.Window;
+import org.LanceOfDestiny.ui.WindowManager;
+import org.LanceOfDestiny.ui.Windows;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,6 +31,7 @@ public class GameView extends JFrame implements Window {
         setSize(new Dimension(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT));
         setDefaultLookAndFeelDecorated(true);
         setResizable(false);
+        Events.ResumeGame.addRunnableListener(this::requestFocusInWindow);
 
         //Buttons
         JPanel pausePanel = new JPanel();
@@ -52,6 +55,7 @@ public class GameView extends JFrame implements Window {
             sessionManager.getLoopExecutor().start();
         });
         buttonPause.addActionListener(e -> {
+            WindowManager.getInstance().showWindow(Windows.PauseView);
             System.out.println(sessionManager.getLoopExecutor().getSecondsPassed());
             Events.PauseGame.invoke();
         });
