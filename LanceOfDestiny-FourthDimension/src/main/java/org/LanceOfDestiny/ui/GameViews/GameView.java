@@ -99,6 +99,15 @@ public class GameView extends JFrame implements Window {
             int numOfExplosive = Integer.parseInt(textFieldBarrierExplosive.getText());
             int numOfRewarding = Integer.parseInt(textFieldBarrierRewarding.getText());
 
+            if (numOfSimple < 75 || numOfReinforced < 10 || numOfExplosive < 5 || numOfRewarding < 10) {
+                JOptionPane.showMessageDialog(null, "Minimum required barriers not met:\n"
+                        + "Simple: 75\n"
+                        + "Reinforced: 10\n"
+                        + "Explosive: 5\n"
+                        + "Rewarding: 10");
+                return;
+            }
+
             this.sessionManager.getBuilder().setNumOfSimple(numOfSimple);
             this.sessionManager.getBuilder().setNumOfExplosive(numOfExplosive);
             this.sessionManager.getBuilder().setNumOfRewarding(numOfRewarding);

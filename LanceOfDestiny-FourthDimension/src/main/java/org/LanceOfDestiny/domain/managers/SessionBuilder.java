@@ -5,6 +5,10 @@ import org.LanceOfDestiny.domain.barriers.BarrierFactory;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
 import org.LanceOfDestiny.domain.physics.Vector;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class SessionBuilder {
     private Integer numOfSimple;
     private Integer numOfReinforced;
@@ -19,36 +23,40 @@ public class SessionBuilder {
     }
 
     public void buildBarriers() {
-        // Track how many of each type are created
-        int numSimpleCreated = 0;
-        int numFirmCreated = 0;
-        int numExplosiveCreated = 0;
-        int numGiftCreated = 0;
+        int totalBarriers = numOfSimple + numOfReinforced + numOfExplosive + numOfRewarding;
+        List<BarrierTypes> barrierTypes = new ArrayList<>();
 
-        for (int i = 10; i < Constants.SCREEN_WIDTH - 10; i += 30) {
-            for (int j = 10; j < Constants.SCREEN_HEIGHT - 400; j += 30) {
-                BarrierTypes typeToCreate = determineTypeToCreate(numSimpleCreated, numFirmCreated, numExplosiveCreated, numGiftCreated);
+        // Add barrier types to the list based on the counts
+        for (int i = 0; i < numOfSimple; i++) {
+            barrierTypes.add(BarrierTypes.SIMPLE);
+        }
+        for (int i = 0; i < numOfReinforced; i++) {
+            barrierTypes.add(BarrierTypes.REINFORCED);
+        }
+        for (int i = 0; i < numOfExplosive; i++) {
+            barrierTypes.add(BarrierTypes.EXPLOSIVE);
+        }
+        for (int i = 0; i < numOfRewarding; i++) {
+            barrierTypes.add(BarrierTypes.REWARDING);
+        }
 
-                BarrierFactory.createBarrier(new Vector(i, j), typeToCreate);
+        // Shuffle the list to randomize barrier placement
+        Collections.shuffle(barrierTypes);
 
-                // Update counters for the relevant type
-                switch (typeToCreate) {
-                    case SIMPLE:
-                        numSimpleCreated++;
-                        break;
-                    case REINFORCED:
-                        numFirmCreated++;
-                        break;
-                    case EXPLOSIVE:
-                        numExplosiveCreated++;
-                        break;
-                    case REWARDING:
-                        numGiftCreated++;
-                        break;
-                }
+        int x = 10;
+        int y = 10;
+
+        for (BarrierTypes type : barrierTypes) {
+            BarrierFactory.createBarrier(new Vector(x, y), type);
+
+            x += 30;
+            if (x >= Constants.SCREEN_WIDTH - 10) {
+                x = 10;
+                y += 30;
             }
         }
     }
+
 
     private BarrierTypes determineTypeToCreate(int numSimpleCreated, int numFirmCreated, int numExplosiveCreated, int numGiftCreated) {
 
