@@ -13,10 +13,10 @@ import java.awt.*;
 
 public class FireBall extends GameObject {
     private final int radius = Constants.FIREBALL_RADIUS;
-    BallSprite ballSprite;
+    private BallSprite ballSprite;
     private boolean isOverwhelming = false;
     private boolean isAttached = true;
-    private int defaultSpeed = Constants.FIREBALL_SPEED;
+    private final int defaultSpeed = Constants.FIREBALL_SPEED;
     private double currentSpeed;
     private MagicalStaff magicalStaff;
 
@@ -37,7 +37,6 @@ public class FireBall extends GameObject {
         collider.setVelocity(velocity);
     }
 
-
     @Override
     public void start() {
         super.start();
@@ -48,9 +47,10 @@ public class FireBall extends GameObject {
     public void update() {
         if (getPosition().getY() >= Constants.SCREEN_HEIGHT - 40) fireBallDropped();
         if (isAttached) {
+            var staffWidth =  (magicalStaff.isExpanded ? Constants.STAFF_WIDTH * 2 : Constants.STAFF_WIDTH);
             var attachedPosition = new Vector(
-                    magicalStaff.getPosition().getX() + Constants.STAFF_WIDTH / 2f + (Constants.STAFF_WIDTH / 4f) * Math.sin(magicalStaff.getAngle()),
-                    magicalStaff.getPosition().getY() + Constants.FIREBALL_RADIUS * 0.5 + (Constants.STAFF_WIDTH / 4f) * Math.cos(magicalStaff.getAngle() + Math.PI)
+                    magicalStaff.getPosition().getX() + staffWidth / 2f + (Constants.STAFF_WIDTH / 4f) * Math.sin(magicalStaff.getAngle()),
+                    magicalStaff.getPosition().getY() + Constants.FIREBALL_RADIUS * 0.5 + (staffWidth / 4f) * Math.cos(magicalStaff.getAngle() + Math.PI)
             );
             collider.setPosition(attachedPosition);
         } else setPosition(getPosition().add(collider.getVelocity()));
