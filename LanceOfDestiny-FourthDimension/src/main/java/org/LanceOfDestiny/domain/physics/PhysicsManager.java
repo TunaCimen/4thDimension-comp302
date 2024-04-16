@@ -31,7 +31,7 @@ public class PhysicsManager {
         return instance;
     }
 
-    private static Vector getReflection(Collision collision, boolean isFirstCollider) {
+    public static Vector getReflection(Collision collision, boolean isFirstCollider) {
         Collider collider;
         if (isFirstCollider) {
             collider = collision.getCollider1();

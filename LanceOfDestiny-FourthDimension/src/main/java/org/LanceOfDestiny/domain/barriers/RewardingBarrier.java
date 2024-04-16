@@ -29,4 +29,15 @@ public class RewardingBarrier extends Barrier{
         reduceLife();
     }
 
+    @Override
+    public void onTriggerEnter(Collision collision) {
+        super.onCollisionEnter(collision);
+        var other = collision.getOther(this);
+
+        if(!(other instanceof FireBall)) return;
+        rewardBox.setFalling(true);
+        rewardBox.getCollider().setEnabled(true);
+        reduceLife();
+    }
+
 }

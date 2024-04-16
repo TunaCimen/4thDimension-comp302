@@ -1,9 +1,9 @@
 package org.LanceOfDestiny.domain.player;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.events.Events;
-import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.barriers.Barrier;
+import org.LanceOfDestiny.domain.behaviours.GameObject;
+import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.physics.*;
 import org.LanceOfDestiny.domain.sprite.BallSprite;
@@ -13,10 +13,10 @@ import java.awt.*;
 
 public class FireBall extends GameObject {
     private final int radius = Constants.FIREBALL_RADIUS;
-    BallSprite ballSprite;
+    private BallSprite ballSprite;
     private boolean isOverwhelming = false;
     private boolean isAttached = true;
-    private int defaultSpeed = Constants.FIREBALL_SPEED;
+    private final int defaultSpeed = Constants.FIREBALL_SPEED;
     private double currentSpeed;
     private MagicalStaff magicalStaff;
 
@@ -37,31 +37,28 @@ public class FireBall extends GameObject {
         collider.setVelocity(velocity);
     }
 
-
     @Override
     public void start() {
         super.start();
         magicalStaff = SessionManager.getInstance().getMagicalStaff();
-
-
     }
 
     @Override
     public void update() {
         if (getPosition().getY() >= Constants.SCREEN_HEIGHT - 40) fireBallDropped();
         if (isAttached) {
+            var staffWidth =  (magicalStaff.isExpanded ? Constants.STAFF_WIDTH * 2 : Constants.STAFF_WIDTH);
             var attachedPosition = new Vector(
-                    magicalStaff.getPosition().getX() + Constants.STAFF_WIDTH / 2f + (Constants.STAFF_WIDTH / 4f) * Math.sin(magicalStaff.getAngle()),
-                    magicalStaff.getPosition().getY() + Constants.FIREBALL_RADIUS * 0.5+ (Constants.STAFF_WIDTH / 4f) * Math.cos(magicalStaff.getAngle() + Math.PI)
+                    magicalStaff.getPosition().getX() + staffWidth / 2f + (Constants.STAFF_WIDTH / 4f) * Math.sin(magicalStaff.getAngle()),
+                    magicalStaff.getPosition().getY() + Constants.FIREBALL_RADIUS * 0.5 + (staffWidth / 4f) * Math.cos(magicalStaff.getAngle() + Math.PI)
             );
             collider.setPosition(attachedPosition);
-        }
-        else setPosition(getPosition().add(collider.getVelocity()));
+        } else setPosition(getPosition().add(collider.getVelocity()));
     }
 
     private void handleOverwhelming(Object object) {
         if ((Boolean) object) enableOverwhelming();
-        disableOverwhelming();
+        else disableOverwhelming();
     }
 
     @Override
@@ -77,13 +74,13 @@ public class FireBall extends GameObject {
     public void enableOverwhelming() {
         isOverwhelming = true;
         getCollider().setTrigger(true);
-        System.out.println("Overwhelming activated");
+        ballSprite.color = Color.ORANGE;
     }
 
     public void disableOverwhelming() {
         isOverwhelming = false;
         getCollider().setTrigger(false);
-        System.out.println("Overwhelming deactivated");
+        ballSprite.color = Color.BLACK;
     }
 
     @Override
@@ -91,9 +88,14 @@ public class FireBall extends GameObject {
         super.onTriggerEnter(collision);
         var other = collision.getOther(this);
 
-        if(other instanceof Barrier) {
+        if (other instanceof Barrier) {
             ((Barrier) other).kill();
+        }
+        if (other == null || other instanceof MagicalStaff) {
+            Vector reflection = PhysicsManager.getReflection(collision, true);
+            getCollider().setVelocity(reflection);
         }
 
     }
+
 }

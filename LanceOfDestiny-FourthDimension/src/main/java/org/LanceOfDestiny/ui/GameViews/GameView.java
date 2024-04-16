@@ -1,8 +1,9 @@
 package org.LanceOfDestiny.ui.GameViews;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.EventSystem.Events;
+import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.InputManager;
+import org.LanceOfDestiny.domain.managers.ScoreManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.ui.Window;
 
@@ -62,8 +63,11 @@ public class GameView extends JFrame implements Window {
 
         //Initialize the Game Objects
         sessionManager.initializeSession();
-        JLabel chanceBar = new JLabel( "<3  "+ String.valueOf(sessionManager.getPlayer().getChances()));
-        Events.UpdateChance.addListener(e-> chanceBar.setText("<3  " + String.valueOf(sessionManager.getPlayer().getChances())));
+        JLabel chanceBar = new JLabel( "<3:  "+ String.valueOf(sessionManager.getPlayer().getChancesLeft()));
+        Events.UpdateChance.addListener(e-> chanceBar.setText("<3:  " + String.valueOf(sessionManager.getPlayer().getChancesLeft())));
+        JLabel scoreBar = new JLabel( "Score:  " + String.valueOf(ScoreManager.getInstance().getScore()));
+        Events.UpdateScore.addListener(e-> scoreBar.setText("Score:  " + String.valueOf(ScoreManager.getInstance().getScore())));
+        pausePanel.add(scoreBar);
         pausePanel.add(chanceBar);
         //Show the frame.
         setVisible(true);
