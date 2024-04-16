@@ -51,6 +51,8 @@ public class ExplosiveBarrier extends Barrier {
 
         if (other instanceof FireBall) {
             isFalling = true;
+            // allows the barrier to actually fall
+            getCollider().setVelocity(new Vector(0, 2));
             getCollider().setTrigger(true);
             this.addScore();
         }
