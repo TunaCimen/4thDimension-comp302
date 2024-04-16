@@ -128,9 +128,36 @@ public class PhysicsManager {
 
             if (collider instanceof BallCollider ballCollider) {
                 checkBoundaryCollision(ballCollider, detectedCollisions);
+            } else if (collider instanceof RectangleCollider rectangleCollider) {
+                checkBoundaryCollision(rectangleCollider, detectedCollisions);
             }
         }
     }
+
+    private void checkBoundaryCollision(RectangleCollider rectangleCollider, List<Collision> detectedCollisions) {
+        Vector pos = rectangleCollider.getPosition(framesAhead); // Assuming the position is the center of the rectangle
+
+        // Calculate boundaries of the rectangle
+        double left = pos.getX() ;
+        double right = pos.getX() + rectangleCollider.getWidth();
+        double top = pos.getY();
+        double bottom = pos.getY() + rectangleCollider.getHeight();
+
+        // Check each boundary and add collisions as necessary
+        if (left <= 0) { // Left boundary collision
+            detectedCollisions.add(new Collision(rectangleCollider, null, new Vector(1, 0))); // Normal pointing right
+        }
+        if (right >= Constants.SCREEN_WIDTH) { // Right boundary collision
+            detectedCollisions.add(new Collision(rectangleCollider, null, new Vector(-1, 0))); // Normal pointing left
+        }
+        if (top <= 0) { // Top boundary collision
+            detectedCollisions.add(new Collision(rectangleCollider, null, new Vector(0, 1))); // Normal pointing down
+        }
+        if (bottom >= Constants.SCREEN_HEIGHT) { // Bottom boundary collision
+            detectedCollisions.add(new Collision(rectangleCollider, null, new Vector(0, -1))); // Normal pointing up
+        }
+    }
+
 
     private void checkBoundaryCollision(BallCollider ballCollider, List<Collision> detectedCollisions) {
         // Boundary checks for each direction using helper method
@@ -165,7 +192,9 @@ public class PhysicsManager {
             } else {
                 // Handle physical collision responses
                 handleBounce(collision);
-
+                if (gameObject2 == null) {
+                    int x =3123;
+                }
                 // Invoke onCollisionEnter on the first game object
                 gameObject1.onCollisionEnter(collision);
 
@@ -188,7 +217,7 @@ public class PhysicsManager {
             return; // do not bounce the ball
         }
         if (!isFireballCollision(collision)) {
-            // handleRegularBounce(collision); // currently this should do nothing since only fireball is dynamic
+            handleRegularBounce(collision); // currently this should do nothing since only fireball is dynamic
             return;
         }
         // do the annoying calculations here
@@ -206,10 +235,6 @@ public class PhysicsManager {
         Vector fireballVelocity = fireball.getCollider().getVelocity();
         Vector otherVelocity = otherGameObject.getCollider().getVelocity();
         final double speedIncrease = 5 * Constants.UPDATE_RATE;
-        if (true) {
-            handleRegularBounce(collision);
-            return;
-        }
         if (otherVelocity.isZero()) {
             handleRegularBounce(collision);
             return;
@@ -220,6 +245,14 @@ public class PhysicsManager {
             return;
         }
         if (otherGameObject.getCollider().getVelocity().isPerpendicular(fireball.getCollider().getVelocity())) {
+            // Calculate the angle of reflection at 45 degrees relative to the line of movement direction
+            double angleOfReflection = Math.PI / 4; // 45 degrees in radians
+            Vector reflectionDirection = otherVelocity.normalize();
+            // Rotate the reflection direction by 45 degrees to either side
+            Vector rotatedVector = reflectionDirection.rotateVector(angleOfReflection);
+            // Set the new velocity with the same magnitude as the original velocity
+            double fireballSpeed = fireballVelocity.magnitude();
+            fireball.getCollider().setVelocity(rotatedVector.scale(fireballSpeed));
             return;
         }
         // separately checking for x and y directions

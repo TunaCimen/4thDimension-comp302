@@ -24,8 +24,8 @@ public class SimpleBarrier extends Barrier {
         if (other instanceof FireBall) {
             reduceLife();
         }
-        if (other instanceof Barrier && isMoving) {
-            this.direction = direction * -1;
+        if ((other instanceof Barrier && isMoving)) {
+            getCollider().setVelocity(getCollider().getVelocity().scale(-1));
         }
     }
 

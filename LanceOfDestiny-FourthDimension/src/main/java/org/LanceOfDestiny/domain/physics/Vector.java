@@ -26,7 +26,7 @@ public class Vector {
     }
 
     public Vector normalize() {
-        double length = (double) Math.sqrt(getX() * getX() + getY() * getY());
+        double length = magnitude();
         if (length != 0) {
             return new Vector(getX() / length, getY() / length);
         }
@@ -84,6 +84,19 @@ public class Vector {
     public boolean isPerpendicular(Vector other) {
         // Two vectors are perpendicular if their dot product is zero
         return Math.abs(this.dotProduct(other)) < 1e-10;  // Use a small threshold to handle floating point precision issues
+    }
+
+    public Vector rotateVector(double angle) {
+        double cosTheta = Math.cos(angle);
+        double sinTheta = Math.sin(angle);
+        return new Vector(
+                getX() * cosTheta - getY() * sinTheta,
+                getX() * sinTheta + getY() * cosTheta
+        );
+    }
+
+    public double magnitude() {
+        return Math.sqrt(getX() * getX() + getY() * getY());
     }
 
 }

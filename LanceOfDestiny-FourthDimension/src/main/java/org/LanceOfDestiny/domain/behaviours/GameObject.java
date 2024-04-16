@@ -33,6 +33,7 @@ public abstract class GameObject extends Behaviour {
 
     public void update() {
         super.update();
+        setPosition((getPosition().add(getCollider().getVelocity())));
     }
 
     public void destroy() {
