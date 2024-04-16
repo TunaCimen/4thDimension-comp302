@@ -10,6 +10,8 @@ import org.LanceOfDestiny.domain.physics.Collision;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
+import org.LanceOfDestiny.domain.sprite.ImageLibrary;
+import org.LanceOfDestiny.domain.sprite.ImageOperations;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
 import org.LanceOfDestiny.domain.sprite.Sprite;
 
@@ -68,7 +70,8 @@ public class RewardBox extends GameObject {
     }
 
     public void createSprite() {
-        this.sprite = new RectangleSprite(this, Color.MAGENTA, WIDTH, HEIGHT);
+        this.sprite = new RectangleSprite(this, new Color(0,0,0,0), WIDTH, HEIGHT);
+        this.sprite.addImage(ImageOperations.resizeImage(ImageLibrary.RewardBox.getImage(),32,32));
         getSprite().setVisible(false);
     }
 

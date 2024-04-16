@@ -26,4 +26,10 @@ public class ImageOperations{
         // Return the resized image
         return resizedImage;
     }
+
+    public static BufferedImage resizeImageToSprite(BufferedImage originalImage, Sprite sprite) {
+        int targetWidth = sprite.width();
+        int targetHeight = sprite.height();
+        return resizeImage(originalImage,targetWidth,targetHeight);
+    }
 }

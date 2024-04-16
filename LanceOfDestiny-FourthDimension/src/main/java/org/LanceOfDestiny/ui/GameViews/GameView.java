@@ -41,7 +41,7 @@ public class GameView extends JFrame implements Window {
         JButton button = new JButton("Start Game");
         JButton buttonPause = new JButton("Pause Game");
         JButton buttonResume = new JButton("Resume Game");
-        ImageIcon healthBar = new ImageIcon(ImageLibrary.HealthBar.getImage());
+        ImageIcon healthBar = new ImageIcon(ImageLibrary.Heart.getImage());
         buttonPause.setVisible(false);
         buttonResume.setVisible(false);
         pausePanel.add(button);

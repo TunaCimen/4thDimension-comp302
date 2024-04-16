@@ -12,7 +12,7 @@ public class HealthBar extends JPanel {
     private Stack<JLabel> healths;
     public HealthBar(int maxHealth){
         this.maxHealth = maxHealth;
-        healthImageIcon = new ImageIcon(ImageLibrary.HealthBar.getImage());
+        healthImageIcon = new ImageIcon(ImageLibrary.Heart.getImage());
         healths = new Stack<>();
         this.setVisible(true);
         addToPanel();
