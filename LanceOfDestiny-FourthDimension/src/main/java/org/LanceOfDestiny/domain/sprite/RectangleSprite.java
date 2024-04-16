@@ -53,6 +53,15 @@ public class RectangleSprite extends Sprite{
         }
     }
 
+    @Override
+    public int width() {
+        return width;
+    }
+
+    @Override
+    public int height() {
+        return height;
+    }
 
 
 }
