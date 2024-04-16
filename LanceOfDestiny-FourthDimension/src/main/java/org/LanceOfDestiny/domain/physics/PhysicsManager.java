@@ -14,7 +14,7 @@ import java.util.Map;
 public class PhysicsManager {
     private static PhysicsManager instance;
     private List<Collider> colliders;
-    // this will be made non-zero if need predictive collision detection code
+    // this will be made non-zero if we need predictive collision detection code
     private double framesAhead = 0.8;
     private int currentFrame = 0;
     private int frameTreshold = 10;
@@ -31,7 +31,9 @@ public class PhysicsManager {
         }
         return instance;
     }
-
+    public void updateCollisions() {
+        handleCollisionEvents(PhysicsManager.getInstance().checkCollisions());
+    }
     private static Vector getReflection(Collision collision, Collider collider) {
         Vector incoming = collider.getVelocity();
         Vector normal = collision.getNormal();
@@ -55,7 +57,7 @@ public class PhysicsManager {
         colliders.remove(collider);
     }
 
-    public List<Collision> checkCollisions() {
+    private List<Collision> checkCollisions() {
         currentFrame++; // Assume a method to get the current frame
         List<Collision> detectedCollisions = new ArrayList<>();
         processBoundaryCollisions(detectedCollisions);
@@ -146,7 +148,7 @@ public class PhysicsManager {
         }
     }
 
-    public void handleCollisionEvents(List<Collision> collisions) {
+    private void handleCollisionEvents(List<Collision> collisions) {
         for (Collision collision : collisions) {
             GameObject gameObject1 = collision.getCollider1().getGameObject();
             GameObject gameObject2 = collision.getCollider2() != null ? collision.getCollider2().getGameObject() : null;
@@ -204,6 +206,10 @@ public class PhysicsManager {
         Vector fireballVelocity = fireball.getCollider().getVelocity();
         Vector otherVelocity = otherGameObject.getCollider().getVelocity();
         final double speedIncrease = 5 * Constants.UPDATE_RATE;
+        if (true) {
+            handleRegularBounce(collision);
+            return;
+        }
         if (otherVelocity.isZero()) {
             handleRegularBounce(collision);
             return;
