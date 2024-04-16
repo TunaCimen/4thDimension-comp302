@@ -50,7 +50,7 @@ public class SessionManager {
         for (int i = 10; i < Constants.SCREEN_WIDTH - 10; i += 30) {
             for (int j = 10; j < Constants.SCREEN_HEIGHT - 400; j += 30) {
                 if (j == 190) {
-                    BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.EXPLOSIVE);
+                    BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.REWARDING);
                 } else {
                     BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.REWARDING);
                 }

@@ -1,52 +1,85 @@
 package org.LanceOfDestiny.domain.spells;
 
+import org.LanceOfDestiny.domain.Behaviour;
 import org.LanceOfDestiny.domain.EventSystem.Events;
+import org.LanceOfDestiny.domain.Looper.LoopExecutor;
+import org.LanceOfDestiny.domain.managers.SessionManager;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-// spells gained by the player will be held here
-// needs a timer object to activate and deactivate spell
-public class SpellContainer {
+/**
+ * Spells gained by the Player will be held here.
+ **/
+public class SpellContainer extends Behaviour {
     private List<Spell> spells;
-    private HashMap<SpellType, Boolean> spellMap = new HashMap<>(); // for saving to database
+    private HashMap<SpellType, Boolean> spellMap = new HashMap<>();
+    private final LoopExecutor loopExecutor = SessionManager.getInstance().getLoopExecutor();
+    private boolean isSpellActive = false;
+    private int spellEndSecond;
+    private final int spellDurationSecond = 30;
+    private SpellType activeSpellType;
 
 
     public SpellContainer() {
         spells = new LinkedList<>();
         for (SpellType spellType : SpellType.values()) {
-            if(spellType.equals(SpellType.CHANCE)) continue;
+            if (spellType.equals(SpellType.CHANCE)) continue;
             spellMap.put(spellType, false);
         }
         Events.GainSpell.addListener(this::addSpell);
     }
 
+    @Override
+    public void start() {
+        super.start();
+
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        if (isSpellActive) {
+            if (loopExecutor.getSecondsPassed() < spellEndSecond ) return;
+            deactivateSpell(activeSpellType);
+        }
+    }
+
     public void addSpell(Object spellObject) {
         var spellType = (SpellType) spellObject;
         var spell = SpellFactory.createSpell(spellType);
-        if(spellType.equals(SpellType.CHANCE)){
+        if (spellType.equals(SpellType.CHANCE)) {
             Events.UpdateChance.invoke(1);
             return;
         }
-        System.out.println(spellType);
 
-        if(spellExists(spellType))
+        if (spellExists(spellType))
             return;
         spells.add(spell);
         spellMap.put(spellType, true);
+        System.out.println(spellType + " gained.");
     }
 
     public void activateSpell(SpellType spellType) {
-        if(!spellExists(spellType)) return;
+        if (isSpellActive) return;
+        if (!spellExists(spellType)) return;
 
         var spell = getSpell(spellType);
         spell.activateSpell();
 
-        spellMap.put(spellType, false);
-        spells.remove(spell);
+        isSpellActive = true;
+        activeSpellType = spellType;
+        spellEndSecond = loopExecutor.getSecondsPassed() + spellDurationSecond;
+        System.out.println(spellType + "activated at " + loopExecutor.getSecondsPassed());
+    }
 
-        //spell.deactivateSpell(); // after timer ends
+    public void deactivateSpell(SpellType spellType) {
+        var spell = getSpell(spellType);
+        spell.deactivateSpell();
+        removeSpell(spell);
+        isSpellActive = false;
+        System.out.println(spellType + "deactivated at " + loopExecutor.getSecondsPassed());
     }
 
     public void removeSpell(Spell spell) {

@@ -1,12 +1,14 @@
 package org.LanceOfDestiny.domain.physics;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
 import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PhysicsManager {
     private static PhysicsManager instance;
@@ -27,6 +29,27 @@ public class PhysicsManager {
             instance = new PhysicsManager();
         }
         return instance;
+    }
+
+    private static Vector getReflection(Collision collision, boolean isFirstCollider) {
+        Collider collider;
+        if (isFirstCollider) {
+            collider = collision.getCollider1();
+        } else {
+            collider = collision.getCollider2();
+        }
+        Vector incoming = collider.getVelocity();
+        Vector normal = collision.getNormal();
+        Vector reflection = incoming.subtract(normal.scale(2).scale(incoming.dotProduct(normal)));
+        return reflection;
+    }
+
+    private static boolean isBallRectCollision(Collider collider1, Collider collider2) {
+        return (collider1 instanceof RectangleCollider && collider2 instanceof BallCollider) || (collider1 instanceof BallCollider && collider2 instanceof RectangleCollider);
+    }
+
+    private static boolean isBallBallCollision(Collider collider1, Collider collider2) {
+        return collider1 instanceof BallCollider && collider2 instanceof BallCollider;
     }
 
     public void addCollider(Collider collider) {
@@ -127,7 +150,6 @@ public class PhysicsManager {
         }
     }
 
-
     public void handleCollisionEvents(List<Collision> collisions) {
         for (Collision collision : collisions) {
             GameObject gameObject1 = collision.getCollider1().getGameObject();
@@ -157,8 +179,6 @@ public class PhysicsManager {
         }
     }
 
-
-
     private void handleBounce(Collision collision) {
         //Screen Boundary
         if (collision.getCollider2() == null) {
@@ -177,28 +197,6 @@ public class PhysicsManager {
             }
         }
 
-    }
-
-    private static Vector getReflection(Collision collision, boolean isFirstCollider) {
-        Collider collider;
-        if (isFirstCollider) {
-            collider = collision.getCollider1();
-        } else {
-            collider = collision.getCollider2();
-        }
-        Vector incoming = collider.getVelocity();
-        Vector normal = collision.getNormal();
-        Vector reflection = incoming.subtract(normal.scale(2).scale(incoming.dotProduct(normal)));
-        return reflection;
-    }
-
-
-    private static boolean isBallRectCollision(Collider collider1, Collider collider2) {
-        return (collider1 instanceof RectangleCollider && collider2 instanceof BallCollider) || (collider1 instanceof BallCollider && collider2 instanceof RectangleCollider);
-    }
-
-    private static boolean isBallBallCollision(Collider collider1, Collider collider2) {
-        return collider1 instanceof BallCollider && collider2 instanceof BallCollider;
     }
 
     private boolean isRectRectCollision(Collider collider1, Collider collider2) {
@@ -270,12 +268,7 @@ public class PhysicsManager {
         double minimumOverlap = Double.POSITIVE_INFINITY;
 
         // Test the normal axes of the first rectangle
-        Vector[] axes = new Vector[]{
-                rect1Corners[1].subtract(rect1Corners[0]).perpendicular().normalize(),
-                rect1Corners[3].subtract(rect1Corners[0]).perpendicular().normalize(),
-                rect2Corners[1].subtract(rect2Corners[0]).perpendicular().normalize(),
-                rect2Corners[3].subtract(rect2Corners[0]).perpendicular().normalize()
-        };
+        Vector[] axes = new Vector[]{rect1Corners[1].subtract(rect1Corners[0]).perpendicular().normalize(), rect1Corners[3].subtract(rect1Corners[0]).perpendicular().normalize(), rect2Corners[1].subtract(rect2Corners[0]).perpendicular().normalize(), rect2Corners[3].subtract(rect2Corners[0]).perpendicular().normalize()};
 
         for (Vector axis : axes) {
             // Project both rectangles onto the axis
@@ -306,9 +299,8 @@ public class PhysicsManager {
             if (projection < min) min = projection;
             if (projection > max) max = projection;
         }
-        return new double[] { min, max };
+        return new double[]{min, max};
     }
-
 
 
 }
