@@ -62,7 +62,28 @@ public class Vector {
         double vy = speed * Math.sin(angle);
         return new Vector(vx,vy);
     }
+    public boolean isZero() {
+        return getX() == 0 && getY() == 0;
+    }
+
+    public boolean isSameDirectionX(Vector other) {
+        return (other.getX() > 0 && getX() > 0) || (other.getX() < 0 && getX() < 0);
+    }
+
+    public boolean isSameDirectionY(Vector other) {
+        return (other.getY() > 0 && getY() > 0) || (other.getY() < 0 && getY() < 0);
+    }
+
+    public Vector getDirectionVector() {
+        return new Vector(getX() > 0 ? 1 : -1,
+                          getY() > 0 ? 1 : -1);
+    }
     public String toString() {
         return "(" + x + ", " + y + ")";
     }
+    public boolean isPerpendicular(Vector other) {
+        // Two vectors are perpendicular if their dot product is zero
+        return Math.abs(this.dotProduct(other)) < 1e-10;  // Use a small threshold to handle floating point precision issues
+    }
+
 }

@@ -32,13 +32,7 @@ public class PhysicsManager {
         return instance;
     }
 
-    private static Vector getReflection(Collision collision, boolean isFirstCollider) {
-        Collider collider;
-        if (isFirstCollider) {
-            collider = collision.getCollider1();
-        } else {
-            collider = collision.getCollider2();
-        }
+    private static Vector getReflection(Collision collision, Collider collider) {
         Vector incoming = collider.getVelocity();
         Vector normal = collision.getNormal();
         Vector reflection = incoming.subtract(normal.scale(2).scale(incoming.dotProduct(normal)));
@@ -181,31 +175,66 @@ public class PhysicsManager {
     }
 
     private void handleBounce(Collision collision) {
-        // Check if either collider is a FireBall and if it is overwhelming
-        boolean isOverwhelmingFireBallBarrierCollision =
-                ((collision.getCollider1().getGameObject() instanceof FireBall && ((FireBall)collision.getCollider1().getGameObject()).isOverwhelming()) &&
-                        (collision.getCollider2() != null && collision.getCollider2().getGameObject() instanceof Barrier)) ||
-                        ((collision.getCollider2() != null && collision.getCollider2().getGameObject() instanceof FireBall && ((FireBall)collision.getCollider2().getGameObject()).isOverwhelming()) &&
-                                (collision.getCollider1().getGameObject() instanceof Barrier));
+        final double speedIncrease = 5 * Constants.UPDATE_RATE;
         // Screen Boundary Collision
         if (collision.getCollider2() == null) {
-            Vector reflection = getReflection(collision, true);
+            Vector reflection = getReflection(collision, collision.getCollider1());
             collision.getCollider1().setVelocity(reflection);
-        } else {
-            // Normal collision but check for FireBall being overwhelming
-            if (!isOverwhelmingFireBallBarrierCollision) {
-                Vector reflection1 = getReflection(collision, true);
-                Vector reflection2 = getReflection(collision, false);
-
-                // Apply bounce only if the colliders are dynamic and it's not an overwhelming FireBall collision
-                if (collision.getCollider1().getColliderType() == ColliderType.DYNAMIC) {
-                    collision.getCollider1().setVelocity(reflection1);
-                }
-                if (collision.getCollider2().getColliderType() == ColliderType.DYNAMIC) {
-                    collision.getCollider2().setVelocity(reflection2);
-                }
-            }
+            return;
         }
+        // Normal collision but check for FireBall being overwhelming
+        if (isOverwhelmingFireballBarrierCollision(collision)) {
+            return; // do not bounce the ball
+        }
+        if (!isFireballCollision(collision)) {
+            handleRegularBounce(collision); // do the bounce but nothing else
+            return;
+        }
+        FireBall fireball = getFireballFromCollision(collision);
+        GameObject otherGameObject = collision.getOther(fireball);
+        Vector fireballVelocity = fireball.getCollider().getVelocity();
+        Vector otherVelocity = otherGameObject.getCollider().getVelocity();
+        // if otherObject is not moving just compute normal bounce
+        if (otherVelocity.isZero()) {
+            handleRegularBounce(collision);
+            return;
+        }
+        if (!otherVelocity.isSameDirectionX(fireballVelocity) && otherVelocity.isSameDirectionY(fireballVelocity)) {
+            // will hopefully cause 180 degree return
+            fireball.getCollider().setVelocity(fireballVelocity.scale(-1));
+            return;
+        }
+        if (otherGameObject.getCollider().getVelocity().isPerpendicular(fireball.getCollider().getVelocity())) {
+            return; // idk how to reflect by 45 ngl
+        }
+        // separately checking for x and y directions
+        if (otherVelocity.isSameDirectionX(fireballVelocity)) {
+            fireball.getCollider().setVelocity(fireballVelocity.add(new Vector(fireballVelocity.getDirectionVector().getX() + speedIncrease, 0)));
+        }
+        if (otherVelocity.isSameDirectionY(fireballVelocity)) {
+            fireball.getCollider().setVelocity(fireballVelocity.add(new Vector(0,fireballVelocity.getDirectionVector().getY() + speedIncrease)));
+        }
+        handleRegularBounce(collision);
+        }
+    }
+
+    private static void handleRegularBounce(Collision collision) {
+        Vector reflection1 = getReflection(collision, collision.getCollider1());
+        Vector reflection2 = getReflection(collision, collision.getCollider2());
+        // Apply bounce only if the colliders are dynamic and it's not an overwhelming FireBall collision
+        if (collision.getCollider1().getColliderType() == ColliderType.DYNAMIC) {
+            collision.getCollider1().setVelocity(reflection1);
+        }
+        if (collision.getCollider2().getColliderType() == ColliderType.DYNAMIC) {
+            collision.getCollider2().setVelocity(reflection2);
+        }
+    }
+
+    private static boolean isOverwhelmingFireballBarrierCollision(Collision collision) {
+        return ((collision.getCollider1().getGameObject() instanceof FireBall && ((FireBall) collision.getCollider1().getGameObject()).isOverwhelming()) &&
+                (collision.getCollider2() != null && collision.getCollider2().getGameObject() instanceof Barrier)) ||
+                ((collision.getCollider2() != null && collision.getCollider2().getGameObject() instanceof FireBall && ((FireBall) collision.getCollider2().getGameObject()).isOverwhelming()) &&
+                        (collision.getCollider1().getGameObject() instanceof Barrier));
     }
 
 
