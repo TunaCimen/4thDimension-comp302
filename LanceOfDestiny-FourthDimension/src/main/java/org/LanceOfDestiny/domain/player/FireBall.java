@@ -42,8 +42,6 @@ public class FireBall extends GameObject {
     public void start() {
         super.start();
         magicalStaff = SessionManager.getInstance().getMagicalStaff();
-
-
     }
 
     @Override
@@ -61,7 +59,6 @@ public class FireBall extends GameObject {
     private void handleOverwhelming(Object object) {
         if ((Boolean) object) enableOverwhelming();
         else disableOverwhelming();
-        System.out.println("Overwhelming: " + isOverwhelming);
     }
 
     @Override
@@ -77,11 +74,13 @@ public class FireBall extends GameObject {
     public void enableOverwhelming() {
         isOverwhelming = true;
         getCollider().setTrigger(true);
+        ballSprite.color = Color.ORANGE;
     }
 
     public void disableOverwhelming() {
         isOverwhelming = false;
         getCollider().setTrigger(false);
+        ballSprite.color = Color.BLACK;
     }
 
     @Override
@@ -98,4 +97,5 @@ public class FireBall extends GameObject {
         }
 
     }
+
 }
