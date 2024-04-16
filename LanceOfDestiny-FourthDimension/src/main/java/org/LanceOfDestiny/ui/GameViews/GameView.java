@@ -116,9 +116,9 @@ public class GameView extends JFrame implements Window {
 
         //Initialize the Game Objects
         //sessionManager.initializeSession();
-        JLabel chanceBar = new JLabel( "❤️"+ String.valueOf(sessionManager.getPlayer().getChances()));
-        Events.UpdateChance.addListener(e-> chanceBar.setText("<3  " + String.valueOf(sessionManager.getPlayer().getChances())));
-        pausePanel.add(chanceBar);
+        //JLabel chanceBar = new JLabel( "❤️"+ String.valueOf(sessionManager.getPlayer().getChances()));
+        //Events.UpdateChance.addListener(e-> chanceBar.setText("<3  " + String.valueOf(sessionManager.getPlayer().getChances())));
+        //pausePanel.add(chanceBar);
         //Show the frame.
         setVisible(true);
 
