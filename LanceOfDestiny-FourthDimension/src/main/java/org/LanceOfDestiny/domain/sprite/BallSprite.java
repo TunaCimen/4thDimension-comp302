@@ -1,6 +1,6 @@
 package org.LanceOfDestiny.domain.sprite;
 
-import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.behaviours.GameObject;
 
 import java.awt.*;
 import java.util.ArrayList;

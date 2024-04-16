@@ -1,6 +1,6 @@
 package org.LanceOfDestiny.domain.barriers;
 
-import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.physics.Collision;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.player.FireBall;

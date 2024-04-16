@@ -1,20 +1,17 @@
 package org.LanceOfDestiny.domain.player;
 
-import org.LanceOfDestiny.domain.Behaviour;
-import org.LanceOfDestiny.domain.EventSystem.Events;
-import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.behaviours.MonoBehaviour;
 import org.LanceOfDestiny.domain.spells.SpellContainer;
 import org.LanceOfDestiny.domain.spells.SpellType;
 
-public class Player extends Behaviour {
+public class Player extends MonoBehaviour {
 
-    private MagicalStaff magicalStaff;
+    private static final int DEFAULT_CHANCES = 3;
+    private static final int MIN_CHANCES = 0;
+
     private final SpellContainer spellContainer;
-
-    private final int DEFAULT_CHANCES = 3;
-    private final int MIN_CHANCES = 0;
     private int chancesLeft;
-
 
     public Player() {
         super();
@@ -22,12 +19,6 @@ public class Player extends Behaviour {
         this.chancesLeft = DEFAULT_CHANCES;
         Events.UpdateChance.addListener(this::updateChances);
         Events.TryUsingSpell.addListener(this::tryUsingSpell);
-    }
-
-    private void tryUsingSpell(Object objectSpellType) {
-        SpellType spellType = (SpellType) objectSpellType;
-        System.out.println(spellType + " tryUsingSpell()");
-        spellContainer.activateSpell(spellType);
     }
 
     @Override
@@ -40,30 +31,26 @@ public class Player extends Behaviour {
         super.update();
     }
 
-    public void loseChance(){
-        setChances(chancesLeft - 1);
-    }
-
-    public void gainChance() {
-        setChances(chancesLeft + 1);
-    }
-
-    public int getChances() {
-        return chancesLeft;
-    }
-
-    private void setChances(int chance) {
-        this.chancesLeft = chance;
-        this.chancesLeft = Math.max(this.chancesLeft, MIN_CHANCES);
-        if(this.chancesLeft == MIN_CHANCES) Events.LoseGame.invoke();
-    }
-
-    public void setMagicalStaff(MagicalStaff magicalStaff){
-        this.magicalStaff = magicalStaff;
+    private void tryUsingSpell(Object objectSpellType) {
+        SpellType spellType = (SpellType) objectSpellType;
+        spellContainer.activateSpell(spellType);
     }
 
     public void updateChances(Object change){
-        setChances(chancesLeft + (Integer) change);
+        setChancesLeft(chancesLeft + (Integer) change);
     }
 
+    private void setChancesLeft(int chance) {
+        this.chancesLeft = chance;
+        this.chancesLeft = Math.max(chancesLeft, MIN_CHANCES);
+        if(this.chancesLeft == MIN_CHANCES) Events.LoseGame.invoke();
+    }
+
+    public int getChancesLeft() {
+        return chancesLeft;
+    }
+
+    public SpellContainer getSpellContainer() {
+        return spellContainer;
+    }
 }

@@ -1,6 +1,6 @@
 package org.LanceOfDestiny.domain.managers;
 
-import org.LanceOfDestiny.domain.EventSystem.Events;
+import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.spells.SpellType;
 
 import java.awt.event.KeyEvent;
@@ -46,9 +46,7 @@ public class InputManager implements KeyListener {
     public void keyReleased(KeyEvent e) {
         if (moveKey == e.getKeyCode()) moveKey = -1;
         if (rotateKey == e.getKeyCode()) rotateKey = -1;
-        if (e.getKeyCode() == KeyEvent.VK_O || e.getKeyCode() == KeyEvent.VK_E || e.getKeyCode() == KeyEvent.VK_C) {
-            activateSpellKey = -1;
-        }
+        if (activateSpellKey == e.getKeyCode()) activateSpellKey = -1;
         updateActions();
     }
 
@@ -70,6 +68,7 @@ public class InputManager implements KeyListener {
     }
 
     private void updateSpellActivation() {
+        if (activateSpellKey == -1) return;
         if (activateSpellKey == KeyEvent.VK_E) Events.TryUsingSpell.invoke(SpellType.EXPANSION);
         if (activateSpellKey == KeyEvent.VK_C) Events.TryUsingSpell.invoke(SpellType.CANON);
         if (activateSpellKey == KeyEvent.VK_O) Events.TryUsingSpell.invoke(SpellType.OVERWHELMING);

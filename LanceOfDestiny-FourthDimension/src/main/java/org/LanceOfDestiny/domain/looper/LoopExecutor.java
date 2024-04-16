@@ -1,4 +1,4 @@
-package org.LanceOfDestiny.domain.Looper;
+package org.LanceOfDestiny.domain.looper;
 
 import java.time.LocalTime;
 

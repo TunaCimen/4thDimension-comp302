@@ -1,8 +1,8 @@
 package org.LanceOfDestiny.domain.spells;
 
-import org.LanceOfDestiny.domain.Behaviour;
-import org.LanceOfDestiny.domain.EventSystem.Events;
-import org.LanceOfDestiny.domain.Looper.LoopExecutor;
+import org.LanceOfDestiny.domain.behaviours.MonoBehaviour;
+import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.looper.LoopExecutor;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 
 import java.util.HashMap;
@@ -12,13 +12,13 @@ import java.util.List;
 /**
  * Spells gained by the Player will be held here.
  **/
-public class SpellContainer extends Behaviour {
+public class SpellContainer extends MonoBehaviour {
     private List<Spell> spells;
     private HashMap<SpellType, Boolean> spellMap = new HashMap<>();
     private final LoopExecutor loopExecutor = SessionManager.getInstance().getLoopExecutor();
     private boolean isSpellActive = false;
     private int spellEndSecond;
-    private final int spellDurationSecond = 30;
+    private final int spellDurationSecond = 10;
     private SpellType activeSpellType;
 
 
@@ -34,31 +34,35 @@ public class SpellContainer extends Behaviour {
     @Override
     public void start() {
         super.start();
-
     }
 
     @Override
     public void update() {
         super.update();
         if (isSpellActive) {
-            if (loopExecutor.getSecondsPassed() < spellEndSecond ) return;
-            deactivateSpell(activeSpellType);
+            if (loopExecutor.getSecondsPassed() >= spellEndSecond ) {
+                deactivateSpell(activeSpellType);
+            }
         }
     }
 
     public void addSpell(Object spellObject) {
         var spellType = (SpellType) spellObject;
         var spell = SpellFactory.createSpell(spellType);
+
         if (spellType.equals(SpellType.CHANCE)) {
             Events.UpdateChance.invoke(1);
             return;
         }
 
-        if (spellExists(spellType))
+        if (spellExists(spellType)){
             return;
+        }
+
         spells.add(spell);
         spellMap.put(spellType, true);
         System.out.println(spellType + " gained.");
+        System.out.println(spellMap);
     }
 
     public void activateSpell(SpellType spellType) {
@@ -70,8 +74,10 @@ public class SpellContainer extends Behaviour {
 
         isSpellActive = true;
         activeSpellType = spellType;
+
         spellEndSecond = loopExecutor.getSecondsPassed() + spellDurationSecond;
-        System.out.println(spellType + "activated at " + loopExecutor.getSecondsPassed());
+        System.out.println(spellType + " activated at " + loopExecutor.getSecondsPassed());
+        System.out.println("Spell ends at " + spellEndSecond);
     }
 
     public void deactivateSpell(SpellType spellType) {

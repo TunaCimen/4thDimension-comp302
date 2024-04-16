@@ -1,8 +1,6 @@
 package org.LanceOfDestiny.domain.spells;
 
-import org.LanceOfDestiny.domain.EventSystem.Events;
-import org.LanceOfDestiny.domain.managers.SessionManager;
-import org.LanceOfDestiny.domain.player.MagicalStaff;
+import org.LanceOfDestiny.domain.events.Events;
 
 public class ExpansionSpell extends Spell{
 //    MagicalStaff magicalStaff;

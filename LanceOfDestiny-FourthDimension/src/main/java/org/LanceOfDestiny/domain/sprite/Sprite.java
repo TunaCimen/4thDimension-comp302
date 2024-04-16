@@ -1,9 +1,7 @@
 package org.LanceOfDestiny.domain.sprite;
 
-import org.LanceOfDestiny.domain.Behaviour;
-import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.behaviours.GameObject;
 
-import javax.swing.*;
 import java.awt.*;
 
 public abstract class Sprite {

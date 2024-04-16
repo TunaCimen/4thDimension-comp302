@@ -1,7 +1,7 @@
 package org.LanceOfDestiny.domain.managers;
 
-import org.LanceOfDestiny.domain.EventSystem.Events;
-import org.LanceOfDestiny.domain.Looper.LoopExecutor;
+import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.looper.LoopExecutor;
 
 public class ScoreManager {
 

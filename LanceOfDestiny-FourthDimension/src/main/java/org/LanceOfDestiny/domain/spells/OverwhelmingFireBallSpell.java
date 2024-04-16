@@ -1,6 +1,6 @@
 package org.LanceOfDestiny.domain.spells;
 
-import org.LanceOfDestiny.domain.EventSystem.Events;
+import org.LanceOfDestiny.domain.events.Events;
 
 public class OverwhelmingFireBallSpell extends Spell {
 

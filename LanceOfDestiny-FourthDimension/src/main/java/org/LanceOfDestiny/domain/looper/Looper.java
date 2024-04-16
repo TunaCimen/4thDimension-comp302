@@ -1,6 +1,6 @@
-package org.LanceOfDestiny.domain.Looper;
+package org.LanceOfDestiny.domain.looper;
 
-import org.LanceOfDestiny.domain.Behaviour;
+import org.LanceOfDestiny.domain.behaviours.Behaviour;
 import org.LanceOfDestiny.domain.Constants;
 
 import javax.swing.*;
