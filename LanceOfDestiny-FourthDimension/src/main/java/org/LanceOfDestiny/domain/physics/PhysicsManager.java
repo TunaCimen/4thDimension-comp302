@@ -216,7 +216,8 @@ public class PhysicsManager {
         }
         handleRegularBounce(collision);
         }
-    }
+
+
 
     private static void handleRegularBounce(Collision collision) {
         Vector reflection1 = getReflection(collision, collision.getCollider1());
