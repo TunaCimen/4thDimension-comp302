@@ -10,13 +10,12 @@ import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
 import org.LanceOfDestiny.domain.player.Player;
 import org.LanceOfDestiny.ui.DrawCanvas;
-import org.LanceOfDestiny.ui.GameViews.Status;
 
 public class SessionManager {
 
     private static SessionManager instance;
     GameLooper gameLooper;
-    private Status currentMode;
+    Status currentMode;
     private MagicalStaff magicalStaff;
     private FireBall fireBall;
     private Player player;
@@ -24,8 +23,9 @@ public class SessionManager {
     private DrawCanvas drawCanvas;
 
     private SessionManager() {
-        drawCanvas = new DrawCanvas();
-        gameLooper = new GameLooper(drawCanvas);
+        this.drawCanvas = new DrawCanvas();
+        this.gameLooper = new GameLooper(drawCanvas);
+        this.loopExecutor = new LoopExecutor();
         currentMode = Status.EditMode;
         loopExecutor.setLooper(gameLooper);
     }
@@ -42,19 +42,21 @@ public class SessionManager {
         magicalStaff = new MagicalStaff();
         player = new Player();
 
-        for (int i = 10; i < Constants.SCREEN_WIDTH - 10; i += 30) {
-            for (int j = 10; j < Constants.SCREEN_HEIGHT - 400; j += 30) {
-                if (j == 190) {  // Check if it's the first row
-                    BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.REWARDING);
-                } else {
-                    //BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.EXPLOSIVE);
-                }
-            }
-        }
+        initializeBarriers();
 
     }
 
-
+    private void initializeBarriers() {
+        for (int i = 10; i < Constants.SCREEN_WIDTH - 10; i += 30) {
+            for (int j = 10; j < Constants.SCREEN_HEIGHT - 400; j += 30) {
+                if (j == 190) {
+                    BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.REWARDING);
+                } else {
+                    BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.REWARDING);
+                }
+            }
+        }
+    }
 
     public MagicalStaff getMagicalStaff() {
         return magicalStaff;

@@ -21,10 +21,8 @@ public abstract class Spell extends GameObject {
     }
 
     public void activateSpell() {
-        // TODO:
     }
 
     public void deactivateSpell() {
-        // TODO:
     }
 }

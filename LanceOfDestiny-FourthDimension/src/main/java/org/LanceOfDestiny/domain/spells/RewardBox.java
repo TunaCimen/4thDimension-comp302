@@ -4,7 +4,10 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
 import org.LanceOfDestiny.domain.barriers.RewardingBarrier;
-import org.LanceOfDestiny.domain.physics.*;
+import org.LanceOfDestiny.domain.physics.ColliderFactory;
+import org.LanceOfDestiny.domain.physics.ColliderType;
+import org.LanceOfDestiny.domain.physics.Collision;
+import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
@@ -14,11 +17,10 @@ import java.awt.*;
 
 public class RewardBox extends GameObject {
 
-    private final SpellType spellType;
-    private Sprite sprite;
     private final static int WIDTH = Constants.REWARD_BOX_WIDTH;
     private final static int HEIGHT = Constants.REWARD_BOX_HEIGHT;
-
+    private final SpellType spellType;
+    private Sprite sprite;
     private boolean isFalling;
 
     public RewardBox(Vector position, SpellType spellType) {
@@ -30,14 +32,13 @@ public class RewardBox extends GameObject {
         createCollider();
     }
 
-
-    public void createSprite(){
+    public void createSprite() {
         this.sprite = new RectangleSprite(this, Color.MAGENTA, WIDTH, HEIGHT);
         getSprite().setVisible(false);
     }
-    public void createCollider(){
+
+    public void createCollider() {
         this.collider = ColliderFactory.createRectangleCollider(this, new Vector(0, 1), ColliderType.STATIC, WIDTH, HEIGHT);
-        //this.collider = ColliderFactory.createBallCollider(this, new Vector(0,1), ColliderType.STATIC, Constants.EXPLOSIVE_RADIUS);
         collider.setTrigger(true);
         collider.setEnabled(false);
     }
@@ -73,18 +74,16 @@ public class RewardBox extends GameObject {
     @Override
     public void onTriggerEnter(Collision collision) {
         var other = collision.getOther(this);
-        if(other instanceof RewardingBarrier) return;
-        //System.out.println(String.valueOf(other));
-        if(other instanceof MagicalStaff){
-            System.out.println("MagicalStaff");
+        if (other instanceof RewardingBarrier) return;
+        if (other instanceof MagicalStaff) {
             destroy();
             Events.GainSpell.invoke(spellType);
         }
-        if(other instanceof FireBall){
+        if (other instanceof FireBall) {
             return;
         }
 
-        if(other == null){
+        if (other == null) {
             destroy();
         }
     }

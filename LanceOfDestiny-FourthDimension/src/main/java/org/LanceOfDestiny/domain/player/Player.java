@@ -26,9 +26,9 @@ public class Player extends Behaviour {
 
     private void tryUsingSpell(Object objectSpellType) {
         SpellType spellType = (SpellType) objectSpellType;
+        System.out.println(spellType + " tryUsingSpell()");
         spellContainer.activateSpell(spellType);
     }
-
 
     @Override
     public void start() {

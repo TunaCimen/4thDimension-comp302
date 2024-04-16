@@ -3,11 +3,9 @@ package org.LanceOfDestiny.domain.player;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.managers.SessionManager;
-import org.LanceOfDestiny.domain.physics.Collider;
-import org.LanceOfDestiny.domain.physics.ColliderFactory;
-import org.LanceOfDestiny.domain.physics.ColliderType;
-import org.LanceOfDestiny.domain.physics.Vector;
+import org.LanceOfDestiny.domain.physics.*;
 import org.LanceOfDestiny.domain.sprite.BallSprite;
 import org.LanceOfDestiny.domain.sprite.Sprite;
 
@@ -62,7 +60,8 @@ public class FireBall extends GameObject {
     }
 
     private void handleOverwhelming(Object object) {
-        isOverwhelming = (Boolean) object;
+        if ((Boolean) object) enableOverwhelming();
+        disableOverwhelming();
     }
 
     @Override
@@ -75,14 +74,26 @@ public class FireBall extends GameObject {
         isAttached = true;
     }
 
-
     public void enableOverwhelming() {
         isOverwhelming = true;
+        getCollider().setTrigger(true);
+        System.out.println("Overwhelming activated");
     }
 
     public void disableOverwhelming() {
         isOverwhelming = false;
+        getCollider().setTrigger(false);
+        System.out.println("Overwhelming deactivated");
     }
 
+    @Override
+    public void onTriggerEnter(Collision collision) {
+        super.onTriggerEnter(collision);
+        var other = collision.getOther(this);
 
+        if(other instanceof Barrier) {
+            ((Barrier) other).kill();
+        }
+
+    }
 }

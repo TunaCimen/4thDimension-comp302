@@ -1,7 +1,6 @@
-package org.LanceOfDestiny.ui.GameViews;
+package org.LanceOfDestiny.domain.managers;
 
 public enum Status {
-
     RunningMode,
     PausedMode,
     EditMode
