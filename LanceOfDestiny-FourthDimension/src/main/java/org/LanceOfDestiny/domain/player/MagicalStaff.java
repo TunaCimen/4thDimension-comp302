@@ -1,8 +1,8 @@
 package org.LanceOfDestiny.domain.player;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.EventSystem.Events;
-import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.physics.*;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
 import org.LanceOfDestiny.domain.sprite.Sprite;

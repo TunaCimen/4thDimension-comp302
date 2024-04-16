@@ -1,8 +1,8 @@
 package org.LanceOfDestiny.domain.barriers;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.EventSystem.Events;
-import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.physics.ColliderFactory;
 import org.LanceOfDestiny.domain.physics.ColliderType;

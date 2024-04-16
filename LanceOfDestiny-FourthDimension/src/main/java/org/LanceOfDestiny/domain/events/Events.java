@@ -1,4 +1,4 @@
-package org.LanceOfDestiny.domain.EventSystem;
+package org.LanceOfDestiny.domain.events;
 
 
 import org.LanceOfDestiny.domain.physics.Collision;

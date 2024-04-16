@@ -1,7 +1,7 @@
-package org.LanceOfDestiny.domain.Looper;
+package org.LanceOfDestiny.domain.looper;
 
-import org.LanceOfDestiny.domain.Behaviour;
-import org.LanceOfDestiny.domain.EventSystem.Events;
+import org.LanceOfDestiny.domain.behaviours.Behaviour;
+import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.InputManager;
 import org.LanceOfDestiny.domain.physics.PhysicsManager;
 

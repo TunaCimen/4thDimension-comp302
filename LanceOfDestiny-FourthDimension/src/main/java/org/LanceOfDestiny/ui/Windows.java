@@ -1,8 +1,6 @@
 package org.LanceOfDestiny.ui;
 
-import org.LanceOfDestiny.domain.AuthModels.LogInController;
 import org.LanceOfDestiny.domain.managers.SessionManager;
-import org.LanceOfDestiny.ui.AuthViews.LogInView;
 import org.LanceOfDestiny.ui.AuthViews.PhysicsTestView;
 import org.LanceOfDestiny.ui.GameViews.GameView;
 

@@ -1,6 +1,6 @@
-package org.LanceOfDestiny.domain.Looper;
+package org.LanceOfDestiny.domain.looper;
 
-import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.behaviours.Behaviour;
 
 import javax.swing.*;
 
@@ -10,7 +10,7 @@ public class GameLooper extends Looper {
 
     public GameLooper(JPanel drawCanvas) {
         this.drawCanvas = drawCanvas;
-        gameExec = new GameExec(GameObject.getGameObjects(), drawCanvas);
+        gameExec = new GameExec(Behaviour.getBehaviours(), drawCanvas);
     }
 
     public int getSecondsPassed() {

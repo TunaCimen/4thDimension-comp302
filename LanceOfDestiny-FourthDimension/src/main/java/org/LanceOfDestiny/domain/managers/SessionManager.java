@@ -1,8 +1,8 @@
 package org.LanceOfDestiny.domain.managers;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.Looper.GameLooper;
-import org.LanceOfDestiny.domain.Looper.LoopExecutor;
+import org.LanceOfDestiny.domain.looper.GameLooper;
+import org.LanceOfDestiny.domain.looper.LoopExecutor;
 import org.LanceOfDestiny.domain.barriers.BarrierFactory;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
 import org.LanceOfDestiny.domain.physics.Vector;

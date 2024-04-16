@@ -1,7 +1,7 @@
 package org.LanceOfDestiny.domain.spells;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.util.ArrayList;

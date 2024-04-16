@@ -1,12 +1,11 @@
 package org.LanceOfDestiny.ui.AuthViews;
-import org.LanceOfDestiny.domain.AuthModels.LogInController;
+import org.LanceOfDestiny.domain.authModels.LogInController;
 import org.LanceOfDestiny.ui.Window;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.sql.SQLException;
 
 /**

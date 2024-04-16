@@ -1,7 +1,7 @@
 package org.LanceOfDestiny.domain.physics;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
 

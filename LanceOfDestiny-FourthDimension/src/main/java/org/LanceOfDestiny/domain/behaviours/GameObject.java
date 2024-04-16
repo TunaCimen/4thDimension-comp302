@@ -1,4 +1,4 @@
-package org.LanceOfDestiny.domain;
+package org.LanceOfDestiny.domain.behaviours;
 
 import org.LanceOfDestiny.domain.physics.Collider;
 import org.LanceOfDestiny.domain.physics.Collision;
@@ -20,6 +20,7 @@ public abstract class GameObject extends Behaviour {
     protected double angle;
 
     public GameObject() {
+        super();
         gameObject = this;
         GameObject.gameObjects.add(this);
         this.sprite = new RectangleSprite(this, Color.magenta, 0, 0);

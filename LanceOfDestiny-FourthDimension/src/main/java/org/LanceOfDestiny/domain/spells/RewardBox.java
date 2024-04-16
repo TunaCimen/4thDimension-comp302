@@ -1,9 +1,9 @@
 package org.LanceOfDestiny.domain.spells;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.EventSystem.Events;
-import org.LanceOfDestiny.domain.GameObject;
-import org.LanceOfDestiny.domain.barriers.RewardingBarrier;
+import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.behaviours.GameObject;
+import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.physics.ColliderFactory;
 import org.LanceOfDestiny.domain.physics.ColliderType;
 import org.LanceOfDestiny.domain.physics.Collision;
@@ -32,6 +32,41 @@ public class RewardBox extends GameObject {
         createCollider();
     }
 
+    @Override
+    public void update() {
+        super.update();
+        if (isFalling()) {
+            getSprite().setVisible(true);
+            setPosition(getPosition().add(collider.getVelocity()));
+        }
+    }
+
+    @Override
+    public void onTriggerEnter(Collision collision) {
+        var other = collision.getOther(this);
+        if (other instanceof Barrier) return;
+        if (other instanceof FireBall) return;
+
+        if (other instanceof MagicalStaff) {
+            destroy();
+            Events.GainSpell.invoke(getSpellType());
+        }
+
+        if (other == null) {
+            destroy();
+        }
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        RewardBoxFactory.getInstance().removeRewardBox(this);
+    }
+    @Override
+    public Sprite getSprite() {
+        return sprite;
+    }
+
     public void createSprite() {
         this.sprite = new RectangleSprite(this, Color.MAGENTA, WIDTH, HEIGHT);
         getSprite().setVisible(false);
@@ -41,21 +76,6 @@ public class RewardBox extends GameObject {
         this.collider = ColliderFactory.createRectangleCollider(this, new Vector(0, 1), ColliderType.STATIC, WIDTH, HEIGHT);
         collider.setTrigger(true);
         collider.setEnabled(false);
-    }
-
-    @Override
-    public Sprite getSprite() {
-        return sprite;
-    }
-
-    @Override
-    public void update() {
-        super.update();
-        if (isFalling) {
-            getSprite().setVisible(true);
-            setPosition(getPosition().add(collider.getVelocity()));
-        }
-
     }
 
     public boolean isFalling() {
@@ -71,26 +91,4 @@ public class RewardBox extends GameObject {
     }
 
 
-    @Override
-    public void onTriggerEnter(Collision collision) {
-        var other = collision.getOther(this);
-        if (other instanceof RewardingBarrier) return;
-        if (other instanceof MagicalStaff) {
-            destroy();
-            Events.GainSpell.invoke(spellType);
-        }
-        if (other instanceof FireBall) {
-            return;
-        }
-
-        if (other == null) {
-            destroy();
-        }
-    }
-
-    @Override
-    public void destroy() {
-        super.destroy();
-        RewardBoxFactory.getInstance().removeRewardBox(this);
-    }
 }

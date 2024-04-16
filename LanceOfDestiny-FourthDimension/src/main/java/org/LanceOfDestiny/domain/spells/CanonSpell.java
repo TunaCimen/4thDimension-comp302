@@ -1,8 +1,6 @@
 package org.LanceOfDestiny.domain.spells;
 
-import org.LanceOfDestiny.domain.EventSystem.Events;
-import org.LanceOfDestiny.domain.managers.SessionManager;
-import org.LanceOfDestiny.domain.player.MagicalStaff;
+import org.LanceOfDestiny.domain.events.Events;
 
 public class CanonSpell extends Spell{
 
@@ -20,7 +18,6 @@ public class CanonSpell extends Spell{
     @Override
     public void deactivateSpell() {
         super.deactivateSpell();
-//        magicalStaff.disableCanons();
         Events.ActivateCanons.invoke(false);
     }
 }
