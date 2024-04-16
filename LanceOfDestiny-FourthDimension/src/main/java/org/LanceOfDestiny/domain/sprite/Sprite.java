@@ -11,18 +11,31 @@ public abstract class Sprite {
     public String number;
     public boolean isVisible = true;
 
+    Image image;
+
     public Sprite(GameObject attachedGameObject, Color color){
         this.attachedGameObject = attachedGameObject;
         this.color = color;
+        image = null;
     }
 
     public abstract void drawShape(Graphics g);
+
+    public void addImage(Image image){
+        this.image = image;
+    }
 
     public void setVisible(boolean visible){
         isVisible = visible;
     }
 
 
+    public Image getImage() {
+        return image;
+    }
+
+    public abstract int width();
+    public abstract int height();
 }
 
 
