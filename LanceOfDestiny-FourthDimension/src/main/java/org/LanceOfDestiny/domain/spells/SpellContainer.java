@@ -18,7 +18,7 @@ public class SpellContainer extends MonoBehaviour {
     private final LoopExecutor loopExecutor = SessionManager.getInstance().getLoopExecutor();
     private boolean isSpellActive = false;
     private int spellEndSecond;
-    private final int spellDurationSecond = 10;
+    private final int spellDurationSecond = 30;
     private SpellType activeSpellType;
 
 
@@ -61,6 +61,7 @@ public class SpellContainer extends MonoBehaviour {
 
         spells.add(spell);
         spellMap.put(spellType, true);
+
         System.out.println(spellType + " gained.");
         System.out.println(spellMap);
     }
@@ -74,8 +75,8 @@ public class SpellContainer extends MonoBehaviour {
 
         isSpellActive = true;
         activeSpellType = spellType;
-
         spellEndSecond = loopExecutor.getSecondsPassed() + spellDurationSecond;
+
         System.out.println(spellType + " activated at " + loopExecutor.getSecondsPassed());
         System.out.println("Spell ends at " + spellEndSecond);
     }
