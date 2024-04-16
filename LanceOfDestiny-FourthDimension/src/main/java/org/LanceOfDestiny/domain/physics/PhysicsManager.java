@@ -1,6 +1,7 @@
 package org.LanceOfDestiny.domain.physics;
 
 import org.LanceOfDestiny.domain.Constants;
+import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
@@ -180,24 +181,33 @@ public class PhysicsManager {
     }
 
     private void handleBounce(Collision collision) {
-        //Screen Boundary
+        // Check if either collider is a FireBall and if it is overwhelming
+        boolean isOverwhelmingFireBallBarrierCollision =
+                ((collision.getCollider1().getGameObject() instanceof FireBall && ((FireBall)collision.getCollider1().getGameObject()).isOverwhelming()) &&
+                        (collision.getCollider2() != null && collision.getCollider2().getGameObject() instanceof Barrier)) ||
+                        ((collision.getCollider2() != null && collision.getCollider2().getGameObject() instanceof FireBall && ((FireBall)collision.getCollider2().getGameObject()).isOverwhelming()) &&
+                                (collision.getCollider1().getGameObject() instanceof Barrier));
+        // Screen Boundary Collision
         if (collision.getCollider2() == null) {
             Vector reflection = getReflection(collision, true);
             collision.getCollider1().setVelocity(reflection);
-            // System.out.println("Velocity of collider1 = " + collision.getCollider1().getVelocity().getY());
         } else {
-            Vector reflection1 = getReflection(collision, true);
-            Vector reflection2 = getReflection(collision, false);
-            // If the objects are objects that are allowed to change their velocity based on collisions, do so
-            if (collision.getCollider1().getColliderType() == ColliderType.DYNAMIC) {
-                collision.getCollider1().setVelocity(reflection1);
-            }
-            if (collision.getCollider2().getColliderType() == ColliderType.DYNAMIC) {
-                collision.getCollider2().setVelocity(reflection2);
+            // Normal collision but check for FireBall being overwhelming
+            if (!isOverwhelmingFireBallBarrierCollision) {
+                Vector reflection1 = getReflection(collision, true);
+                Vector reflection2 = getReflection(collision, false);
+
+                // Apply bounce only if the colliders are dynamic and it's not an overwhelming FireBall collision
+                if (collision.getCollider1().getColliderType() == ColliderType.DYNAMIC) {
+                    collision.getCollider1().setVelocity(reflection1);
+                }
+                if (collision.getCollider2().getColliderType() == ColliderType.DYNAMIC) {
+                    collision.getCollider2().setVelocity(reflection2);
+                }
             }
         }
-
     }
+
 
     private boolean isRectRectCollision(Collider collider1, Collider collider2) {
         return collider1 instanceof RectangleCollider && collider2 instanceof RectangleCollider;
