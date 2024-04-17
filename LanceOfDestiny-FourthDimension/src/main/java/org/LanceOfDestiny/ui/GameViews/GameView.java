@@ -118,6 +118,22 @@ public class GameView extends JFrame implements Window {
 
         });
 
+
+        // Play Game Button
+        JButton buttonTest = new JButton("Test Game with presets");
+        userInputPanel.add(buttonTest);
+        buttonTest.addActionListener(e -> {
+
+            this.sessionManager.getBuilder().setNumOfSimple(75);
+            this.sessionManager.getBuilder().setNumOfExplosive(10);
+            this.sessionManager.getBuilder().setNumOfRewarding(5);
+            this.sessionManager.getBuilder().setNumOfReinforced(10);
+
+            userInputPanel.setVisible(false);
+            sessionManager.initializeSession();
+
+        });
+
         add(userInputPanel, BorderLayout.SOUTH);
         //Add panels to frame.
         add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
