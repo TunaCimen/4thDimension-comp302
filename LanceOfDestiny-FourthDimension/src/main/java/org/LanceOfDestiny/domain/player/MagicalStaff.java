@@ -15,9 +15,8 @@ import java.awt.*;
 
 public class MagicalStaff extends GameObject {
 
-    private final int height = Constants.STAFF_HEIGHT;
-    private FireBall fireBall;
-    private int width = Constants.STAFF_WIDTH;
+    private final int HEIGHT = Constants.STAFF_HEIGHT;
+    private final int WIDTH = Constants.STAFF_WIDTH;
     private boolean isCanonActivated = false;
     protected boolean isExpanded = false;
     private RectangleSprite defaultSprite;
@@ -32,8 +31,8 @@ public class MagicalStaff extends GameObject {
         super();
         this.position = Constants.STAFF_POSITION;
         initializeCollidersAndSprites();
-        this.canonLeft = new Canon(this.position.add(new Vector(0, -height)));
-        this.canonRight = new Canon(this.position.add(new Vector(width - Constants.CANON_WIDTH,-height)));
+        this.canonLeft = new Canon(this.position.add(new Vector(0, -HEIGHT)));
+        this.canonRight = new Canon(this.position.add(new Vector(WIDTH - Constants.CANON_WIDTH,-HEIGHT)));
 
         Events.MoveStaff.addListener(this::moveRight);
         Events.RotateStaff.addListener(this::rotate);
@@ -45,13 +44,13 @@ public class MagicalStaff extends GameObject {
     }
 
     public void initializeCollidersAndSprites(){
-        this.defaultSprite = new RectangleSprite(this, Color.orange, width, height);
+        this.defaultSprite = new RectangleSprite(this, Color.orange, WIDTH, HEIGHT);
         this.sprite = defaultSprite;
-        this.defaultCollider = ColliderFactory.createRectangleCollider(this, new Vector(0, 0), ColliderType.STATIC, width, height);
+        this.defaultCollider = ColliderFactory.createRectangleCollider(this, new Vector(0, 0), ColliderType.STATIC, WIDTH, HEIGHT);
         this.collider = defaultCollider;
 
-        this.expandedSprite = new RectangleSprite(this, Color.red, width * 2, height);
-        this.expandedCollider = ColliderFactory.createRectangleCollider(this, new Vector(0, 0), ColliderType.STATIC, width * 2, height);
+        this.expandedSprite = new RectangleSprite(this, Color.red, WIDTH * 2, HEIGHT);
+        this.expandedCollider = ColliderFactory.createRectangleCollider(this, new Vector(0, 0), ColliderType.STATIC, WIDTH * 2, HEIGHT);
         expandedCollider.setEnabled(false);
     }
 
@@ -122,9 +121,6 @@ public class MagicalStaff extends GameObject {
         setAngle(0);
     }
 
-    public void setFireBall(FireBall fireBall) {
-        this.fireBall = fireBall;
-    }
 
     private void handleCanons(Object object) {
         isCanonActivated = (boolean) object;
