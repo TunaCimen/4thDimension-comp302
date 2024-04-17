@@ -13,7 +13,7 @@ public class GameView extends JFrame implements Window {
 
     private final SessionManager sessionManager;
 
-    private JTextField textFieldBarrierSimle;
+    private JTextField textFieldBarrierSimple;
     private JTextField textFieldBarrierReinforced;
     private JTextField textFieldBarrierExplosive;
     private JTextField textFieldBarrierRewarding;
@@ -67,9 +67,9 @@ public class GameView extends JFrame implements Window {
 
         // Barrier 1
         JLabel labelBarrier1 = new JLabel("Simple Barrier :");
-        textFieldBarrierSimle = new JTextField(10);
+        textFieldBarrierSimple = new JTextField(10);
         userInputPanel.add(labelBarrier1);
-        userInputPanel.add(textFieldBarrierSimle);
+        userInputPanel.add(textFieldBarrierSimple);
 
         // Barrier 2
         JLabel labelBarrier2 = new JLabel("Reinforced Barrier ");
@@ -94,7 +94,7 @@ public class GameView extends JFrame implements Window {
         userInputPanel.add(buttonPlay);
         buttonPlay.addActionListener(e -> {
 
-            int numOfSimple = Integer.parseInt(textFieldBarrierSimle.getText());
+            int numOfSimple = Integer.parseInt(textFieldBarrierSimple.getText());
             int numOfReinforced = Integer.parseInt(textFieldBarrierReinforced.getText());
             int numOfExplosive = Integer.parseInt(textFieldBarrierExplosive.getText());
             int numOfRewarding = Integer.parseInt(textFieldBarrierRewarding.getText());

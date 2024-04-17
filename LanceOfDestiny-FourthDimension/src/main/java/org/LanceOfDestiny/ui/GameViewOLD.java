@@ -10,14 +10,14 @@ import java.util.Map;
 
 
 /**
- * The GameView class represents the view of the game, which includes the control panel and game panel.
+ * The GameViewOLD class represents the view of the game, which includes the control panel and game panel.
  * It initializes the control panel, game buttons, spell buttons, and labels for score and lives.
  * It also sets the layout for the main frame of the game.
  */
 
 
-public class GameView {
-    private GamePanelDraw gamePanel;
+public class GameViewOLD {
+    private GamePanelDrawOLD gamePanel;
     private JPanel controlPanel;
     private JButton newGameButton;
     private JButton loadGameButton;
@@ -207,7 +207,7 @@ public class GameView {
         // Implement the logic for casting an expansion spell here
     }
     public void buildMap(int simpleBarrierCount, int reinforcedBarrierCount, int explosiveBarrierCount, int rewardingBarrierCount) {
-        BuildModeController.getInstance().initializeMap();
+        BuildModeControllerOLD.getInstance().initializeMap();
 
 
 
