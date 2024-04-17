@@ -33,7 +33,8 @@ public class MagicalStaff extends GameObject {
         initializeCollidersAndSprites();
         this.canonLeft = new Canon(this.position.add(new Vector(0, -HEIGHT)));
         this.canonRight = new Canon(this.position.add(new Vector(WIDTH - Constants.CANON_WIDTH,-HEIGHT)));
-
+        canonRight.getSprite().attachedGameObject = this;
+        canonLeft.getSprite().attachedGameObject = this;
         Events.MoveStaff.addListener(this::moveRight);
         Events.RotateStaff.addListener(this::rotate);
         Events.ResetStaff.addRunnableListener(this::resetStaff);
@@ -87,11 +88,13 @@ public class MagicalStaff extends GameObject {
     public void enableCanons() {
        canonLeft.activateCanon();
        canonRight.activateCanon();
+       isCanonActivated = true;
     }
 
     public void disableCanons() {
         canonLeft.deactivateCanon();
         canonRight.deactivateCanon();
+        isCanonActivated = false;
     }
 
     public void changeColor(Object color) {
@@ -111,6 +114,8 @@ public class MagicalStaff extends GameObject {
                 + Constants.STAFF_ANGULAR_SPEED * sign), 0.78);
 
         setAngle(newAngle);
+        canonLeft.setAngle(newAngle);
+        canonRight.setAngle(newAngle);
     }
 
     public void hitExplosiveBarrier() {
@@ -134,4 +139,11 @@ public class MagicalStaff extends GameObject {
         else disableExpansion();
     }
 
+    public Canon getCanonLeft() {
+        return canonLeft;
+    }
+
+    public Canon getCanonRight() {
+        return canonRight;
+    }
 }

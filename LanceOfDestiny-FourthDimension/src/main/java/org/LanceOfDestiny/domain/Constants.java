@@ -19,7 +19,7 @@ public class Constants {
     public static final int STAFF_HEIGHT = T;
     public static final int CIRCULAR_MOTION_RADIUS = 8;
     public static final int SPELL_DURATION = 30; // in seconds
-    public static final int HEX_LENGTH = 3;
+    public static final int HEX_RADIUS = 3;
     public static final double HEX_SPEED = 5;  // value should change, 5 is placeholder
     public static final double CANON_HEIGHT = STAFF_HEIGHT * 2;
     public static final int CANON_WIDTH = STAFF_WIDTH / 10;
