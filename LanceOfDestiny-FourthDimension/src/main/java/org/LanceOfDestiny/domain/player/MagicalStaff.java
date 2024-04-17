@@ -7,6 +7,7 @@ import org.LanceOfDestiny.domain.physics.ColliderFactory;
 import org.LanceOfDestiny.domain.physics.ColliderType;
 import org.LanceOfDestiny.domain.physics.RectangleCollider;
 import org.LanceOfDestiny.domain.physics.Vector;
+import org.LanceOfDestiny.domain.spells.Canon;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
 import org.LanceOfDestiny.domain.sprite.Sprite;
 
@@ -24,10 +25,15 @@ public class MagicalStaff extends GameObject {
     private RectangleCollider expandedCollider;
     private RectangleCollider defaultCollider;
 
+    private Canon canonLeft;
+    private Canon canonRight;
+
     public MagicalStaff() {
         super();
         this.position = Constants.STAFF_POSITION;
         initializeCollidersAndSprites();
+        this.canonLeft = new Canon(this.position.add(new Vector(0, -height)));
+        this.canonRight = new Canon(this.position.add(new Vector(width - Constants.CANON_WIDTH,-height)));
 
         Events.MoveStaff.addListener(this::moveRight);
         Events.RotateStaff.addListener(this::rotate);
@@ -80,11 +86,13 @@ public class MagicalStaff extends GameObject {
 
 
     public void enableCanons() {
-        // TODO
+       canonLeft.activateCanon();
+       canonRight.activateCanon();
     }
 
     public void disableCanons() {
-        // TODO
+        canonLeft.deactivateCanon();
+        canonRight.deactivateCanon();
     }
 
     public void changeColor(Object color) {
@@ -94,6 +102,8 @@ public class MagicalStaff extends GameObject {
     public void moveRight(Object integer) {
         int sign = ((Integer) integer) > 0 ? 1 : -1;
         setPosition(position.add(new Vector(sign * Constants.STAFF_SPEED, 0)));
+        canonLeft.setPosition(canonLeft.getPosition().add(new Vector(sign * Constants.STAFF_SPEED, 0)));
+        canonRight.setPosition(canonRight.getPosition().add(new Vector(sign * Constants.STAFF_SPEED, 0)));
     }
 
     public void rotate(Object angle) {
