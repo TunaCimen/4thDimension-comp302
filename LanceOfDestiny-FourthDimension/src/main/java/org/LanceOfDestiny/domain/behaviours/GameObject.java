@@ -1,4 +1,4 @@
-package org.LanceOfDestiny.domain;
+package org.LanceOfDestiny.domain.behaviours;
 
 import org.LanceOfDestiny.domain.physics.Collider;
 import org.LanceOfDestiny.domain.physics.Collision;
@@ -13,30 +13,26 @@ import java.util.List;
 
 public abstract class GameObject extends Behaviour {
 
-    private static int idCounter;
     private static List<Behaviour> gameObjects = new ArrayList<>();
     protected Vector position;
-    protected double angle;
-    private int id;
-
     protected Collider collider;
+    protected Sprite sprite;
+    protected double angle;
 
     public GameObject() {
+        super();
         gameObject = this;
-        this.id = idCounter++;
         GameObject.gameObjects.add(this);
+        this.sprite = new RectangleSprite(this, Color.magenta, 0, 0);
     }
 
-    public static List<Behaviour> getGameObjects() {
-        return gameObjects;
+    @Override
+    public void start() {
+        super.start();
     }
 
-    public static void destroyAll() {
-        gameObjects.clear();
-    }
-
-    public void awake() {
-        super.awake();
+    public void update() {
+        super.update();
     }
 
     public void destroy() {
@@ -45,20 +41,13 @@ public abstract class GameObject extends Behaviour {
     }
 
     public void onCollisionEnter(Collision collision) {
-        return;
     }
 
-    public void onTriggerEnter(Collision collision) { return;}
-
-    public int getId() {
-        return id;
+    public void onTriggerEnter(Collision collision) {
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-    public Sprite getSprite() {
-        return new RectangleSprite(this, Color.magenta, 0, 0); // Default Sprite Given to everything.
+    public static List<Behaviour> getGameObjects() {
+        return gameObjects;
     }
 
     public Vector getPosition() {
@@ -77,8 +66,19 @@ public abstract class GameObject extends Behaviour {
         this.angle = angle;
     }
 
-    public Collider getCollider(){
+    public Collider getCollider() {
         return collider;
     }
 
+    public void setCollider(Collider collider) {
+        this.collider = collider;
+    }
+
+    public Sprite getSprite() {
+        return sprite;
+    }
+
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
+    }
 }

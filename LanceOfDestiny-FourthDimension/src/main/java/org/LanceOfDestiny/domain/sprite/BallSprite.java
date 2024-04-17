@@ -1,6 +1,6 @@
 package org.LanceOfDestiny.domain.sprite;
 
-import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.behaviours.GameObject;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -27,6 +27,16 @@ public class BallSprite extends Sprite {
         g.fillOval((int) attachedGameObject.getPosition().getX() - radius,
         (int) attachedGameObject.getPosition().getY() - radius,
         2* radius,2*radius);
+    }
+
+    @Override
+    public int width() {
+        return radius;
+    }
+
+    @Override
+    public int height() {
+        return radius;
     }
 
 

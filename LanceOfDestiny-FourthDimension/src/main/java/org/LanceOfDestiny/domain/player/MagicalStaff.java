@@ -1,9 +1,12 @@
 package org.LanceOfDestiny.domain.player;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.EventSystem.Events;
-import org.LanceOfDestiny.domain.GameObject;
-import org.LanceOfDestiny.domain.physics.*;
+import org.LanceOfDestiny.domain.behaviours.GameObject;
+import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.physics.ColliderFactory;
+import org.LanceOfDestiny.domain.physics.ColliderType;
+import org.LanceOfDestiny.domain.physics.RectangleCollider;
+import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
 import org.LanceOfDestiny.domain.sprite.Sprite;
 
@@ -11,15 +14,21 @@ import java.awt.*;
 
 public class MagicalStaff extends GameObject {
 
+    private final int height = Constants.STAFF_HEIGHT;
     private FireBall fireBall;
     private int width = Constants.STAFF_WIDTH;
-    private final int height = Constants.STAFF_HEIGHT;
     private boolean isCanonActivated = false;
-    private boolean isExpanded = false;
-    RectangleSprite rectangleSprite;
+    protected boolean isExpanded = false;
+    private RectangleSprite defaultSprite;
+    private RectangleSprite expandedSprite;
+    private RectangleCollider expandedCollider;
+    private RectangleCollider defaultCollider;
 
     public MagicalStaff() {
         super();
+        this.position = Constants.STAFF_POSITION;
+        initializeCollidersAndSprites();
+
         Events.MoveStaff.addListener(this::moveRight);
         Events.RotateStaff.addListener(this::rotate);
         Events.ResetStaff.addRunnableListener(this::resetStaff);
@@ -27,27 +36,46 @@ public class MagicalStaff extends GameObject {
         Events.ResetColorEvent.addRunnableListener(this::resetColor);
         Events.ActivateCanons.addListener(this::handleCanons);
         Events.ActivateExpansion.addListener(this::handleExpansion);
-        this.position = Constants.STAFF_POSITION;
-        this.rectangleSprite = new RectangleSprite(this, Color.orange,Constants.STAFF_WIDTH,Constants.STAFF_HEIGHT);
-        this.collider = ColliderFactory.createRectangleCollider(this, new Vector(0,0), ColliderType.STATIC, Constants.STAFF_WIDTH, Constants.STAFF_HEIGHT);
+    }
+
+    public void initializeCollidersAndSprites(){
+        this.defaultSprite = new RectangleSprite(this, Color.orange, width, height);
+        this.sprite = defaultSprite;
+        this.defaultCollider = ColliderFactory.createRectangleCollider(this, new Vector(0, 0), ColliderType.STATIC, width, height);
+        this.collider = defaultCollider;
+
+        this.expandedSprite = new RectangleSprite(this, Color.red, width * 2, height);
+        this.expandedCollider = ColliderFactory.createRectangleCollider(this, new Vector(0, 0), ColliderType.STATIC, width * 2, height);
+        expandedCollider.setEnabled(false);
     }
 
     private void resetColor() {
-        rectangleSprite.color = Color.orange;
+        sprite.color = Color.orange;
     }
 
 
-    @Override
-    public Sprite getSprite() {
-        return rectangleSprite;
+    public void setSprite(Sprite sprite) {
+        this.sprite = (RectangleSprite) sprite;
     }
 
-    public void enableExpansion(){
-        // TODO
+    public void enableExpansion() {
+        isExpanded = true;
+
+        setSprite(expandedSprite);
+        setCollider(expandedCollider);
+
+        defaultCollider.setEnabled(false);
+        expandedCollider.setEnabled(true);
     }
 
-    public void disableExpansion(){
-        // TODO
+    public void disableExpansion() {
+        isExpanded = false;
+
+        setSprite(defaultSprite);
+        setCollider(defaultCollider);
+
+        expandedCollider.setEnabled(false);
+        defaultCollider.setEnabled(true);
     }
 
 
@@ -59,28 +87,28 @@ public class MagicalStaff extends GameObject {
         // TODO
     }
 
-    public void changeColor(Object color){
-        rectangleSprite.color = (Color) color;
+    public void changeColor(Object color) {
+        defaultSprite.color = (Color) color;
     }
 
     public void moveRight(Object integer) {
         int sign = ((Integer) integer) > 0 ? 1 : -1;
-        setPosition(position.add(new Vector(sign*Constants.STAFF_SPEED , 0)));
+        setPosition(position.add(new Vector(sign * Constants.STAFF_SPEED, 0)));
     }
 
-    public void rotate(Object angle){
+    public void rotate(Object angle) {
         int sign = ((Double) angle) > 0 ? 1 : -1;
-        double newAngle = Math.min(Math.max(-0.78,getAngle()
-                + Constants.STAFF_ANGULAR_SPEED*sign), 0.78);
+        double newAngle = Math.min(Math.max(-0.78, getAngle()
+                + Constants.STAFF_ANGULAR_SPEED * sign), 0.78);
 
         setAngle(newAngle);
     }
 
-    public void hitExplosiveBarrier(){
+    public void hitExplosiveBarrier() {
         Events.UpdateChance.invoke(-1);
     }
 
-    public void resetStaff(){
+    public void resetStaff() {
         setAngle(0);
     }
 

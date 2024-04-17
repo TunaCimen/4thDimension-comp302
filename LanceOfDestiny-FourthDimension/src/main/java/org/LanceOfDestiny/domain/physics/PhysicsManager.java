@@ -1,12 +1,15 @@
 package org.LanceOfDestiny.domain.physics;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.EventSystem.Events;
-import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.barriers.Barrier;
+import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PhysicsManager {
     private static PhysicsManager instance;
@@ -14,7 +17,7 @@ public class PhysicsManager {
     // this will be made non-zero if need predictive collision detection code
     private double framesAhead = 0.8;
     private int currentFrame = 0;
-    private int frameTreshold = 5;
+    private int frameTreshold = 10;
     private Map<String, Integer> recentCollisions;  // Stores collision pairs with the frame of their last occurrence
 
     private PhysicsManager() {
@@ -27,6 +30,27 @@ public class PhysicsManager {
             instance = new PhysicsManager();
         }
         return instance;
+    }
+
+    private static Vector getReflection(Collision collision, boolean isFirstCollider) {
+        Collider collider;
+        if (isFirstCollider) {
+            collider = collision.getCollider1();
+        } else {
+            collider = collision.getCollider2();
+        }
+        Vector incoming = collider.getVelocity();
+        Vector normal = collision.getNormal();
+        Vector reflection = incoming.subtract(normal.scale(2).scale(incoming.dotProduct(normal)));
+        return reflection;
+    }
+
+    private static boolean isBallRectCollision(Collider collider1, Collider collider2) {
+        return (collider1 instanceof RectangleCollider && collider2 instanceof BallCollider) || (collider1 instanceof BallCollider && collider2 instanceof RectangleCollider);
+    }
+
+    private static boolean isBallBallCollision(Collider collider1, Collider collider2) {
+        return collider1 instanceof BallCollider && collider2 instanceof BallCollider;
     }
 
     public void addCollider(Collider collider) {
@@ -127,7 +151,6 @@ public class PhysicsManager {
         }
     }
 
-
     public void handleCollisionEvents(List<Collision> collisions) {
         for (Collision collision : collisions) {
             GameObject gameObject1 = collision.getCollider1().getGameObject();
@@ -157,49 +180,34 @@ public class PhysicsManager {
         }
     }
 
-
-
     private void handleBounce(Collision collision) {
-        //Screen Boundary
+        // Check if either collider is a FireBall and if it is overwhelming
+        boolean isOverwhelmingFireBallBarrierCollision =
+                ((collision.getCollider1().getGameObject() instanceof FireBall && ((FireBall)collision.getCollider1().getGameObject()).isOverwhelming()) &&
+                        (collision.getCollider2() != null && collision.getCollider2().getGameObject() instanceof Barrier)) ||
+                        ((collision.getCollider2() != null && collision.getCollider2().getGameObject() instanceof FireBall && ((FireBall)collision.getCollider2().getGameObject()).isOverwhelming()) &&
+                                (collision.getCollider1().getGameObject() instanceof Barrier));
+        // Screen Boundary Collision
         if (collision.getCollider2() == null) {
             Vector reflection = getReflection(collision, true);
             collision.getCollider1().setVelocity(reflection);
-            // System.out.println("Velocity of collider1 = " + collision.getCollider1().getVelocity().getY());
         } else {
-            Vector reflection1 = getReflection(collision, true);
-            Vector reflection2 = getReflection(collision, false);
-            // If the objects are objects that are allowed to change their velocity based on collisions, do so
-            if (collision.getCollider1().getColliderType() == ColliderType.DYNAMIC) {
-                collision.getCollider1().setVelocity(reflection1);
-            }
-            if (collision.getCollider2().getColliderType() == ColliderType.DYNAMIC) {
-                collision.getCollider2().setVelocity(reflection2);
+            // Normal collision but check for FireBall being overwhelming
+            if (!isOverwhelmingFireBallBarrierCollision) {
+                Vector reflection1 = getReflection(collision, true);
+                Vector reflection2 = getReflection(collision, false);
+
+                // Apply bounce only if the colliders are dynamic and it's not an overwhelming FireBall collision
+                if (collision.getCollider1().getColliderType() == ColliderType.DYNAMIC) {
+                    collision.getCollider1().setVelocity(reflection1);
+                }
+                if (collision.getCollider2().getColliderType() == ColliderType.DYNAMIC) {
+                    collision.getCollider2().setVelocity(reflection2);
+                }
             }
         }
-
     }
 
-    private static Vector getReflection(Collision collision, boolean isFirstCollider) {
-        Collider collider;
-        if (isFirstCollider) {
-            collider = collision.getCollider1();
-        } else {
-            collider = collision.getCollider2();
-        }
-        Vector incoming = collider.getVelocity();
-        Vector normal = collision.getNormal();
-        Vector reflection = incoming.subtract(normal.scale(2).scale(incoming.dotProduct(normal)));
-        return reflection;
-    }
-
-
-    private static boolean isBallRectCollision(Collider collider1, Collider collider2) {
-        return (collider1 instanceof RectangleCollider && collider2 instanceof BallCollider) || (collider1 instanceof BallCollider && collider2 instanceof RectangleCollider);
-    }
-
-    private static boolean isBallBallCollision(Collider collider1, Collider collider2) {
-        return collider1 instanceof BallCollider && collider2 instanceof BallCollider;
-    }
 
     private boolean isRectRectCollision(Collider collider1, Collider collider2) {
         return collider1 instanceof RectangleCollider && collider2 instanceof RectangleCollider;
@@ -270,12 +278,7 @@ public class PhysicsManager {
         double minimumOverlap = Double.POSITIVE_INFINITY;
 
         // Test the normal axes of the first rectangle
-        Vector[] axes = new Vector[]{
-                rect1Corners[1].subtract(rect1Corners[0]).perpendicular().normalize(),
-                rect1Corners[3].subtract(rect1Corners[0]).perpendicular().normalize(),
-                rect2Corners[1].subtract(rect2Corners[0]).perpendicular().normalize(),
-                rect2Corners[3].subtract(rect2Corners[0]).perpendicular().normalize()
-        };
+        Vector[] axes = new Vector[]{rect1Corners[1].subtract(rect1Corners[0]).perpendicular().normalize(), rect1Corners[3].subtract(rect1Corners[0]).perpendicular().normalize(), rect2Corners[1].subtract(rect2Corners[0]).perpendicular().normalize(), rect2Corners[3].subtract(rect2Corners[0]).perpendicular().normalize()};
 
         for (Vector axis : axes) {
             // Project both rectangles onto the axis
@@ -306,9 +309,8 @@ public class PhysicsManager {
             if (projection < min) min = projection;
             if (projection > max) max = projection;
         }
-        return new double[] { min, max };
+        return new double[]{min, max};
     }
-
 
 
 }

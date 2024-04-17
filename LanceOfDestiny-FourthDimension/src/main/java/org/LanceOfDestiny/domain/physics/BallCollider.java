@@ -1,6 +1,6 @@
 package org.LanceOfDestiny.domain.physics;
 
-import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.behaviours.GameObject;
 
 public class BallCollider extends Collider {
     private double radius;
@@ -9,8 +9,6 @@ public class BallCollider extends Collider {
         super(velocity, colliderType, gameObject);
         this.radius = radius;
     }
-
-    // Additional functionality specific to BallCollider can go here
 
     public double getRadius() {
         return radius;

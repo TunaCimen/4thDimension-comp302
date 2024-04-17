@@ -1,6 +1,6 @@
 package org.LanceOfDestiny.domain.physics;
 
-import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.behaviours.GameObject;
 
 public abstract class Collider {
 
@@ -26,7 +26,6 @@ public abstract class Collider {
         return gameObject;
     }
 
-    // Getters and Setters
     public Vector getPosition() {
         return gameObject.getPosition();
     }
@@ -51,11 +50,9 @@ public abstract class Collider {
         return colliderType;
     }
 
-
     public void setColliderType(ColliderType colliderType) {
         this.colliderType = colliderType;
     }
-
 
     public boolean isEnabled() {
         return isEnabled;

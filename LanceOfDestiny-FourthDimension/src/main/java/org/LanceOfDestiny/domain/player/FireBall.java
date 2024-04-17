@@ -1,26 +1,24 @@
 package org.LanceOfDestiny.domain.player;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.EventSystem.Events;
-import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.barriers.Barrier;
+import org.LanceOfDestiny.domain.behaviours.GameObject;
+import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.SessionManager;
-import org.LanceOfDestiny.domain.physics.Collider;
-import org.LanceOfDestiny.domain.physics.ColliderFactory;
-import org.LanceOfDestiny.domain.physics.ColliderType;
-import org.LanceOfDestiny.domain.physics.Vector;
+import org.LanceOfDestiny.domain.physics.*;
 import org.LanceOfDestiny.domain.sprite.BallSprite;
+import org.LanceOfDestiny.domain.sprite.ImageLibrary;
+import org.LanceOfDestiny.domain.sprite.ImageOperations;
 import org.LanceOfDestiny.domain.sprite.Sprite;
 
 import java.awt.*;
 
 public class FireBall extends GameObject {
     private final int radius = Constants.FIREBALL_RADIUS;
-    BallSprite ballSprite;
-    private Collider collider;
+    private BallSprite ballSprite;
     private boolean isOverwhelming = false;
-
     private boolean isAttached = true;
-    private int defaultSpeed = Constants.FIREBALL_SPEED;
+    private final int defaultSpeed = Constants.FIREBALL_SPEED;
     private double currentSpeed;
     private MagicalStaff magicalStaff;
 
@@ -31,6 +29,10 @@ public class FireBall extends GameObject {
         this.currentSpeed = defaultSpeed;
         this.collider = ColliderFactory.createBallCollider(this, Vector.getZeroVector(), ColliderType.DYNAMIC, radius);
         this.ballSprite = new BallSprite(this, Color.black, Constants.FIREBALL_RADIUS);
+        System.out.println();
+        this.getSprite().addImage(ImageOperations.resizeImage(ImageLibrary.FireBall.getImage()
+                ,ballSprite.width()*2
+                ,ballSprite.height()*2));
         Events.ActivateOverwhelming.addListener(this::handleOverwhelming);
         Events.ShootBall.addRunnableListener(this::shootBall);
     }
@@ -41,30 +43,28 @@ public class FireBall extends GameObject {
         collider.setVelocity(velocity);
     }
 
-
     @Override
     public void start() {
         super.start();
         magicalStaff = SessionManager.getInstance().getMagicalStaff();
-
-
     }
 
     @Override
     public void update() {
         if (getPosition().getY() >= Constants.SCREEN_HEIGHT - 40) fireBallDropped();
         if (isAttached) {
+            var staffWidth =  (magicalStaff.isExpanded ? Constants.STAFF_WIDTH * 2 : Constants.STAFF_WIDTH);
             var attachedPosition = new Vector(
-                    magicalStaff.getPosition().getX() + Constants.STAFF_WIDTH / 2f + (Constants.STAFF_WIDTH / 4f) * Math.sin(magicalStaff.getAngle()),
-                    magicalStaff.getPosition().getY() + Constants.FIREBALL_RADIUS * 0.5+ (Constants.STAFF_WIDTH / 4f) * Math.cos(magicalStaff.getAngle() + Math.PI)
+                    magicalStaff.getPosition().getX() + staffWidth / 2f + (Constants.STAFF_WIDTH / 4f) * Math.sin(magicalStaff.getAngle()),
+                    magicalStaff.getPosition().getY() + Constants.FIREBALL_RADIUS * 0.5 + (staffWidth / 4f) * Math.cos(magicalStaff.getAngle() + Math.PI)
             );
             collider.setPosition(attachedPosition);
-        }
-        else setPosition(getPosition().add(collider.getVelocity()));
+        } else setPosition(getPosition().add(collider.getVelocity()));
     }
 
     private void handleOverwhelming(Object object) {
-        isOverwhelming = (Boolean) object;
+        if ((Boolean) object) enableOverwhelming();
+        else disableOverwhelming();
     }
 
     @Override
@@ -77,14 +77,30 @@ public class FireBall extends GameObject {
         isAttached = true;
     }
 
-
     public void enableOverwhelming() {
         isOverwhelming = true;
+        ballSprite.color = Color.ORANGE;
+    }
+
+    public boolean isOverwhelming() {
+        return isOverwhelming;
     }
 
     public void disableOverwhelming() {
         isOverwhelming = false;
+        ballSprite.color = Color.BLACK;
     }
 
+    @Override
+    public void onCollisionEnter(Collision collision) {
+        super.onCollisionEnter(collision);
+        if (!isOverwhelming()) {
+            return;
+        }
+        var other = collision.getOther(this);
+        if (other instanceof Barrier) {
+            ((Barrier) other).kill();
+        }
+    }
 
 }

@@ -1,6 +1,6 @@
 package org.LanceOfDestiny.domain.physics;
 
-import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.behaviours.GameObject;
 
 public class RectangleCollider extends Collider {
     private double width;
@@ -37,33 +37,32 @@ public class RectangleCollider extends Collider {
         gameObject.setAngle(angle);
     }
     public Vector[] getCorners(double framesAhead) {
-        Vector position = getPosition(framesAhead); // Assuming there's a method getPosition that considers frames ahead
-        double centerX = position.getX();
-        double centerY = position.getY();
+        Vector topLeft = getPosition(framesAhead); // Top-left corner as the base position
 
-        // Half dimensions to calculate relative corners
-        double halfWidth = width / 2.0;
-        double halfHeight = height / 2.0;
+        // Calculate the effective center of the rectangle for rotation
+        double centerX = topLeft.getX() + width / 2.0;
+        double centerY = topLeft.getY() + height / 2.0;
 
-        // Corner points relative to center
+        // Define corners relative to the center for rotation
         Vector[] corners = new Vector[4];
-        corners[0] = new Vector(-halfWidth, -halfHeight); // Top-left
-        corners[1] = new Vector(halfWidth, -halfHeight);  // Top-right
-        corners[2] = new Vector(halfWidth, halfHeight);   // Bottom-right
-        corners[3] = new Vector(-halfWidth, halfHeight);  // Bottom-left
+        corners[0] = new Vector(topLeft.getX() - centerX, topLeft.getY() - centerY); // Top-left
+        corners[1] = new Vector(topLeft.getX() + width - centerX, topLeft.getY() - centerY); // Top-right
+        corners[2] = new Vector(topLeft.getX() + width - centerX, topLeft.getY() + height - centerY); // Bottom-right
+        corners[3] = new Vector(topLeft.getX() - centerX, topLeft.getY() + height - centerY); // Bottom-left
 
-        // Get current rotation angle
+        // Get current rotation angle in radians
         double angle = getAngle();
 
-        // Rotate each corner around the center
+        // Rotate each corner around the effective center
         for (int i = 0; i < corners.length; i++) {
             double xRotated = corners[i].getX() * Math.cos(angle) - corners[i].getY() * Math.sin(angle);
             double yRotated = corners[i].getX() * Math.sin(angle) + corners[i].getY() * Math.cos(angle);
-            // Update the corner position relative to the world position
+            // Update the corner position relative to the world position (re-translate back)
             corners[i] = new Vector(centerX + xRotated, centerY + yRotated);
         }
 
         return corners;
     }
+
 
 }

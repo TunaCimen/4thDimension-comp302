@@ -1,6 +1,6 @@
 package org.LanceOfDestiny.domain.sprite;
 
-import org.LanceOfDestiny.domain.GameObject;
+import org.LanceOfDestiny.domain.behaviours.GameObject;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -19,6 +19,7 @@ public class RectangleSprite extends Sprite{
     }
 
     private void drawNumber(Graphics g, String number) {
+        if(!isVisible) return;
         g.setColor(Color.BLACK); // Text color
         g.setFont(new Font("Arial", Font.BOLD, 12)); // Text font
 
@@ -33,6 +34,7 @@ public class RectangleSprite extends Sprite{
 
     @Override
     public void drawShape(Graphics g) {
+        if(!isVisible) return;
         Graphics2D g2d = (Graphics2D) g;
         AffineTransform originalTransform = ((Graphics2D) g).getTransform();
 
@@ -53,6 +55,15 @@ public class RectangleSprite extends Sprite{
         }
     }
 
+    @Override
+    public int width() {
+        return width;
+    }
+
+    @Override
+    public int height() {
+        return height;
+    }
 
 
 }

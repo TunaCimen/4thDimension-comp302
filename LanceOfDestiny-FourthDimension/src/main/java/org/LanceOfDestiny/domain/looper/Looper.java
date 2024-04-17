@@ -1,6 +1,6 @@
-package org.LanceOfDestiny.domain.Looper;
+package org.LanceOfDestiny.domain.looper;
 
-import org.LanceOfDestiny.domain.Behaviour;
+import org.LanceOfDestiny.domain.behaviours.Behaviour;
 import org.LanceOfDestiny.domain.Constants;
 
 import javax.swing.*;
@@ -12,7 +12,7 @@ public abstract class Looper {
 
     protected abstract void routine() throws LoopEndedException;
 
-    public void run(){
+    public void run() {
         active = true;
         try {
             routine();
@@ -23,32 +23,34 @@ public abstract class Looper {
         done();
     }
 
-    public void done(){
+    public void done() {
         System.out.println("done");
     }
 
-    public void stop(){
+    public void stop() {
         System.out.println("Stopped");
         active = false;
     }
-    public boolean isActive(){
+
+    public boolean isActive() {
         return active;
     }
 
-    public boolean isActiveWithThrow() throws LoopEndedException{
-        if(!isActive())throw new LoopEndedException();
+    public boolean isActiveWithThrow() throws LoopEndedException {
+        if (!isActive()) throw new LoopEndedException();
         return isActive();
     }
 
     public void execute(Behaviour action) throws LoopEndedException {
-            action.start();
+        action.start();
 
-            Timer timer = new Timer((int) (1000* Constants.UPDATE_RATE), e->{
-                action.update();
-            });
-            timer.start();
+        Timer timer = new Timer((int) (1000 * Constants.UPDATE_RATE), e -> {
+            action.update();
+        });
+        timer.start();
 
-            }
+    }
+
     abstract int getSecondsPassed();
 
 

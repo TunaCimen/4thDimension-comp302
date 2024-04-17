@@ -1,23 +1,11 @@
 package org.LanceOfDestiny.domain.barriers;
 
-import org.LanceOfDestiny.domain.abilities.SpellType;
-import org.LanceOfDestiny.domain.managers.ManagerHub;
+import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.util.Random;
 
 public class BarrierFactory {
-    private static BarrierFactory instance;
-
-    private BarrierFactory() {
-    }
-
-    public static BarrierFactory getInstance() {
-        if (instance == null) {
-            instance = new BarrierFactory();
-        }
-        return instance;
-    }
 
     public static Barrier createBarrier(Vector position, BarrierTypes type) {
         Barrier createdBarrier = switch (type) {
@@ -30,7 +18,7 @@ public class BarrierFactory {
         if (createdBarrier == null) {
             return null;
         }
-        ManagerHub.getInstance().getBarrierManager().addBarrier(createdBarrier);
+        BarrierManager.getInstance().addBarrier(createdBarrier);
         return createdBarrier;
     }
 
@@ -46,6 +34,5 @@ public class BarrierFactory {
             return 5;
         }
     }
-
 
 }

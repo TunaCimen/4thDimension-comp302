@@ -1,16 +1,15 @@
 package org.LanceOfDestiny.ui;
 
-import org.LanceOfDestiny.domain.AuthModels.LogInController;
-import org.LanceOfDestiny.ui.AuthViews.LogInView;
+import org.LanceOfDestiny.domain.managers.SessionManager;
+import org.LanceOfDestiny.ui.AuthViews.PauseView;
 import org.LanceOfDestiny.ui.AuthViews.PhysicsTestView;
-import org.LanceOfDestiny.ui.AuthViews.SaveLoadViewDEMO;
-import org.LanceOfDestiny.ui.AuthViews.SignUpView;
+import org.LanceOfDestiny.ui.GameViews.GameView;
 
 public enum Windows{
-        Login(new LogInView(LogInController.getInstance())),
-        Signup(new SignUpView(LogInController.getInstance())),
+        //Login(new LogInView(LogInController.getInstance())),
         PhysicsTest(new PhysicsTestView()),
-        DBdemo(new SaveLoadViewDEMO(LogInController.getInstance()));
+        GameView(new GameView(SessionManager.getInstance())),
+        PauseView(new PauseView());
 
         final Window window;
 

@@ -1,7 +1,7 @@
 package org.LanceOfDestiny;
 
-import org.LanceOfDestiny.domain.EventSystem.Events;
-import org.LanceOfDestiny.domain.EventSystem.IllegalEventInvocationException;
+import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.IllegalEventInvocationException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
