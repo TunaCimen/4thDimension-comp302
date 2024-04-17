@@ -4,8 +4,8 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
 import org.LanceOfDestiny.domain.physics.*;
-import org.LanceOfDestiny.ui.RectangleSprite;
-import org.LanceOfDestiny.ui.Sprite;
+import org.LanceOfDestiny.domain.sprite.RectangleSprite;
+import org.LanceOfDestiny.domain.sprite.Sprite;
 
 import java.awt.*;
 
@@ -16,24 +16,29 @@ public class MagicalStaff extends GameObject {
     private final int height = Constants.STAFF_HEIGHT;
     private boolean isCanonActivated = false;
     private boolean isExpanded = false;
-
-    private RectangleCollider collider;
     RectangleSprite rectangleSprite;
 
-    public MagicalStaff(Vector position) {
+    public MagicalStaff() {
         super();
         Events.MoveStaff.addListener(this::moveRight);
         Events.RotateStaff.addListener(this::rotate);
         Events.ResetStaff.addRunnableListener(this::resetStaff);
-        this.position = position;
-
+        Events.TimedTestEvent.addListener(this::changeColor);
+        Events.ResetColorEvent.addRunnableListener(this::resetColor);
+        Events.ActivateCanons.addListener(this::handleCanons);
+        Events.ActivateExpansion.addListener(this::handleExpansion);
+        this.position = Constants.STAFF_POSITION;
         this.rectangleSprite = new RectangleSprite(this, Color.orange,Constants.STAFF_WIDTH,Constants.STAFF_HEIGHT);
         this.collider = ColliderFactory.createRectangleCollider(this, new Vector(0,0), ColliderType.STATIC, Constants.STAFF_WIDTH, Constants.STAFF_HEIGHT);
-
     }
 
+    private void resetColor() {
+        rectangleSprite.color = Color.orange;
+    }
+
+
     @Override
-    public Sprite sprite() {
+    public Sprite getSprite() {
         return rectangleSprite;
     }
 
@@ -54,6 +59,10 @@ public class MagicalStaff extends GameObject {
         // TODO
     }
 
+    public void changeColor(Object color){
+        rectangleSprite.color = (Color) color;
+    }
+
     public void moveRight(Object integer) {
         int sign = ((Integer) integer) > 0 ? 1 : -1;
         setPosition(position.add(new Vector(sign*Constants.STAFF_SPEED , 0)));
@@ -67,6 +76,10 @@ public class MagicalStaff extends GameObject {
         setAngle(newAngle);
     }
 
+    public void hitExplosiveBarrier(){
+        Events.UpdateChance.invoke(-1);
+    }
+
     public void resetStaff(){
         setAngle(0);
     }
@@ -75,5 +88,16 @@ public class MagicalStaff extends GameObject {
         this.fireBall = fireBall;
     }
 
+    private void handleCanons(Object object) {
+        isCanonActivated = (boolean) object;
+        if (isCanonActivated) enableCanons();
+        else disableCanons();
+    }
+
+    private void handleExpansion(Object object) {
+        isExpanded = (boolean) object;
+        if (isExpanded) enableExpansion();
+        else disableExpansion();
+    }
 
 }

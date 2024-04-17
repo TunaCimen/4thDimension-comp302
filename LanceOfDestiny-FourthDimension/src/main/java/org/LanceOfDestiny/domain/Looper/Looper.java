@@ -41,13 +41,16 @@ public abstract class Looper {
     }
 
     public void execute(Behaviour action) throws LoopEndedException {
-            action.Awake();
+            action.start();
 
             Timer timer = new Timer((int) (1000* Constants.UPDATE_RATE), e->{
-                action.Update();
+                action.update();
             });
             timer.start();
 
             }
+    abstract int getSecondsPassed();
+
+
 }
 

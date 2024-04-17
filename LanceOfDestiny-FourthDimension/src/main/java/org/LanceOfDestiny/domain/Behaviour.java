@@ -1,25 +1,17 @@
 package org.LanceOfDestiny.domain;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class Behaviour {
 
     public GameObject gameObject = null;
 
-    public void Awake() {
+    public void awake() {
     }
 
-    public void Start() {
+    public void start() {
     }
 
-    public void Update() {
-
-
+    public void update() {
     }
 
-    public void OnCollisionEnter(Object collision) {
-        return;
-    }
+
 }

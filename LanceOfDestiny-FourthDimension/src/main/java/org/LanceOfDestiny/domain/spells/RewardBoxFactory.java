@@ -1,7 +1,5 @@
-package org.LanceOfDestiny.domain.abilities;
+package org.LanceOfDestiny.domain.spells;
 
-import org.LanceOfDestiny.domain.barriers.*;
-import org.LanceOfDestiny.domain.managers.ManagerHub;
 import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.util.ArrayList;
@@ -23,17 +21,17 @@ public class RewardBoxFactory {
         return instance;
     }
 
-    public RewardBox generateRandomRewardBox(Vector position) {
+    public static RewardBox generateRandomRewardBox(Vector position) {
         return createRewardBox(position, getRandomSpellType());
     }
 
-    public RewardBox createRewardBox(Vector position, SpellType spellType) {
+    public static RewardBox createRewardBox(Vector position, SpellType spellType) {
         var rewardBox = new RewardBox(position, spellType);
         rewardBoxes.add(rewardBox);
         return rewardBox;
     }
 
-    public SpellType getRandomSpellType(){
+    public static SpellType getRandomSpellType(){
         return SpellType.values()[new Random().nextInt(SpellType.values().length)];
     }
 
@@ -41,6 +39,9 @@ public class RewardBoxFactory {
         return rewardBoxes;
     }
 
+    public void removeRewardBox(RewardBox rewardBox) {
+        rewardBoxes.remove(rewardBox);
+    }
 
 
 

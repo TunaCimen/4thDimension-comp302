@@ -1,58 +1,64 @@
 package org.LanceOfDestiny.ui.AuthViews;
 
 import org.LanceOfDestiny.domain.Constants;
+import org.LanceOfDestiny.domain.barriers.Barrier;
+import org.LanceOfDestiny.domain.barriers.BarrierFactory;
+import org.LanceOfDestiny.domain.barriers.BarrierTypes;
+import org.LanceOfDestiny.domain.barriers.SimpleBarrier;
 import org.LanceOfDestiny.domain.managers.InputManager;
+import org.LanceOfDestiny.domain.physics.ColliderFactory;
 import org.LanceOfDestiny.domain.physics.ColliderType;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.Looper.GameLooper;
 import org.LanceOfDestiny.domain.Looper.LoopExecutor;
 import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
+import org.LanceOfDestiny.ui.DrawCanvas;
 import org.LanceOfDestiny.ui.Window;
+
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
-
 
 public class PhysicsTestView extends JFrame implements Window {
-
-    FireBall fb;
-    FireBall fb2;
-    FireBall fb3;
-    FireBall fb4;
     MagicalStaff magicalStaff;
-
     LoopExecutor loopExecutor = new LoopExecutor();
+    Barrier barrier;
+    DrawCanvas drawCanvas;
     public PhysicsTestView() {
-
-        fb = new FireBall(new Vector(30,40), new Vector(0,7));
-        fb2 = new FireBall(new Vector(50+Constants.FIREBALL_RADIUS,90+Constants.FIREBALL_RADIUS),ColliderType.STATIC);
-        //fb3 = new FireBall(new Vector(120+Constants.FIREBALL_RADIUS,490+Constants.FIREBALL_RADIUS),ColliderType.STATIC);
-        fb4 = new FireBall(new Vector(250+Constants.FIREBALL_RADIUS,190+Constants.FIREBALL_RADIUS),ColliderType.STATIC);
-        //fb3 = new FireBall(new Vector(3,500));
-        //fb3 = new FireBall(new Vector(Constants.SCREEN_WIDTH-3*Constants.FIREBALL_RADIUS,Constants.SCREEN_HEIGHT-4*Constants.FIREBALL_RADIUS), new Vector(3,2));
-        magicalStaff = new MagicalStaff(new Vector(350,500));
-
-        GameLooper gameLooper = new GameLooper();
+        drawCanvas = new DrawCanvas();
+        GameLooper gameLooper = new GameLooper(drawCanvas);
         loopExecutor.setLooper(gameLooper);
     }
 
+    public void initializeTestObjects(){
+        new FireBall();
 
+        // Generate barriers
+        for (int i = 20; i < Constants.SCREEN_WIDTH - 10; i += 30) {
+            for (int j = 10; j < Constants.SCREEN_HEIGHT - 400; j += 30) {
+                if (j == 190) {  // Check if it's the first row
+                    BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.EXPLOSIVE);
+                } else {
+                    BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.SIMPLE);
+                }
+            }
+        }
+        barrier = new SimpleBarrier(new Vector(500,500));
+        magicalStaff = new MagicalStaff();
+
+    }
 
     @Override
     public void createAndShowUI() {
-        addKeyListener(InputManager.getInstance());
-        //add(fb.sprite());
-        //add(fb3.sprite());
-        //add(fb4.sprite());
-        //add(fb2.sprite());
-        add(magicalStaff.sprite());
+        add(drawCanvas);
+        initializeTestObjects();
+
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(new Dimension(Constants.SCREEN_WIDTH,Constants.SCREEN_HEIGHT));
+        setSize(new Dimension(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT));
         setDefaultLookAndFeelDecorated(true);
         setResizable(false);
         setVisible(true);
+        addKeyListener(InputManager.getInstance());
         loopExecutor.start();
-
     }
 }

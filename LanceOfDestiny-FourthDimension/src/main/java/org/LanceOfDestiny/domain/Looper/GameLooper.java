@@ -6,13 +6,24 @@ import javax.swing.*;
 
 public class GameLooper extends Looper{
 
-    JFrame frame;
+    JPanel drawCanvas;
+    GameExec gameExec;
+    public GameLooper(JPanel drawCanvas){
+        this.drawCanvas = drawCanvas;
+        gameExec = new GameExec(GameObject.getGameObjects(), drawCanvas);
+
+    }
+
+
+    public int getSecondsPassed(){
+        return (int) (gameExec.timePassed*Math.pow(10,-9));
+    }
 
 
     @Override
     protected void routine() throws LoopEndedException {
         execute(
-                new GameExec(GameObject.getGameObjects())
+                gameExec
         );
 
     }

@@ -1,27 +1,52 @@
-package org.LanceOfDestiny.domain.abilities;
+package org.LanceOfDestiny.domain.spells;
+
+import org.LanceOfDestiny.domain.EventSystem.Events;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-// abilities gained by the player will be held here
+// spells gained by the player will be held here
+// needs a timer object to activate and deactivate spell
 public class SpellContainer {
     private List<Spell> spells;
     private HashMap<SpellType, Boolean> spellMap = new HashMap<>(); // for saving to database
 
+
     public SpellContainer() {
         spells = new LinkedList<>();
         for (SpellType spellType : SpellType.values()) {
+            if(spellType.equals(SpellType.CHANCE)) continue;
             spellMap.put(spellType, false);
         }
+        Events.GainSpell.addListener(this::addSpell);
     }
 
-    public void addSpell(Spell spell) {
-        if(spellExists(spell.getSpellType()))
+    public void addSpell(Object spellObject) {
+        var spellType = (SpellType) spellObject;
+        var spell = SpellFactory.createSpell(spellType);
+        if(spellType.equals(SpellType.CHANCE)){
+            Events.UpdateChance.invoke(1);
             return;
+        }
+        System.out.println(spellType);
 
+        if(spellExists(spellType))
+            return;
         spells.add(spell);
-        spellMap.put(spell.getSpellType(), true);
+        spellMap.put(spellType, true);
+    }
+
+    public void activateSpell(SpellType spellType) {
+        if(!spellExists(spellType)) return;
+
+        var spell = getSpell(spellType);
+        spell.activateSpell();
+
+        spellMap.put(spellType, false);
+        spells.remove(spell);
+
+        //spell.deactivateSpell(); // after timer ends
     }
 
     public void removeSpell(Spell spell) {

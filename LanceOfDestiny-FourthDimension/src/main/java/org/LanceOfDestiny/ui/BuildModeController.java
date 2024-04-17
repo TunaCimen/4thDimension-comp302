@@ -21,8 +21,6 @@ public class BuildModeController {
     }
 
     private BuildModeController() {
-        barrierFactory = BarrierFactory.getInstance();
-
     }
 
     public static synchronized BuildModeController getInstance() {
@@ -68,7 +66,7 @@ public class BuildModeController {
         barrierList = LanceOfDestiny.getInstance().getGameMap().getBarriers();
         if (barrierList.isEmpty()) return;
         Barrier barrierZero = barrierList.get(0);
-        barrierZero.setCoordinate(new Vector(60.0F, 30.0F));
+        barrierZero.setPosition(new Vector(60.0F, 30.0F));
         float barrierAndGapWidth = 55.6F; // 25.6 is the width of the barrier and 30 is the gap between barriers
         int barrierAndGapPairs = 1;
         float verticalGap = 0.0F;
@@ -83,7 +81,7 @@ public class BuildModeController {
             else {
                 barrierAndGapPairs++;
             }
-            nextBarrier.setCoordinate(new Vector(barrierAndGapWidth, 30.0F + verticalGap));
+            nextBarrier.setPosition(new Vector(barrierAndGapWidth, 30.0F + verticalGap));
         }
     }
 

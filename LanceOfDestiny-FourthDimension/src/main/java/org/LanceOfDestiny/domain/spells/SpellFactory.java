@@ -1,4 +1,4 @@
-package org.LanceOfDestiny.domain.abilities;
+package org.LanceOfDestiny.domain.spells;
 
 public class SpellFactory {
 
@@ -15,7 +15,7 @@ public class SpellFactory {
         return instance;
     }
 
-    public Spell createSpell(SpellType spellType) {
+    public static Spell createSpell(SpellType spellType) {
         Spell spell = switch (spellType) {
             case CANON -> new CanonSpell();
             case CHANCE -> new ChanceSpell();

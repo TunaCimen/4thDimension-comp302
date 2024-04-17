@@ -1,19 +1,15 @@
 package org.LanceOfDestiny.domain.player;
 
+import org.LanceOfDestiny.domain.Behaviour;
+import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
-import org.LanceOfDestiny.domain.abilities.SpellContainer;
-import org.LanceOfDestiny.domain.managers.InputManager;
-import org.LanceOfDestiny.domain.managers.ManagerHub;
-import org.LanceOfDestiny.domain.managers.ScoreManager;
+import org.LanceOfDestiny.domain.spells.SpellContainer;
+import org.LanceOfDestiny.domain.spells.SpellType;
 
-public class Player extends GameObject {
+public class Player extends Behaviour {
 
     private MagicalStaff magicalStaff;
-    private SpellContainer spellContainer;
-
-    private InputManager inputManager = ManagerHub.getInstance().getInputManager();
-    private ScoreManager scoreManager = ManagerHub.getInstance().getScoreManager();
-
+    private final SpellContainer spellContainer;
 
     private final int DEFAULT_CHANCES = 3;
     private final int MIN_CHANCES = 0;
@@ -24,17 +20,24 @@ public class Player extends GameObject {
         super();
         this.spellContainer = new SpellContainer();
         this.chancesLeft = DEFAULT_CHANCES;
+        Events.UpdateChance.addListener(this::updateChances);
+        Events.TryUsingSpell.addListener(this::tryUsingSpell);
+    }
 
+    private void tryUsingSpell(Object objectSpellType) {
+        SpellType spellType = (SpellType) objectSpellType;
+        spellContainer.activateSpell(spellType);
+    }
+
+
+    @Override
+    public void start() {
+        super.start();
     }
 
     @Override
-    public void Start() {
-        super.Start();
-    }
-
-    @Override
-    public void Update() {
-        super.Update();
+    public void update() {
+        super.update();
     }
 
     public void loseChance(){
@@ -45,12 +48,22 @@ public class Player extends GameObject {
         setChances(chancesLeft + 1);
     }
 
+    public int getChances() {
+        return chancesLeft;
+    }
+
     private void setChances(int chance) {
         this.chancesLeft = chance;
         this.chancesLeft = Math.max(this.chancesLeft, MIN_CHANCES);
+        if(this.chancesLeft == MIN_CHANCES) Events.LoseGame.invoke();
     }
 
     public void setMagicalStaff(MagicalStaff magicalStaff){
         this.magicalStaff = magicalStaff;
     }
+
+    public void updateChances(Object change){
+        setChances(chancesLeft + (Integer) change);
+    }
+
 }

@@ -1,8 +1,8 @@
-package org.LanceOfDestiny.domain.abilities;
+package org.LanceOfDestiny.domain.spells;
 
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.GameObject;
-import org.LanceOfDestiny.domain.managers.ManagerHub;
+import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
 
@@ -20,11 +20,11 @@ public class Canon extends GameObject {
         super();
         this.position = position;
         isActive = false;
-        magicalStaff = ManagerHub.getInstance().getMagicalStaff();
+        magicalStaff = SessionManager.getInstance().getMagicalStaff();
     }
 
     @Override
-    public void Update() {
+    public void update() {
         if(!isActive)
             return;
         setPosition(magicalStaff.getPosition());

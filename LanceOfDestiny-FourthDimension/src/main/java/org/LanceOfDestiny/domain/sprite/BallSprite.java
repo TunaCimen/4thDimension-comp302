@@ -1,6 +1,5 @@
-package org.LanceOfDestiny.ui;
+package org.LanceOfDestiny.domain.sprite;
 
-import org.LanceOfDestiny.domain.Behaviour;
 import org.LanceOfDestiny.domain.GameObject;
 
 import java.awt.*;

@@ -1,20 +1,29 @@
 package org.LanceOfDestiny.domain.physics;
 
-import org.LanceOfDestiny.domain.Behaviour;
-import org.LanceOfDestiny.domain.EventSystem.Events;
 import org.LanceOfDestiny.domain.GameObject;
 
 public abstract class Collider {
 
+    protected final GameObject gameObject; // the gameObject that it is attached to
     protected Vector velocity;
     protected ColliderType colliderType;
-    protected final GameObject gameObject; // the gameObject that it is attached to
+    private boolean isEnabled;
+    private boolean isTrigger;
 
     protected Collider(Vector velocity, ColliderType colliderType, GameObject gameObject) {
         this.velocity = velocity;
         this.colliderType = colliderType;
         this.gameObject = gameObject;
-        Events.CollisionEvent.addListener(gameObject::OnCollisionEnter);
+        this.isEnabled = true;
+    }
+
+    protected Collider(Vector velocity, ColliderType colliderType, GameObject gameObject, boolean isEnabled) {
+        this(velocity, colliderType, gameObject);
+        this.isEnabled = isEnabled;
+    }
+
+    public GameObject getGameObject() {
+        return gameObject;
     }
 
     // Getters and Setters
@@ -35,7 +44,7 @@ public abstract class Collider {
     }
 
     public Vector getPosition(double framesAhead) {
-        return gameObject.getPosition().add(getVelocity().scale((float) framesAhead));
+        return gameObject.getPosition().add(getVelocity().scale(framesAhead));
     }
 
     public ColliderType getColliderType() {
@@ -46,4 +55,23 @@ public abstract class Collider {
     public void setColliderType(ColliderType colliderType) {
         this.colliderType = colliderType;
     }
+
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
+    public boolean isTrigger() {
+        return isTrigger;
+    }
+
+    public void setTrigger(boolean trigger) {
+        isTrigger = trigger;
+    }
+
+
 }
