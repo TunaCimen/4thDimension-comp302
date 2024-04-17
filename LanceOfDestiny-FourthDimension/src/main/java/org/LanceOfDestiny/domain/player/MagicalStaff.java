@@ -30,11 +30,8 @@ public class MagicalStaff extends GameObject {
     public MagicalStaff() {
         super();
         this.position = Constants.STAFF_POSITION;
-        initializeCollidersAndSprites();
-        this.canonLeft = new Canon(this.position.add(new Vector(0, -HEIGHT)));
-        this.canonRight = new Canon(this.position.add(new Vector(WIDTH - Constants.CANON_WIDTH,-HEIGHT)));
-        canonRight.getSprite().attachedGameObject = this;
-        canonLeft.getSprite().attachedGameObject = this;
+
+
         Events.MoveStaff.addListener(this::moveRight);
         Events.RotateStaff.addListener(this::rotate);
         Events.ResetStaff.addRunnableListener(this::resetStaff);
@@ -42,6 +39,12 @@ public class MagicalStaff extends GameObject {
         Events.ResetColorEvent.addRunnableListener(this::resetColor);
         Events.ActivateCanons.addListener(this::handleCanons);
         Events.ActivateExpansion.addListener(this::handleExpansion);
+        initializeCollidersAndSprites();
+        this.canonLeft = new Canon(this.position.add(new Vector(0, -HEIGHT)));
+        this.canonRight = new Canon(this.position.add(new Vector(WIDTH - Constants.CANON_WIDTH,-HEIGHT)));
+        ((RectangleSprite)canonLeft.getSprite()).anchorXShift = WIDTH / 2;
+        ((RectangleSprite)canonRight.getSprite()).anchorXShift = -WIDTH / 2;
+
     }
 
     public void initializeCollidersAndSprites(){
@@ -88,13 +91,11 @@ public class MagicalStaff extends GameObject {
     public void enableCanons() {
        canonLeft.activateCanon();
        canonRight.activateCanon();
-       isCanonActivated = true;
     }
 
     public void disableCanons() {
         canonLeft.deactivateCanon();
         canonRight.deactivateCanon();
-        isCanonActivated = false;
     }
 
     public void changeColor(Object color) {
@@ -123,7 +124,10 @@ public class MagicalStaff extends GameObject {
     }
 
     public void resetStaff() {
+
         setAngle(0);
+        canonLeft.setAngle(0);
+        canonRight.setAngle(0);
     }
 
 
@@ -139,11 +143,4 @@ public class MagicalStaff extends GameObject {
         else disableExpansion();
     }
 
-    public Canon getCanonLeft() {
-        return canonLeft;
-    }
-
-    public Canon getCanonRight() {
-        return canonRight;
-    }
 }

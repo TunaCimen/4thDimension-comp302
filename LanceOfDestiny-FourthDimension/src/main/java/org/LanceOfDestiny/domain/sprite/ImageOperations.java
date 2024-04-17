@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.domain.sprite;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -32,4 +33,19 @@ public class ImageOperations{
         int targetHeight = sprite.height();
         return resizeImage(originalImage,targetWidth,targetHeight);
     }
+
+    public static ImageIcon reducedTransparencyImageIcon(ImageIcon originalIcon){
+        BufferedImage img = new BufferedImage(
+                originalIcon.getIconWidth(),
+                originalIcon.getIconHeight(),
+                BufferedImage.TYPE_INT_ARGB);
+
+        // Draw the image with reduced transparency
+        Graphics2D g2d = img.createGraphics();
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f)); // Set transparency level (0.0 to 1.0)
+        g2d.drawImage(originalIcon.getImage(), 0, 0, null);
+        g2d.dispose();
+        return new ImageIcon(img);
+    }
+
 }

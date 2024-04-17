@@ -29,7 +29,6 @@ public class Canon extends GameObject {
         super();
         this.position = position;
         isActive = false;
-        magicalStaff = SessionManager.getInstance().getMagicalStaff();
         this.sprite = new RectangleSprite(this, Color.DARK_GRAY, CANON_WIDTH, (int) CANON_HEIGHT);
         if (!isActive) getSprite().setVisible(false);
         sessionManager = SessionManager.getInstance();

@@ -14,6 +14,7 @@ public class PauseView extends JFrame implements Window {
     }
     @Override
     public void createAndShowUI() {
+        //setUndecorated(true);
         setSize(300, 200); // Set the size of the window
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);

@@ -1,6 +1,7 @@
 package org.LanceOfDestiny.domain.spells;
 
 import org.LanceOfDestiny.domain.Constants;
+import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.physics.*;
@@ -44,12 +45,14 @@ public class Hex extends GameObject {
         super.onCollisionEnter(collision);
         var other = collision.getOther(this);
 
-        if (other instanceof FireBall) return;
+        if (other instanceof Barrier){
+            sprite.setVisible(false);
+            collider.setEnabled(false);
+            isVisible = false;
+            //this.position = initialPosition;
+        }
 
-        sprite.setVisible(false);
-        collider.setEnabled(false);
-        isVisible = false;
-        this.position = initialPosition;
+
 
     }
 
@@ -57,8 +60,11 @@ public class Hex extends GameObject {
         sprite.setVisible(true);
         collider.setEnabled(true);
         isVisible = true;
+        float xShift = Constants.CANON_WIDTH / 2f;
+        float yShift = HEX_RADIUS * 2;
 
-        this.position = canon.getPosition().add(new Vector(Constants.CANON_WIDTH, -HEX_RADIUS*2));
+
+        this.position = canon.getPosition().add(new Vector(Constants.CANON_WIDTH/2f, -HEX_RADIUS*2));
         var magicalStaff = SessionManager.getInstance().getMagicalStaff();
         var velocity = Vector.getVelocityByAngleAndMagnitude((int) -HEX_SPEED, magicalStaff.getAngle());
         collider.setVelocity(velocity);

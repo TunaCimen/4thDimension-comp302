@@ -11,7 +11,8 @@ public enum ImageLibrary {
     RewardingBarrier("Image/200Greengem.png"),
     Heart("Image/200Heart.png"),
     MagicalStaff("Image/200Player.png"),
-    RewardBox("Image/RewardBox.png");
+    RewardBox("Image/RewardBox.png"),
+    CannonSpell("Image/CannonSpell.png");
 
     private final BufferedImage image;
 

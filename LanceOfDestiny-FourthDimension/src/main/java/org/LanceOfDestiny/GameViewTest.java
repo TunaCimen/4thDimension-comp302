@@ -9,6 +9,5 @@ public class GameViewTest {
 
     public static void main(String[] args) {
         WindowManager.getInstance().showWindow(Windows.GameView);
-        System.out.println("Current working directory: " + new File(".").getAbsolutePath());
     }
 }

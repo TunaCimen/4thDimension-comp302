@@ -1,6 +1,8 @@
 package org.LanceOfDestiny.domain.sprite;
 
 import org.LanceOfDestiny.domain.behaviours.GameObject;
+import org.LanceOfDestiny.domain.physics.Vector;
+import org.LanceOfDestiny.domain.spells.Canon;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -11,11 +13,16 @@ public class RectangleSprite extends Sprite{
     int width;
     int height;
 
+    public int anchorXShift;
+    public int anchorYShift;
+
 
     public RectangleSprite(GameObject attached, Color color,int width,int height){
         super(attached,color);
         this.width = width;
         this.height = height;
+        anchorXShift = 0;
+        anchorYShift = 0;
     }
 
     private void drawNumber(Graphics g, String number) {
@@ -40,10 +47,13 @@ public class RectangleSprite extends Sprite{
 
         // Calculate the center of the rectangle
         if(attachedGameObject.getPosition() == null) return;
+
+        //Calculate rotation anchor
         int x = (int) attachedGameObject.getPosition().getX();
         int y = (int) attachedGameObject.getPosition().getY();
-        int centerX = x + width / 2;
-        int centerY = y + height / 2;
+        int centerX = x + width / 2 + anchorXShift;
+        int centerY = y + height / 2 + anchorYShift;
+
 
         // Perform the rotation
         g2d.rotate(attachedGameObject.getAngle(), centerX, centerY);
