@@ -1,7 +1,5 @@
 package org.LanceOfDestiny.domain.looper;
 
-import org.LanceOfDestiny.domain.behaviours.Behaviour;
-
 import javax.swing.*;
 
 public class GameLooper extends Looper {
@@ -10,13 +8,12 @@ public class GameLooper extends Looper {
 
     public GameLooper(JPanel drawCanvas) {
         this.drawCanvas = drawCanvas;
-        gameExec = new GameExec(Behaviour.getBehaviours(), drawCanvas);
+        gameExec = new GameExec(drawCanvas);
     }
 
     public int getSecondsPassed() {
         return (int) (gameExec.timePassed * Math.pow(10, -9));
     }
-
 
     @Override
     protected void routine() throws LoopEndedException {

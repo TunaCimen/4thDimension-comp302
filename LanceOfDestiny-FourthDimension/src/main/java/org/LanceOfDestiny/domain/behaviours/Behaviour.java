@@ -6,7 +6,7 @@ import java.util.List;
 public abstract class Behaviour {
 
     public GameObject gameObject = null;
-    public static List<Behaviour> behaviours = new ArrayList<>();
+    protected static List<Behaviour> behaviours = new ArrayList<>();
 
     public Behaviour(){
         if (this instanceof GameObject || this instanceof MonoBehaviour)
@@ -17,6 +17,10 @@ public abstract class Behaviour {
     }
 
     public void update() {
+    }
+
+    public void destroy() {
+        behaviours.remove(this);
     }
 
     public static List<Behaviour> getBehaviours() {
