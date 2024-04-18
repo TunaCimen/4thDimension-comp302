@@ -15,7 +15,6 @@ public class WindowManager {
 
     public void showWindow(Windows window){
         window.window.createAndShowUI();
-
     }
 
     public static WindowManager getInstance(){

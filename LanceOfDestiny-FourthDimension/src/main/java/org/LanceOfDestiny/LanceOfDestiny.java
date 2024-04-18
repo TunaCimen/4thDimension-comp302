@@ -13,8 +13,7 @@ public class LanceOfDestiny {
 
     public static void main(String[] args) throws SQLException {
         WindowManager wm = WindowManager.getInstance();
-       // wm.showWindow(Windows.Login);
-
+        wm.showWindow(Windows.Login);
     }
     public static LanceOfDestiny getInstance(){
         if(instance == null){

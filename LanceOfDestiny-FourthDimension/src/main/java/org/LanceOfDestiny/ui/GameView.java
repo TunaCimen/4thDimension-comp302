@@ -1,10 +1,17 @@
 package org.LanceOfDestiny.ui;
 
 import org.LanceOfDestiny.LanceOfDestiny;
+import org.LanceOfDestiny.domain.AuthModels.LogInController;
+import org.LanceOfDestiny.domain.barriers.Barrier;
+import org.LanceOfDestiny.ui.AuthViews.LogInView;
+import org.LanceOfDestiny.ui.AuthViews.SaveLoadViewDEMO;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -16,8 +23,9 @@ import java.util.Map;
  */
 
 
-public class GameView {
+public class GameView extends javax.swing.JFrame implements Window {
     private GamePanelDraw gamePanel;
+    private final LogInController userManager;
     private JPanel controlPanel;
     private JButton newGameButton;
     private JButton loadGameButton;
@@ -29,6 +37,12 @@ public class GameView {
     private JButton expansionSpellButton;
     private JLabel scoreLabel;
     private JLabel livesLabel;
+    private List<Barrier> barrier_list;
+
+    public GameView(LogInController userManager) {
+        this.userManager = userManager;
+        barrier_list = new ArrayList<>();
+    }
 
 
     /**
@@ -36,12 +50,13 @@ public class GameView {
      * It initializes the control panel, game buttons, spell buttons, and labels for score and lives.
      * It also sets the layout for the main frame of the game.
      */
-    private void createUIElements() {
+    public void createAndShowUI() {
         // Get the instance of the game and set the layout of the main frame
         LanceOfDestiny.getInstance().getMainFrame().getContentPane().setLayout(new BorderLayout());
 
         // Initialize the control panel with a flow layout
         controlPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
 
         // Initialize the game buttons
         newGameButton = new JButton("Build New Game");
@@ -58,6 +73,35 @@ public class GameView {
         // Initialize the score and lives labels
         scoreLabel = new JLabel("Score: 0");
         livesLabel = new JLabel("Lives: 3");
+
+        saveGameButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    saveButtonAction(evt);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        saveGameButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    loadButtonAction(evt);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+    }
+    private void saveButtonAction(java.awt.event.ActionEvent evt) throws SQLException {
+        if (GameView.this.userManager.saveGame("newsave",barrier_list,5,5,5)) {
+            System.out.println("DONE!");
+        }
+    }
+    private void loadButtonAction(java.awt.event.ActionEvent evt) throws SQLException {
+        barrier_list = GameView.this.userManager.loadBarriers("newsave");
+        List<Integer> userInfol = GameView.this.userManager.loadUserInfo("newsave");
+        System.out.println(userInfol.toString());
     }
 
     /**
