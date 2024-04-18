@@ -80,4 +80,30 @@ public class ExplosiveBarrier extends Barrier {
     private void addScore() {
         Events.UpdateScore.invoke();
     }
+
+    @Override
+    public Vector getDirection() {
+        if (!isMoving) {
+            return Vector.getZeroVector();
+        }
+            // Increment to get the next angle in radians for the small change
+            double nextAngleInDegrees = angleInDegrees + 1; // Increase by 1 degree for derivative approximation
+            double nextAngleInRadians = Math.toRadians(nextAngleInDegrees);
+
+            // Compute the next position based on the next angle
+            double nextX = initPos.getX() + Constants.CIRCULAR_MOTION_RADIUS * Math.cos(nextAngleInRadians);
+            double nextY = initPos.getY() + Constants.CIRCULAR_MOTION_RADIUS * Math.sin(nextAngleInRadians);
+
+            // Current position at current angle
+            double currentX = initPos.getX() + Constants.CIRCULAR_MOTION_RADIUS * Math.cos(Math.toRadians(angleInDegrees));
+            double currentY = initPos.getY() + Constants.CIRCULAR_MOTION_RADIUS * Math.sin(Math.toRadians(angleInDegrees));
+
+            // Calculate the tangent vector (direction) by subtracting current position from next position
+            Vector direction = new Vector(nextX - currentX, nextY - currentY);
+
+            // Normalize the direction vector to get a unit vector (length = 1)
+            return direction.normalize();
+
+
+    }
 }
