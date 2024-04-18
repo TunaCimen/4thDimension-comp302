@@ -14,6 +14,7 @@ public class ReinforcedBarrier extends Barrier {
     public ReinforcedBarrier(Vector position, int hitsRequired) {
         super(position, BarrierTypes.REINFORCED, hitsRequired);
         if ((new Random()).nextDouble() <= MOVE_PROBABILITY) isMoving = true;
+        initDirection();
         getSprite().color = Color.CYAN;
         getSprite().number = String.valueOf(hitsLeft);
     }
@@ -29,6 +30,9 @@ public class ReinforcedBarrier extends Barrier {
         super.onCollisionEnter(collision);
         var other = collision.getOther(this);
 
+        if ((other instanceof Barrier && isMoving)) {
+            getCollider().setVelocity(getCollider().getVelocity().scale(-1));
+        }
         if (!(other instanceof FireBall || other instanceof Hex)) return;
 
         this.reduceLife();

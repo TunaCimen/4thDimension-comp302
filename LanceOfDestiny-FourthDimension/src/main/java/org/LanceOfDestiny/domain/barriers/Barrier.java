@@ -35,9 +35,10 @@ public abstract class Barrier extends GameObject {
     }
 
     @Override
-    public void update() {
+    public void start() {
+        super.start();
         if (isMoving) {
-            setPosition(getPosition().add(new Vector(direction, 0)));
+            getCollider().setVelocity(new Vector(direction, 0));
         }
     }
 

@@ -40,10 +40,8 @@ public class GameExec extends Behaviour {
         }
         timePassed += System.nanoTime() - startTime;
         startTime = System.nanoTime();
-
         InputManager.getInstance().updateActions();
-        PhysicsManager.getInstance().handleCollisionEvents(PhysicsManager.getInstance().checkCollisions());
-
+        PhysicsManager.getInstance().updateCollisions();
         for (Behaviour b : behaviourList) {
             b.update();
             drawCanvas.repaint();
