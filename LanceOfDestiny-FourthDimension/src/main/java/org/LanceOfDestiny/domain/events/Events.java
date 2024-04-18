@@ -1,6 +1,5 @@
 package org.LanceOfDestiny.domain.events;
 
-
 import org.LanceOfDestiny.domain.physics.Collision;
 import org.LanceOfDestiny.domain.spells.SpellType;
 
@@ -26,22 +25,18 @@ public enum Events {
 
     LogEvent(String.class), LogIntegerEvent(Integer.class), CollisionEvent(Collision.class),
 
-    MoveStaff(Integer.class), // Right Now I dont care Integer or Not I might create different.
-
-    RotateStaff(Double.class), ResetStaff(Object.class),
+    MoveStaff(Integer.class), RotateStaff(Double.class), ResetStaff(Object.class),
 
     UpdateChance(Integer.class), // invoked with parameter -> change: change in chances
-    // ui will be subscriber of this event to show the chances at hand but it is also fine to just use player.getChances()
 
     PauseGame(Object.class), ResumeGame(Object.class),
 
-    UpdateScore(Object.class), //invoked with parameter -> change: change in score
+    UpdateScore(Object.class),
 
     GainSpell(SpellType.class), // ui will be subscriber of this event to show the spells at hand
     TryUsingSpell(SpellType.class), // invoked when the player inputs spell related keys, does not concern ui.
 
-    // These three spell activation events concern ui:
-    // invoked with true when player actually activates the spell and false when deactivated
+    // Invoked with true when player actually activates the spell and false when deactivated
     ActivateCanons(Boolean.class), ActivateOverwhelming(Boolean.class), ActivateExpansion(Boolean.class),
 
     LoseGame(Object.class), WinGame(Object.class),

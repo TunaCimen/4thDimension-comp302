@@ -61,9 +61,6 @@ public class SpellContainer extends MonoBehaviour {
 
         spells.add(spell);
         spellMap.put(spellType, true);
-
-        System.out.println(spellType + " gained.");
-        System.out.println(spellMap);
     }
 
     public void activateSpell(SpellType spellType) {
@@ -76,9 +73,6 @@ public class SpellContainer extends MonoBehaviour {
         isSpellActive = true;
         activeSpellType = spellType;
         spellEndSecond = loopExecutor.getSecondsPassed() + spellDurationSecond;
-
-        System.out.println(spellType + " activated at " + loopExecutor.getSecondsPassed());
-        System.out.println("Spell ends at " + spellEndSecond);
     }
 
     public void deactivateSpell(SpellType spellType) {
@@ -86,7 +80,6 @@ public class SpellContainer extends MonoBehaviour {
         spell.deactivateSpell();
         removeSpell(spell);
         isSpellActive = false;
-        System.out.println(spellType + "deactivated at " + loopExecutor.getSecondsPassed());
     }
 
     public void removeSpell(Spell spell) {

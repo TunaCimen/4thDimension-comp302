@@ -60,10 +60,10 @@ public class SessionManager {
     }
 
     private void initializeBarriers() {
-        for (int i = 20; i < Constants.SCREEN_WIDTH - 10; i += 30) {
-            for (int j = 20; j < Constants.SCREEN_HEIGHT - 400; j += 30) {
+        for (int i = 20; i < Constants.SCREEN_WIDTH - 30; i += 40) {
+            for (int j = 20; j < Constants.SCREEN_HEIGHT - 400; j += 40) {
                 if (j == 190) {
-                    BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.REINFORCED);
+                    BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.EXPLOSIVE);
                 } else {
                     BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.EXPLOSIVE);
                 }

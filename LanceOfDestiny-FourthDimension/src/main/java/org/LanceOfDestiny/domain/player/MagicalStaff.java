@@ -19,7 +19,6 @@ public class MagicalStaff extends GameObject {
     private final Canon canonLeft;
     private final Canon canonRight;
     protected boolean isExpanded = false;
-    private boolean isCanonActivated = false;
     private RectangleSprite defaultSprite;
     private RectangleSprite expandedSprite;
     private RectangleCollider expandedCollider;
@@ -28,8 +27,8 @@ public class MagicalStaff extends GameObject {
     public MagicalStaff() {
         super();
         this.position = Constants.STAFF_POSITION;
-
         initializeCollidersAndSprites();
+
         this.canonLeft = new Canon(this.position.add(new Vector(0, -HEIGHT)), true);
         this.canonRight = new Canon(this.position.add(new Vector(WIDTH - Constants.CANON_WIDTH, -HEIGHT)), false);
         ((RectangleSprite) canonLeft.getSprite()).anchorXShift = WIDTH / 2;
@@ -47,7 +46,6 @@ public class MagicalStaff extends GameObject {
         this.sprite = defaultSprite;
         this.defaultCollider = ColliderFactory.createRectangleCollider(this, new Vector(0, 0), ColliderType.STATIC, WIDTH, HEIGHT);
         this.collider = defaultCollider;
-
         this.expandedSprite = new RectangleSprite(this, Color.red, WIDTH * 2, HEIGHT);
         this.expandedCollider = ColliderFactory.createRectangleCollider(this, new Vector(0, 0), ColliderType.STATIC, WIDTH * 2, HEIGHT);
         expandedCollider.setEnabled(false);
@@ -72,7 +70,6 @@ public class MagicalStaff extends GameObject {
     public void rotate(Object angle) {
         int sign = ((Double) angle) > 0 ? 1 : -1;
         double newAngle = Math.min(Math.max(-0.78, getAngle() + Constants.STAFF_ANGULAR_SPEED * sign), 0.78);
-
         setAngle(newAngle);
         canonLeft.setAngle(newAngle);
         canonRight.setAngle(newAngle);
@@ -92,26 +89,22 @@ public class MagicalStaff extends GameObject {
 
     public void enableExpansion() {
         isExpanded = true;
-
         setSprite(expandedSprite);
         setCollider(expandedCollider);
-
         defaultCollider.setEnabled(false);
         expandedCollider.setEnabled(true);
     }
 
     public void disableExpansion() {
         isExpanded = false;
-
         setSprite(defaultSprite);
         setCollider(defaultCollider);
-
         expandedCollider.setEnabled(false);
         defaultCollider.setEnabled(true);
     }
 
     private void handleCanons(Object object) {
-        isCanonActivated = (boolean) object;
+        boolean isCanonActivated = (boolean) object;
         if (isCanonActivated) enableCanons();
         else disableCanons();
     }
@@ -119,20 +112,10 @@ public class MagicalStaff extends GameObject {
     public void enableCanons() {
         canonLeft.activateCanon();
         canonRight.activateCanon();
-        isCanonActivated = true;
     }
 
     public void disableCanons() {
         canonLeft.deactivateCanon();
         canonRight.deactivateCanon();
-        isCanonActivated = false;
-    }
-
-    public Canon getCanonLeft() {
-        return canonLeft;
-    }
-
-    public Canon getCanonRight() {
-        return canonRight;
     }
 }

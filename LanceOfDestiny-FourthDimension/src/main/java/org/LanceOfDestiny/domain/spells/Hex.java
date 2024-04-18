@@ -18,14 +18,12 @@ public class Hex extends GameObject {
     public final Vector velocity = new Vector(0, -5);
     private final Canon canon;
     private boolean isVisible = false;
-    private Vector initialPosition;
     private boolean isLeft;
 
     public Hex(Canon canon) {
         super();
         this.canon = canon;
-        this.initialPosition = canon.getPosition().add(new Vector(Constants.CANON_WIDTH, -HEX_RADIUS * 2));
-        this.position = initialPosition;
+        this.position = canon.getPosition().add(new Vector(Constants.CANON_WIDTH, -HEX_RADIUS * 2));
         this.isLeft = canon.isLeft;
         createColliderAndSprite();
     }
@@ -79,9 +77,7 @@ public class Hex extends GameObject {
         var canonPosition = canon.getPosition();
         var hexPosition = canonPosition.add(new Vector((double) Constants.CANON_WIDTH / 2, 0));
         var center = (isLeft ? staffPositionLeft.add(new Vector((double) Constants.STAFF_WIDTH / 2, 0)) : staffPositionRight.subtract(new Vector((double) Constants.STAFF_WIDTH / 2, 0)));
-
         return calculateRotatedPosition(center, hexPosition, angle);
-
     }
 
     public Vector calculateRotatedPosition(Vector center, Vector oldPosition, double angle) {
