@@ -9,18 +9,9 @@ import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
 import org.LanceOfDestiny.domain.player.Player;
-import org.LanceOfDestiny.domain.sprite.ImageLibrary;
-import org.LanceOfDestiny.domain.sprite.ImageOperations;
 import org.LanceOfDestiny.ui.DrawCanvas;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class SessionManager {
 
@@ -60,13 +51,13 @@ public class SessionManager {
     }
 
     private void initializeBarriers() {
-        for (int i = 20; i < Constants.SCREEN_WIDTH - 10; i += 30) {
-            for (int j = 20; j < Constants.SCREEN_HEIGHT - 400; j += 30) {
-                    if (i % 20 == 0) {
-                        BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.EXPLOSIVE);
-                    } else {
-                        BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.REWARDING);
-                    }
+        for (int i = 20; i < Constants.SCREEN_WIDTH - 30; i += 40) {
+            for (int j = 20; j < Constants.SCREEN_HEIGHT - 400; j += 40) {
+                if (j == 190) {
+                    BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.REWARDING);
+                } else {
+                    BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.REWARDING);
+                }
             }
         }
     }

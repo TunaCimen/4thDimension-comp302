@@ -1,6 +1,7 @@
 package org.LanceOfDestiny.domain.managers;
 
 import org.LanceOfDestiny.domain.barriers.Barrier;
+import org.LanceOfDestiny.domain.events.Events;
 
 import java.util.ArrayList;
 
@@ -27,6 +28,7 @@ public class BarrierManager {
 
     public void removeBarrier(Barrier barrier) {
         barriers.remove(barrier);
+        if(barriers.isEmpty()) Events.WinGame.invoke();
     }
 
     public void removeAllBarriers() {

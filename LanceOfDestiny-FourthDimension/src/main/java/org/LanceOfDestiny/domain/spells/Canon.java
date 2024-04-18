@@ -4,6 +4,8 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.looper.LoopExecutor;
 import org.LanceOfDestiny.domain.managers.SessionManager;
+import org.LanceOfDestiny.domain.physics.ColliderFactory;
+import org.LanceOfDestiny.domain.physics.ColliderType;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
 
@@ -13,32 +15,37 @@ import java.util.Queue;
 
 public class Canon extends GameObject {
 
-    public static final double CANON_HEIGHT = Constants.CANON_HEIGHT;
-    public static final int CANON_WIDTH = Constants.CANON_WIDTH;
+    public static final double HEIGHT = Constants.CANON_HEIGHT;
+    public static final int WIDTH = Constants.CANON_WIDTH;
 
-    public final double period = 0.5;
+    public final double period = 0.2;
     private final LoopExecutor loopExecutor;
     public boolean isActive = false;
     public boolean isLeft;
-    public Queue<Hex> hexes;
+    public Queue<Hex> hexes = new LinkedList<>();
     private double finishTime;
 
     public Canon(Vector position, boolean isLeft) {
         super();
         this.position = position;
-        this.sprite = new RectangleSprite(this, Color.DARK_GRAY, CANON_WIDTH, (int) CANON_HEIGHT);
         this.isLeft = isLeft;
-        if (!isActive) getSprite().setVisible(false);
         this.loopExecutor = SessionManager.getInstance().getLoopExecutor();
         finishTime = 0;
-        hexes = new LinkedList<>();
+        createColliderAndSprite();
         createHexes();
+    }
+
+    private void createColliderAndSprite() {
+        this.sprite = new RectangleSprite(this, Color.DARK_GRAY, WIDTH, (int) HEIGHT);
+        this.collider = ColliderFactory.createRectangleCollider(this, Vector.getZeroVector(), ColliderType.STATIC, WIDTH, HEIGHT);
+        collider.setEnabled(false);
+        sprite.setVisible(false);
     }
 
     @Override
     public void update() {
-        if (!isActive)
-            return;
+        super.update();
+        if (!isActive) return;
         if (finishTime < loopExecutor.getSecondsPassed()) {
             shootHex();
         }
@@ -48,8 +55,7 @@ public class Canon extends GameObject {
         finishTime = (double) (loopExecutor.getSecondsPassed()) + period;
         var hex = hexes.poll();
         hexes.add(hex);
-        if (hex != null)
-            hex.shoot();
+        if (hex != null) hex.shoot();
 
     }
 

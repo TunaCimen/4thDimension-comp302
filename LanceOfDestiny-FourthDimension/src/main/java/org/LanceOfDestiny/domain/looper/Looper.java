@@ -6,8 +6,6 @@ import org.LanceOfDestiny.domain.Constants;
 import javax.swing.*;
 
 public abstract class Looper {
-
-
     protected boolean active = false;
 
     protected abstract void routine() throws LoopEndedException;

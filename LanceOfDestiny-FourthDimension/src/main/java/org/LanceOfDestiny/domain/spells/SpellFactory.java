@@ -5,7 +5,6 @@ public class SpellFactory {
     private static SpellFactory instance;
 
     private SpellFactory() {
-
     }
 
     public static SpellFactory getInstance() {

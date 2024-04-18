@@ -8,8 +8,6 @@ import org.LanceOfDestiny.domain.physics.ColliderFactory;
 import org.LanceOfDestiny.domain.physics.ColliderType;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.sprite.BallSprite;
-import org.LanceOfDestiny.domain.sprite.ImageLibrary;
-import org.LanceOfDestiny.domain.sprite.ImageOperations;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
 
 import java.awt.*;
@@ -36,14 +34,6 @@ public abstract class Barrier extends GameObject {
         this(position, type, 1);
     }
 
-    @Override
-    public void start() {
-        super.start();
-        if (isMoving) {
-            getCollider().setVelocity(new Vector(direction, 0));
-        }
-    }
-
     public void createColliderAndSprite() {
         if (this instanceof ExplosiveBarrier) {
             this.collider = ColliderFactory.createBallCollider(this, new Vector(0, 1), ColliderType.STATIC, Constants.EXPLOSIVE_RADIUS);
@@ -52,6 +42,14 @@ public abstract class Barrier extends GameObject {
         }
         this.collider = ColliderFactory.createRectangleCollider(this, Vector.getZeroVector(), ColliderType.STATIC, WIDTH, HEIGHT);
         this.sprite = new RectangleSprite(this, Color.DARK_GRAY, WIDTH, HEIGHT);
+    }
+
+    @Override
+    public void start() {
+        super.start();
+        if (isMoving) {
+            getCollider().setVelocity(new Vector(direction, 0));
+        }
     }
 
     @Override
@@ -85,5 +83,11 @@ public abstract class Barrier extends GameObject {
         return hitsLeft <= 0;
     }
 
+    public BarrierTypes getBarrierType() {
+        return barrierType;
+    }
 
+    public int getHitsLeft() {
+        return hitsLeft;
+    }
 }

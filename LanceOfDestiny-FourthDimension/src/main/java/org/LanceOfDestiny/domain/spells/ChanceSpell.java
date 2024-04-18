@@ -6,15 +6,4 @@ public class ChanceSpell extends Spell{
         super();
         setSpellType(SpellType.CHANCE);
     }
-
-    @Override
-    public void activateSpell() {
-        super.activateSpell();
-        // TODO: invoke event to increase chance
-    }
-
-    @Override
-    public void deactivateSpell() {
-        return;
-    }
 }

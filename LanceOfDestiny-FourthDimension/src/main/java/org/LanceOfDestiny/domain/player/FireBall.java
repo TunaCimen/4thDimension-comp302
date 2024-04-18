@@ -29,7 +29,6 @@ public class FireBall extends GameObject {
         this.currentSpeed = defaultSpeed;
         this.collider = ColliderFactory.createBallCollider(this, Vector.getZeroVector(), ColliderType.DYNAMIC, radius);
         this.ballSprite = new BallSprite(this, Color.black, Constants.FIREBALL_RADIUS);
-        System.out.println();
         this.getSprite().addImage(ImageOperations.resizeImage(ImageLibrary.FireBall.getImage()
                 ,ballSprite.width()*2
                 ,ballSprite.height()*2));

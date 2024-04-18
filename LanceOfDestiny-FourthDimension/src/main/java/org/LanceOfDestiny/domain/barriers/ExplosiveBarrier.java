@@ -22,11 +22,8 @@ public class ExplosiveBarrier extends Barrier {
 
     public ExplosiveBarrier(Vector position) {
         super(position, BarrierTypes.EXPLOSIVE);
-        this.position = new Vector(position.getX() + Constants.EXPLOSIVE_RADIUS*2, position.getY() + Constants.EXPLOSIVE_RADIUS);
         if ((new Random()).nextDouble() <= MOVE_PROBABILITY) isMoving = true;
-        this.getSprite().color = new Color(0,0,0,0);
-        this.getSprite().addImage(ImageOperations.resizeImage(ImageLibrary.ExplosiveBarrier.getImage(), sprite.width()*2,sprite.height()*2));
-        this.getCollider().setTrigger(false);
+        getSprite().color = Color.RED;
         getSprite().addImage(ImageOperations.resizeImageToSprite(ImageLibrary.Cannon.getImage(), getSprite()));
         initPos = getPosition();
     }
@@ -55,18 +52,13 @@ public class ExplosiveBarrier extends Barrier {
         super.onCollisionEnter(collision);
         var other = collision.getOther(this);
 
-        if (other instanceof FireBall) {
-            reduceLife();
+        if (other instanceof FireBall || other instanceof Hex) {
+            isFalling = true;
+            // allows the barrier to actually fall
+            getCollider().setVelocity(new Vector(0, 2));
+            getCollider().setTrigger(true);
+            this.addScore();
         }
-    }
-
-    @Override
-    public void reduceLife() {
-        isFalling = true;
-        // allows the barrier to actually fall
-        getCollider().setVelocity(new Vector(0, 2));
-        getCollider().setTrigger(true);
-        this.addScore();
     }
 
     @Override
