@@ -38,6 +38,7 @@ public class FireBall extends GameObject {
     }
 
     private void shootBall() {
+        if(!isAttached) return;
         isAttached = false;
         Vector velocity = Vector.getVelocityByAngleAndMagnitude(defaultSpeed, magicalStaff.getAngle());
         collider.setVelocity(velocity);
