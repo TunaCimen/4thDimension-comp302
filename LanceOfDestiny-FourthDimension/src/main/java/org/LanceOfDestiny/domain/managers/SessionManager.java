@@ -62,13 +62,11 @@ public class SessionManager {
     private void initializeBarriers() {
         for (int i = 20; i < Constants.SCREEN_WIDTH - 10; i += 30) {
             for (int j = 20; j < Constants.SCREEN_HEIGHT - 400; j += 30) {
-
                     if (i % 20 == 0) {
-                        BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.REWARDING);
+                        BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.EXPLOSIVE);
                     } else {
                         BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.SIMPLE);
                     }
-
             }
         }
     }

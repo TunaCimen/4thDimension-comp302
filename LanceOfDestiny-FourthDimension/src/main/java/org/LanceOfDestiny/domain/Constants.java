@@ -7,7 +7,7 @@ public class Constants {
     public static final int SCREEN_WIDTH = 1400; //can be changed later
     public static final int SCREEN_HEIGHT = 720; //can be changed later
     public static final int L = SCREEN_WIDTH / 10;
-    public static final float STAFF_SPEED = L * UPDATE_RATE * 4;
+    public static final float STAFF_SPEED = L * UPDATE_RATE * 3;
     public static final int STAFF_WIDTH = L;
     public static final Vector STAFF_POSITION = new Vector((double) SCREEN_WIDTH / 2 - ((double) STAFF_WIDTH / 2), SCREEN_HEIGHT-150);
     public static final int BARRIER_HEIGHT = 20;

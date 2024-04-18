@@ -15,9 +15,9 @@ public class PhysicsManager {
     private static PhysicsManager instance;
     private List<Collider> colliders;
     // this will be made non-zero if we need predictive collision detection code
-    private double framesAhead = 0.8;
+    private double framesAhead = 3;
     private int currentFrame = 0;
-    private int frameTreshold = 10;
+    private int frameTreshold = 0;
     private Map<String, Integer> recentCollisions;  // Stores collision pairs with the frame of their last occurrence
 
     private PhysicsManager() {
@@ -125,7 +125,6 @@ public class PhysicsManager {
     private void processBoundaryCollisions(List<Collision> detectedCollisions) {
         for (Collider collider : colliders) {
             if (!collider.isEnabled()) continue;
-
             if (collider instanceof BallCollider ballCollider) {
                 checkBoundaryCollision(ballCollider, detectedCollisions);
             } else if (collider instanceof RectangleCollider rectangleCollider) {
@@ -237,11 +236,6 @@ public class PhysicsManager {
             handleRegularBounce(collision);
             return;
         }
-        if (!otherObjectDirection.isSameDirectionX(fireballVelocity) && !otherObjectDirection.isSameDirectionY(fireballVelocity)) {
-            // will hopefully cause 180 degree return
-            fireball.getCollider().setVelocity(fireballVelocity.scale(-1));
-            return;
-        }
         if (otherObjectDirection.isPerpendicular(fireballVelocity)) {
             // Calculate the angle of reflection at 45 degrees relative to the line of movement direction
             double angleOfReflection = Math.PI / 4; // 45 degrees in radians
@@ -253,6 +247,12 @@ public class PhysicsManager {
             fireball.getCollider().setVelocity(rotatedVector.scale(fireballSpeed));
             return;
         }
+        if (!otherObjectDirection.isSameDirectionX(fireballVelocity) && !otherObjectDirection.isSameDirectionY(fireballVelocity)) {
+            // will hopefully cause 180 degree return
+            fireball.getCollider().setVelocity(fireballVelocity.scale(-1));
+            return;
+        }
+
         // separately checking for x and y directions
         if (otherObjectDirection.isSameDirectionX(fireballVelocity)) {
             fireball.getCollider().setVelocity(fireballVelocity.add(new Vector(fireballVelocity.getDirectionSignVector().getX() + speedIncrease, 0)));
@@ -267,6 +267,11 @@ public class PhysicsManager {
     private static void handleRegularBounce(Collision collision) {
         Vector reflection1 = getReflection(collision, collision.getCollider1());
         Vector reflection2 = getReflection(collision, collision.getCollider2());
+        if ((collision.getCollider1().gameObject instanceof FireBall && collision.getCollider2().gameObject instanceof MagicalStaff) ||(collision.getCollider1().gameObject instanceof MagicalStaff && collision.getCollider2().gameObject instanceof FireBall)) {
+            System.out.println("New collisionnnnn");
+            System.out.println(reflection1);
+            System.out.println(reflection2);
+        }
         // Apply bounce only if the colliders are dynamic and it's not an overwhelming FireBall collision
         if (collision.getCollider1().getColliderType() == ColliderType.DYNAMIC) {
             collision.getCollider1().setVelocity(reflection1);
@@ -347,6 +352,9 @@ public class PhysicsManager {
         if (distance < ball.getRadius()) {
             // Normal vector calculation from the closest point back to the circle center
             double magnitude = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+            if (magnitude == 0) {
+                return null;
+            }
             Vector normal = new Vector(distanceX / magnitude, distanceY / magnitude);
 
             // Rotate the normal vector back to align with the world coordinates

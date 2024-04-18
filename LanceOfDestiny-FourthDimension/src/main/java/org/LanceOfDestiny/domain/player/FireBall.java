@@ -95,13 +95,18 @@ public class FireBall extends GameObject {
     @Override
     public void onCollisionEnter(Collision collision) {
         super.onCollisionEnter(collision);
+
+        GameObject other = collision.getOther(this);
+        if (other instanceof MagicalStaff) {
+            int x = 31;
+        }
         if (!isOverwhelming()) {
             return;
         }
-        var other = collision.getOther(this);
         if (other instanceof Barrier) {
             ((Barrier) other).kill();
         }
+
     }
 
 }

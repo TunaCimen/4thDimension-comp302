@@ -20,6 +20,7 @@ public class ExplosiveBarrier extends Barrier {
 
     public ExplosiveBarrier(Vector position) {
         super(position, BarrierTypes.EXPLOSIVE);
+        this.position = new Vector(position.getX() + 2 * Constants.EXPLOSIVE_RADIUS, position.getY() + 1.5 * Constants.EXPLOSIVE_RADIUS);
         if ((new Random()).nextDouble() <= MOVE_PROBABILITY) isMoving = true;
         getSprite().color = Color.RED;
         this.getCollider().setTrigger(false);
