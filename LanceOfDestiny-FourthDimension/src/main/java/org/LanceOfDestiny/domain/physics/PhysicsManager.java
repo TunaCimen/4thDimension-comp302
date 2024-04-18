@@ -14,7 +14,7 @@ import java.util.Map;
 public class PhysicsManager {
     private static PhysicsManager instance;
     private List<Collider> colliders;
-    // this will be made non-zero if need predictive collision detection code
+    // this will be made non-zero if we need predictive collision detection code
     private double framesAhead = 0.8;
     private int currentFrame = 0;
     private int frameTreshold = 10;
@@ -31,14 +31,10 @@ public class PhysicsManager {
         }
         return instance;
     }
-
-    private static Vector getReflection(Collision collision, boolean isFirstCollider) {
-        Collider collider;
-        if (isFirstCollider) {
-            collider = collision.getCollider1();
-        } else {
-            collider = collision.getCollider2();
-        }
+    public void updateCollisions() {
+        handleCollisionEvents(PhysicsManager.getInstance().checkCollisions());
+    }
+    private static Vector getReflection(Collision collision, Collider collider) {
         Vector incoming = collider.getVelocity();
         Vector normal = collision.getNormal();
         Vector reflection = incoming.subtract(normal.scale(2).scale(incoming.dotProduct(normal)));
@@ -61,7 +57,7 @@ public class PhysicsManager {
         colliders.remove(collider);
     }
 
-    public List<Collision> checkCollisions() {
+    private List<Collision> checkCollisions() {
         currentFrame++; // Assume a method to get the current frame
         List<Collision> detectedCollisions = new ArrayList<>();
         processBoundaryCollisions(detectedCollisions);
@@ -94,15 +90,16 @@ public class PhysicsManager {
     }
 
     private boolean checkAndHandleCollision(Collider c1, Collider c2, List<Collision> collisions) {
-        Vector normal = null;
+        Vector normal;
         if (isRectRectCollision(c1, c2)) {
             normal = getRectRectCollisionNormal((RectangleCollider) c1, (RectangleCollider) c2);
         } else if (isBallBallCollision(c1, c2)) {
             normal = getBallBallCollisionNormal((BallCollider) c1, (BallCollider) c2);
         } else if (isBallRectCollision(c1, c2)) {
             normal = getRectangleToCircleCollisionNormal(c1, c2);
+        } else {
+            normal = null;
         }
-
         if (normal != null) {
             collisions.add(new Collision(c1, c2, normal));
             return true;
@@ -131,9 +128,36 @@ public class PhysicsManager {
 
             if (collider instanceof BallCollider ballCollider) {
                 checkBoundaryCollision(ballCollider, detectedCollisions);
+            } else if (collider instanceof RectangleCollider rectangleCollider) {
+                checkBoundaryCollision(rectangleCollider, detectedCollisions);
             }
         }
     }
+
+    private void checkBoundaryCollision(RectangleCollider rectangleCollider, List<Collision> detectedCollisions) {
+        Vector pos = rectangleCollider.getPosition(framesAhead); // Assuming the position is the center of the rectangle
+
+        // Calculate boundaries of the rectangle
+        double left = pos.getX() ;
+        double right = pos.getX() + rectangleCollider.getWidth();
+        double top = pos.getY();
+        double bottom = pos.getY() + rectangleCollider.getHeight();
+
+        // Check each boundary and add collisions as necessary
+        if (left <= 0) { // Left boundary collision
+            detectedCollisions.add(new Collision(rectangleCollider, null, new Vector(1, 0))); // Normal pointing right
+        }
+        if (right >= Constants.SCREEN_WIDTH) { // Right boundary collision
+            detectedCollisions.add(new Collision(rectangleCollider, null, new Vector(-1, 0))); // Normal pointing left
+        }
+        if (top <= 0) { // Top boundary collision
+            detectedCollisions.add(new Collision(rectangleCollider, null, new Vector(0, 1))); // Normal pointing down
+        }
+        if (bottom >= Constants.SCREEN_HEIGHT) { // Bottom boundary collision
+            detectedCollisions.add(new Collision(rectangleCollider, null, new Vector(0, -1))); // Normal pointing up
+        }
+    }
+
 
     private void checkBoundaryCollision(BallCollider ballCollider, List<Collision> detectedCollisions) {
         // Boundary checks for each direction using helper method
@@ -151,7 +175,7 @@ public class PhysicsManager {
         }
     }
 
-    public void handleCollisionEvents(List<Collision> collisions) {
+    private void handleCollisionEvents(List<Collision> collisions) {
         for (Collision collision : collisions) {
             GameObject gameObject1 = collision.getCollider1().getGameObject();
             GameObject gameObject2 = collision.getCollider2() != null ? collision.getCollider2().getGameObject() : null;
@@ -168,7 +192,6 @@ public class PhysicsManager {
             } else {
                 // Handle physical collision responses
                 handleBounce(collision);
-
                 // Invoke onCollisionEnter on the first game object
                 gameObject1.onCollisionEnter(collision);
 
@@ -181,31 +204,99 @@ public class PhysicsManager {
     }
 
     private void handleBounce(Collision collision) {
-        // Check if either collider is a FireBall and if it is overwhelming
-        boolean isOverwhelmingFireBallBarrierCollision =
-                ((collision.getCollider1().getGameObject() instanceof FireBall && ((FireBall)collision.getCollider1().getGameObject()).isOverwhelming()) &&
-                        (collision.getCollider2() != null && collision.getCollider2().getGameObject() instanceof Barrier)) ||
-                        ((collision.getCollider2() != null && collision.getCollider2().getGameObject() instanceof FireBall && ((FireBall)collision.getCollider2().getGameObject()).isOverwhelming()) &&
-                                (collision.getCollider1().getGameObject() instanceof Barrier));
         // Screen Boundary Collision
         if (collision.getCollider2() == null) {
-            Vector reflection = getReflection(collision, true);
-            collision.getCollider1().setVelocity(reflection);
-        } else {
-            // Normal collision but check for FireBall being overwhelming
-            if (!isOverwhelmingFireBallBarrierCollision) {
-                Vector reflection1 = getReflection(collision, true);
-                Vector reflection2 = getReflection(collision, false);
-
-                // Apply bounce only if the colliders are dynamic and it's not an overwhelming FireBall collision
-                if (collision.getCollider1().getColliderType() == ColliderType.DYNAMIC) {
-                    collision.getCollider1().setVelocity(reflection1);
-                }
-                if (collision.getCollider2().getColliderType() == ColliderType.DYNAMIC) {
-                    collision.getCollider2().setVelocity(reflection2);
-                }
-            }
+            handleScreenBounce(collision);
+            return;
         }
+        // Normal collision but check for FireBall being overwhelming
+        if (isOverwhelmingFireballBarrierCollision(collision)) {
+            return; // do not bounce the ball
+        }
+        if (!isFireballCollision(collision)) {
+            handleRegularBounce(collision); // currently this should do nothing since only fireball is dynamic
+            return;
+        }
+        // do the annoying calculations here
+        handleFireballBounce(collision);
+    }
+
+    private static void handleScreenBounce(Collision collision) {
+        Vector reflection = getReflection(collision, collision.getCollider1());
+        collision.getCollider1().setVelocity(reflection);
+    }
+
+    private void handleFireballBounce(Collision collision) {
+        FireBall fireball = getFireballFromCollision(collision);
+        GameObject otherGameObject = collision.getOther(fireball);
+        Vector fireballVelocity = fireball.getCollider().getVelocity();
+        Vector otherVelocity = otherGameObject.getCollider().getVelocity();
+        Vector otherObjectDirection = otherGameObject.getDirection();
+        final double speedIncrease = 5 * Constants.UPDATE_RATE;
+        if (otherVelocity.isZero()) {
+            handleRegularBounce(collision);
+            return;
+        }
+        if (!otherObjectDirection.isSameDirectionX(fireballVelocity) && !otherObjectDirection.isSameDirectionY(fireballVelocity)) {
+            // will hopefully cause 180 degree return
+            fireball.getCollider().setVelocity(fireballVelocity.scale(-1));
+            return;
+        }
+        if (otherObjectDirection.isPerpendicular(fireballVelocity)) {
+            // Calculate the angle of reflection at 45 degrees relative to the line of movement direction
+            double angleOfReflection = Math.PI / 4; // 45 degrees in radians
+            Vector reflectionDirection = otherVelocity.normalize();
+            // Rotate the reflection direction by 45 degrees to either side
+            Vector rotatedVector = reflectionDirection.rotateVector(angleOfReflection);
+            // Set the new velocity with the same magnitude as the original velocity
+            double fireballSpeed = fireballVelocity.magnitude();
+            fireball.getCollider().setVelocity(rotatedVector.scale(fireballSpeed));
+            return;
+        }
+        // separately checking for x and y directions
+        if (otherObjectDirection.isSameDirectionX(fireballVelocity)) {
+            fireball.getCollider().setVelocity(fireballVelocity.add(new Vector(fireballVelocity.getDirectionSignVector().getX() + speedIncrease, 0)));
+        }
+        if (otherObjectDirection.isSameDirectionY(fireballVelocity)) {
+            fireball.getCollider().setVelocity(fireballVelocity.add(new Vector(0,fireballVelocity.getDirectionSignVector().getY() + speedIncrease)));
+        }
+        handleRegularBounce(collision);
+    }
+
+
+    private static void handleRegularBounce(Collision collision) {
+        Vector reflection1 = getReflection(collision, collision.getCollider1());
+        Vector reflection2 = getReflection(collision, collision.getCollider2());
+        // Apply bounce only if the colliders are dynamic and it's not an overwhelming FireBall collision
+        if (collision.getCollider1().getColliderType() == ColliderType.DYNAMIC) {
+            collision.getCollider1().setVelocity(reflection1);
+        }
+        if (collision.getCollider2().getColliderType() == ColliderType.DYNAMIC) {
+            collision.getCollider2().setVelocity(reflection2);
+        }
+    }
+
+    private boolean isFireballCollision(Collision collision) {
+        return (collision.getCollider1().getGameObject() instanceof FireBall ||
+                (collision.getCollider2() != null && collision.getCollider2().getGameObject() instanceof FireBall));
+    }
+
+
+    private FireBall getFireballFromCollision(Collision collision) {
+        if (collision.getCollider1().getGameObject() instanceof FireBall) {
+            return (FireBall) collision.getCollider1().getGameObject();
+        } else if (collision.getCollider2() != null && collision.getCollider2().getGameObject() instanceof FireBall) {
+            return (FireBall) collision.getCollider2().getGameObject();
+        }
+        return null; // No FireBall involved in the collision
+    }
+
+
+    private static boolean isOverwhelmingFireballBarrierCollision(Collision collision) {
+        return ((collision.getCollider1().getGameObject() instanceof FireBall && ((FireBall) collision.getCollider1().getGameObject()).isOverwhelming()) &&
+                (collision.getCollider2() != null && collision.getCollider2().getGameObject() instanceof Barrier)) ||
+                ((collision.getCollider2() != null && collision.getCollider2().getGameObject() instanceof FireBall && ((FireBall) collision.getCollider2().getGameObject()).isOverwhelming()) &&
+                        (collision.getCollider1().getGameObject() instanceof Barrier));
     }
 
 
@@ -239,8 +330,8 @@ public class PhysicsManager {
 
         // Apply reverse rotation to align to the rectangle's axis
         double angle = -rectangle.getAngle();
-        double rotatedX = (double) (translatedX * Math.cos(angle) - translatedY * Math.sin(angle));
-        double rotatedY = (double) (translatedX * Math.sin(angle) + translatedY * Math.cos(angle));
+        double rotatedX = (translatedX * Math.cos(angle) - translatedY * Math.sin(angle));
+        double rotatedY = (translatedX * Math.sin(angle) + translatedY * Math.cos(angle));
 
         // Determine the closest point on the axis-aligned rectangle in local space
         double rectHalfWidth = rectangle.getWidth() / 2.0f;
@@ -251,16 +342,16 @@ public class PhysicsManager {
         // Calculate the distance from the closest point to the rotated circle's center
         double distanceX = rotatedX - closestX;
         double distanceY = rotatedY - closestY;
-        double distance = (double) Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+        double distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
         if (distance < ball.getRadius()) {
             // Normal vector calculation from the closest point back to the circle center
-            double magnitude = (double) Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+            double magnitude = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
             Vector normal = new Vector(distanceX / magnitude, distanceY / magnitude);
 
             // Rotate the normal vector back to align with the world coordinates
-            double normalWorldX = (double) (normal.getX() * Math.cos(-angle) - normal.getY() * Math.sin(-angle));
-            double normalWorldY = (double) (normal.getX() * Math.sin(-angle) + normal.getY() * Math.cos(-angle));
+            double normalWorldX = (normal.getX() * Math.cos(-angle) - normal.getY() * Math.sin(-angle));
+            double normalWorldY = (normal.getX() * Math.sin(-angle) + normal.getY() * Math.cos(-angle));
 
             return new Vector(normalWorldX, normalWorldY);  // Return the transformed normal vector
         }

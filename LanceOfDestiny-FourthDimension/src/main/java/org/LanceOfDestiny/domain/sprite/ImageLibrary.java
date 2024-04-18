@@ -1,7 +1,5 @@
 package org.LanceOfDestiny.domain.sprite;
 
-import org.LanceOfDestiny.domain.spells.RewardBox;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -9,17 +7,21 @@ import java.io.IOException;
 
 public enum ImageLibrary {
 
-    FireBall("LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/Resources/Image/FireBallImage.png"),
-    RewardingBarrier("LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/Resources/Image/200Greengem 2.png"),
-    Heart("LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/Resources/Image/200Heart.png"),
-    MagicalStaff("LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/Resources/Image/200Player.png"),
-    RewardBox("LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/Resources/Image/RewardBox.png");
+    FireBall("Image/Fireball.png"),
+    RewardingBarrier("Image/200Greengem.png"),
+    Heart("Image/200Heart.png"),
+    MagicalStaff("Image/200Player.png"),
+    RewardBox("Image/RewardBox.png"),
+    CannonSpell("Image/CannonSpell.png");
 
     private final BufferedImage image;
 
     ImageLibrary(String path){
         try {
-            this.image = ImageIO.read(new File(path));
+            
+            File f = new File(path);
+            this.image = ImageIO.read(f);
+            if(this.image == null)throw new RuntimeException("Image not found but loaded");
         } catch (IOException e) {
             throw new RuntimeException(String.format("Path : %s doesnt exist", path));
         }

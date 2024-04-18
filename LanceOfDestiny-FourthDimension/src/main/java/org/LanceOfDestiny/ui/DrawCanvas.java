@@ -2,6 +2,7 @@ package org.LanceOfDestiny.ui;
 
 import org.LanceOfDestiny.domain.behaviours.Behaviour;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
+import org.LanceOfDestiny.domain.spells.Canon;
 import org.LanceOfDestiny.domain.sprite.BallSprite;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
 import org.LanceOfDestiny.domain.sprite.Sprite;

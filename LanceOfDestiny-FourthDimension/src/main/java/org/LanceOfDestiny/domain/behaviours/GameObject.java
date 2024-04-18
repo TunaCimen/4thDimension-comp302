@@ -18,10 +18,12 @@ public abstract class GameObject extends Behaviour {
     protected Collider collider;
     protected Sprite sprite;
     protected double angle;
+    public GameObject parent;
 
     public GameObject() {
         super();
         gameObject = this;
+        parent = this;
         GameObject.gameObjects.add(this);
         this.sprite = new RectangleSprite(this, Color.magenta, 0, 0);
     }
@@ -33,6 +35,7 @@ public abstract class GameObject extends Behaviour {
 
     public void update() {
         super.update();
+        setPosition((getPosition().add(getCollider().getVelocity())));
     }
 
     public void destroy() {
@@ -80,5 +83,13 @@ public abstract class GameObject extends Behaviour {
 
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
+    }
+
+    public Vector getDirection() {
+        return getCollider().getVelocity().normalize();
+    }
+  
+    public void setParent(GameObject gameObject) {
+        this.parent = gameObject;
     }
 }

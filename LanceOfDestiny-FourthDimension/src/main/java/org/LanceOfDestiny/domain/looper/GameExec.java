@@ -33,13 +33,15 @@ public class GameExec extends Behaviour {
 
     @Override
     public void update() {
-        if (isPaused) return;
+
+        if (isPaused) {
+            startTime = System.nanoTime();
+            return;
+        }
         timePassed += System.nanoTime() - startTime;
         startTime = System.nanoTime();
-
         InputManager.getInstance().updateActions();
-        PhysicsManager.getInstance().handleCollisionEvents(PhysicsManager.getInstance().checkCollisions());
-
+        PhysicsManager.getInstance().updateCollisions();
         for (Behaviour b : behaviourList) {
             b.update();
             drawCanvas.repaint();

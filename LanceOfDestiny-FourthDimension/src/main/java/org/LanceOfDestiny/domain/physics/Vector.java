@@ -26,7 +26,7 @@ public class Vector {
     }
 
     public Vector normalize() {
-        double length = (double) Math.sqrt(getX() * getX() + getY() * getY());
+        double length = magnitude();
         if (length != 0) {
             return new Vector(getX() / length, getY() / length);
         }
@@ -62,7 +62,46 @@ public class Vector {
         double vy = speed * Math.sin(angle);
         return new Vector(vx,vy);
     }
+    public boolean isZero() {
+        return getX() == 0 && getY() == 0;
+    }
+
+    public boolean isSameDirectionX(Vector other) {
+        return (other.getX() > 0 && getX() > 0) || (other.getX() < 0 && getX() < 0);
+    }
+
+    public boolean isSameDirectionY(Vector other) {
+        return (other.getY() > 0 && getY() > 0) || (other.getY() < 0 && getY() < 0);
+    }
+
     public String toString() {
         return "(" + x + ", " + y + ")";
+    }
+    public boolean isPerpendicular(Vector other) {
+        // Two vectors are perpendicular if their dot product is zero
+        return Math.abs(this.dotProduct(other)) < 1e-10;  // Use a small threshold to handle floating point precision issues
+    }
+
+    public Vector rotateVector(double angle) {
+        double cosTheta = Math.cos(angle);
+        double sinTheta = Math.sin(angle);
+        return new Vector(
+                getX() * cosTheta - getY() * sinTheta,
+                getX() * sinTheta + getY() * cosTheta
+        );
+    }
+
+    public double magnitude() {
+        return Math.sqrt(getX() * getX() + getY() * getY());
+    }
+
+    public Vector getDirectionSignVector() {
+        int xSign;
+        int ySign;
+        int x = (int) getX();
+        int y = (int) getY();
+        xSign = Integer.compare(x, 0);
+        ySign = Integer.compare(y, 0);
+        return new Vector(xSign, ySign);
     }
 }
