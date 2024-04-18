@@ -74,10 +74,6 @@ public class Vector {
         return (other.getY() > 0 && getY() > 0) || (other.getY() < 0 && getY() < 0);
     }
 
-    public Vector getDirectionVector() {
-        return new Vector(getX() > 0 ? 1 : -1,
-                          getY() > 0 ? 1 : -1);
-    }
     public String toString() {
         return "(" + x + ", " + y + ")";
     }
@@ -99,4 +95,13 @@ public class Vector {
         return Math.sqrt(getX() * getX() + getY() * getY());
     }
 
+    public Vector getDirectionSignVector() {
+        int xSign;
+        int ySign;
+        int x = (int) getX();
+        int y = (int) getY();
+        xSign = Integer.compare(x, 0);
+        ySign = Integer.compare(y, 0);
+        return new Vector(xSign, ySign);
+    }
 }

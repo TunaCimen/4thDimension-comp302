@@ -192,9 +192,6 @@ public class PhysicsManager {
             } else {
                 // Handle physical collision responses
                 handleBounce(collision);
-                if (gameObject2 == null) {
-                    int x =3123;
-                }
                 // Invoke onCollisionEnter on the first game object
                 gameObject1.onCollisionEnter(collision);
 
@@ -234,17 +231,18 @@ public class PhysicsManager {
         GameObject otherGameObject = collision.getOther(fireball);
         Vector fireballVelocity = fireball.getCollider().getVelocity();
         Vector otherVelocity = otherGameObject.getCollider().getVelocity();
+        Vector otherObjectDirection = otherGameObject.getDirection();
         final double speedIncrease = 5 * Constants.UPDATE_RATE;
         if (otherVelocity.isZero()) {
             handleRegularBounce(collision);
             return;
         }
-        if (!otherVelocity.isSameDirectionX(fireballVelocity) && otherVelocity.isSameDirectionY(fireballVelocity)) {
+        if (!otherObjectDirection.isSameDirectionX(fireballVelocity) && !otherObjectDirection.isSameDirectionY(fireballVelocity)) {
             // will hopefully cause 180 degree return
             fireball.getCollider().setVelocity(fireballVelocity.scale(-1));
             return;
         }
-        if (otherGameObject.getCollider().getVelocity().isPerpendicular(fireball.getCollider().getVelocity())) {
+        if (otherObjectDirection.isPerpendicular(fireballVelocity)) {
             // Calculate the angle of reflection at 45 degrees relative to the line of movement direction
             double angleOfReflection = Math.PI / 4; // 45 degrees in radians
             Vector reflectionDirection = otherVelocity.normalize();
@@ -256,11 +254,11 @@ public class PhysicsManager {
             return;
         }
         // separately checking for x and y directions
-        if (otherVelocity.isSameDirectionX(fireballVelocity)) {
-            fireball.getCollider().setVelocity(fireballVelocity.add(new Vector(fireballVelocity.getDirectionVector().getX() + speedIncrease, 0)));
+        if (otherObjectDirection.isSameDirectionX(fireballVelocity)) {
+            fireball.getCollider().setVelocity(fireballVelocity.add(new Vector(fireballVelocity.getDirectionSignVector().getX() + speedIncrease, 0)));
         }
-        if (otherVelocity.isSameDirectionY(fireballVelocity)) {
-            fireball.getCollider().setVelocity(fireballVelocity.add(new Vector(0,fireballVelocity.getDirectionVector().getY() + speedIncrease)));
+        if (otherObjectDirection.isSameDirectionY(fireballVelocity)) {
+            fireball.getCollider().setVelocity(fireballVelocity.add(new Vector(0,fireballVelocity.getDirectionSignVector().getY() + speedIncrease)));
         }
         handleRegularBounce(collision);
     }

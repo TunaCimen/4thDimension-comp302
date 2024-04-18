@@ -52,7 +52,7 @@ public class SessionManager {
                 if (j == 190) {
                     BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.REINFORCED);
                 } else {
-                    BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.REINFORCED);
+                    BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.EXPLOSIVE);
                 }
             }
         }

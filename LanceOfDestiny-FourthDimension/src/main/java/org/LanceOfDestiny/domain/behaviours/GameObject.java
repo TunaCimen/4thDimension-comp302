@@ -82,4 +82,8 @@ public abstract class GameObject extends Behaviour {
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
     }
+
+    public Vector getDirection() {
+        return getCollider().getVelocity().normalize();
+    }
 }
