@@ -65,7 +65,7 @@ public class SessionManager {
                     if (i % 20 == 0) {
                         BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.EXPLOSIVE);
                     } else {
-                        BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.SIMPLE);
+                        BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.REWARDING);
                     }
             }
         }

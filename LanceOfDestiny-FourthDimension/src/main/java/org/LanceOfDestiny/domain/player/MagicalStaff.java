@@ -31,9 +31,9 @@ public class MagicalStaff extends GameObject {
 
         initializeCollidersAndSprites();
         this.canonLeft = new Canon(this.position.add(new Vector(0, -HEIGHT)), true);
-        this.canonRight = new Canon(this.position.add(new Vector(WIDTH - Constants.CANON_WIDTH, -HEIGHT)), false);
-        ((RectangleSprite) canonLeft.getSprite()).anchorXShift = WIDTH / 2;
-        ((RectangleSprite) canonRight.getSprite()).anchorXShift = -WIDTH / 2;
+        this.canonRight = new Canon(this.position.add(new Vector(WIDTH, -HEIGHT)), false);
+        ((RectangleSprite)canonLeft.getSprite()).parentObject = this;
+        ((RectangleSprite)canonRight.getSprite()).parentObject = this;
 
         Events.MoveStaff.addListener(this::moveRight);
         Events.RotateStaff.addListener(this::rotate);
@@ -55,15 +55,22 @@ public class MagicalStaff extends GameObject {
 
     @Override
     public void setPosition(Vector position) {
-        var staffWidth = (isExpanded ? WIDTH * 2 : WIDTH);
-        var minX = 0;
-        var maxX = Constants.SCREEN_WIDTH - staffWidth;
-        var x = (position.getX() <= (double) Constants.SCREEN_WIDTH / 2) ? Math.max(minX, position.getX()) : Math.min(position.getX(), maxX);
-        this.position = new Vector(x, position.getY());
+
+
+        //var x = (position.getX() <= (double) Constants.SCREEN_WIDTH / 2) ? Math.max(minX, position.getX()) : Math.min(position.getX(), maxX);
+        this.position = position;
+
     }
 
     public void moveRight(Object integer) {
         int sign = ((Integer) integer) > 0 ? 1 : -1;
+        var minX = 0;
+        var staffWidth = (isExpanded ? WIDTH * 2 : WIDTH);
+        var maxX = Constants.SCREEN_WIDTH - staffWidth;
+
+        var x = (position.getX() <= (double) Constants.SCREEN_WIDTH / 2) ? Math.max(minX, position.getX()) : Math.min(position.getX(), maxX);
+        if(x == minX && sign==-1)return;
+        if(x == maxX && sign==1)return;
         setPosition(position.add(new Vector(sign * Constants.STAFF_SPEED, 0)));
         canonLeft.setPosition(canonLeft.getPosition().add(new Vector(sign * Constants.STAFF_SPEED, 0)));
         canonRight.setPosition(canonRight.getPosition().add(new Vector(sign * Constants.STAFF_SPEED, 0)));

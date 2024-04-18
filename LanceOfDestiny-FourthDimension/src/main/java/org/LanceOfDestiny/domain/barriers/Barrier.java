@@ -8,6 +8,8 @@ import org.LanceOfDestiny.domain.physics.ColliderFactory;
 import org.LanceOfDestiny.domain.physics.ColliderType;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.sprite.BallSprite;
+import org.LanceOfDestiny.domain.sprite.ImageLibrary;
+import org.LanceOfDestiny.domain.sprite.ImageOperations;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
 
 import java.awt.*;

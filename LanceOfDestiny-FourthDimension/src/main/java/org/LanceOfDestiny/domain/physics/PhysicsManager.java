@@ -15,7 +15,7 @@ public class PhysicsManager {
     private static PhysicsManager instance;
     private List<Collider> colliders;
     // this will be made non-zero if we need predictive collision detection code
-    private double framesAhead = 3;
+    private double framesAhead = 2;
     private int currentFrame = 0;
     private int frameTreshold = 0;
     private Map<String, Integer> recentCollisions;  // Stores collision pairs with the frame of their last occurrence
@@ -353,7 +353,9 @@ public class PhysicsManager {
             // Normal vector calculation from the closest point back to the circle center
             double magnitude = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
             if (magnitude == 0) {
-                return null;
+                // If the center of the circle is exactly on an edge or corner, treat this as a special case
+                // You might decide to reflect the circle directly backwards or use some other logic depending on your game's physics
+                return new Vector(-translatedX, -translatedY).normalize();  // Reflect directly back
             }
             Vector normal = new Vector(distanceX / magnitude, distanceY / magnitude);
 

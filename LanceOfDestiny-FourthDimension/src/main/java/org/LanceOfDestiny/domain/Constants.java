@@ -9,7 +9,7 @@ public class Constants {
     public static final int L = SCREEN_WIDTH / 10;
     public static final float STAFF_SPEED = L * UPDATE_RATE * 3;
     public static final int STAFF_WIDTH = L;
-    public static final Vector STAFF_POSITION = new Vector((double) SCREEN_WIDTH / 2 - ((double) STAFF_WIDTH / 2), SCREEN_HEIGHT-150);
+    public static final Vector STAFF_POSITION = new Vector((double) SCREEN_WIDTH / 2 - ((double) STAFF_WIDTH / 2), SCREEN_HEIGHT-120);
     public static final int BARRIER_HEIGHT = 20;
     public static final int BARRIER_WIDTH = L/5;
     public static final int REWARD_BOX_HEIGHT = BARRIER_HEIGHT;
@@ -25,6 +25,6 @@ public class Constants {
     public static final int CANON_WIDTH = STAFF_WIDTH / 10;
     public static final Vector FIREBALL_POSITION = new Vector((double) SCREEN_WIDTH / 2, SCREEN_HEIGHT - 120); // initial position
     public static final int REWARD_BOX_WIDTH = BARRIER_WIDTH;
-    public static final double EXPLOSIVE_RADIUS = 7;
+    public static final double EXPLOSIVE_RADIUS = 8;
     public static final int FIREBALL_SPEED = -8;
 }
