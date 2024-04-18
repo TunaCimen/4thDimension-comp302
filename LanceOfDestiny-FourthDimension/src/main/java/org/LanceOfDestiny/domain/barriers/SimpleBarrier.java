@@ -4,6 +4,7 @@ import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.physics.Collision;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.player.FireBall;
+import org.LanceOfDestiny.domain.spells.Hex;
 
 import java.util.Random;
 
@@ -21,7 +22,7 @@ public class SimpleBarrier extends Barrier {
         super.onCollisionEnter(collision);
         GameObject other = collision.getOther(this);
 
-        if (other instanceof FireBall) {
+        if (other instanceof FireBall || other instanceof Hex) {
             reduceLife();
         }
         if ((other instanceof Barrier && isMoving)) {

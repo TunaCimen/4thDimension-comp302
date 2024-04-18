@@ -33,7 +33,11 @@ public class GameExec extends Behaviour {
 
     @Override
     public void update() {
-        if (isPaused) return;
+
+        if (isPaused) {
+            startTime = System.nanoTime();
+            return;
+        }
         timePassed += System.nanoTime() - startTime;
         startTime = System.nanoTime();
         InputManager.getInstance().updateActions();

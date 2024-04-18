@@ -29,6 +29,16 @@ public class BallSprite extends Sprite {
         2* radius,2*radius);
     }
 
+    @Override
+    public int width() {
+        return radius;
+    }
+
+    @Override
+    public int height() {
+        return radius;
+    }
+
 
     //super.paintComponent(g);
 

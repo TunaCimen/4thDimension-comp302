@@ -1,36 +1,73 @@
 package org.LanceOfDestiny.domain.spells;
 
 import org.LanceOfDestiny.domain.Constants;
+import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
-import org.LanceOfDestiny.domain.physics.Vector;
+import org.LanceOfDestiny.domain.managers.SessionManager;
+import org.LanceOfDestiny.domain.physics.*;
+import org.LanceOfDestiny.domain.player.FireBall;
+import org.LanceOfDestiny.domain.sprite.BallSprite;
 
-import java.util.ArrayList;
+import java.awt.*;
 
 public class Hex extends GameObject {
 
-    protected Vector position;
 
-    public static final int HEX_WIDTH = Constants.HEX_LENGTH;
-    public static final int HEX_HEIGHT = Constants.HEX_LENGTH;
+    public static final int HEX_RADIUS = Constants.HEX_RADIUS;
     public static final double HEX_SPEED = Constants.HEX_SPEED;
+    public final Vector velocity = new Vector(0, -5);
+    private final Canon canon;
+    private boolean isVisible = false;
+    private Vector initialPosition;
 
-    public static ArrayList<Hex> hexes = new ArrayList<>();
 
-    public Hex(Vector position) {
+    public Hex(Canon canon) {
         super();
-        this.position = position;
-        addHex(this);
+        this.canon = canon;
+        this.initialPosition = canon.getPosition().add(new Vector(Constants.CANON_WIDTH, -HEX_RADIUS*2));
+        this.position = initialPosition;
+        this.sprite = new BallSprite(this, Color.BLACK, HEX_RADIUS);
+        this.collider = ColliderFactory.createBallCollider(this, velocity, ColliderType.STATIC, HEX_RADIUS);
+        collider.setEnabled(false);
+        sprite.setVisible(false);
     }
 
-    public static ArrayList<Hex> getHexes() {
-        return hexes;
+    @Override
+    public void update() {
+        super.update();
+        if (isVisible) {
+            setPosition(getPosition().add(collider.getVelocity()));
+        }
     }
 
-    public static void setHexes(ArrayList<Hex> hexes) {
-        Hex.hexes = hexes;
+    @Override
+    public void onCollisionEnter(Collision collision) {
+        super.onCollisionEnter(collision);
+        var other = collision.getOther(this);
+
+        if (other instanceof Barrier){
+            sprite.setVisible(false);
+            collider.setEnabled(false);
+            isVisible = false;
+            //this.position = initialPosition;
+        }
+
+
+
     }
 
-    public void addHex(Hex hex) {
-        hexes.add(hex);
+    public void shoot() {
+        sprite.setVisible(true);
+        collider.setEnabled(true);
+        isVisible = true;
+        float xShift = Constants.CANON_WIDTH / 2f;
+        float yShift = HEX_RADIUS * 2;
+
+
+        this.position = canon.getPosition().add(new Vector(Constants.CANON_WIDTH/2f, -HEX_RADIUS*2));
+        var magicalStaff = SessionManager.getInstance().getMagicalStaff();
+        var velocity = Vector.getVelocityByAngleAndMagnitude((int) -HEX_SPEED, magicalStaff.getAngle());
+        collider.setVelocity(velocity);
+
     }
 }
