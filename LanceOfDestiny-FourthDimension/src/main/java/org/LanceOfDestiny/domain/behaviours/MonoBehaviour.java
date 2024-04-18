@@ -25,4 +25,10 @@ public class MonoBehaviour extends Behaviour {
     public static List<MonoBehaviour> getMonoBehaviours() {
         return monoBehaviours;
     }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        monoBehaviours.remove(this);
+    }
 }

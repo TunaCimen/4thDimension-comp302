@@ -39,6 +39,7 @@ public abstract class GameObject extends Behaviour {
     }
 
     public void destroy() {
+        super.destroy();
         gameObjects.remove(this);
         PhysicsManager.getInstance().removeCollider(getCollider());
     }

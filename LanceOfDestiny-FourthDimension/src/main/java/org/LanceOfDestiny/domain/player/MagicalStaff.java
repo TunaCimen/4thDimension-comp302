@@ -88,7 +88,6 @@ public class MagicalStaff extends GameObject {
     }
 
     public void enableExpansion() {
-        isExpanded = true;
         setSprite(expandedSprite);
         setCollider(expandedCollider);
         defaultCollider.setEnabled(false);
@@ -96,7 +95,6 @@ public class MagicalStaff extends GameObject {
     }
 
     public void disableExpansion() {
-        isExpanded = false;
         setSprite(defaultSprite);
         setCollider(defaultCollider);
         expandedCollider.setEnabled(false);
