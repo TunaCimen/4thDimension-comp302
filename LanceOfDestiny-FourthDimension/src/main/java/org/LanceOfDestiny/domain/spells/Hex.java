@@ -5,7 +5,6 @@ import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.physics.*;
-import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.sprite.BallSprite;
 
 import java.awt.*;
@@ -26,6 +25,10 @@ public class Hex extends GameObject {
         this.canon = canon;
         this.initialPosition = canon.getPosition().add(new Vector(Constants.CANON_WIDTH, -HEX_RADIUS*2));
         this.position = initialPosition;
+        createColliderAndSprite();
+    }
+
+    private void createColliderAndSprite() {
         this.sprite = new BallSprite(this, Color.BLACK, HEX_RADIUS);
         this.collider = ColliderFactory.createBallCollider(this, velocity, ColliderType.STATIC, HEX_RADIUS);
         collider.setEnabled(false);
@@ -51,17 +54,14 @@ public class Hex extends GameObject {
             isVisible = false;
             //this.position = initialPosition;
         }
-
-
-
     }
 
     public void shoot() {
+        isVisible = true;
         sprite.setVisible(true);
         collider.setEnabled(true);
-        isVisible = true;
-        float xShift = Constants.CANON_WIDTH / 2f;
-        float yShift = HEX_RADIUS * 2;
+        double xShift = Constants.CANON_WIDTH / 2f;
+        double yShift = HEX_RADIUS * 2;
 
 
         this.position = canon.getPosition().add(new Vector(Constants.CANON_WIDTH/2f, -HEX_RADIUS*2));

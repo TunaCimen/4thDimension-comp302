@@ -81,6 +81,8 @@ public class MagicalStaff extends GameObject {
 
     public void resetStaff() {
         setAngle(0);
+        canonLeft.setAngle(0);
+        canonRight.setAngle(0);
     }
 
     private void handleExpansion(Object object) {
@@ -118,11 +120,13 @@ public class MagicalStaff extends GameObject {
     public void enableCanons() {
        canonLeft.activateCanon();
        canonRight.activateCanon();
+       isCanonActivated = true;
     }
 
     public void disableCanons() {
         canonLeft.deactivateCanon();
         canonRight.deactivateCanon();
+        isCanonActivated = false;
     }
 
     public Canon getCanonLeft() {
