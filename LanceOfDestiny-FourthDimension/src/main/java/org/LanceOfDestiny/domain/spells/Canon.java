@@ -5,12 +5,10 @@ import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.looper.LoopExecutor;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.physics.Vector;
-import org.LanceOfDestiny.domain.player.MagicalStaff;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
 
 import java.awt.*;
 import java.util.*;
-import java.util.List;
 
 public class Canon extends GameObject {
 
@@ -50,7 +48,9 @@ public class Canon extends GameObject {
         finishTime = (double) (loopExecutor.getSecondsPassed()) + period;
         var hex = hexes.poll();
         hexes.add(hex);
-        hex.shoot();
+        if (hex != null)
+            hex.shoot();
+
     }
 
     public void createHexes(){
