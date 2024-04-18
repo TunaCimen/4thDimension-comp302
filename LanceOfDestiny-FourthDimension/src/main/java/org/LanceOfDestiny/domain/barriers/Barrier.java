@@ -81,4 +81,20 @@ public abstract class Barrier extends GameObject {
     public boolean isDestroyed() {
         return hitsLeft <= 0;
     }
+
+    public BarrierTypes getBarrierType() {
+        return barrierType;
+    }
+
+    public int getDirection() {
+        return direction;
+    }
+
+    public boolean isMoving() {
+        return isMoving;
+    }
+
+    public int getHitsLeft() {
+        return hitsLeft;
+    }
 }

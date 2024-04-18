@@ -110,7 +110,24 @@ public class DatabaseController {
         }
         return rt;
     }
+    public List<String> loadSavedNames(String username){
+        List<String> rt = new ArrayList<>();
+        try (PreparedStatement pstmt = connection.prepareStatement("SELECT saveName FROM UserInfoSaved WHERE savedByUser = ?")) {
+            pstmt.setString(1, username);
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.next()) {
+                do {
+                    rt.add(resultSet.getString("saveName"));
+                } while (resultSet.next());
+            }
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return rt;
+    }
 }
+
+
 
 

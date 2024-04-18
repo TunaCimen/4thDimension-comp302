@@ -49,6 +49,9 @@ public class LogInController {
     public List<Integer> loadUserInfo(String saveName) throws SQLException {
         return dbController.loadUserInfo(this.username,saveName);
     }
+    public List<String> loadSavedNames(){
+        return dbController.loadSavedNames(this.username);
+    }
 
     public String getUsername() {
         return username;
