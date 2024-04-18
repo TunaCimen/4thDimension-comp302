@@ -8,7 +8,8 @@ import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
 
 import java.awt.*;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Canon extends GameObject {
 
@@ -16,17 +17,17 @@ public class Canon extends GameObject {
     public static final int CANON_WIDTH = Constants.CANON_WIDTH;
 
     public final double period = 0.5;
-    public boolean isActive = false;
-
     private final LoopExecutor loopExecutor;
+    public boolean isActive = false;
+    public boolean isLeft;
+    public Queue<Hex> hexes;
     private double finishTime;
 
-    public Queue<Hex> hexes;
-
-    public Canon(Vector position) {
+    public Canon(Vector position, boolean isLeft) {
         super();
         this.position = position;
         this.sprite = new RectangleSprite(this, Color.DARK_GRAY, CANON_WIDTH, (int) CANON_HEIGHT);
+        this.isLeft = isLeft;
         if (!isActive) getSprite().setVisible(false);
         this.loopExecutor = SessionManager.getInstance().getLoopExecutor();
         finishTime = 0;
@@ -53,8 +54,8 @@ public class Canon extends GameObject {
 
     }
 
-    public void createHexes(){
-        for (int i = 0; i < Constants.SPELL_DURATION/period + 2; i++) {
+    public void createHexes() {
+        for (int i = 0; i < Constants.SPELL_DURATION / period + 2; i++) {
             hexes.add(new Hex(this));
         }
     }
@@ -68,4 +69,5 @@ public class Canon extends GameObject {
         isActive = false;
         getSprite().setVisible(false);
     }
+
 }

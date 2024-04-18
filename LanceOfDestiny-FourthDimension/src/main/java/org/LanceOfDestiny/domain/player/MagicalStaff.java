@@ -16,25 +16,24 @@ public class MagicalStaff extends GameObject {
 
     private final int HEIGHT = Constants.STAFF_HEIGHT;
     private final int WIDTH = Constants.STAFF_WIDTH;
-    private boolean isCanonActivated = false;
+    private final Canon canonLeft;
+    private final Canon canonRight;
     protected boolean isExpanded = false;
+    private boolean isCanonActivated = false;
     private RectangleSprite defaultSprite;
     private RectangleSprite expandedSprite;
     private RectangleCollider expandedCollider;
     private RectangleCollider defaultCollider;
-
-    private final Canon canonLeft;
-    private final Canon canonRight;
 
     public MagicalStaff() {
         super();
         this.position = Constants.STAFF_POSITION;
 
         initializeCollidersAndSprites();
-        this.canonLeft = new Canon(this.position.add(new Vector(0, -HEIGHT)));
-        this.canonRight = new Canon(this.position.add(new Vector(WIDTH - Constants.CANON_WIDTH,-HEIGHT)));
-        ((RectangleSprite)canonLeft.getSprite()).anchorXShift = WIDTH / 2;
-        ((RectangleSprite)canonRight.getSprite()).anchorXShift = -WIDTH / 2;
+        this.canonLeft = new Canon(this.position.add(new Vector(0, -HEIGHT)), true);
+        this.canonRight = new Canon(this.position.add(new Vector(WIDTH - Constants.CANON_WIDTH, -HEIGHT)), false);
+        ((RectangleSprite) canonLeft.getSprite()).anchorXShift = WIDTH / 2;
+        ((RectangleSprite) canonRight.getSprite()).anchorXShift = -WIDTH / 2;
 
         Events.MoveStaff.addListener(this::moveRight);
         Events.RotateStaff.addListener(this::rotate);
@@ -43,7 +42,7 @@ public class MagicalStaff extends GameObject {
         Events.ActivateExpansion.addListener(this::handleExpansion);
     }
 
-    public void initializeCollidersAndSprites(){
+    public void initializeCollidersAndSprites() {
         this.defaultSprite = new RectangleSprite(this, Color.orange, WIDTH, HEIGHT);
         this.sprite = defaultSprite;
         this.defaultCollider = ColliderFactory.createRectangleCollider(this, new Vector(0, 0), ColliderType.STATIC, WIDTH, HEIGHT);
@@ -118,9 +117,9 @@ public class MagicalStaff extends GameObject {
     }
 
     public void enableCanons() {
-       canonLeft.activateCanon();
-       canonRight.activateCanon();
-       isCanonActivated = true;
+        canonLeft.activateCanon();
+        canonRight.activateCanon();
+        isCanonActivated = true;
     }
 
     public void disableCanons() {
