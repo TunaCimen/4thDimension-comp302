@@ -8,25 +8,21 @@ import java.util.List;
 
 public class BallSprite extends Sprite {
 
-    int radius;
-
     static List<BallSprite> ballList = new ArrayList<>();
+    private int radius;
 
-
-    public BallSprite(GameObject attachedObject,Color color, int radius ){
-        super(attachedObject,color);
+    public BallSprite(GameObject attachedObject, Color color, int radius) {
+        super(attachedObject, color);
         ballList.add(this);
         this.radius = radius;
-        this.color  = color;
+        this.color = color;
     }
-
-
 
     @Override
     public void drawShape(Graphics g) {
         g.fillOval((int) attachedGameObject.getPosition().getX() - radius,
-        (int) attachedGameObject.getPosition().getY() - radius,
-        2* radius,2*radius);
+                (int) attachedGameObject.getPosition().getY() - radius,
+                2 * radius, 2 * radius);
     }
 
     @Override
@@ -38,15 +34,4 @@ public class BallSprite extends Sprite {
     public int height() {
         return radius;
     }
-
-
-    //super.paintComponent(g);
-
-                //g.setColor(bs.color);
-                //g.fillOval((int) bs.attachedGameObject.getPosition().getX(),
-                        //(int) bs.attachedGameObject.getPosition().getY(),
-                        //bs.radius,bs.radius);
-
-
-
 }

@@ -34,14 +34,6 @@ public abstract class Barrier extends GameObject {
         this(position, type, 1);
     }
 
-    @Override
-    public void start() {
-        super.start();
-        if (isMoving) {
-            getCollider().setVelocity(new Vector(direction, 0));
-        }
-    }
-
     public void createColliderAndSprite() {
         if (this instanceof ExplosiveBarrier) {
             this.collider = ColliderFactory.createBallCollider(this, new Vector(0, 1), ColliderType.STATIC, Constants.EXPLOSIVE_RADIUS);
@@ -50,6 +42,14 @@ public abstract class Barrier extends GameObject {
         }
         this.collider = ColliderFactory.createRectangleCollider(this, Vector.getZeroVector(), ColliderType.STATIC, WIDTH, HEIGHT);
         this.sprite = new RectangleSprite(this, Color.DARK_GRAY, WIDTH, HEIGHT);
+    }
+
+    @Override
+    public void start() {
+        super.start();
+        if (isMoving) {
+            getCollider().setVelocity(new Vector(direction, 0));
+        }
     }
 
     @Override
@@ -85,12 +85,6 @@ public abstract class Barrier extends GameObject {
 
     public BarrierTypes getBarrierType() {
         return barrierType;
-    }
-
-
-
-    public boolean isMoving() {
-        return isMoving;
     }
 
     public int getHitsLeft() {

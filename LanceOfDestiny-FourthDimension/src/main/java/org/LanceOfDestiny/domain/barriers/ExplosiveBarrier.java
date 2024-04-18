@@ -24,7 +24,6 @@ public class ExplosiveBarrier extends Barrier {
         super(position, BarrierTypes.EXPLOSIVE);
         if ((new Random()).nextDouble() <= MOVE_PROBABILITY) isMoving = true;
         getSprite().color = Color.RED;
-        this.getCollider().setTrigger(false);
         getSprite().addImage(ImageOperations.resizeImageToSprite(ImageLibrary.Cannon.getImage(), getSprite()));
         initPos = getPosition();
     }
