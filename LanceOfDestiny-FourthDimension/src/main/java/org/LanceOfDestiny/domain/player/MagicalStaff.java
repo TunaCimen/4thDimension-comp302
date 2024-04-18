@@ -146,4 +146,14 @@ public class MagicalStaff extends GameObject {
     public Canon getCanonRight() {
         return canonRight;
     }
+
+    @Override
+    public void setPosition(Vector position) {
+        var staffWidth = (isExpanded ? WIDTH * 2 : WIDTH);
+        var minX = 0;
+        var maxX = Constants.SCREEN_WIDTH - WIDTH;
+        var x = (position.getX() <= (double) Constants.SCREEN_WIDTH / 2) ? Math.max(minX, position.getX()) : Math.min(position.getX(), maxX);
+        var properPosition = new Vector(x, position.getY());
+        this.position = properPosition;
+    }
 }
