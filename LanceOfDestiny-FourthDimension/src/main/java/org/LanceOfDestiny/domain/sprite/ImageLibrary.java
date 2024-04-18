@@ -13,7 +13,8 @@ public enum ImageLibrary {
     MagicalStaff("Image/200Player.png"),
     RewardBox("Image/RewardBox.png"),
     CannonSpell("Image/CannonSpell.png"),
-    Cannon("Image/bomb.png");
+    ExplosiveBarrier("Image/bomb.png"),
+    SimpleBarrier("Image/BlueGem.png");
 
     private final BufferedImage image;
 

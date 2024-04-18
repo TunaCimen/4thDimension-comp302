@@ -8,6 +8,8 @@ import org.LanceOfDestiny.domain.physics.ColliderFactory;
 import org.LanceOfDestiny.domain.physics.ColliderType;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.sprite.BallSprite;
+import org.LanceOfDestiny.domain.sprite.ImageLibrary;
+import org.LanceOfDestiny.domain.sprite.ImageOperations;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
 
 import java.awt.*;
@@ -83,17 +85,5 @@ public abstract class Barrier extends GameObject {
         return hitsLeft <= 0;
     }
 
-    public BarrierTypes getBarrierType() {
-        return barrierType;
-    }
 
-
-
-    public boolean isMoving() {
-        return isMoving;
-    }
-
-    public int getHitsLeft() {
-        return hitsLeft;
-    }
 }

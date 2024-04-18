@@ -34,6 +34,7 @@ public class Hex extends GameObject {
         this.sprite = new BallSprite(this, Color.BLACK, HEX_RADIUS);
         this.collider = ColliderFactory.createBallCollider(this, velocity, ColliderType.STATIC, HEX_RADIUS);
         collider.setEnabled(false);
+        collider.setTrigger(true);
         sprite.setVisible(false);
     }
 
@@ -46,14 +47,17 @@ public class Hex extends GameObject {
     }
 
     @Override
-    public void onCollisionEnter(Collision collision) {
-        super.onCollisionEnter(collision);
+    public void onTriggerEnter(Collision collision) {
+        super.onTriggerEnter(collision);
         var other = collision.getOther(this);
 
         if (other instanceof Barrier || other == null) {
             sprite.setVisible(false);
             collider.setEnabled(false);
             isVisible = false;
+            if (other != null) {
+                ((Barrier) other).reduceLife();
+            }
         }
     }
 
@@ -92,4 +96,6 @@ public class Hex extends GameObject {
         double rotatedY = translatedPosition.getX() * sinAngle + translatedPosition.getY() * cosAngle;
         return new Vector(rotatedX, rotatedY).add(center);
     }
+
+
 }

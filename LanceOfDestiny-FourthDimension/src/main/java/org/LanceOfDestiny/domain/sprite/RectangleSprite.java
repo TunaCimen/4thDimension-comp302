@@ -12,17 +12,14 @@ public class RectangleSprite extends Sprite{
 
     int width;
     int height;
-
-    public int anchorXShift;
-    public int anchorYShift;
+    public GameObject parentObject;
 
 
     public RectangleSprite(GameObject attached, Color color,int width,int height){
         super(attached,color);
         this.width = width;
         this.height = height;
-        anchorXShift = 0;
-        anchorYShift = 0;
+        parentObject = attached;
     }
 
     private void drawNumber(Graphics g, String number) {
@@ -49,11 +46,11 @@ public class RectangleSprite extends Sprite{
         if(attachedGameObject.getPosition() == null) return;
 
         //Calculate rotation anchor
-        int x = (int) attachedGameObject.getPosition().getX();
-        int y = (int) attachedGameObject.getPosition().getY();
-        int centerX = x + width / 2 + anchorXShift;
-        int centerY = y + height / 2 + anchorYShift;
 
+            int x = (int) parentObject.getPosition().getX();
+            int y = (int) parentObject.getPosition().getY();
+            int centerX = x + parentObject.getSprite().width() / 2;
+            int centerY = y + parentObject.getSprite().height() / 2;
 
         // Perform the rotation
         g2d.rotate(attachedGameObject.getAngle(), centerX, centerY);

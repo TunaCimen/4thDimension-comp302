@@ -5,7 +5,10 @@ import org.LanceOfDestiny.domain.physics.Collision;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.spells.Hex;
+import org.LanceOfDestiny.domain.sprite.ImageLibrary;
+import org.LanceOfDestiny.domain.sprite.ImageOperations;
 
+import java.awt.*;
 import java.util.Random;
 
 public class SimpleBarrier extends Barrier {
@@ -14,6 +17,8 @@ public class SimpleBarrier extends Barrier {
     public SimpleBarrier(Vector position) {
         super(position, BarrierTypes.SIMPLE);
         if ((new Random()).nextDouble() <= MOVE_PROBABILITY) isMoving = true;
+        this.sprite.color = new Color(0,0,0,0);
+        this.sprite.addImage(ImageOperations.resizeImageToSprite(ImageLibrary.SimpleBarrier.getImage(),this.sprite));
         initDirection();
     }
 
@@ -22,7 +27,7 @@ public class SimpleBarrier extends Barrier {
         super.onCollisionEnter(collision);
         GameObject other = collision.getOther(this);
 
-        if (other instanceof FireBall || other instanceof Hex) {
+        if (other instanceof FireBall) {
             reduceLife();
         }
         if ((other instanceof Barrier && isMoving)) {

@@ -57,7 +57,7 @@ public class FireBall extends GameObject {
             var staffWidth =  (magicalStaff.isExpanded ? Constants.STAFF_WIDTH * 2 : Constants.STAFF_WIDTH);
             var attachedPosition = new Vector(
                     magicalStaff.getPosition().getX() + staffWidth / 2f + (Constants.STAFF_WIDTH / 4f) * Math.sin(magicalStaff.getAngle()),
-                    magicalStaff.getPosition().getY() + Constants.FIREBALL_RADIUS * 0.5 + (staffWidth / 4f) * Math.cos(magicalStaff.getAngle() + Math.PI)
+                    magicalStaff.getPosition().getY() + Constants.FIREBALL_RADIUS*3.5 + (staffWidth / 4f) * Math.cos(magicalStaff.getAngle() + Math.PI)
             );
             collider.setPosition(attachedPosition);
         } else setPosition(getPosition().add(collider.getVelocity()));
@@ -95,13 +95,18 @@ public class FireBall extends GameObject {
     @Override
     public void onCollisionEnter(Collision collision) {
         super.onCollisionEnter(collision);
+
+        GameObject other = collision.getOther(this);
+        if (other instanceof MagicalStaff) {
+            int x = 31;
+        }
         if (!isOverwhelming()) {
             return;
         }
-        var other = collision.getOther(this);
         if (other instanceof Barrier) {
             ((Barrier) other).kill();
         }
+
     }
 
 }
