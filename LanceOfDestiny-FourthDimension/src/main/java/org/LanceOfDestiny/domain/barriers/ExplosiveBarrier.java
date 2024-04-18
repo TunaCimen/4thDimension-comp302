@@ -26,7 +26,7 @@ public class ExplosiveBarrier extends Barrier {
         if ((new Random()).nextDouble() <= MOVE_PROBABILITY) isMoving = true;
         this.getSprite().color = new Color(0,0,0,0);
         this.getSprite().addImage(ImageOperations.resizeImage(ImageLibrary.ExplosiveBarrier.getImage(), sprite.width()*2,sprite.height()*2));
-        getSprite().addImage(ImageOperations.resizeImageToSprite(ImageLibrary.ExplosiveBarrier.getImage(), getSprite()));
+        getSprite().addImage(ImageOperations.resizeImage(ImageLibrary.ExplosiveBarrier.getImage(),Constants.EXPLOSIVE_RADIUS*2,Constants.EXPLOSIVE_RADIUS*2));
         initPos = getPosition();
     }
 
