@@ -22,7 +22,7 @@ public class SimpleBarrier extends Barrier {
         super.onCollisionEnter(collision);
         GameObject other = collision.getOther(this);
 
-        if (other instanceof FireBall || other instanceof Hex) {
+        if (other instanceof FireBall) {
             reduceLife();
         }
         if ((other instanceof Barrier && isMoving)) {

@@ -33,8 +33,9 @@ public class ReinforcedBarrier extends Barrier {
         if ((other instanceof Barrier && isMoving)) {
             getCollider().setVelocity(getCollider().getVelocity().scale(-1));
         }
-        if (!(other instanceof FireBall || other instanceof Hex)) return;
+        if (!(other instanceof FireBall)) return;
 
         this.reduceLife();
     }
+
 }

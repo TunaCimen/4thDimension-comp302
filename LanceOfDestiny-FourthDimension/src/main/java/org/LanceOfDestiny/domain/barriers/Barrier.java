@@ -82,4 +82,6 @@ public abstract class Barrier extends GameObject {
     public boolean isDestroyed() {
         return hitsLeft <= 0;
     }
+
+
 }

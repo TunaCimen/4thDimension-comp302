@@ -28,9 +28,7 @@ public class RewardingBarrier extends Barrier{
         super.onCollisionEnter(collision);
         var other = collision.getOther(this);
 
-        if(!(other instanceof FireBall  || other instanceof Hex)) return;
-        rewardBox.setFalling(true);
-        rewardBox.getCollider().setEnabled(true);
+        if(!(other instanceof FireBall)) return;
         reduceLife();
     }
 
@@ -39,10 +37,17 @@ public class RewardingBarrier extends Barrier{
         super.onCollisionEnter(collision);
         var other = collision.getOther(this);
 
-        if(!(other instanceof FireBall)) return;
-        rewardBox.setFalling(true);
-        rewardBox.getCollider().setEnabled(true);
+        if(!(other instanceof FireBall || other instanceof Hex)) return;
         reduceLife();
     }
+
+    @Override
+    public void reduceLife() {
+        rewardBox.setFalling(true);
+        rewardBox.getCollider().setEnabled(true);
+        super.reduceLife();
+    }
+
+
 
 }

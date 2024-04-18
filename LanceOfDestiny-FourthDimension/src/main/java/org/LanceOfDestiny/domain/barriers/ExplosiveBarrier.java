@@ -50,13 +50,18 @@ public class ExplosiveBarrier extends Barrier {
         super.onCollisionEnter(collision);
         var other = collision.getOther(this);
 
-        if (other instanceof FireBall || other instanceof Hex) {
-            isFalling = true;
-            // allows the barrier to actually fall
-            getCollider().setVelocity(new Vector(0, 2));
-            getCollider().setTrigger(true);
-            this.addScore();
+        if (other instanceof FireBall) {
+            reduceLife();
         }
+    }
+
+    @Override
+    public void reduceLife() {
+        isFalling = true;
+        // allows the barrier to actually fall
+        getCollider().setVelocity(new Vector(0, 2));
+        getCollider().setTrigger(true);
+        this.addScore();
     }
 
     @Override

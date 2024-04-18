@@ -36,7 +36,6 @@ public class RewardBox extends GameObject {
 
     @Override
     public void update() {
-        super.update();
         if (isFalling()) {
             getSprite().setVisible(true);
             setPosition(getPosition().add(collider.getVelocity()));
