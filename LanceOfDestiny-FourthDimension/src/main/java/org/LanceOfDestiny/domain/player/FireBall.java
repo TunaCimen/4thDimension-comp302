@@ -7,6 +7,8 @@ import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.physics.*;
 import org.LanceOfDestiny.domain.sprite.BallSprite;
+import org.LanceOfDestiny.domain.sprite.ImageLibrary;
+import org.LanceOfDestiny.domain.sprite.ImageOperations;
 import org.LanceOfDestiny.domain.sprite.Sprite;
 
 import java.awt.*;
@@ -27,6 +29,10 @@ public class FireBall extends GameObject {
         this.currentSpeed = defaultSpeed;
         this.collider = ColliderFactory.createBallCollider(this, Vector.getZeroVector(), ColliderType.DYNAMIC, radius);
         this.ballSprite = new BallSprite(this, Color.black, Constants.FIREBALL_RADIUS);
+        System.out.println();
+        this.getSprite().addImage(ImageOperations.resizeImage(ImageLibrary.FireBall.getImage()
+                ,ballSprite.width()*2
+                ,ballSprite.height()*2));
         Events.ActivateOverwhelming.addListener(this::handleOverwhelming);
         Events.ShootBall.addRunnableListener(this::shootBall);
     }
@@ -73,29 +79,28 @@ public class FireBall extends GameObject {
 
     public void enableOverwhelming() {
         isOverwhelming = true;
-        getCollider().setTrigger(true);
         ballSprite.color = Color.ORANGE;
+    }
+
+    public boolean isOverwhelming() {
+        return isOverwhelming;
     }
 
     public void disableOverwhelming() {
         isOverwhelming = false;
-        getCollider().setTrigger(false);
         ballSprite.color = Color.BLACK;
     }
 
     @Override
-    public void onTriggerEnter(Collision collision) {
-        super.onTriggerEnter(collision);
+    public void onCollisionEnter(Collision collision) {
+        super.onCollisionEnter(collision);
+        if (!isOverwhelming()) {
+            return;
+        }
         var other = collision.getOther(this);
-
         if (other instanceof Barrier) {
             ((Barrier) other).kill();
         }
-        if (other == null || other instanceof MagicalStaff) {
-            Vector reflection = PhysicsManager.getReflection(collision, true);
-            getCollider().setVelocity(reflection);
-        }
-
     }
 
 }

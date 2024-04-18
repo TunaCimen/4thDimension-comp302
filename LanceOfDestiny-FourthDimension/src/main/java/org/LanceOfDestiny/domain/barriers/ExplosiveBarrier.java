@@ -6,6 +6,7 @@ import org.LanceOfDestiny.domain.physics.Collision;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
+import org.LanceOfDestiny.domain.spells.Hex;
 
 import java.awt.*;
 import java.util.Random;
@@ -49,7 +50,7 @@ public class ExplosiveBarrier extends Barrier {
         super.onCollisionEnter(collision);
         var other = collision.getOther(this);
 
-        if (other instanceof FireBall) {
+        if (other instanceof FireBall || other instanceof Hex) {
             isFalling = true;
             getCollider().setTrigger(true);
             this.addScore();

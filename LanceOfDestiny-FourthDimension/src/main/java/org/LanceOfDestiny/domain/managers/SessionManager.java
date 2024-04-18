@@ -9,7 +9,18 @@ import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
 import org.LanceOfDestiny.domain.player.Player;
+import org.LanceOfDestiny.domain.sprite.ImageLibrary;
+import org.LanceOfDestiny.domain.sprite.ImageOperations;
 import org.LanceOfDestiny.ui.DrawCanvas;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class SessionManager {
 
@@ -21,6 +32,7 @@ public class SessionManager {
     private Player player;
     private LoopExecutor loopExecutor = new LoopExecutor();
     private DrawCanvas drawCanvas;
+    BufferedImage image;
 
     private SessionManager() {
         this.drawCanvas = new DrawCanvas();
@@ -39,6 +51,7 @@ public class SessionManager {
 
     public void initializeSession() {
         fireBall = new FireBall();
+
         magicalStaff = new MagicalStaff();
         player = new Player();
 
