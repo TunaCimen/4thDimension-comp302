@@ -9,7 +9,6 @@ import org.LanceOfDestiny.domain.physics.RectangleCollider;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.spells.Canon;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
-import org.LanceOfDestiny.domain.sprite.Sprite;
 
 import java.awt.*;
 
@@ -24,27 +23,24 @@ public class MagicalStaff extends GameObject {
     private RectangleCollider expandedCollider;
     private RectangleCollider defaultCollider;
 
-    private Canon canonLeft;
-    private Canon canonRight;
+    private final Canon canonLeft;
+    private final Canon canonRight;
 
     public MagicalStaff() {
         super();
         this.position = Constants.STAFF_POSITION;
 
-
-        Events.MoveStaff.addListener(this::moveRight);
-        Events.RotateStaff.addListener(this::rotate);
-        Events.ResetStaff.addRunnableListener(this::resetStaff);
-        Events.TimedTestEvent.addListener(this::changeColor);
-        Events.ResetColorEvent.addRunnableListener(this::resetColor);
-        Events.ActivateCanons.addListener(this::handleCanons);
-        Events.ActivateExpansion.addListener(this::handleExpansion);
         initializeCollidersAndSprites();
         this.canonLeft = new Canon(this.position.add(new Vector(0, -HEIGHT)));
         this.canonRight = new Canon(this.position.add(new Vector(WIDTH - Constants.CANON_WIDTH,-HEIGHT)));
         ((RectangleSprite)canonLeft.getSprite()).anchorXShift = WIDTH / 2;
         ((RectangleSprite)canonRight.getSprite()).anchorXShift = -WIDTH / 2;
 
+        Events.MoveStaff.addListener(this::moveRight);
+        Events.RotateStaff.addListener(this::rotate);
+        Events.ResetStaff.addRunnableListener(this::resetStaff);
+        Events.ActivateCanons.addListener(this::handleCanons);
+        Events.ActivateExpansion.addListener(this::handleExpansion);
     }
 
     public void initializeCollidersAndSprites(){
@@ -58,13 +54,39 @@ public class MagicalStaff extends GameObject {
         expandedCollider.setEnabled(false);
     }
 
-    private void resetColor() {
-        sprite.color = Color.orange;
+    @Override
+    public void setPosition(Vector position) {
+        var staffWidth = (isExpanded ? WIDTH * 2 : WIDTH);
+        var minX = 0;
+        var maxX = Constants.SCREEN_WIDTH - staffWidth;
+        var x = (position.getX() <= (double) Constants.SCREEN_WIDTH / 2) ? Math.max(minX, position.getX()) : Math.min(position.getX(), maxX);
+        this.position = new Vector(x, position.getY());
     }
 
+    public void moveRight(Object integer) {
+        int sign = ((Integer) integer) > 0 ? 1 : -1;
+        setPosition(position.add(new Vector(sign * Constants.STAFF_SPEED, 0)));
+        canonLeft.setPosition(canonLeft.getPosition().add(new Vector(sign * Constants.STAFF_SPEED, 0)));
+        canonRight.setPosition(canonRight.getPosition().add(new Vector(sign * Constants.STAFF_SPEED, 0)));
+    }
 
-    public void setSprite(Sprite sprite) {
-        this.sprite = (RectangleSprite) sprite;
+    public void rotate(Object angle) {
+        int sign = ((Double) angle) > 0 ? 1 : -1;
+        double newAngle = Math.min(Math.max(-0.78, getAngle() + Constants.STAFF_ANGULAR_SPEED * sign), 0.78);
+
+        setAngle(newAngle);
+        canonLeft.setAngle(newAngle);
+        canonRight.setAngle(newAngle);
+    }
+
+    public void resetStaff() {
+        setAngle(0);
+    }
+
+    private void handleExpansion(Object object) {
+        isExpanded = (boolean) object;
+        if (isExpanded) enableExpansion();
+        else disableExpansion();
     }
 
     public void enableExpansion() {
@@ -87,6 +109,11 @@ public class MagicalStaff extends GameObject {
         defaultCollider.setEnabled(true);
     }
 
+    private void handleCanons(Object object) {
+        isCanonActivated = (boolean) object;
+        if (isCanonActivated) enableCanons();
+        else disableCanons();
+    }
 
     public void enableCanons() {
        canonLeft.activateCanon();
@@ -98,49 +125,11 @@ public class MagicalStaff extends GameObject {
         canonRight.deactivateCanon();
     }
 
-    public void changeColor(Object color) {
-        defaultSprite.color = (Color) color;
+    public Canon getCanonLeft() {
+        return canonLeft;
     }
 
-    public void moveRight(Object integer) {
-        int sign = ((Integer) integer) > 0 ? 1 : -1;
-        setPosition(position.add(new Vector(sign * Constants.STAFF_SPEED, 0)));
-        canonLeft.setPosition(canonLeft.getPosition().add(new Vector(sign * Constants.STAFF_SPEED, 0)));
-        canonRight.setPosition(canonRight.getPosition().add(new Vector(sign * Constants.STAFF_SPEED, 0)));
+    public Canon getCanonRight() {
+        return canonRight;
     }
-
-    public void rotate(Object angle) {
-        int sign = ((Double) angle) > 0 ? 1 : -1;
-        double newAngle = Math.min(Math.max(-0.78, getAngle()
-                + Constants.STAFF_ANGULAR_SPEED * sign), 0.78);
-
-        setAngle(newAngle);
-        canonLeft.setAngle(newAngle);
-        canonRight.setAngle(newAngle);
-    }
-
-    public void hitExplosiveBarrier() {
-        Events.UpdateChance.invoke(-1);
-    }
-
-    public void resetStaff() {
-
-        setAngle(0);
-        canonLeft.setAngle(0);
-        canonRight.setAngle(0);
-    }
-
-
-    private void handleCanons(Object object) {
-        isCanonActivated = (boolean) object;
-        if (isCanonActivated) enableCanons();
-        else disableCanons();
-    }
-
-    private void handleExpansion(Object object) {
-        isExpanded = (boolean) object;
-        if (isExpanded) enableExpansion();
-        else disableExpansion();
-    }
-
 }
