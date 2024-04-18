@@ -37,7 +37,6 @@ public class Canon extends GameObject {
 
     @Override
     public void update() {
-        super.update();
         if (!isActive)
             return;
         if (finishTime < loopExecutor.getSecondsPassed()) {

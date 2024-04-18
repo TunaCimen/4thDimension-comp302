@@ -12,7 +12,8 @@ public enum ImageLibrary {
     Heart("Image/200Heart.png"),
     MagicalStaff("Image/200Player.png"),
     RewardBox("Image/RewardBox.png"),
-    CannonSpell("Image/CannonSpell.png");
+    CannonSpell("Image/CannonSpell.png"),
+    Cannon("Image/bomb.png");
 
     private final BufferedImage image;
 

@@ -7,6 +7,8 @@ import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
 import org.LanceOfDestiny.domain.spells.Hex;
+import org.LanceOfDestiny.domain.sprite.ImageLibrary;
+import org.LanceOfDestiny.domain.sprite.ImageOperations;
 
 import java.awt.*;
 import java.util.Random;
@@ -23,6 +25,7 @@ public class ExplosiveBarrier extends Barrier {
         if ((new Random()).nextDouble() <= MOVE_PROBABILITY) isMoving = true;
         getSprite().color = Color.RED;
         this.getCollider().setTrigger(false);
+        getSprite().addImage(ImageOperations.resizeImageToSprite(ImageLibrary.Cannon.getImage(), getSprite()));
         initPos = getPosition();
     }
 
