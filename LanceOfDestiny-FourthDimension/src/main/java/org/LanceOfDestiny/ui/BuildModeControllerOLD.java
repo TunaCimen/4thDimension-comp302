@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BuildModeController {
-    private static BuildModeController Instance = null;
+public class BuildModeControllerOLD {
+    private static BuildModeControllerOLD Instance = null;
     BarrierFactory barrierFactory;
     private List<Barrier> barrierList = new ArrayList<>();
 
@@ -20,11 +20,11 @@ public class BuildModeController {
         return barrierList;
     }
 
-    private BuildModeController() {
+    private BuildModeControllerOLD() {
     }
 
-    public static synchronized BuildModeController getInstance() {
-        if (Instance == null) Instance = new BuildModeController();
+    public static synchronized BuildModeControllerOLD getInstance() {
+        if (Instance == null) Instance = new BuildModeControllerOLD();
         return Instance;
     }
 
