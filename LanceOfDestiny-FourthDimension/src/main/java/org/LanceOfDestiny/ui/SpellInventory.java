@@ -23,8 +23,8 @@ public class SpellInventory extends JPanel {
         overwhelmingSpell = new JLabel();
         expansionSpell = new JLabel();
         canonIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.CannonSpell.getImage(), 40,40));
-        overwhelmingIcon = new ImageIcon(ImageLibrary.FireBall.getImage());
-        expansionIcon = new ImageIcon(ImageLibrary.RewardBox.getImage());
+        overwhelmingIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.OverWhelmingSpell.getImage(), 30,30));
+        expansionIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.ExpansionSpell.getImage(),30,30));
 
         reducedCanonIcon = ImageOperations.reducedTransparencyImageIcon(canonIcon);
         reducedOverwhelmingIcon =ImageOperations.reducedTransparencyImageIcon(overwhelmingIcon);
