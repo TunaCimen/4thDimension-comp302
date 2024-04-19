@@ -12,19 +12,16 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BuildView extends JFrame implements Window {
+
     private final SessionManager sessionManager;
-    private JButton startGameButton, pauseGameButton, resumeGameButton;
+
     private JTextField textFieldBarrierSimple;
     private JTextField textFieldBarrierReinforced;
     private JTextField textFieldBarrierExplosive;
     private JTextField textFieldBarrierRewarding;
-    Font textFieldFont = new Font("SansSerif", Font.PLAIN, 18);
-
-
 
     public BuildView(SessionManager sessionManager) {
         this.sessionManager = sessionManager;
-        createAndShowUI();
     }
 
     @Override
@@ -39,8 +36,8 @@ public class BuildView extends JFrame implements Window {
 
 //        //Buttons
 //        JPanel pausePanel = new JPanel();
-//
-//
+
+
 //        pausePanel.setPreferredSize(new Dimension(Constants.SCREEN_WIDTH, 50));
 //        JButton button = new JButton("Start Game");
 //        JButton buttonPause = new JButton("Pause Game");
@@ -119,18 +116,24 @@ public class BuildView extends JFrame implements Window {
             this.sessionManager.getBuilder().setNumOfReinforced(numOfReinforced);
 
             userInputPanel.setVisible(false);
-            sessionManager.initializeSession();
             WindowManager.getInstance().showWindow(Windows.GameView);
 
 
         });
 
 
-        // Load Game Button
-        JButton buttonLoad = new JButton("Load Game");
-        userInputPanel.add(buttonLoad);
-        buttonLoad.addActionListener(e -> {
-            WindowManager.getInstance().showWindow(Windows.LoadView);
+        // Play Game Button
+        JButton buttonTest = new JButton("Test Game with presets");
+        userInputPanel.add(buttonTest);
+        buttonTest.addActionListener(e -> {
+
+            this.sessionManager.getBuilder().setNumOfSimple(75);
+            this.sessionManager.getBuilder().setNumOfExplosive(10);
+            this.sessionManager.getBuilder().setNumOfRewarding(5);
+            this.sessionManager.getBuilder().setNumOfReinforced(10);
+
+            userInputPanel.setVisible(false);
+            sessionManager.initializeSession();
 
         });
 
@@ -138,7 +141,4 @@ public class BuildView extends JFrame implements Window {
         setVisible(true);
 
     }
-
-
-
 }
