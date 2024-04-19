@@ -43,15 +43,15 @@ public class SessionBuilder {
         // Shuffle the list to randomize barrier placement
         Collections.shuffle(barrierTypes);
 
-        int x = 10;
-        int y = 10;
+        int x = 20;
+        int y = 20;
 
         for (BarrierTypes type : barrierTypes) {
             BarrierFactory.createBarrier(new Vector(x, y), type);
 
-            x += 30;
+            x += 40;
             if (x >= Constants.SCREEN_WIDTH - 10) {
-                x = 10;
+                x = 20;
                 y += 30;
             }
         }

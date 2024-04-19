@@ -33,11 +33,13 @@ public class SessionManager {
     private LoopExecutor loopExecutor = new LoopExecutor();
     private DrawCanvas drawCanvas;
     BufferedImage image;
+    private SessionBuilder builder;
 
     private SessionManager() {
         this.drawCanvas = new DrawCanvas();
         this.gameLooper = new GameLooper(drawCanvas);
         this.loopExecutor = new LoopExecutor();
+        this.builder = new SessionBuilder(75, 10, 5, 10);
         currentMode = Status.EditMode;
         loopExecutor.setLooper(gameLooper);
     }
@@ -54,8 +56,8 @@ public class SessionManager {
 
         magicalStaff = new MagicalStaff();
         player = new Player();
-
-        initializeBarriers();
+        builder.buildBarriers();
+        //initializeBarriers();
 
     }
 
@@ -89,5 +91,9 @@ public class SessionManager {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public SessionBuilder getBuilder() {
+        return builder;
     }
 }
