@@ -27,7 +27,7 @@ public class SessionManager {
         this.gameLooper = new GameLooper(drawCanvas);
         this.loopExecutor = new LoopExecutor();
         // todo detelete/replace later with a proper initialization
-        this.builder = new SessionBuilder(75, 10, 5, 10);
+        this.builder = new SessionBuilder(0, 0, 0, 0);
         currentMode = Status.EditMode;
         loopExecutor.setLooper(gameLooper);
     }
