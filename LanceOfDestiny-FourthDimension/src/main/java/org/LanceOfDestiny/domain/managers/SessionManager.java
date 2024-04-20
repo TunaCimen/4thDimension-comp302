@@ -77,4 +77,12 @@ public class SessionManager {
         return builder;
     }
 
+    public void setStatus(Status status) {
+        currentMode = status;
+    }
+
+    public Status getStatus() {
+        return currentMode;
+    }
+
 }

@@ -107,14 +107,14 @@ public class BuildViewMiniPanel extends JFrame implements Window {
             this.dispose();
 
             // Invoke game resume event
-            Events.ResumeGame.invoke();
+//            Events.ResumeGame.invoke();
 
             // Ensure the game canvas is visible and properly updated
             GameView gameView = GameView.getInstance(sessionManager);
             gameView.reinitializeUI();
             gameView.add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
             sessionManager.initializeSession();
-            sessionManager.getLoopExecutor().start();
+//            sessionManager.getLoopExecutor().start();
             sessionManager.getDrawCanvas().repaint();
             sessionManager.getDrawCanvas().revalidate();
             gameView.setVisible(true);

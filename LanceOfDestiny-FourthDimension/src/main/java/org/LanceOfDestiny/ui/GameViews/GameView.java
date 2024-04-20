@@ -5,6 +5,7 @@ import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.InputManager;
 import org.LanceOfDestiny.domain.managers.ScoreManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
+import org.LanceOfDestiny.domain.managers.Status;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.ui.*;
 import org.LanceOfDestiny.ui.Window;
@@ -102,12 +103,18 @@ public class GameView extends JFrame implements Window {
             buttonPlay.setEnabled(false);
             buttonPause.setEnabled(true);
             buttonBuild.setEnabled(true);
-            sessionManager.initializeSession();
+            //silinebilir gereksiz
+//            sessionManager.initializeSession();
+            sessionManager.setStatus(Status.RunningMode);
+            Events.ResumeGame.invoke();
             sessionManager.getLoopExecutor().start();
         });
         buttonPause.addActionListener(e -> {
+            sessionManager.getLoopExecutor().stop();
+            buttonPlay.setEnabled(true);
             WindowManager.getInstance().showWindow(Windows.PauseView);
             System.out.println(sessionManager.getLoopExecutor().getSecondsPassed());
+            sessionManager.setStatus(Status.PausedMode);
             Events.PauseGame.invoke();
         });
         buttonBuild.addActionListener(e -> {
