@@ -29,6 +29,7 @@ public class BuildViewMiniPanel extends JFrame implements Window {
 
     @Override
     public void createAndShowUI() {
+        setDefaultLookAndFeelDecorated(true);
 
         setSize(300, 250);
 
@@ -95,28 +96,28 @@ public class BuildViewMiniPanel extends JFrame implements Window {
                 return;
             }
 
+            // Set barrier numbers in session manager's builder
             this.sessionManager.getBuilder().setNumOfSimple(numOfSimple);
+            this.sessionManager.getBuilder().setNumOfReinforced(numOfReinforced);
             this.sessionManager.getBuilder().setNumOfExplosive(numOfExplosive);
             this.sessionManager.getBuilder().setNumOfRewarding(numOfRewarding);
-            this.sessionManager.getBuilder().setNumOfReinforced(numOfReinforced);
 
+            // Hide the build panel and close it
             userInputPanel.setVisible(false);
             this.dispose();
 
-            //TODO: bu kısımda build panelde play game dediğimizde game objelerini renderlamasını sağlamalıyız
+            // Invoke game resume event
             Events.ResumeGame.invoke();
-//            this.sessionManager.getDrawCanvas().repaint();
-//            this.sessionManager.getDrawCanvas().revalidate();
-//            GameView.getInstance(sessionManager).add(this.sessionManager.getDrawCanvas(), BorderLayout.CENTER);
-//            sessionManager.initializeSession();
-//            sessionManager.getLoopExecutor().start();
 
-//            DrawCanvas.revalidate();
-
-            // gameview.showcanvas
-            //    public void ShowCanvas(){
-            //        add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
-            //    }
+            // Ensure the game canvas is visible and properly updated
+            GameView gameView = GameView.getInstance(sessionManager);
+            gameView.reinitializeUI();
+            gameView.add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
+            sessionManager.initializeSession();
+            sessionManager.getLoopExecutor().start();
+            sessionManager.getDrawCanvas().repaint();
+            sessionManager.getDrawCanvas().revalidate();
+            gameView.setVisible(true);
 
 
 

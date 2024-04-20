@@ -116,7 +116,7 @@ public class BuildView extends JFrame implements Window {
             this.sessionManager.getBuilder().setNumOfReinforced(numOfReinforced);
 
             userInputPanel.setVisible(false);
-            WindowManager.getInstance().showWindow(Windows.GameView);
+            WindowManager.getInstance().showWindow(Windows.GameViewWindow);
 
 
         });

@@ -10,91 +10,98 @@ import org.LanceOfDestiny.ui.*;
 import org.LanceOfDestiny.ui.Window;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 public class GameView extends JFrame implements Window {
     private static GameView instance = null;
-    private final SessionManager sessionManager;
+    private SessionManager sessionManager;
 
-    public GameView(SessionManager sessionManager) {
+    private GameView(SessionManager sessionManager) {
         this.sessionManager = sessionManager;
+        initializeComponents();
     }
 
     public static GameView getInstance(SessionManager sessionManager) {
         if (instance == null) {
             instance = new GameView(sessionManager);
+        } else {
+            instance.setSessionManager(sessionManager);
         }
         return instance;
     }
 
-    @Override
-    public void createAndShowUI() {
+    private void setSessionManager(SessionManager newSessionManager) {
+        this.sessionManager = newSessionManager;
+        reinitializeUI();
+    }
 
+    private void initializeComponents() {
         setFocusable(true);
-        addKeyListener(InputManager.getInstance()); //Add Input Manager.
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(new Dimension(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT));
         setDefaultLookAndFeelDecorated(true);
         setResizable(false);
+    }
+
+    public void reinitializeUI() {
+        getContentPane().removeAll();
+        createAndShowUI();
+        validate();
+        repaint();
+    }
+
+    @Override
+    public void createAndShowUI() {
+        addKeyListener(InputManager.getInstance());
         Events.ResumeGame.addRunnableListener(this::requestFocusInWindow);
-
-        //Buttons
-        JPanel controlPanel = new JPanel();
-        controlPanel.setLayout(new GridLayout(1,5,20,20));
-
-
-        controlPanel.setPreferredSize(new Dimension(Constants.SCREEN_WIDTH, 50));
-        JButton buttonPlay = new JButton("Start Game");
-        JButton buttonPause = new JButton("Pause Game");
-        JButton buttonBuild = new JButton("Build Game");
-        JButton buttonResume = new JButton("Resume Game");
-
-        //butonlar space tusuna basildiginda calismasin diye
-        buttonPlay.getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "none");
-        buttonPause.getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "none");
-        buttonBuild.getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "none");
-        buttonResume.getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "none");
-
-        ImageIcon healthBar = new ImageIcon(ImageLibrary.Heart.getImage());
-        buttonPause.setEnabled(false);
-
-        add(controlPanel, BorderLayout.NORTH);
-        add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
-
-        //Before initializing the game we need to initialize the player!!!
+        //we need to initialize the player before initializing the other objects to canvas to render
         sessionManager.initializePlayer();
 
 
-        HealthBar healthBarDisplay = new HealthBar(3);
+        JPanel controlPanel = new JPanel(new GridLayout(1, 5, 20, 20));
+        controlPanel.setPreferredSize(new Dimension(Constants.SCREEN_WIDTH, 50));
+        add(controlPanel, BorderLayout.NORTH);
+        add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
+
+        JButton buttonPlay = new JButton("Start Game");
+        JButton buttonPause = new JButton("Pause Game");
+        JButton buttonBuild = new JButton("Build Game");
+
+        // Disable button actions with space key
+        buttonPlay.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "none");
+        buttonPause.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "none");
+        buttonBuild.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "none");
+        buttonPause.setEnabled(false);
+
         SpellInventory spellInventory = new SpellInventory();
 
+        ImageIcon healthBar = new ImageIcon(ImageLibrary.Heart.getImage());
+        HealthBar healthBarDisplay = new HealthBar(3);
         JLabel chanceBar = new JLabel( "<3:  "+ String.valueOf(sessionManager.getPlayer().getChancesLeft()));
         chanceBar.setIcon(healthBar);
 
-        Events.UpdateChance.addListener(e-> chanceBar.setText("<3:  " + String.valueOf(sessionManager.getPlayer().getChancesLeft())));
         JLabel scoreBar = new JLabel( "Score:  " + String.valueOf(ScoreManager.getInstance().getScore()));
+        scoreBar.setFont(new Font("Impact", Font.BOLD, 24));
         scoreBar.setPreferredSize(new Dimension(100,30));
-        Events.UpdateScore.addListener(e-> scoreBar.setText("Score:  " + String.valueOf(ScoreManager.getInstance().getScore())));
 
-        controlPanel.add(spellInventory);
-        controlPanel.add(healthBarDisplay);
-        controlPanel.add(scoreBar);
+        Events.UpdateScore.addListener(e-> scoreBar.setText("Score:  " + String.valueOf(ScoreManager.getInstance().getScore())));
+        Events.UpdateChance.addListener(e-> chanceBar.setText("<3:  " + String.valueOf(sessionManager.getPlayer().getChancesLeft())));
+
         controlPanel.add(buttonPlay);
         controlPanel.add(buttonPause);
         controlPanel.add(buttonBuild);
+        controlPanel.add(healthBarDisplay);
+        controlPanel.add(spellInventory);
+        controlPanel.add(scoreBar);
 
-        //pausePanel.add(chanceBar);
 
-        addKeyListener(InputManager.getInstance());
+
+
+
         buttonPlay.addActionListener(e -> {
-            buttonPlay.setVisible(false);
+            buttonPlay.setEnabled(false);
             buttonPause.setEnabled(true);
-            buttonBuild.setEnabled(false);
-
-            add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
-
-            //Initialize the Game Objects
+            buttonBuild.setEnabled(true);
             sessionManager.initializeSession();
             sessionManager.getLoopExecutor().start();
         });
@@ -104,21 +111,13 @@ public class GameView extends JFrame implements Window {
             Events.PauseGame.invoke();
         });
         buttonBuild.addActionListener(e -> {
-            buttonPause.setEnabled(false);
+            buttonPause.setEnabled(true);
             buttonPlay.setEnabled(true);
             WindowManager.getInstance().showWindow(Windows.BuildViewMini);
             System.out.println(sessionManager.getLoopExecutor().getSecondsPassed());
             Events.PauseGame.invoke();
         });
 
-
-
-        //Add panels to frame.
-
-        //Show the frame.
         setVisible(true);
-
     }
-
-
 }
