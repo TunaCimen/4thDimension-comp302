@@ -81,31 +81,38 @@ public class SessionBuilder {
 
 
     public void initializeBarriers() {
-        int totalBarriers = numOfSimple + numOfReinforced + numOfExplosive + numOfRewarding;
-        List<BarrierTypes> barrierTypes = new ArrayList<>();
+        LanceOfDestiny.getInstance().setGameMap(new GameMap());
+        ArrayList<Barrier> barrierList = LanceOfDestiny.getInstance().getGameMap().getBarriers();
 
-        // Add barrier types to the list based on the counts
-        for (int i = 0; i < numOfSimple; i++) {
-            barrierTypes.add(BarrierTypes.SIMPLE);
+
+         //Add barrier types to the list based on the counts
+        int i;
+        for (i = 0; i < numOfSimple; i++) {
+            Barrier barrier = BarrierFactory.createBarrier(new Vector(0,0), BarrierTypes.SIMPLE);
+           barrierList.add(barrier);
         }
-        for (int i = 0; i < numOfReinforced; i++) {
-            barrierTypes.add(BarrierTypes.REINFORCED);
+        for (i = 0; i < numOfReinforced; i++) {
+            Barrier barrier = BarrierFactory.createBarrier(new Vector(0,0), BarrierTypes.REINFORCED);
+            barrierList.add(barrier);
         }
-        for (int i = 0; i < numOfExplosive; i++) {
-            barrierTypes.add(BarrierTypes.EXPLOSIVE);
+        for (i = 0; i < numOfExplosive; i++) {
+            Barrier barrier = BarrierFactory.createBarrier(new Vector(0,0), BarrierTypes.EXPLOSIVE);
+            barrierList.add(barrier);
         }
-        for (int i = 0; i < numOfRewarding; i++) {
-            barrierTypes.add(BarrierTypes.REWARDING);
+        for (i = 0; i < numOfRewarding; i++) {
+            Barrier barrier = BarrierFactory.createBarrier(new Vector(0,0), BarrierTypes.REWARDING);
+            barrierList.add(barrier);
         }
 
-        // Shuffle the list to randomize barrier placement
-        Collections.shuffle(barrierTypes);
+        // everyday i'm shuffling
+        // shuffling for randomization
+        Collections.shuffle(barrierList);
 
         int x = 40;
         int y = 40;
 
-        for (BarrierTypes type : barrierTypes) {
-            BarrierFactory.createBarrier(new Vector(x, y), type);
+        for (Barrier barrier1 : barrierList) {
+            barrier1.setPosition(new Vector(x, y));
 
             x += 50;
             if (x >= Constants.SCREEN_WIDTH - 40) {
