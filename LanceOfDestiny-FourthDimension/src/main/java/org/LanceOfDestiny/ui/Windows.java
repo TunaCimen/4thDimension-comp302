@@ -3,6 +3,7 @@ package org.LanceOfDestiny.ui;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.ui.AuthViews.*;
 import org.LanceOfDestiny.ui.GameViews.BuildView;
+import org.LanceOfDestiny.ui.GameViews.BuildViewMiniPanel;
 import org.LanceOfDestiny.ui.GameViews.GameView;
 
 public enum Windows{
@@ -13,7 +14,9 @@ public enum Windows{
         PauseView(new PauseView()),
         Signup(new SignUpView(org.LanceOfDestiny.domain.AuthModels.LogInController.getInstance())),
         SaveView(new SaveView()),
-        LoadView(new LoadView());
+        LoadView(new LoadView()),
+        BuildViewMini(new BuildViewMiniPanel(SessionManager.getInstance()));
+
 
         final Window window;
 

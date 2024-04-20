@@ -39,6 +39,7 @@ public class SessionManager {
         this.drawCanvas = new DrawCanvas();
         this.gameLooper = new GameLooper(drawCanvas);
         this.loopExecutor = new LoopExecutor();
+        // todo detelete/replace later with a proper initialization
         this.builder = new SessionBuilder(75, 10, 5, 10);
         currentMode = Status.EditMode;
         loopExecutor.setLooper(gameLooper);
@@ -55,23 +56,15 @@ public class SessionManager {
         fireBall = new FireBall();
 
         magicalStaff = new MagicalStaff();
-        player = new Player();
-        builder.buildBarriers();
+        builder.initializeBarriers();
         //initializeBarriers();
 
     }
-
-    private void initializeBarriers() {
-        for (int i = 20; i < Constants.SCREEN_WIDTH - 10; i += 30) {
-            for (int j = 20; j < Constants.SCREEN_HEIGHT - 400; j += 30) {
-                if (i % 20 == 0) {
-                    BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.EXPLOSIVE);
-                } else {
-                    BarrierFactory.createBarrier(new Vector(i, j), BarrierTypes.REWARDING);
-                }
-            }
-        }
+    public void initializePlayer(){
+        player = new Player();
     }
+
+
 
     public MagicalStaff getMagicalStaff() {
         return magicalStaff;

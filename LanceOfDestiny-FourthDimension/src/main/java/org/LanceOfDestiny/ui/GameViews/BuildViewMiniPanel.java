@@ -1,9 +1,10 @@
 package org.LanceOfDestiny.ui.GameViews;
 
-import org.LanceOfDestiny.domain.Constants;
+//This panel will be displayed on gameview screen to build game in a more aesthetic way
+
 import org.LanceOfDestiny.domain.events.Events;
-import org.LanceOfDestiny.domain.managers.InputManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
+import org.LanceOfDestiny.ui.DrawCanvas;
 import org.LanceOfDestiny.ui.Window;
 import org.LanceOfDestiny.ui.WindowManager;
 import org.LanceOfDestiny.ui.Windows;
@@ -11,8 +12,8 @@ import org.LanceOfDestiny.ui.Windows;
 import javax.swing.*;
 import java.awt.*;
 
-public class BuildView extends JFrame implements Window {
-
+public class BuildViewMiniPanel extends JFrame implements Window {
+    private final WindowManager wm;
     private final SessionManager sessionManager;
 
     private JTextField textFieldBarrierSimple;
@@ -20,52 +21,30 @@ public class BuildView extends JFrame implements Window {
     private JTextField textFieldBarrierExplosive;
     private JTextField textFieldBarrierRewarding;
 
-    public BuildView(SessionManager sessionManager) {
-        this.sessionManager = sessionManager;
+    public BuildViewMiniPanel(SessionManager instance) {
+        wm = WindowManager.getInstance();
+        this.sessionManager = instance;
+
     }
 
     @Override
     public void createAndShowUI() {
 
-        setFocusable(true);
-        addKeyListener(InputManager.getInstance()); //Add Input Manager.
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(new Dimension(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT));
-        setDefaultLookAndFeelDecorated(true);
+        setSize(300, 250);
+
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
+        setLayout(new BorderLayout());
 
-//        //Buttons
-//        JPanel pausePanel = new JPanel();
+        // BUILD label
+        JLabel buildLabel = new JLabel("BUILD YOUR GAME", SwingConstants.CENTER);
+        buildLabel.setFont(new Font("Impact", Font.BOLD, 24));
+        add(buildLabel, BorderLayout.NORTH);
 
 
-//        pausePanel.setPreferredSize(new Dimension(Constants.SCREEN_WIDTH, 50));
-//        JButton button = new JButton("Start Game");
-//        JButton buttonPause = new JButton("Pause Game");
-//        JButton buttonResume = new JButton("Resume Game");
-//        buttonPause.setVisible(false);
-//        buttonResume.setVisible(false);
-//        pausePanel.add(button);
-//        pausePanel.add(buttonPause);
-//        pausePanel.add(buttonResume);
-//        addKeyListener(InputManager.getInstance());
-//        button.addActionListener(e -> {
-//            buttonPause.setVisible(true);
-//            buttonResume.setVisible(true);
-//            button.setVisible(false);
-//            sessionManager.getLoopExecutor().start();
-//        });
-//        buttonPause.addActionListener(e -> {
-//            System.out.println(sessionManager.getLoopExecutor().getSecondsPassed());
-//            Events.PauseGame.invoke();
-//        });
-//        buttonResume.addActionListener(e -> {
-//            Events.ResumeGame.invoke();
-//            requestFocusInWindow(true);
-//        });
-
-        //build panel
+        //Build panel
         JPanel userInputPanel = new JPanel(new GridLayout(5, 2, 10, 10)); // 5 rows, 2 columns
-        userInputPanel.setPreferredSize(new Dimension(Constants.SCREEN_WIDTH, 100));
+
 
         // Barrier 1
         JLabel labelBarrier1 = new JLabel("Simple Barrier :");
@@ -101,6 +80,12 @@ public class BuildView extends JFrame implements Window {
             int numOfExplosive = Integer.parseInt(textFieldBarrierExplosive.getText());
             int numOfRewarding = Integer.parseInt(textFieldBarrierRewarding.getText());
 
+            // debug the numbers with system.out.println
+            System.out.println("Simple: " + numOfSimple);
+            System.out.println("Reinforced: " + numOfReinforced);
+            System.out.println("Explosive: " + numOfExplosive);
+            System.out.println("Rewarding: " + numOfRewarding);
+
             if (numOfSimple < 75 || numOfReinforced < 10 || numOfExplosive < 5 || numOfRewarding < 10) {
                 JOptionPane.showMessageDialog(null, "Minimum required barriers not met:\n"
                         + "Simple: 75\n"
@@ -116,29 +101,36 @@ public class BuildView extends JFrame implements Window {
             this.sessionManager.getBuilder().setNumOfReinforced(numOfReinforced);
 
             userInputPanel.setVisible(false);
-            WindowManager.getInstance().showWindow(Windows.GameView);
+            this.dispose();
+
+            //TODO: bunu düzeltmek gerekebilir emin değilim
+            Events.ResumeGame.invoke();
+//            DrawCanvas.revalidate();
+
+            // gameview.showcanvas
+            //    public void ShowCanvas(){
+            //        add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
+            //    }
 
 
-        });
-
-
-        // Play Game Button
-        JButton buttonTest = new JButton("Test Game with presets");
-        userInputPanel.add(buttonTest);
-        buttonTest.addActionListener(e -> {
-
-            this.sessionManager.getBuilder().setNumOfSimple(75);
-            this.sessionManager.getBuilder().setNumOfExplosive(10);
-            this.sessionManager.getBuilder().setNumOfRewarding(5);
-            this.sessionManager.getBuilder().setNumOfReinforced(10);
-
-            userInputPanel.setVisible(false);
-            sessionManager.initializeSession();
 
         });
 
-        add(userInputPanel, BorderLayout.CENTER);
+
+
+
+
+        // Add button panel to the frame
+        add(userInputPanel, BorderLayout.CENTER); // Centered in the layout
+
+        // Center the window
+        setLocationRelativeTo(null);
+
+        // Set visible
         setVisible(true);
-
     }
+
+
+
+
 }

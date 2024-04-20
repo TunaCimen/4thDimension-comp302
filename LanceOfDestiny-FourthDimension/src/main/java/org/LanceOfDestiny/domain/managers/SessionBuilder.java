@@ -1,6 +1,9 @@
 package org.LanceOfDestiny.domain.managers;
 
+import org.LanceOfDestiny.LanceOfDestiny;
 import org.LanceOfDestiny.domain.Constants;
+import org.LanceOfDestiny.domain.GameMap;
+import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.barriers.BarrierFactory;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
 import org.LanceOfDestiny.domain.physics.Vector;
@@ -22,7 +25,62 @@ public class SessionBuilder {
         this.numOfRewarding = numOfRewarding;
     }
 
-    public void buildBarriers() {
+
+//    /**
+//     * This method is responsible for building and positioning the barriers in the game.
+//     * It first creates the specified number of each type of barrier and adds them to the game's barrier list.
+//     * Then it shuffles the barrier list for randomization.
+//     * Finally, it positions the barriers on the game map, ensuring they do not exceed the screen width.
+//     */
+//    public void initializeBarriers() {
+//        LanceOfDestiny.getInstance().setGameMap(new GameMap());
+//        ArrayList<Barrier> barrierList = LanceOfDestiny.getInstance().getGameMap().getBarriers();
+//        int i;
+//        for (i = 0; i < numOfSimple; i++) {
+//            Barrier barrier = BarrierFactory.createBarrier(new Vector(0,0), BarrierTypes.SIMPLE);
+//           barrierList.add(barrier);
+//        }
+//        for (i = 0; i < numOfReinforced; i++) {
+//            Barrier barrier = BarrierFactory.createBarrier(new Vector(0,0), BarrierTypes.REINFORCED);
+//            barrierList.add(barrier);
+//        }
+//        for (i = 0; i < numOfExplosive; i++) {
+//            Barrier barrier = BarrierFactory.createBarrier(new Vector(0,0), BarrierTypes.EXPLOSIVE);
+//            barrierList.add(barrier);
+//        }
+//        for (i = 0; i < numOfRewarding; i++) {
+//            Barrier barrier = BarrierFactory.createBarrier(new Vector(0,0), BarrierTypes.REWARDING);
+//            barrierList.add(barrier);
+//        }
+//        // everyday i'm shuffling
+//        // shuffling for randomization
+//        Collections.shuffle(barrierList);
+//
+//
+//        Barrier barrierZero = barrierList.get(0);
+//        barrierZero.setPosition(new Vector(68, 40));
+//        float barrierAndGapWidth = 68; // 28 is the width of the barrier and 40 is the gap between barriers
+//        int barrierAndGapPairs = 2;
+//        float verticalGap = 40;
+//        for(i = 1; i < barrierList.size(); i++) {
+//            float widthCheck = (barrierAndGapWidth * barrierAndGapPairs) + 40;
+//            Barrier nextBarrier = barrierList.get(i);
+//            if (widthCheck + barrierAndGapWidth > Constants.SCREEN_WIDTH) {
+//                barrierAndGapPairs = 1;
+//                verticalGap += 40;
+//                nextBarrier.setPosition(new Vector(barrierAndGapWidth*barrierAndGapPairs, verticalGap));
+//            }
+//            else {
+//                float x = (barrierAndGapWidth * barrierAndGapPairs);
+//                nextBarrier.setPosition(new Vector(x, verticalGap));
+//                barrierAndGapPairs++;
+//            }
+//
+//        }
+//    }
+
+
+    public void initializeBarriers() {
         int totalBarriers = numOfSimple + numOfReinforced + numOfExplosive + numOfRewarding;
         List<BarrierTypes> barrierTypes = new ArrayList<>();
 
@@ -43,18 +101,30 @@ public class SessionBuilder {
         // Shuffle the list to randomize barrier placement
         Collections.shuffle(barrierTypes);
 
-        int x = 20;
-        int y = 20;
+        int x = 40;
+        int y = 40;
 
         for (BarrierTypes type : barrierTypes) {
             BarrierFactory.createBarrier(new Vector(x, y), type);
 
-            x += 40;
-            if (x >= Constants.SCREEN_WIDTH - 10) {
-                x = 20;
+            x += 50;
+            if (x >= Constants.SCREEN_WIDTH - 40) {
+                x = 40;
                 y += 30;
             }
         }
+    }
+
+    /**
+     * This method is used to add a new barrier to the game panel.
+     * It creates a new barrier of the specified type at the specified coordinates and adds it to the BarrierFactory.
+     *
+     * @param type The type of the barrier to be created.
+     * @param x The x-coordinate for the new barrier.
+     * @param y The y-coordinate for the new barrier.
+     */
+    public void addBarrierToPanel(BarrierTypes type, int x, int y) {
+        BarrierFactory.addBarrier(new BarrierFactory().createBarrier(new Vector(x, y), type));
     }
 
 
