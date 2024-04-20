@@ -14,11 +14,18 @@ import javax.swing.border.Border;
 import java.awt.*;
 
 public class GameView extends JFrame implements Window {
-
+    private static GameView instance = null;
     private final SessionManager sessionManager;
 
     public GameView(SessionManager sessionManager) {
         this.sessionManager = sessionManager;
+    }
+
+    public static GameView getInstance(SessionManager sessionManager) {
+        if (instance == null) {
+            instance = new GameView(sessionManager);
+        }
+        return instance;
     }
 
     @Override
@@ -54,7 +61,10 @@ public class GameView extends JFrame implements Window {
 
         add(controlPanel, BorderLayout.NORTH);
         add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
+
+        //Before initializing the game we need to initialize the player!!!
         sessionManager.initializePlayer();
+
 
         HealthBar healthBarDisplay = new HealthBar(3);
         SpellInventory spellInventory = new SpellInventory();
@@ -83,10 +93,9 @@ public class GameView extends JFrame implements Window {
             buttonBuild.setEnabled(false);
 
             add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
+
             //Initialize the Game Objects
             sessionManager.initializeSession();
-
-
             sessionManager.getLoopExecutor().start();
         });
         buttonPause.addActionListener(e -> {

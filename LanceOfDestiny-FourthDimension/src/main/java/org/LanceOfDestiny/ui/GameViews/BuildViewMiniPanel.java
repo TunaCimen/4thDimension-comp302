@@ -103,8 +103,14 @@ public class BuildViewMiniPanel extends JFrame implements Window {
             userInputPanel.setVisible(false);
             this.dispose();
 
-            //TODO: bunu düzeltmek gerekebilir emin değilim
+            //TODO: bu kısımda build panelde play game dediğimizde game objelerini renderlamasını sağlamalıyız
             Events.ResumeGame.invoke();
+//            this.sessionManager.getDrawCanvas().repaint();
+//            this.sessionManager.getDrawCanvas().revalidate();
+//            GameView.getInstance(sessionManager).add(this.sessionManager.getDrawCanvas(), BorderLayout.CENTER);
+//            sessionManager.initializeSession();
+//            sessionManager.getLoopExecutor().start();
+
 //            DrawCanvas.revalidate();
 
             // gameview.showcanvas
