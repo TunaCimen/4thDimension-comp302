@@ -67,7 +67,7 @@ public class GameView extends JFrame implements Window {
         JButton buttonPause = new JButton("Pause Game");
         JButton buttonBuild = new JButton("Build Game");
 
-        // Disable button actions with space key
+        // Disable buttons triggering with space key
         buttonPlay.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "none");
         buttonPause.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "none");
         buttonBuild.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "none");
