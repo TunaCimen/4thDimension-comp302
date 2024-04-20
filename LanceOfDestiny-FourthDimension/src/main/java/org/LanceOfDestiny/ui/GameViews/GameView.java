@@ -1,11 +1,9 @@
 package org.LanceOfDestiny.ui.GameViews;
 
 import org.LanceOfDestiny.domain.Constants;
+import org.LanceOfDestiny.domain.barriers.BarrierTypes;
 import org.LanceOfDestiny.domain.events.Events;
-import org.LanceOfDestiny.domain.managers.InputManager;
-import org.LanceOfDestiny.domain.managers.ScoreManager;
-import org.LanceOfDestiny.domain.managers.SessionManager;
-import org.LanceOfDestiny.domain.managers.Status;
+import org.LanceOfDestiny.domain.managers.*;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.ui.*;
 import org.LanceOfDestiny.ui.Window;
@@ -20,6 +18,8 @@ public class GameView extends JFrame implements Window {
     JButton buttonPlay;
     JButton buttonPause;
     JButton buttonBuild;
+    private JComboBox<String> comboBoxAddBarrierType;
+
 
     private GameView(SessionManager sessionManager) {
         this.sessionManager = sessionManager;
@@ -93,11 +93,15 @@ public class GameView extends JFrame implements Window {
          buttonPlay = new JButton("Start Game");
          buttonPause = new JButton("Pause Game");
          buttonBuild = new JButton("Build Game");
+         comboBoxAddBarrierType = new JComboBox<>(new String[]{(BarrierTypes.SIMPLE).toString(), (BarrierTypes.REINFORCED).toString(), (BarrierTypes.EXPLOSIVE).toString(), (BarrierTypes.REWARDING).toString()});
+
 
         // Disable buttons triggering with space key
         buttonPlay.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "none");
         buttonPause.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "none");
         buttonBuild.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "none");
+        comboBoxAddBarrierType.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "none");
+
         buttonPause.setEnabled(false);
 
         SpellInventory spellInventory = new SpellInventory();
@@ -117,6 +121,7 @@ public class GameView extends JFrame implements Window {
         controlPanel.add(buttonPlay);
         controlPanel.add(buttonPause);
         controlPanel.add(buttonBuild);
+        controlPanel.add(comboBoxAddBarrierType);
         controlPanel.add(healthBarDisplay);
         controlPanel.add(spellInventory);
         controlPanel.add(scoreBar);
@@ -140,6 +145,11 @@ public class GameView extends JFrame implements Window {
             WindowManager.getInstance().showWindow(Windows.BuildViewMini);
             System.out.println(sessionManager.getLoopExecutor().getSecondsPassed());
             Events.PauseGame.invoke();
+        });
+        comboBoxAddBarrierType.addActionListener(e -> {
+            BarrierManager.getInstance().setSelectedBarrierType(BarrierTypes.valueOf((String) comboBoxAddBarrierType.getSelectedItem()));
+            //Debugging
+            System.out.println("Selected Barrier is: "+(BarrierManager.getInstance().getSelectedBarrierType()).toString());
         });
 
         setVisible(true);

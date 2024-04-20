@@ -115,8 +115,8 @@ public class BuildViewMiniPanel extends JFrame implements Window {
             gameView.add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
             sessionManager.initializeSession();
 //            sessionManager.getLoopExecutor().start();
-            sessionManager.getDrawCanvas().repaint();
-            sessionManager.getDrawCanvas().revalidate();
+//            sessionManager.getDrawCanvas().repaint();
+//            sessionManager.getDrawCanvas().revalidate();
             gameView.setVisible(true);
 
 

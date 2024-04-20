@@ -104,7 +104,6 @@ public class SessionBuilder {
             barrierList.add(barrier);
         }
 
-        // everyday i'm shuffling
         // shuffling for randomization
         Collections.shuffle(barrierList);
 
@@ -122,17 +121,7 @@ public class SessionBuilder {
         }
     }
 
-    /**
-     * This method is used to add a new barrier to the game panel.
-     * It creates a new barrier of the specified type at the specified coordinates and adds it to the BarrierFactory.
-     *
-     * @param type The type of the barrier to be created.
-     * @param x The x-coordinate for the new barrier.
-     * @param y The y-coordinate for the new barrier.
-     */
-    public void addBarrierToPanel(BarrierTypes type, int x, int y) {
-        BarrierFactory.addBarrier(new BarrierFactory().createBarrier(new Vector(x, y), type));
-    }
+
 
 
     private BarrierTypes determineTypeToCreate(int numSimpleCreated, int numFirmCreated, int numExplosiveCreated, int numGiftCreated) {
