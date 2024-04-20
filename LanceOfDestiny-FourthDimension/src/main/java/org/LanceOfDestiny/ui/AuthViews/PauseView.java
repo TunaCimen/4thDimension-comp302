@@ -19,7 +19,7 @@ public class PauseView extends JFrame implements Window {
 
         setSize(300, 250); // Increased height for accommodating bigger buttons
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setResizable(false);
         setLayout(new BorderLayout()); // Use BorderLayout for better arrangement
 
@@ -31,6 +31,15 @@ public class PauseView extends JFrame implements Window {
         // Panel for buttons
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(4, 1, 10, 10)); // 4 rows, 1 column, with gaps
+
+        // Resume button
+        JButton resumeButton = new JButton("Resume");
+        resumeButton.setPreferredSize(new Dimension(140, 60)); // Larger size for Resume button
+        resumeButton.addActionListener(e -> {
+            this.dispose();
+            Events.ResumeGame.invoke();
+        }); // Close the window on click
+        buttonPanel.add(resumeButton); // Add Resume button to the panel
 
         // Save button
         JButton saveButton = new JButton("Save");
@@ -53,15 +62,6 @@ public class PauseView extends JFrame implements Window {
         helpButton.setPreferredSize(new Dimension(140, 60)); // Larger size for Help button
         //helpButton.addActionListener(e -> showHelp());
         buttonPanel.add(helpButton); // Add Help button to the panel
-
-        // Resume button
-        JButton resumeButton = new JButton("Resume");
-        resumeButton.setPreferredSize(new Dimension(140, 60)); // Larger size for Resume button
-        resumeButton.addActionListener(e -> {
-            this.dispose();
-            Events.ResumeGame.invoke();
-        }); // Close the window on click
-        buttonPanel.add(resumeButton); // Add Resume button to the panel
 
         // Add button panel to the frame
         add(buttonPanel, BorderLayout.CENTER); // Centered in the layout

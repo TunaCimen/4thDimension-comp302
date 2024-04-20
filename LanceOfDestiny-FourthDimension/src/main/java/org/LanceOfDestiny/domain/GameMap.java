@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class GameMap {
     // List of barriers present on the map
-    private List<Barrier> barriers;
+    private ArrayList<Barrier> barriers;
 
     /**
      * Constructor for the GameMap class.
@@ -25,11 +25,11 @@ public class GameMap {
      *
      * @return List<Barrier> This returns the list of barriers.
      */
-    public List<Barrier> getBarriers() {
+    public ArrayList<Barrier> getBarriers() {
         return barriers;
     }
 
-    public void setBarriers(List<Barrier> barriers) {
+    public void setBarriers(ArrayList<Barrier> barriers) {
         this.barriers = barriers;
     }
 }

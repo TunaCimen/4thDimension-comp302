@@ -26,6 +26,9 @@ public class LanceOfDestiny {
     }
 
     public GameMap getGameMap() {
+        if(gameMap == null){
+            gameMap = new GameMap();
+        }
         return gameMap;
     }
 

@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.domain.managers;
 
+import org.LanceOfDestiny.LanceOfDestiny;
 import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.events.Events;
 
@@ -8,8 +9,7 @@ import java.util.ArrayList;
 public class BarrierManager {
 
     private static BarrierManager instance;
-    private ArrayList<Barrier> barriers = new ArrayList<Barrier>();
-
+    private ArrayList<Barrier> barriers = LanceOfDestiny.getInstance().getGameMap().getBarriers();
     private BarrierManager() {
     }
 
@@ -19,6 +19,12 @@ public class BarrierManager {
     }
 
     public void addBarrier(Barrier barrier) {
+        barriers.add(barrier);
+    }
+
+    public void createBarrierList(Barrier barrier) {
+        // to initialize a new list of barriers
+        barriers = new ArrayList<Barrier>();
         barriers.add(barrier);
     }
 

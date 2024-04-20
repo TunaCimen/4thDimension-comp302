@@ -33,40 +33,60 @@ public class GameView extends JFrame implements Window {
         Events.ResumeGame.addRunnableListener(this::requestFocusInWindow);
 
         //Buttons
-        JPanel pausePanel = new JPanel();
-        pausePanel.setLayout(new GridLayout(1,5,20,20));
+        JPanel controlPanel = new JPanel();
+        controlPanel.setLayout(new GridLayout(1,5,20,20));
 
 
-        pausePanel.setPreferredSize(new Dimension(Constants.SCREEN_WIDTH, 50));
-        JButton button = new JButton("Start Game");
+        controlPanel.setPreferredSize(new Dimension(Constants.SCREEN_WIDTH, 50));
+        JButton buttonPlay = new JButton("Start Game");
         JButton buttonPause = new JButton("Pause Game");
+        JButton buttonBuild = new JButton("Build Game");
+        JButton buttonResume = new JButton("Resume Game");
+
+        //butonlar space tusuna basildiginda calismasin diye
+        buttonPlay.getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "none");
+        buttonPause.getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "none");
+        buttonBuild.getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "none");
+        buttonResume.getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "none");
+
         ImageIcon healthBar = new ImageIcon(ImageLibrary.Heart.getImage());
-        buttonPause.setVisible(false);
+        buttonPause.setEnabled(false);
+
+        add(controlPanel, BorderLayout.NORTH);
         add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
-        add(pausePanel, BorderLayout.NORTH);
-        //Initialize the Game Objects
-        sessionManager.initializeSession();
+        sessionManager.initializePlayer();
+
         HealthBar healthBarDisplay = new HealthBar(3);
         SpellInventory spellInventory = new SpellInventory();
+
         JLabel chanceBar = new JLabel( "<3:  "+ String.valueOf(sessionManager.getPlayer().getChancesLeft()));
         chanceBar.setIcon(healthBar);
+
         Events.UpdateChance.addListener(e-> chanceBar.setText("<3:  " + String.valueOf(sessionManager.getPlayer().getChancesLeft())));
         JLabel scoreBar = new JLabel( "Score:  " + String.valueOf(ScoreManager.getInstance().getScore()));
         scoreBar.setPreferredSize(new Dimension(100,30));
         Events.UpdateScore.addListener(e-> scoreBar.setText("Score:  " + String.valueOf(ScoreManager.getInstance().getScore())));
 
-        pausePanel.add(spellInventory);
-        pausePanel.add(button);
-        pausePanel.add(healthBarDisplay);
-        pausePanel.add(scoreBar);
-        pausePanel.add(buttonPause);
+        controlPanel.add(spellInventory);
+        controlPanel.add(healthBarDisplay);
+        controlPanel.add(scoreBar);
+        controlPanel.add(buttonPlay);
+        controlPanel.add(buttonPause);
+        controlPanel.add(buttonBuild);
 
         //pausePanel.add(chanceBar);
 
         addKeyListener(InputManager.getInstance());
-        button.addActionListener(e -> {
-            buttonPause.setVisible(true);
-            button.setVisible(false);
+        buttonPlay.addActionListener(e -> {
+            buttonPlay.setVisible(false);
+            buttonPause.setEnabled(true);
+            buttonBuild.setEnabled(false);
+
+            add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
+            //Initialize the Game Objects
+            sessionManager.initializeSession();
+
+
             sessionManager.getLoopExecutor().start();
         });
         buttonPause.addActionListener(e -> {
@@ -74,6 +94,14 @@ public class GameView extends JFrame implements Window {
             System.out.println(sessionManager.getLoopExecutor().getSecondsPassed());
             Events.PauseGame.invoke();
         });
+        buttonBuild.addActionListener(e -> {
+            buttonPause.setEnabled(false);
+            buttonPlay.setEnabled(true);
+            WindowManager.getInstance().showWindow(Windows.BuildViewMini);
+            System.out.println(sessionManager.getLoopExecutor().getSecondsPassed());
+            Events.PauseGame.invoke();
+        });
+
 
 
         //Add panels to frame.
@@ -82,4 +110,6 @@ public class GameView extends JFrame implements Window {
         setVisible(true);
 
     }
+
+
 }
