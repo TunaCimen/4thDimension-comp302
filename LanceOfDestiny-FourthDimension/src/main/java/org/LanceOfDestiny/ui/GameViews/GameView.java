@@ -17,6 +17,10 @@ public class GameView extends JFrame implements Window {
     private static GameView instance = null;
     private SessionManager sessionManager;
 
+    JButton buttonPlay;
+    JButton buttonPause;
+    JButton buttonBuild;
+
     private GameView(SessionManager sessionManager) {
         this.sessionManager = sessionManager;
         initializeComponents();
@@ -51,6 +55,28 @@ public class GameView extends JFrame implements Window {
         repaint();
     }
 
+    public void setPlayButtonVisibility(boolean isVisible) {
+        buttonPlay.setEnabled(isVisible);
+
+    }
+    public void setPauseButtonVisibility(boolean isVisible) {
+        buttonPause.setEnabled(isVisible);
+
+    }
+    public void setBuildButtonVisibility(boolean isVisible) {
+        buttonBuild.setEnabled(isVisible);
+
+    }
+
+    public void startGame() {
+        buttonPlay.setEnabled(false);
+        buttonPause.setEnabled(true);
+        buttonBuild.setEnabled(true);
+        sessionManager.setStatus(Status.RunningMode);
+        Events.ResumeGame.invoke();
+        sessionManager.getLoopExecutor().start();
+    }
+
     @Override
     public void createAndShowUI() {
         addKeyListener(InputManager.getInstance());
@@ -64,9 +90,9 @@ public class GameView extends JFrame implements Window {
         add(controlPanel, BorderLayout.NORTH);
         add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
 
-        JButton buttonPlay = new JButton("Start Game");
-        JButton buttonPause = new JButton("Pause Game");
-        JButton buttonBuild = new JButton("Build Game");
+         buttonPlay = new JButton("Start Game");
+         buttonPause = new JButton("Pause Game");
+         buttonBuild = new JButton("Build Game");
 
         // Disable buttons triggering with space key
         buttonPlay.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "none");
@@ -99,16 +125,7 @@ public class GameView extends JFrame implements Window {
 
 
 
-        buttonPlay.addActionListener(e -> {
-            buttonPlay.setEnabled(false);
-            buttonPause.setEnabled(true);
-            buttonBuild.setEnabled(true);
-            //silinebilir gereksiz
-//            sessionManager.initializeSession();
-            sessionManager.setStatus(Status.RunningMode);
-            Events.ResumeGame.invoke();
-            sessionManager.getLoopExecutor().start();
-        });
+        buttonPlay.addActionListener(e -> {startGame();});
         buttonPause.addActionListener(e -> {
             sessionManager.getLoopExecutor().stop();
             buttonPlay.setEnabled(true);
