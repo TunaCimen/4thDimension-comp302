@@ -75,8 +75,16 @@ public class BarrierManager {
 
     public Barrier getBarrierByLocation(int x, int y) {
         for (Barrier barrier : barriers) {
-            if (barrier.getPosition().getX() - 14 <= x &&
-                    barrier.getPosition().getX() + 14 >= x &&
+
+            if (barrier.getBarrierType() == BarrierTypes.EXPLOSIVE) {
+                if (barrier.getPosition().getX() <= x + 16 &&
+                        barrier.getPosition().getX() + 28 >= x + 16 &&
+                        barrier.getPosition().getY() <= y + 8 &&
+                        barrier.getPosition().getY() + 20 >= y + 8) {
+                    return barrier;
+                }
+            } else if (barrier.getPosition().getX() <= x &&
+                    barrier.getPosition().getX() + 28  >= x &&
                     barrier.getPosition().getY() <= y &&
                     barrier.getPosition().getY() + 20 >= y) {
                 return barrier;
@@ -103,7 +111,10 @@ public class BarrierManager {
                     }
                 }
             }
-    }
+        }
+        else {
+            return false;
+        }
         return false;
     }
 

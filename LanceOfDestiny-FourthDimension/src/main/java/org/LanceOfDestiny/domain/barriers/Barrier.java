@@ -94,11 +94,16 @@ public abstract class Barrier extends GameObject {
         return hitsLeft;
     }
 
+    public BarrierTypes getType() {
+        return barrierType;
+    }
+
+
 @Override
 public String toString() {
     // return a string that represents the object
     return "Barrier Name{" +
-        "name=" + barrierType +
+        "name=" + barrierType + ", position =" + position +
         '}';
 }
 }
