@@ -205,6 +205,7 @@ public class BuildViewMiniPanel extends JFrame implements Window {
             //gameView.add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
             sessionManager.initializeSession();
             gameView.setVisible(true);
+            gameView.setPauseButtonEnabled(false);
         });
         buttonTest.addMouseListener(new MouseAdapter() {
             @Override
