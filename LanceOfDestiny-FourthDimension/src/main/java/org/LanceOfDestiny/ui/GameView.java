@@ -100,8 +100,7 @@ public class GameView extends javax.swing.JFrame implements Window {
     }
     private void loadButtonAction(java.awt.event.ActionEvent evt) throws SQLException {
         barrier_list = GameView.this.userManager.loadBarriers("newsave");
-        List<Integer> userInfol = GameView.this.userManager.loadUserInfo("newsave");
-        System.out.println(userInfol.toString());
+
     }
 
     /**

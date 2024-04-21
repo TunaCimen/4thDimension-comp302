@@ -54,8 +54,10 @@ public class LoadView extends JFrame implements Window {
             button.addActionListener(e -> {
                 BarrierManager.getInstance().barriers = (ArrayList<Barrier>) LoadView.this.userManager.loadBarriers(name);
                 try {
-                    ScoreManager.getInstance().setScore(LoadView.this.userManager.loadUserInfo(name).get(0));
-                    SessionManager.getInstance().getPlayer().setChancesLeft(LoadView.this.userManager.loadUserInfo(name).get(1));
+                    ScoreManager.getInstance().setScore(Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(0)));
+                    SessionManager.getInstance().getPlayer().setChancesLeft(Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(1)));
+                    System.out.println(SessionManager.getInstance().getPlayer().getChancesLeft());
+                    System.out.println(ScoreManager.getInstance().getScore());
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
