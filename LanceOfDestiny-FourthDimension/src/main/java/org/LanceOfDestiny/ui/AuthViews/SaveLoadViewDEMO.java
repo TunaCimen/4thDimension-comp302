@@ -235,7 +235,7 @@ public class SaveLoadViewDEMO extends javax.swing.JFrame implements Window {
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {
         blist = SaveLoadViewDEMO.this.userManager.loadBarriers("newsave");
-        List<Integer> userInfol = SaveLoadViewDEMO.this.userManager.loadUserInfo("newsave");
+        List<String> userInfol = SaveLoadViewDEMO.this.userManager.loadUserInfo("newsave");
         System.out.println(userInfol.toString());
     }
     private javax.swing.JPanel Left;

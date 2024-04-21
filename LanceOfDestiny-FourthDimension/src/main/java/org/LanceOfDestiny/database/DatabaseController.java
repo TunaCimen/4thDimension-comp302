@@ -93,8 +93,8 @@ public class DatabaseController {
         }
         return rt;
     }
-    public List<Integer> loadUserInfo(String username, String saveName) throws SQLException {
-        List<Integer> rt = new ArrayList<>();
+    public List<String> loadUserInfo(String username, String saveName) throws SQLException {
+        List<String> rt = new ArrayList<>();
         try (PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM UserInfoSaved WHERE savedByUser = ? AND saveName = ?")) {
             pstmt.setString(1, username);
             pstmt.setString(2, saveName);
@@ -102,9 +102,9 @@ public class DatabaseController {
             if (resultSet.next()) {
                 int score = resultSet.getInt("score");
                 int chances = resultSet.getInt("chances");
-                int numberofspells = resultSet.getInt("numberOfSpells");
-                rt.add(score);
-                rt.add(chances);
+                String numberofspells = resultSet.getString("numberOfSpells");
+                rt.add(String.valueOf(score));
+                rt.add(String.valueOf(chances));
                 rt.add(numberofspells);
             }
         }

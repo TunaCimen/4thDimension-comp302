@@ -46,7 +46,7 @@ public class LogInController {
     public List<Barrier> loadBarriers(String saveName){
         return dbController.loadBarriers(this.username,saveName);
     }
-    public List<Integer> loadUserInfo(String saveName) throws SQLException {
+    public List<String> loadUserInfo(String saveName) throws SQLException {
         return dbController.loadUserInfo(this.username,saveName);
     }
     public List<String> loadSavedNames(){
