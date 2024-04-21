@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.ui.AuthViews;
 
+import org.LanceOfDestiny.domain.GameMap;
 import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
@@ -38,7 +39,7 @@ public class LoadView extends JFrame implements Window {
             System.out.println(e.getMessage());
         }
         setTitle("Load View");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
         JPanel buttonPanel = new JPanel(new GridLayout(savedNames.size(), 1));
@@ -52,12 +53,12 @@ public class LoadView extends JFrame implements Window {
             button.setMaximumSize(buttonSize);
             button.setMinimumSize(buttonSize);
             button.addActionListener(e -> {
+                BarrierManager.getInstance().removeAllBarriers();
                 BarrierManager.getInstance().barriers = (ArrayList<Barrier>) LoadView.this.userManager.loadBarriers(name);
                 try {
                     ScoreManager.getInstance().setScore(Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(0)));
                     SessionManager.getInstance().getPlayer().setChancesLeft(Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(1)));
-                    System.out.println(SessionManager.getInstance().getPlayer().getChancesLeft());
-                    System.out.println(ScoreManager.getInstance().getScore());
+
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }

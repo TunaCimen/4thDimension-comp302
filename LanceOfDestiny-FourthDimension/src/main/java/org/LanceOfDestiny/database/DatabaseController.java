@@ -1,8 +1,6 @@
 package org.LanceOfDestiny.database;
 
-import org.LanceOfDestiny.domain.barriers.Barrier;
-import org.LanceOfDestiny.domain.barriers.ExplosiveBarrier;
-import org.LanceOfDestiny.domain.barriers.SimpleBarrier;
+import org.LanceOfDestiny.domain.barriers.*;
 import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.sql.*;
@@ -73,17 +71,22 @@ public class DatabaseController {
             // Check if there is at least one row
             if (resultSet.next()) {
                 do {
-                    // Process each row individually
                     String barrierType = resultSet.getString("barrierType");
                     int hitsLeft = resultSet.getInt("hitsLeft");
                     String coordinate = resultSet.getString("coordinate");
                     String[] parts = coordinate.split(", ");
-                    // Do something with the retrieved information for each row
+
                     if(Objects.equals(barrierType, "SIMPLE")){
                         rt.add(new SimpleBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1]))));
                     }
                     else if(Objects.equals(barrierType, "EXPLOSIVE")){
                         rt.add(new ExplosiveBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1]))));
+                    }
+                    else if(Objects.equals(barrierType, "REINFORCED")){
+                        rt.add(new ReinforcedBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])),hitsLeft));
+                    }
+                    else if(Objects.equals(barrierType, "REWARDING")){
+                        rt.add(new RewardingBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1]))));
                     }
                 } while (resultSet.next());
                 return rt;
