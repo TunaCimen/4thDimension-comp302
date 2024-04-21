@@ -30,7 +30,7 @@ public class RewardBox extends GameObject {
         this.position = position;
         this.spellType = spellType;
         this.isFalling = false;
-        createSprite();
+        createSprite((spellType.equals(SpellType.CHANCE)));
         createCollider();
     }
 
@@ -68,9 +68,14 @@ public class RewardBox extends GameObject {
         return sprite;
     }
 
-    public void createSprite() {
+    public void createSprite(boolean isChance) {
         this.sprite = new RectangleSprite(this, new Color(0,0,0,0), WIDTH, HEIGHT);
-        this.sprite.setImage(ImageOperations.resizeImage(ImageLibrary.RewardBox.getImage(),32,32));
+
+        var defaultImage = ImageOperations.resizeImage(ImageLibrary.RewardBox.getImage(),32,32);
+        var chanceImage = ImageOperations.resizeImage(ImageLibrary.Heart.getImage(),32,32);
+        var image = isChance ? chanceImage : defaultImage;
+
+        this.sprite.setImage(image);
         getSprite().setVisible(false);
     }
 
