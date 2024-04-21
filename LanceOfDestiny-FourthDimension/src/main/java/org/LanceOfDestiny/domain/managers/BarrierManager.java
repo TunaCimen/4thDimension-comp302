@@ -1,13 +1,17 @@
 package org.LanceOfDestiny.domain.managers;
 
 import org.LanceOfDestiny.LanceOfDestiny;
+import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.physics.Vector;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+
+import static org.LanceOfDestiny.domain.Constants.*;
 
 public class BarrierManager {
 
@@ -129,6 +133,37 @@ public class BarrierManager {
         }
 
         return false;
+    }
+
+    /**
+     * Validates the number of barriers against defined criteria.
+     * Returns an error message if criteria are not met, otherwise returns null.
+     */
+    public String validateBarrierCounts(int numOfSimple, int numOfReinforced, int numOfExplosive, int numOfRewarding) {
+        StringBuilder errorMessage = new StringBuilder();
+
+        // Check minimum requirements
+        if (numOfSimple < MIN_SIMPLE || numOfReinforced < MIN_REINFORCED ||
+                numOfExplosive < MIN_EXPLOSIVE || numOfRewarding < MIN_REWARDING) {
+            errorMessage.append("Minimum required barriers not met:\n")
+                    .append("Simple: ").append(MIN_SIMPLE).append("\n")
+                    .append("Reinforced: ").append(MIN_REINFORCED).append("\n")
+                    .append("Explosive: ").append(MIN_EXPLOSIVE).append("\n")
+                    .append("Rewarding: ").append(MIN_REWARDING).append("\n");
+        }
+
+        // Check maximum limits
+        if (numOfSimple > MAX_SIMPLE || numOfReinforced > MAX_REINFORCED ||
+                numOfExplosive > MAX_EXPLOSIVE || numOfRewarding > MAX_REWARDING) {
+            if (!errorMessage.isEmpty()) errorMessage.setLength(0);
+            errorMessage.append("Maximum barrier limits exceeded:\n")
+                    .append("Simple: ").append(MAX_SIMPLE).append("\n")
+                    .append("Reinforced: ").append(MAX_REINFORCED).append("\n")
+                    .append("Explosive: ").append(MAX_EXPLOSIVE).append("\n")
+                    .append("Rewarding: ").append(MAX_REWARDING);
+        }
+
+        return errorMessage.length() == 0 ? null : errorMessage.toString();
     }
 
 

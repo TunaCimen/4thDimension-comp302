@@ -2,8 +2,9 @@ package org.LanceOfDestiny.ui.GameViews;
 
 //This panel will be displayed on gameview screen to build game in a more aesthetic way
 
-import org.LanceOfDestiny.LanceOfDestiny;
+import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
+import org.LanceOfDestiny.ui.CustomViews.CustomDialog;
 import org.LanceOfDestiny.ui.Window;
 import org.LanceOfDestiny.ui.WindowManager;
 
@@ -12,9 +13,6 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
 
 public class BuildViewMiniPanel extends JFrame implements Window {
     private final WindowManager wm;
@@ -46,7 +44,7 @@ public class BuildViewMiniPanel extends JFrame implements Window {
         setLayout(new BorderLayout());
 
 
-        // BUILD label with a modern font
+        // BUILD label
         JLabel buildLabel = new JLabel("BUILD YOUR GAME", SwingConstants.CENTER);
         buildLabel.setFont(new Font("Impact", Font.BOLD, 24));
         buildLabel.setForeground(Color.BLACK);
@@ -105,7 +103,7 @@ public class BuildViewMiniPanel extends JFrame implements Window {
 
 
 
-        // Build Game Button aesthetics
+        // Build Game Button
         JButton buttonBuild = new JButton("Build");
         buttonBuild.setFont(new Font("Monospaced", Font.BOLD, 14));
         buttonBuild.setForeground(Color.BLACK);
@@ -129,14 +127,13 @@ public class BuildViewMiniPanel extends JFrame implements Window {
             System.out.println("Explosive: " + numOfExplosive);
             System.out.println("Rewarding: " + numOfRewarding);
 
-            if (numOfSimple < 75 || numOfReinforced < 10 || numOfExplosive < 5 || numOfRewarding < 10) {
-                JOptionPane.showMessageDialog(null, "Minimum required barriers not met:\n"
-                        + "Simple: 75\n"
-                        + "Reinforced: 10\n"
-                        + "Explosive: 5\n"
-                        + "Rewarding: 10");
-                return;
+            String validationError = BarrierManager.getInstance().validateBarrierCounts(numOfSimple, numOfReinforced, numOfExplosive, numOfRewarding);
+
+            if (validationError != null) {
+                CustomDialog.showErrorDialog(validationError);
+                return;  // Exit if validation fails
             }
+
 
             // Set barrier numbers in session manager's builder
             this.sessionManager.getBuilder().setNumOfSimple(numOfSimple);
@@ -168,7 +165,7 @@ public class BuildViewMiniPanel extends JFrame implements Window {
         });
 
 
-        // Test Game Button aesthetics
+        // Test Game Button
         JButton buttonTest = new JButton("Test");
         buttonTest.setFont(new Font("Monospaced", Font.BOLD, 14));
         buttonTest.setForeground(Color.BLACK);

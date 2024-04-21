@@ -2,7 +2,6 @@ package org.LanceOfDestiny.ui;
 
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.ui.AuthViews.*;
-import org.LanceOfDestiny.ui.GameViews.BuildView;
 import org.LanceOfDestiny.ui.GameViews.BuildViewMiniPanel;
 import org.LanceOfDestiny.ui.GameViews.GameView;
 
@@ -17,12 +16,6 @@ public enum Windows {
                 @Override
                 Window createWindow() {
                         return new PhysicsTestView();
-                }
-        },
-        BuildView {
-                @Override
-                Window createWindow() {
-                        return new BuildView(SessionManager.getInstance());
                 }
         },
         GameViewWindow {

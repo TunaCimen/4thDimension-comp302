@@ -154,6 +154,7 @@ public class GameView extends JFrame implements Window {
 
     private JButton startButton(){
         buttonPlay = new JButton("START");
+        buttonPlay.setFont(new Font("Monospaced", Font.BOLD, 16));
         buttonPlay.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "none");
         buttonPlay.addActionListener(e -> {startGame();});
         return buttonPlay;
@@ -161,6 +162,7 @@ public class GameView extends JFrame implements Window {
 
     private JButton pauseButton(){
         buttonPause = new JButton("Pause Game");
+        buttonPause.setFont(new Font("Monospce", Font.BOLD, 16));
         buttonPause.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "none");
         buttonPause.setEnabled(false);
         buttonPause.addActionListener(e -> {
@@ -176,7 +178,7 @@ public class GameView extends JFrame implements Window {
 
 
     private JLabel scoreBar(){
-        JLabel scoreBar = new JLabel( "Score:  " + String.valueOf(ScoreManager.getInstance().getScore()));
+        JLabel scoreBar = new JLabel( "SCORE:  " + String.valueOf(ScoreManager.getInstance().getScore()));
         scoreBar.setFont(new Font("Impact", Font.BOLD, 24));
         scoreBar.setPreferredSize(new Dimension(100,30));
         Events.UpdateScore.addListener(e-> scoreBar.setText("Score:  " + ScoreManager.getInstance().getScore()));
@@ -199,14 +201,28 @@ public class GameView extends JFrame implements Window {
     }
 
     private void initComboBox(){
-        comboBoxAddBarrierType = new JComboBox<>(new String[]{(BarrierTypes.SIMPLE).toString(), (BarrierTypes.REINFORCED).toString(), (BarrierTypes.EXPLOSIVE).toString(), (BarrierTypes.REWARDING).toString()});
+        comboBoxAddBarrierType = new JComboBox<>(new String[]{
+                BarrierTypes.SIMPLE.toString(),
+                BarrierTypes.REINFORCED.toString(),
+                BarrierTypes.EXPLOSIVE.toString(),
+                BarrierTypes.REWARDING.toString()
+        });
+        comboBoxAddBarrierType.setFont(new Font("Monospaced", Font.BOLD, 12));
         comboBoxAddBarrierType.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "none");
+
+        // Set the initial selection based on BarrierManager
+        BarrierTypes currentType = BarrierManager.getInstance().getSelectedBarrierType();
+        if (currentType == null) currentType = BarrierTypes.SIMPLE;
+        comboBoxAddBarrierType.setSelectedItem(currentType.toString());
+
         comboBoxAddBarrierType.addActionListener(e -> {
-            BarrierManager.getInstance().setSelectedBarrierType(BarrierTypes.valueOf((String) comboBoxAddBarrierType.getSelectedItem()));
+            BarrierTypes selectedType = BarrierTypes.valueOf((String) comboBoxAddBarrierType.getSelectedItem());
+            BarrierManager.getInstance().setSelectedBarrierType(selectedType);
             //Debugging
-            System.out.println("Selected Barrier is: "+(BarrierManager.getInstance().getSelectedBarrierType()).toString());
+            System.out.println("Selected Barrier is: " + selectedType);
         });
     }
+
 
     @Override
     public void createAndShowUI() {
