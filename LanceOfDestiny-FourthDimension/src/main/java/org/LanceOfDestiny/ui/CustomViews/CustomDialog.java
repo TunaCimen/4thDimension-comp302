@@ -11,19 +11,22 @@ public class CustomDialog {
         String title = "Validation Error";
         Icon errorIcon = UIManager.getIcon("OptionPane.errorIcon");
 
-        String htmlMessage = "<html><body style='width: 200px; padding: 10px;'>" +
-                "<h2>Error!</h2><p style='font-size: 12px;'>" +
-                errorMessage.replace("\n", "<br>") +
-                "</p></body></html>";
+        // Improved HTML message style
+        String htmlMessage = "<html><body style='width: 300px; padding: 20px; font-family: Arial, sans-serif;'>"
+                + "<h2 style='color: #D8000C; font-size: 18px; margin-bottom: 10px;'>Error!</h2>"
+                + "<p style='font-size: 14px; color: black;'>"  // Changed color to black
+                + errorMessage.replace("\n", "<br>")
+                + "</p></body></html>";
+
 
         // Customize button text
         Object[] options = {"Understood"};
 
         // Customize the look and feel
-        UIManager.put("OptionPane.background", new Color(255, 245, 245));
-        UIManager.put("Panel.background", new Color(255, 245, 245));
-        UIManager.put("OptionPane.buttonFont", new Font("Monospaced", Font.BOLD, 12));
-        UIManager.put("OptionPane.messageFont", new Font("Dialog", Font.PLAIN, 14));
+        UIManager.put("OptionPane.background", new Color(255, 255, 255));
+        UIManager.put("Panel.background", new Color(255, 255, 255));
+        UIManager.put("OptionPane.buttonFont", new Font("Arial", Font.BOLD, 12));
+        UIManager.put("OptionPane.messageFont", new Font("Arial", Font.PLAIN, 14));
         UIManager.put("OptionPane.buttonColor", new Color(220, 220, 220));
 
         // Show the option pane
