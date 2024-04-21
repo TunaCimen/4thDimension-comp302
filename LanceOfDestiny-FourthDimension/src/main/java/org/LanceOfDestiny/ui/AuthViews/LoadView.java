@@ -53,12 +53,13 @@ public class LoadView extends JFrame implements Window {
             button.setMaximumSize(buttonSize);
             button.setMinimumSize(buttonSize);
             button.addActionListener(e -> {
-                BarrierManager.getInstance().removeAllBarriers();
-                BarrierManager.getInstance().barriers = (ArrayList<Barrier>) LoadView.this.userManager.loadBarriers(name);
                 try {
+                    BarrierManager.getInstance().removeAllBarriers();
+                    BarrierManager.getInstance().barriers = (ArrayList<Barrier>) LoadView.this.userManager.loadBarriers(name);
                     ScoreManager.getInstance().setScore(Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(0)));
                     SessionManager.getInstance().getPlayer().setChancesLeft(Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(1)));
-
+                    JOptionPane.showMessageDialog(null, "Game loaded successfully!");
+                    this.dispose();
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
