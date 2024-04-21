@@ -17,7 +17,7 @@ public class ExplosiveBarrier extends Barrier {
     Vector initPos;
     private boolean isFalling = false;
     private double angleInDegrees = 0;
-    private final Vector SHIFT= new Vector(Constants.EXPLOSIVE_RADIUS,Constants.EXPLOSIVE_RADIUS/2f);
+    private final Vector SHIFT= new Vector(14,9);
 
     public ExplosiveBarrier(Vector position) {
         super(position, BarrierTypes.EXPLOSIVE);
@@ -105,8 +105,14 @@ public class ExplosiveBarrier extends Barrier {
 
     @Override
     public void setPosition(Vector position) {
-        this.position = position;    //.add(SHIFT);
+        this.position = position;
         this.initPos = position;
+    }
+
+    @Override
+    public void shiftPosition(Vector position) {
+        this.position = position.add(SHIFT);
+        this.initPos = position.add(SHIFT);
     }
 
 

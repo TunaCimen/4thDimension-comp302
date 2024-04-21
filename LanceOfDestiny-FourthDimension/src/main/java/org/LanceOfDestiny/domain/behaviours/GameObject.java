@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.domain.behaviours;
 
+import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.physics.Collider;
 import org.LanceOfDestiny.domain.physics.Collision;
 import org.LanceOfDestiny.domain.physics.PhysicsManager;
@@ -61,6 +62,11 @@ public abstract class GameObject extends Behaviour {
     public void setPosition(Vector position) {
         this.position = position;
     }
+    public void shiftPosition(Vector position) {
+        this.position = position;
+
+    }
+
 
     public double getAngle() {
         return angle;
