@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.ui;
 
+import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.barriers.BarrierFactory;
 import org.LanceOfDestiny.domain.behaviours.Behaviour;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
@@ -86,26 +87,39 @@ public class DrawCanvas extends JPanel {
     private void handleMouseRelease(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
-        if (BarrierManager.getInstance().getBarrierByLocation(x, y) == null) {
-            if (BarrierManager.getInstance().validateBarrierPlacement(x, y) && !(BarrierManager.getInstance().isBarrierColliding(x, y))) {
-                if (BarrierManager.getInstance().getClickedBarrier() != null) {
-                    BarrierManager.getInstance().getClickedBarrier().setPosition(new Vector(x, y));
-                    org.LanceOfDestiny.ui.GameViews.GameView gameView = GameView.getInstance(SessionManager.getInstance());
+
+        BarrierManager barrierManager = BarrierManager.getInstance();
+        Barrier clickedBarrier = barrierManager.getClickedBarrier();
+        Barrier barrierAtLocation = barrierManager.getBarrierByLocation(x, y);
+
+        // Check if there's no barrier at the mouse release location
+        if (!(barrierManager.isBarrierColliding(x, y))) {
+            // Validate placement and check for collisions
+            if (barrierManager.validateBarrierPlacement(x, y)) {
+                // Check if a barrier was previously selected
+                if (clickedBarrier != null) {
+                    // Move the barrier to the new location
+                    clickedBarrier.setPosition(new Vector(x, y));
+
+                    // Update the game view
+                    GameView gameView = GameView.getInstance(SessionManager.getInstance());
                     gameView.reinitializeUI();
-                    System.out.println("Barrier moved to new location: " + BarrierManager.getInstance().getClickedBarrier().toString() +
-                            " from " + BarrierManager.getInstance().getOldLocationOfBarrier().toString() + " to " +
-                            BarrierManager.getInstance().getClickedBarrier().getPosition().toString());
-                    BarrierManager.getInstance().setClickedBarrier(null);
 
+                    // Log the barrier movement
+                    System.out.println(String.format("Barrier moved to new location: %s from %s to %s",
+                            clickedBarrier,
+                            barrierManager.getOldLocationOfBarrier(),
+                            clickedBarrier.getPosition()));
+
+                    // Reset the clicked barrier reference
+                    barrierManager.setClickedBarrier(null);
                 } else {
-                    System.out.println("No barrier was clicked to move. at : " + x + " " + y);
+                    System.out.println("No barrier was clicked at : " + x + " " + y);
                 }
-
             }
-        }
-        else {
+        } else {
             if (SwingUtilities.isRightMouseButton(e)) {
-                //do something
+                // do something for right click press and release
             }
         }
     }

@@ -99,24 +99,38 @@ public class BarrierManager {
     }
 
     public boolean isBarrierColliding(int x, int y) {
-        Barrier barrier = BarrierManager.getInstance().getBarrierByLocation(x, y);
-        if (barrier != null) {
-            for(int i = 0; i < barriers.size(); i++) {
-                if (!barriers.get(i).equals(barrier)) {
-                    if ((barriers.get(i).getPosition().getX()) <= barrier.getPosition().getX()  &&
-                            barrier.getPosition().getX() <= ((barriers.get(i).getPosition().getX()) + 28) &&
-                            (barriers.get(i).getPosition().getY()) <= barrier.getPosition().getY() &&
-                            barrier.getPosition().getY() <= ((barriers.get(i).getPosition().getY()) + 20)) {
-                        return true;
-                    }
-                }
+        // Retrieve the list of barriers, assuming barriers is a member of the class
+        ArrayList<Barrier> barriers = BarrierManager.getInstance().getBarriers();
+
+        for (int i = 0; i < barriers.size(); i++) {
+            double barrierX = barriers.get(i).getPosition().getX();
+            double barrierY = barriers.get(i).getPosition().getY();
+
+            // Check right and below
+            if (x >= barrierX && x <= barrierX + 28 &&
+                    y >= barrierY && y <= barrierY + 20) {
+                System.out.println("Collision on the right or below detected");
+                return true;
+            }
+
+            // Check left (28 pixels to the left of the barrier)
+            if (x <= barrierX && x >= barrierX - 28 &&
+                    y >= barrierY && y <= barrierY + 20) {
+                System.out.println("Collision on the left detected");
+                return true;
+            }
+
+            // Check above (20 pixels above the barrier)
+            if (x >= barrierX && x <= barrierX + 28 &&
+                    y <= barrierY && y >= barrierY - 20) {
+                System.out.println("Collision above detected");
+                return true;
             }
         }
-        else {
-            return false;
-        }
+
         return false;
     }
+
 
 
 
