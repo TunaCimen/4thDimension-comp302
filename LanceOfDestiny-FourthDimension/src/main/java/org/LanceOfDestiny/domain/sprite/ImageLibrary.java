@@ -22,9 +22,17 @@ public enum ImageLibrary {
 
     ImageLibrary(String path){
         try {
+            var userDirectory = System.getProperty("user.dir");
+            if(userDirectory.endsWith("/LanceOfDestiny-FourthDimension")){
+                var f = new File(path).getAbsolutePath();
+                this.image = ImageIO.read(new File(f));
+            }
+            else {
+                path = userDirectory + "/LanceOfDestiny-FourthDimension";
+                this.image = ImageIO.read(new File(path));
+            }
             
-            var f = new File(path).getAbsolutePath();
-            this.image = ImageIO.read(new File(f));
+
             if(this.image == null)throw new RuntimeException("Image not found but loaded");
         } catch (IOException e) {
             throw new RuntimeException(String.format("Path : %s doesnt exist", path));
