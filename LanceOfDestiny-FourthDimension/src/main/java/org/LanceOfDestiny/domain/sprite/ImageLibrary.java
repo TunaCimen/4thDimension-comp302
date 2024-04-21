@@ -8,6 +8,7 @@ import java.io.IOException;
 public enum ImageLibrary {
 
     FireBall("Image/200Fireball.png"),
+    FireBallOverwhelmed("Image/FireballOverwhelmed.png"),
     RewardingBarrier("Image/200Greengem.png"),
     Heart("Image/200Heart.png"),
     MagicalStaff("Image/200Player.png"),
@@ -22,9 +23,16 @@ public enum ImageLibrary {
 
     ImageLibrary(String path){
         try {
-            
-            var f = new File(path).getAbsolutePath();
-            this.image = ImageIO.read(new File(f));
+            var userDirectory = System.getProperty("user.dir");
+            if(userDirectory.endsWith("/LanceOfDestiny-FourthDimension")){
+                var f = new File(path).getAbsolutePath();
+                this.image = ImageIO.read(new File(f));
+            }
+            else {
+                path = userDirectory + "/LanceOfDestiny-FourthDimension";
+                this.image = ImageIO.read(new File(path));
+            }
+
             if(this.image == null)throw new RuntimeException("Image not found but loaded");
         } catch (IOException e) {
             throw new RuntimeException(String.format("Path : %s doesnt exist", path));

@@ -4,9 +4,7 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.physics.Collision;
 import org.LanceOfDestiny.domain.physics.Vector;
-import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
-import org.LanceOfDestiny.domain.spells.Hex;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.domain.sprite.ImageOperations;
 
@@ -25,10 +23,14 @@ public class ExplosiveBarrier extends Barrier {
         super(position, BarrierTypes.EXPLOSIVE);
         this.position = new Vector(position.getX(), position.getY());
         if ((new Random()).nextDouble() <= MOVE_PROBABILITY) isMoving = true;
-        this.getSprite().color = new Color(0,0,0,0);
-        this.getSprite().addImage(ImageOperations.resizeImage(ImageLibrary.ExplosiveBarrier.getImage(), sprite.width()*2,sprite.height()*2));
-        getSprite().addImage(ImageOperations.resizeImage(ImageLibrary.ExplosiveBarrier.getImage(),Constants.EXPLOSIVE_RADIUS*2,Constants.EXPLOSIVE_RADIUS*2));
+        adjustSprite();
         initPos = getPosition();
+    }
+
+    private void adjustSprite() {
+        this.getSprite().color = new Color(0,0,0,0);
+        this.getSprite().setImage(ImageOperations.resizeImage(ImageLibrary.ExplosiveBarrier.getImage(), sprite.width()*2,sprite.height()*2));
+        getSprite().setImage(ImageOperations.resizeImage(ImageLibrary.ExplosiveBarrier.getImage(),Constants.EXPLOSIVE_RADIUS*2,Constants.EXPLOSIVE_RADIUS*2));
     }
 
     @Override
@@ -51,25 +53,6 @@ public class ExplosiveBarrier extends Barrier {
     }
 
     @Override
-    public void onCollisionEnter(Collision collision) {
-        super.onCollisionEnter(collision);
-        var other = collision.getOther(this);
-
-        if (other instanceof FireBall) {
-            reduceLife();
-        }
-    }
-
-    @Override
-    public void reduceLife() {
-        isFalling = true;
-        // allows the barrier to actually fall
-        getCollider().setVelocity(new Vector(0, 2));
-        getCollider().setTrigger(true);
-        this.addScore();
-    }
-
-    @Override
     public void onTriggerEnter(Collision collision) {
         var other = collision.getOther(this);
 
@@ -85,7 +68,11 @@ public class ExplosiveBarrier extends Barrier {
 
     @Override
     public void kill() {
-        addScore();
+        isFalling = true;
+        // allows the barrier to actually fall
+        getCollider().setVelocity(new Vector(0, 2));
+        getCollider().setTrigger(true);
+        this.addScore();
     }
 
     private void addScore() {
@@ -114,8 +101,6 @@ public class ExplosiveBarrier extends Barrier {
 
             // Normalize the direction vector to get a unit vector (length = 1)
             return direction.normalize();
-
-
     }
 
     @Override
