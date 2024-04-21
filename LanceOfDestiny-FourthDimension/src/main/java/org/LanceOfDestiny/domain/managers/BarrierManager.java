@@ -16,7 +16,7 @@ import static org.LanceOfDestiny.domain.Constants.*;
 public class BarrierManager {
 
     private static BarrierManager instance;
-    private ArrayList<Barrier> barriers = LanceOfDestiny.getInstance().getGameMap().getBarriers();
+    public ArrayList<Barrier> barriers = LanceOfDestiny.getInstance().getGameMap().getBarriers();
     private BarrierTypes selectedBarrierType;
     private Barrier clickedBarrier;
     private Vector oldLocationOfBarrier;

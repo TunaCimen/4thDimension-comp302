@@ -40,7 +40,7 @@ public class Player extends MonoBehaviour {
         setChancesLeft(chancesLeft + (Integer) change);
     }
 
-    private void setChancesLeft(int chance) {
+    public void setChancesLeft(int chance) {
         this.chancesLeft = chance;
         this.chancesLeft = Math.max(chancesLeft, MIN_CHANCES);
         if(this.chancesLeft == MIN_CHANCES) Events.LoseGame.invoke();

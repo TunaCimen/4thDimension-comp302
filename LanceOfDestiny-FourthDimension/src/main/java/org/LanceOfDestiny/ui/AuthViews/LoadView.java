@@ -1,6 +1,10 @@
 package org.LanceOfDestiny.ui.AuthViews;
 
+import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.managers.BarrierManager;
+import org.LanceOfDestiny.domain.managers.ScoreManager;
+import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.ui.Window;
 import org.LanceOfDestiny.ui.Windows;
 
@@ -48,8 +52,15 @@ public class LoadView extends JFrame implements Window {
             button.setMaximumSize(buttonSize);
             button.setMinimumSize(buttonSize);
             button.addActionListener(e -> {
-                // Handle button click event here
-                System.out.println("Button clicked: " + name);
+                BarrierManager.getInstance().barriers = (ArrayList<Barrier>) LoadView.this.userManager.loadBarriers(name);
+                try {
+                    ScoreManager.getInstance().setScore(Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(0)));
+                    SessionManager.getInstance().getPlayer().setChancesLeft(Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(1)));
+                    System.out.println(SessionManager.getInstance().getPlayer().getChancesLeft());
+                    System.out.println(ScoreManager.getInstance().getScore());
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             });
             buttonPanel.add(button);
         }
