@@ -19,10 +19,11 @@ public class ExplosiveBarrier extends Barrier {
     Vector initPos;
     private boolean isFalling = false;
     private double angleInDegrees = 0;
+    private final Vector SHIFT= new Vector(Constants.EXPLOSIVE_RADIUS,Constants.EXPLOSIVE_RADIUS/2f);
 
     public ExplosiveBarrier(Vector position) {
         super(position, BarrierTypes.EXPLOSIVE);
-        this.position = new Vector(position.getX() + Constants.EXPLOSIVE_RADIUS*2, position.getY() + Constants.EXPLOSIVE_RADIUS);
+        this.position = new Vector(position.getX(), position.getY());
         if ((new Random()).nextDouble() <= MOVE_PROBABILITY) isMoving = true;
         this.getSprite().color = new Color(0,0,0,0);
         this.getSprite().addImage(ImageOperations.resizeImage(ImageLibrary.ExplosiveBarrier.getImage(), sprite.width()*2,sprite.height()*2));
@@ -119,7 +120,7 @@ public class ExplosiveBarrier extends Barrier {
 
     @Override
     public void setPosition(Vector position) {
-        this.position = position;
+        this.position = position.add(SHIFT);
         this.initPos = position;
     }
 
