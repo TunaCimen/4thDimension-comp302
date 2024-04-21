@@ -10,14 +10,21 @@ import java.util.List;
  * It contains a list of barriers that are present on the map.
  */
 public class GameMap {
+    private static GameMap instance;
     // List of barriers present on the map
-    private ArrayList<Barrier> barriers;
+    private  ArrayList<Barrier> barriers;
+
 
     /**
      * Constructor for the GameMap class.
      */
     public GameMap() {
         this.barriers = new ArrayList<>();
+    }
+
+    public static GameMap getInstance() {
+        if (instance == null) instance = new GameMap();
+        return instance;
     }
 
     /**
@@ -31,5 +38,9 @@ public class GameMap {
 
     public void setBarriers(ArrayList<Barrier> barriers) {
         this.barriers = barriers;
+    }
+
+    public void clearBarriers() {
+        barriers.clear();
     }
 }

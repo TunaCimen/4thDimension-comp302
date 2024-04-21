@@ -1,75 +1,72 @@
 package org.LanceOfDestiny.ui.AuthViews;
 
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.managers.SessionManager;
+import org.LanceOfDestiny.ui.GameViews.GameView;
 import org.LanceOfDestiny.ui.Window;
 import org.LanceOfDestiny.ui.WindowManager;
 import org.LanceOfDestiny.ui.Windows;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class PauseView extends JFrame implements Window {
-    private final WindowManager wm;
+    private final WindowManager windowManager;
+
     public PauseView() {
-        wm = WindowManager.getInstance();
+        windowManager = WindowManager.getInstance();
+        configureWindow();
+        addComponents();
+    }
+
+    private void configureWindow() {
+        setSize(300, 250);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
+    }
+
+    private void addComponents() {
+        add(createLabel("PAUSED", new Font("Arial", Font.BOLD, 24)), BorderLayout.NORTH);
+        add(createButtonPanel(), BorderLayout.CENTER);
     }
 
     @Override
     public void createAndShowUI() {
-
-        setSize(300, 250); // Increased height for accommodating bigger buttons
-
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        setResizable(false);
-        setLayout(new BorderLayout()); // Use BorderLayout for better arrangement
-
-        // PAUSED label
-        JLabel pausedLabel = new JLabel("PAUSED", SwingConstants.CENTER);
-        pausedLabel.setFont(new Font("Arial", Font.BOLD, 24)); // Set font style and size
-        add(pausedLabel, BorderLayout.NORTH); // Add label to the top of the layout
-
-        // Panel for buttons
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(4, 1, 10, 10)); // 4 rows, 1 column, with gaps
-
-        // Resume button
-        JButton resumeButton = new JButton("Resume");
-        resumeButton.setPreferredSize(new Dimension(140, 60)); // Larger size for Resume button
-        resumeButton.addActionListener(e -> {
-            this.dispose();
-            Events.ResumeGame.invoke();
-        }); // Close the window on click
-        buttonPanel.add(resumeButton); // Add Resume button to the panel
-
-        // Save button
-        JButton saveButton = new JButton("Save");
-        saveButton.setPreferredSize(new Dimension(140, 60)); // Larger size for Save button
-        saveButton.addActionListener(e -> {
-            wm.showWindow(Windows.SaveView);
-        });
-        buttonPanel.add(saveButton); // Add Save button to the panel
-
-        // Load button
-        JButton loadButton = new JButton("Load");
-        loadButton.setPreferredSize(new Dimension(140, 60)); // Larger size for Load button
-        loadButton.addActionListener(e -> {
-            wm.showWindow(Windows.LoadView);
-        });
-        buttonPanel.add(loadButton); // Add Load button to the panel
-
-        // Help button
-        JButton helpButton = new JButton("Help");
-        helpButton.setPreferredSize(new Dimension(140, 60)); // Larger size for Help button
-        //helpButton.addActionListener(e -> showHelp());
-        buttonPanel.add(helpButton); // Add Help button to the panel
-
-        // Add button panel to the frame
-        add(buttonPanel, BorderLayout.CENTER); // Centered in the layout
-
-        // Center the window
-        setLocationRelativeTo(null);
-
-        // Set visible
         setVisible(true);
+    }
+
+    private JLabel createLabel(String text, Font font) {
+        JLabel label = new JLabel(text, SwingConstants.CENTER);
+        label.setFont(font);
+        return label;
+    }
+
+    private JPanel createButtonPanel() {
+        JPanel panel = new JPanel(new GridLayout(4, 1, 10, 10));
+
+        panel.add(createButton("Resume", e -> handleResume()));
+        panel.add(createButton("Save", e -> windowManager.showWindow(Windows.SaveView)));
+        panel.add(createButton("Load", e -> windowManager.showWindow(Windows.LoadView)));
+        panel.add(createButton("Help", e -> {})); // Assuming a method 'showHelp()' to be implemented.
+
+        return panel;
+    }
+
+    private JButton createButton(String text, ActionListener listener) {
+        JButton button = new JButton(text);
+        button.setPreferredSize(new Dimension(140, 60));
+        button.addActionListener(listener);
+        return button;
+    }
+
+    private void handleResume() {
+        dispose();
+        GameView gameView = GameView.getInstance(SessionManager.getInstance());
+        gameView.startGame();
+        gameView.setPauseButtonVisibility(true);
+        gameView.revalidate();
+        gameView.repaint();
     }
 }

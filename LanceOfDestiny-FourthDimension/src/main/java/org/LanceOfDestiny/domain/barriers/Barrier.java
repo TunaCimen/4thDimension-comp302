@@ -6,6 +6,7 @@ import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.physics.ColliderFactory;
 import org.LanceOfDestiny.domain.physics.ColliderType;
+import org.LanceOfDestiny.domain.physics.PhysicsManager;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.sprite.BallSprite;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
@@ -69,6 +70,9 @@ public abstract class Barrier extends GameObject {
             kill();
         }
     }
+    public void removeBarrierSprite() {
+        super.destroy();
+    }
 
     public void initDirection() {
         if (isMoving) {
@@ -90,4 +94,12 @@ public abstract class Barrier extends GameObject {
     public int getHitsLeft() {
         return hitsLeft;
     }
+
+@Override
+public String toString() {
+    // return a string that represents the object
+    return "Barrier Name{" +
+        "name=" + barrierType +
+        '}';
+}
 }

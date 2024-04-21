@@ -1,26 +1,13 @@
 package org.LanceOfDestiny.domain.managers;
 
-import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.looper.GameLooper;
 import org.LanceOfDestiny.domain.looper.LoopExecutor;
-import org.LanceOfDestiny.domain.barriers.BarrierFactory;
-import org.LanceOfDestiny.domain.barriers.BarrierTypes;
-import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
 import org.LanceOfDestiny.domain.player.Player;
-import org.LanceOfDestiny.domain.sprite.ImageLibrary;
-import org.LanceOfDestiny.domain.sprite.ImageOperations;
 import org.LanceOfDestiny.ui.DrawCanvas;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class SessionManager {
 
@@ -40,7 +27,7 @@ public class SessionManager {
         this.gameLooper = new GameLooper(drawCanvas);
         this.loopExecutor = new LoopExecutor();
         // todo detelete/replace later with a proper initialization
-        this.builder = new SessionBuilder(75, 10, 5, 10);
+        this.builder = new SessionBuilder(0, 0, 0, 0);
         currentMode = Status.EditMode;
         loopExecutor.setLooper(gameLooper);
     }
@@ -89,4 +76,13 @@ public class SessionManager {
     public SessionBuilder getBuilder() {
         return builder;
     }
+
+    public void setStatus(Status status) {
+        currentMode = status;
+    }
+
+    public Status getStatus() {
+        return currentMode;
+    }
+
 }

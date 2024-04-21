@@ -13,9 +13,12 @@ public class WindowManager {
 
     }
 
-    public void showWindow(Windows window){
-        window.window.createAndShowUI();
+    public void showWindow(Windows windowType) {
+        Window window = windowType.getWindow(); // Create and Retrieve the window instance
+        window.createAndShowUI(); //
     }
+
+
 
     public static WindowManager getInstance(){
         if(instance == null){
