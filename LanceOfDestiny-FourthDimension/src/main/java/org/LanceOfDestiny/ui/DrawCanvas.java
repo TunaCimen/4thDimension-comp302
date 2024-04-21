@@ -133,12 +133,18 @@ public class DrawCanvas extends JPanel {
         System.out.println("Double Click is detected ");
 
         if (BarrierManager.getInstance().getBarrierByLocation(x, y) == null) {
-            BarrierManager.getInstance().addBarrier(BarrierFactory.createBarrier(new Vector(x, y), BarrierManager.getInstance().getSelectedBarrierType()));
+            if (BarrierManager.getInstance().validateBarrierPlacement(x, y) && !(BarrierManager.getInstance().isBarrierColliding(x, y))) {
 
-            //debug
-            System.out.println("Barrier added: " + (BarrierManager.getInstance().getSelectedBarrierType()).toString() );
-            BarrierManager.getInstance().getBarrierByLocation(x, y).getSprite().setVisible(true);
-            GameView.getInstance(SessionManager.getInstance()).reinitializeUI();
+                BarrierManager.getInstance().addBarrier(BarrierFactory.createBarrier(new Vector(x, y), BarrierManager.getInstance().getSelectedBarrierType()));
+
+                //debug
+                //print last element in the list
+                System.out.println("Barrier selected: " + (BarrierManager.getInstance().getSelectedBarrierType()).toString() );
+                System.out.println("Last Barrier added: " + BarrierManager.getInstance().getBarriers().get(BarrierManager.getInstance().getBarriers().size()-1).toString());
+                BarrierManager.getInstance().getBarrierByLocation(x, y).getSprite().setVisible(true);
+                GameView.getInstance(SessionManager.getInstance()).reinitializeUI();
+            }
+
         }
     }
 
