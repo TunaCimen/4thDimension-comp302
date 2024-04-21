@@ -75,7 +75,7 @@ public class Vector {
     }
 
     public String toString() {
-        return "(" + x + ", " + y + ")";
+        return x + ", " + y ;
     }
     public boolean isPerpendicular(Vector other) {
         // Two vectors are perpendicular if their dot product is zero
