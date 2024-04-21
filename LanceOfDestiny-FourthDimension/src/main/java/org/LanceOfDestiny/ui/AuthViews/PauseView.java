@@ -65,7 +65,6 @@ public class PauseView extends JFrame implements Window {
         dispose();
         GameView gameView = GameView.getInstance(SessionManager.getInstance());
         gameView.startGame();
-        gameView.setPauseButtonVisibility(true);
         gameView.revalidate();
         gameView.repaint();
     }
