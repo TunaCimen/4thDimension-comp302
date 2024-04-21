@@ -268,9 +268,9 @@ public class PhysicsManager {
         Vector reflection1 = getReflection(collision, collision.getCollider1());
         Vector reflection2 = getReflection(collision, collision.getCollider2());
         if ((collision.getCollider1().gameObject instanceof FireBall && collision.getCollider2().gameObject instanceof MagicalStaff) ||(collision.getCollider1().gameObject instanceof MagicalStaff && collision.getCollider2().gameObject instanceof FireBall)) {
-            System.out.println("New collisionnnnn");
-            System.out.println(reflection1);
-            System.out.println(reflection2);
+//            System.out.println("New collisionnnnn");
+//            System.out.println(reflection1);
+//            System.out.println(reflection2);
         }
         // Apply bounce only if the colliders are dynamic and it's not an overwhelming FireBall collision
         if (collision.getCollider1().getColliderType() == ColliderType.DYNAMIC) {

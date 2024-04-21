@@ -32,20 +32,21 @@ public class DrawCanvas extends JPanel {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                if (SessionManager.getInstance().getStatus() == Status.EditMode){
-                    handleMousePress(e);
-                    //debug
-                    System.out.println("Mouse Pressed");
+                if (e.getClickCount() > 1) {
+                    // Ignore double clicks or more
+                    return;}
+                else {
+                    if (SessionManager.getInstance().getStatus() == Status.EditMode){
+                        handleMousePress(e);
+                    }
+                    else return;
                 }
-                else return;
             }
-
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (SessionManager.getInstance().getStatus() == Status.EditMode){
                     handleMouseClick(e);
-                    //debug
-                    System.out.println("Mouse Clicked");
+
                 }
                 else return;
 
@@ -53,12 +54,16 @@ public class DrawCanvas extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (SessionManager.getInstance().getStatus() == Status.EditMode){
-                    handleMouseRelease(e);
-                    //debug
-                    System.out.println("Mouse Released");
+                if ( e.getClickCount() > 1) {
+                    // Ignore double clicks or more
+                    return;}
+                else {
+                    if (SessionManager.getInstance().getStatus() == Status.EditMode){
+                        handleMouseRelease(e);
+                    }
+                    else return;
                 }
-                else return;
+
             }
         };
         addMouseListener(mouseHandler);
@@ -70,7 +75,12 @@ public class DrawCanvas extends JPanel {
         if (BarrierManager.getInstance().getBarrierByLocation(x, y) != null) {
             BarrierManager.getInstance().setClickedBarrier(BarrierManager.getInstance().getBarrierByLocation(x, y));
             BarrierManager.getInstance().setOldLocationOfBarrier(BarrierManager.getInstance().getBarrierByLocation(x, y).getPosition());
+            System.out.println("Mouse Press: Barrier is clicked"+ BarrierManager.getInstance().getBarrierByLocation(x, y).toString());
         }
+        else {
+            System.out.println("Mouse Press: No barrier is clicked");
+        }
+
     }
 
     private void handleMouseRelease(MouseEvent e) {
@@ -78,10 +88,18 @@ public class DrawCanvas extends JPanel {
         int y = e.getY();
         if (BarrierManager.getInstance().getBarrierByLocation(x, y) == null) {
             if (BarrierManager.getInstance().validateBarrierPlacement(x, y) && !(BarrierManager.getInstance().isBarrierColliding(x, y))) {
-                BarrierManager.getInstance().getClickedBarrier().setPosition(new Vector(x, y));
-                //todo dont know if it will repaint the barrier check it later
-                org.LanceOfDestiny.ui.GameViews.GameView gameView = GameView.getInstance(SessionManager.getInstance());
-                gameView.reinitializeUI();
+                if (BarrierManager.getInstance().getClickedBarrier() != null) {
+                    BarrierManager.getInstance().getClickedBarrier().setPosition(new Vector(x, y));
+                    org.LanceOfDestiny.ui.GameViews.GameView gameView = GameView.getInstance(SessionManager.getInstance());
+                    gameView.reinitializeUI();
+                    System.out.println("Barrier moved to new location: " + BarrierManager.getInstance().getClickedBarrier().toString() +
+                            " from " + BarrierManager.getInstance().getOldLocationOfBarrier().toString() + " to " +
+                            BarrierManager.getInstance().getClickedBarrier().getPosition().toString());
+                    BarrierManager.getInstance().setClickedBarrier(null);
+
+                } else {
+                    System.out.println("No barrier was clicked to move. at : " + x + " " + y);
+                }
 
             }
         }
@@ -93,38 +111,48 @@ public class DrawCanvas extends JPanel {
     }
 
     private void handleMouseClick(MouseEvent e) {
+        //debug
+        System.out.println("Mouse Clicked");
+
         int x = e.getX();
         int y = e.getY();
 
         if (e.getClickCount() == 2) {
 
-            //debug
-            System.out.println("Double Click is detected not handleded yet");
             handleDoubleClick(x, y);
 
         } else if (SwingUtilities.isRightMouseButton(e)) {
 
-            //debug
-            System.out.println("Right Click is detected not handleded yet");
             handleRightClick(x, y);
         }
     }
 
+
     private void handleDoubleClick(int x, int y) {
+        //debug
+        System.out.println("Double Click is detected ");
+
         if (BarrierManager.getInstance().getBarrierByLocation(x, y) == null) {
             BarrierManager.getInstance().addBarrier(BarrierFactory.createBarrier(new Vector(x, y), BarrierManager.getInstance().getSelectedBarrierType()));
 
             //debug
             System.out.println("Barrier added: " + (BarrierManager.getInstance().getSelectedBarrierType()).toString() );
+            BarrierManager.getInstance().getBarrierByLocation(x, y).getSprite().setVisible(true);
+            GameView.getInstance(SessionManager.getInstance()).reinitializeUI();
         }
     }
 
     private void handleRightClick(int x, int y) {
+        //debug
+        System.out.println("Right Click is detected ");
+
         if (BarrierManager.getInstance().getBarrierByLocation(x, y) != null) {
-            BarrierManager.getInstance().removeBarrier(BarrierManager.getInstance().getBarrierByLocation(x, y));
+            BarrierManager.getInstance().deleteBarrier(BarrierManager.getInstance().getBarrierByLocation(x, y));
 
             //debug
             System.out.println("Barrier removed: " + (BarrierManager.getInstance().getSelectedBarrierType()).toString() );
+            GameView.getInstance(SessionManager.getInstance()).reinitializeUI();
+
         }
     }
 

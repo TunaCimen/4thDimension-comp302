@@ -29,12 +29,6 @@ public class BarrierManager {
         barriers.add(barrier);
     }
 
-    public void createBarrierList(Barrier barrier) {
-        // to initialize a new list of barriers
-        barriers = new ArrayList<Barrier>();
-        barriers.add(barrier);
-    }
-
     public ArrayList<Barrier> getBarriers() {
         return barriers;
     }
@@ -44,9 +38,14 @@ public class BarrierManager {
         if(barriers.isEmpty()) Events.WinGame.invoke();
     }
 
+    public void deleteBarrier(Barrier barrier) {
+        barrier.removeBarrierSprite();
+        barriers.remove(barrier);
+    }
+
     public void removeAllBarriers() {
-        for (Barrier barrier : barriers) {
-            barrier.destroy();
+        for (Barrier barrier : LanceOfDestiny.getInstance().getGameMap().getBarriers()) {
+            barrier.removeBarrierSprite();
         }
         barriers.clear();
     }
@@ -76,8 +75,8 @@ public class BarrierManager {
 
     public Barrier getBarrierByLocation(int x, int y) {
         for (Barrier barrier : barriers) {
-            if (barrier.getPosition().getX() <= x &&
-                    barrier.getPosition().getX() + 28 >= x &&
+            if (barrier.getPosition().getX() - 14 <= x &&
+                    barrier.getPosition().getX() + 14 >= x &&
                     barrier.getPosition().getY() <= y &&
                     barrier.getPosition().getY() + 20 >= y) {
                 return barrier;
@@ -88,7 +87,7 @@ public class BarrierManager {
 
     public boolean validateBarrierPlacement(int x, int y) {
         // this method allows 6 rows of barriers to be placed
-        return (BarrierManager.getInstance().getBarrierByLocation(x, y).getPosition().getY() <= 290);
+        return (y <= 290);
     }
 
     public boolean isBarrierColliding(int x, int y) {
