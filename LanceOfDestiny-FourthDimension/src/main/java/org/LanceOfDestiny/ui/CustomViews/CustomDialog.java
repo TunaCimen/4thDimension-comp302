@@ -24,7 +24,7 @@ public class CustomDialog {
         UIManager.put("Panel.background", new Color(255, 245, 245));
         UIManager.put("OptionPane.buttonFont", new Font("Monospaced", Font.BOLD, 12));
         UIManager.put("OptionPane.messageFont", new Font("Dialog", Font.PLAIN, 14));
-        UIManager.put("OptionPane.buttonColor", Color.decode("#ce93d8"));
+        UIManager.put("OptionPane.buttonColor", new Color(220, 220, 220));
 
         // Show the option pane
         JOptionPane.showOptionDialog(null, htmlMessage, title,

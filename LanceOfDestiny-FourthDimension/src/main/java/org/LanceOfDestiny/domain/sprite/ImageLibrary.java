@@ -25,7 +25,6 @@ public enum ImageLibrary {
 
         try {
             var userDirectory = System.getProperty("user.dir");
-            System.out.println("The user Directory is: " + userDirectory);
             if(userDirectory.endsWith("/LanceOfDestiny-FourthDimension")){
                 var f = new File(path).getAbsolutePath();
                 this.image = ImageIO.read(new File(f));

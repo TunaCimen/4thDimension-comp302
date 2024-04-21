@@ -105,7 +105,7 @@ public class ExplosiveBarrier extends Barrier {
 
     @Override
     public void setPosition(Vector position) {
-        this.position = position.add(SHIFT);
+        this.position = position;    //.add(SHIFT);
         this.initPos = position;
     }
 

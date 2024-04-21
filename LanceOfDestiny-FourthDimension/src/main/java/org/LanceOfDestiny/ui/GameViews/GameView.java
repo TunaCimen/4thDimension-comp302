@@ -21,6 +21,7 @@ public class GameView extends JFrame implements Window {
     JButton buttonPlay;
     JButton buttonPause;
     JButton buttonBuild;
+    JButton buttonSave;
 
     private static final String STATUS_START = "START";
     private static final String STATUS_GAME = "GAME";
@@ -74,15 +75,31 @@ public class GameView extends JFrame implements Window {
     }
 
     public void setPlayButtonVisibility(boolean isVisible) {
-        buttonPlay.setEnabled(isVisible);
+        buttonPlay.setVisible(isVisible);
 
     }
     public void setPauseButtonVisibility(boolean isVisible) {
-        buttonPause.setEnabled(isVisible);
+        buttonPause.setVisible(isVisible);
 
     }
     public void setBuildButtonVisibility(boolean isVisible) {
-        buttonBuild.setEnabled(isVisible);
+        buttonBuild.setVisible(isVisible);
+
+    }
+    public void setSaveButtonVisibility(boolean isVisible) {
+        buttonSave.setVisible(isVisible);
+
+    }
+    public void setPlayButtonEnabled(boolean isEnabled) {
+        buttonPlay.setEnabled(isEnabled);
+
+    }
+    public void setPauseButtonEnabled(boolean isEnabled) {
+        buttonPause.setEnabled(isEnabled);
+
+    }
+    public void setBuildButtonEnabled(boolean isEnabled) {
+        buttonBuild.setEnabled(isEnabled);
 
     }
 
@@ -90,6 +107,7 @@ public class GameView extends JFrame implements Window {
         comboBoxAddBarrierType.setVisible(false);
         buttonPlay.setEnabled(false);
         buttonPause.setEnabled(true);
+        buttonSave.setVisible(false);
         comboBoxAddBarrierType.setVisible(false);
         sessionManager.setStatus(Status.RunningMode);
         Events.ResumeGame.invoke();
@@ -105,12 +123,13 @@ public class GameView extends JFrame implements Window {
     }
 
     private void createStartPanel(){
-        final Dimension maximumSizeButton = new Dimension(100, 30);
+        final Dimension maximumSizeButton = new Dimension(150, 45);
         JPanel startPanel = new JPanel();
         startPanel.setLayout(new BorderLayout());
         startPanel.setLayout(new BoxLayout(startPanel, BoxLayout.Y_AXIS));
         startPanel.add(Box.createRigidArea(new Dimension(0, Constants.SCREEN_HEIGHT/2 -100)));
         JButton newGameButton = new JButton("NEW GAME");
+        newGameButton.setFont( new Font("Monospaced", Font.BOLD, 15));
         newGameButton.setMaximumSize(maximumSizeButton);
         newGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         newGameButton.addActionListener(e->{
@@ -123,8 +142,9 @@ public class GameView extends JFrame implements Window {
             this.setEnabled(false);
             Events.PauseGame.invoke();
         });
-        JButton loadButton = new JButton("Load");
+        JButton loadButton = new JButton("LOAD");
         loadButton.setMaximumSize(maximumSizeButton);
+        loadButton.setFont(new Font("Monospaced", Font.BOLD, 15));
         JLabel label = new JLabel("LANCE OF DESTINY");
         label.setFont(new Font("Impact", Font.BOLD, 50));
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -145,6 +165,7 @@ public class GameView extends JFrame implements Window {
         controlPanel.setPreferredSize(new Dimension(Constants.SCREEN_WIDTH, 50));
         controlPanel.add(startButton());
         controlPanel.add(pauseButton());
+        controlPanel.add(saveButton());
         controlPanel.add(comboBoxAddBarrierType);//Right now useless?
         controlPanel.add(healthBarDisplay);
         controlPanel.add(spellInventory);
@@ -174,6 +195,20 @@ public class GameView extends JFrame implements Window {
             Events.PauseGame.invoke();
         });
         return buttonPause;
+    }
+
+    private JButton saveButton(){
+        buttonSave = new JButton("Save Build");
+        buttonSave.setFont(new Font("Monospce", Font.BOLD, 16));
+        buttonSave.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "none");
+        buttonSave.addActionListener(e -> {
+            sessionManager.getLoopExecutor().stop();
+            WindowManager.getInstance().showWindow(Windows.SaveView);
+            System.out.println(sessionManager.getLoopExecutor().getSecondsPassed());
+            sessionManager.setStatus(Status.PausedMode);
+            Events.PauseGame.invoke();
+        });
+        return buttonSave;
     }
 
 
