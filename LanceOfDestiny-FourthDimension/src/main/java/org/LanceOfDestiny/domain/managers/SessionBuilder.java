@@ -58,7 +58,15 @@ public class SessionBuilder {
         int y = 40;
 
         for (Barrier barrier1 : LanceOfDestiny.getInstance().getGameMap().getBarriers()) {
-            barrier1.setPosition(new Vector(x, y));
+            if (barrier1.getType() == BarrierTypes.EXPLOSIVE) {
+                barrier1.setPosition(new Vector(x, y));
+                barrier1.shiftPosition(new Vector(x , y));
+            }
+            else {
+                barrier1.setPosition(new Vector(x, y));
+
+
+            }
 
             x += 50;
             if (x >= Constants.SCREEN_WIDTH - 40) {
