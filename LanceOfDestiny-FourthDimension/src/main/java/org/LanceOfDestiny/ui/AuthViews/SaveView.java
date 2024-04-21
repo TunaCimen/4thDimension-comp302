@@ -28,7 +28,7 @@ public class SaveView extends JFrame implements Window {
 
     public void createAndShowUI() {
         setSize(300, 220); // Reduced size for the frame
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
         setLayout(new BorderLayout()); // Use BorderLayout for better arrangement
 

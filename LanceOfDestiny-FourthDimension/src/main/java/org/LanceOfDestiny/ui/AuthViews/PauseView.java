@@ -19,7 +19,7 @@ public class PauseView extends JFrame implements Window {
 
         setSize(300, 250); // Increased height for accommodating bigger buttons
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
         setLayout(new BorderLayout()); // Use BorderLayout for better arrangement
 

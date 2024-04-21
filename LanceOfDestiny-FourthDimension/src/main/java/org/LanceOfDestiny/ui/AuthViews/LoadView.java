@@ -34,7 +34,7 @@ public class LoadView extends JFrame implements Window {
             System.out.println(e.getMessage());
         }
         setTitle("Load View");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
 
         JPanel buttonPanel = new JPanel(new GridLayout(savedNames.size(), 1));

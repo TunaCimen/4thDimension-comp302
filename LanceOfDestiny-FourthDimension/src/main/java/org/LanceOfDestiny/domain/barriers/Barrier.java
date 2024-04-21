@@ -87,9 +87,6 @@ public abstract class Barrier extends GameObject {
         return barrierType;
     }
 
-    public int getDirection() {
-        return direction;
-    }
 
     public boolean isMoving() {
         return isMoving;
