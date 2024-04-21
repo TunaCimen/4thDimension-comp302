@@ -90,7 +90,7 @@ public class GameView extends JFrame implements Window {
         comboBoxAddBarrierType.setVisible(false);
         buttonPlay.setEnabled(false);
         buttonPause.setEnabled(true);
-        buttonBuild.setEnabled(false);
+        comboBoxAddBarrierType.setVisible(false);
         sessionManager.setStatus(Status.RunningMode);
         Events.ResumeGame.invoke();
         sessionManager.getLoopExecutor().start();
