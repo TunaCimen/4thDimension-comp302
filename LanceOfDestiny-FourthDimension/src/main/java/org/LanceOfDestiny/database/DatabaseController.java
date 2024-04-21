@@ -102,10 +102,10 @@ public class DatabaseController {
             if (resultSet.next()) {
                 int score = resultSet.getInt("score");
                 int chances = resultSet.getInt("chances");
-                int numberofspells = resultSet.getInt("numberOfSpells");
+                String numberofspells = resultSet.getString("numberOfSpells");
                 rt.add(score);
                 rt.add(chances);
-                rt.add(numberofspells);
+                rt.add(Integer.parseInt(numberofspells));
             }
         }
         return rt;

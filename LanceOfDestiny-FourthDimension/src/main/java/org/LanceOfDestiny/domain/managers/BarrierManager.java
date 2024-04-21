@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class BarrierManager {
 
     private static BarrierManager instance;
-    private ArrayList<Barrier> barriers = new ArrayList<Barrier>();
+    public ArrayList<Barrier> barriers = new ArrayList<Barrier>();
 
     private BarrierManager() {
     }
