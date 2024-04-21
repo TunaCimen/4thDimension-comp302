@@ -151,7 +151,7 @@ public class BuildViewMiniPanel extends JFrame implements Window {
             // Ensure the game canvas is visible and properly updated
             GameView gameView = GameView.getInstance(sessionManager);
             gameView.reinitializeUI();
-            gameView.add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
+            gameView.addDrawCanvas();
             sessionManager.initializeSession();
             gameView.setVisible(true);
         });
@@ -202,11 +202,10 @@ public class BuildViewMiniPanel extends JFrame implements Window {
             // Hide the build panel and close it
             userInputPanel.setVisible(false);
             this.dispose();
-
             // Ensure the game canvas is visible and properly updated
             GameView gameView = GameView.getInstance(sessionManager);
             gameView.reinitializeUI();
-            gameView.add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
+            //gameView.add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
             sessionManager.initializeSession();
             gameView.setVisible(true);
         });
