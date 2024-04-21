@@ -5,7 +5,6 @@ import org.LanceOfDestiny.ui.Windows;
 
 public class GameViewTest {
     public static void main(String[] args) {
-
-        WindowManager.getInstance().showWindow(Windows.GameView);
+        WindowManager.getInstance().showWindow(Windows.GameViewWindow);
     }
 }

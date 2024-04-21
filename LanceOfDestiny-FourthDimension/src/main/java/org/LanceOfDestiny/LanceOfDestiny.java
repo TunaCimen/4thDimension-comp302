@@ -9,9 +9,10 @@ import java.sql.*;
 public class LanceOfDestiny {
     private static LanceOfDestiny instance;
     private final JFrame mainFrame = new JFrame();
-    private GameMap gameMap;
+    private static GameMap gameMap;
 
     public static void main(String[] args) throws SQLException {
+        gameMap = GameMap.getInstance();
         WindowManager wm = WindowManager.getInstance();
         wm.showWindow(Windows.Login);
     }
@@ -27,12 +28,12 @@ public class LanceOfDestiny {
 
     public GameMap getGameMap() {
         if(gameMap == null){
-            gameMap = new GameMap();
+            gameMap = GameMap.getInstance();
         }
         return gameMap;
     }
 
     public void setGameMap(GameMap gameMap) {
-        this.gameMap = gameMap;
+        LanceOfDestiny.gameMap = gameMap;
     }
 }

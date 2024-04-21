@@ -6,21 +6,65 @@ import org.LanceOfDestiny.ui.GameViews.BuildView;
 import org.LanceOfDestiny.ui.GameViews.BuildViewMiniPanel;
 import org.LanceOfDestiny.ui.GameViews.GameView;
 
-public enum Windows{
-        Login(new LogInView(org.LanceOfDestiny.domain.AuthModels.LogInController.getInstance())),
-        PhysicsTest(new PhysicsTestView()),
-        BuildView(new BuildView(SessionManager.getInstance())),
-        GameView(new GameView(SessionManager.getInstance())),
-        PauseView(new PauseView()),
-        Signup(new SignUpView(org.LanceOfDestiny.domain.AuthModels.LogInController.getInstance())),
-        SaveView(new SaveView()),
-        LoadView(new LoadView()),
-        BuildViewMini(new BuildViewMiniPanel(SessionManager.getInstance()));
+public enum Windows {
+        Login {
+                @Override
+                Window createWindow() {
+                        return new LogInView(org.LanceOfDestiny.domain.AuthModels.LogInController.getInstance());
+                }
+        },
+        PhysicsTest {
+                @Override
+                Window createWindow() {
+                        return new PhysicsTestView();
+                }
+        },
+        BuildView {
+                @Override
+                Window createWindow() {
+                        return new BuildView(SessionManager.getInstance());
+                }
+        },
+        GameViewWindow {
+                @Override
+                Window createWindow() {
+                        return GameView.getInstance(SessionManager.getInstance());
+                }
+        },
+        PauseView {
+                @Override
+                Window createWindow() {
+                        return new PauseView();
+                }
+        },
+        Signup {
+                @Override
+                Window createWindow() {
+                        return new SignUpView(org.LanceOfDestiny.domain.AuthModels.LogInController.getInstance());
+                }
+        },
+        SaveView {
+                @Override
+                Window createWindow() {
+                        return new SaveView();
+                }
+        },
+        LoadView {
+                @Override
+                Window createWindow() {
+                        return new LoadView();
+                }
+        },
+        BuildViewMini {
+                @Override
+                Window createWindow() {
+                        return new BuildViewMiniPanel(SessionManager.getInstance());
+                }
+        };
 
+        abstract Window createWindow();
 
-        final Window window;
-
-        Windows(Window window){
-        this.window = window;
+        public Window getWindow() {
+                return createWindow();
         }
 }

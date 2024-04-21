@@ -48,6 +48,12 @@ public class RewardingBarrier extends Barrier{
         super.reduceLife();
     }
 
+    @Override
+    public void setPosition(Vector position) {
+        super.setPosition(position);
+        rewardBox.setPosition(position);
+    }
+
 
 
 }
