@@ -9,38 +9,36 @@ import org.LanceOfDestiny.domain.physics.*;
 import org.LanceOfDestiny.domain.sprite.BallSprite;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.domain.sprite.ImageOperations;
-import org.LanceOfDestiny.domain.sprite.Sprite;
 
 import java.awt.*;
 
 public class FireBall extends GameObject {
-    private final int radius = Constants.FIREBALL_RADIUS;
-    private BallSprite ballSprite;
     private boolean isOverwhelming = false;
     private boolean isAttached = true;
     private final int defaultSpeed = Constants.FIREBALL_SPEED;
-    private double currentSpeed;
     private MagicalStaff magicalStaff;
-
+    private Image defaultImage;
+    private Image overwelmingImage;
 
     public FireBall() {
         super();
         this.position = Constants.FIREBALL_POSITION;
-        this.currentSpeed = defaultSpeed;
-        this.collider = ColliderFactory.createBallCollider(this, Vector.getZeroVector(), ColliderType.DYNAMIC, radius);
-        this.ballSprite = new BallSprite(this, Color.black, Constants.FIREBALL_RADIUS);
-        this.getSprite().addImage(ImageOperations.resizeImage(ImageLibrary.FireBall.getImage()
-                ,ballSprite.width()*2
-                ,ballSprite.height()*2));
+        createColliderAndSprite();
         Events.ActivateOverwhelming.addListener(this::handleOverwhelming);
         Events.ShootBall.addRunnableListener(this::shootBall);
     }
 
-    private void shootBall() {
-        if(!isAttached) return;
-        isAttached = false;
-        Vector velocity = Vector.getVelocityByAngleAndMagnitude(defaultSpeed, magicalStaff.getAngle());
-        collider.setVelocity(velocity);
+    private void createColliderAndSprite() {
+        int radius = Constants.FIREBALL_RADIUS;
+        this.collider = ColliderFactory.createBallCollider(this, Vector.getZeroVector(), ColliderType.DYNAMIC, radius);
+        this.sprite = new BallSprite(this, Color.black, Constants.FIREBALL_RADIUS);
+        defaultImage = ImageOperations.resizeImage(ImageLibrary.FireBall.getImage()
+                , sprite.width()*2
+                , sprite.height()*2);
+        overwelmingImage = ImageOperations.resizeImage(ImageLibrary.FireBallOverwhelmed.getImage(),
+                sprite.width()*2,
+                sprite.height()*2);
+        this.getSprite().setImage(defaultImage);
     }
 
     @Override
@@ -54,12 +52,23 @@ public class FireBall extends GameObject {
         if (getPosition().getY() >= Constants.SCREEN_HEIGHT - 40) fireBallDropped();
         if (isAttached) {
             var staffWidth =  (magicalStaff.isExpanded ? Constants.STAFF_WIDTH * 2 : Constants.STAFF_WIDTH);
-            var attachedPosition = new Vector(
-                    magicalStaff.getPosition().getX() + staffWidth / 2f + (Constants.STAFF_WIDTH / 4f) * Math.sin(magicalStaff.getAngle()),
-                    magicalStaff.getPosition().getY() + Constants.FIREBALL_RADIUS*3.5 + (staffWidth / 4f) * Math.cos(magicalStaff.getAngle() + Math.PI)
-            );
+            var attachedPosition = getAttachedPosition(staffWidth);
             collider.setPosition(attachedPosition);
         } else setPosition(getPosition().add(collider.getVelocity()));
+    }
+
+    private Vector getAttachedPosition(int staffWidth) {
+        return new Vector(
+                magicalStaff.getPosition().getX() + staffWidth / 2f + (Constants.STAFF_WIDTH / 4f) * Math.sin(magicalStaff.getAngle()),
+                magicalStaff.getPosition().getY() + Constants.FIREBALL_RADIUS * 3.5 + (staffWidth / 4f) * Math.cos(magicalStaff.getAngle() + Math.PI)
+        );
+    }
+
+    private void shootBall() {
+        if(!isAttached) return;
+        isAttached = false;
+        Vector velocity = Vector.getVelocityByAngleAndMagnitude(defaultSpeed, magicalStaff.getAngle());
+        collider.setVelocity(velocity);
     }
 
     private void handleOverwhelming(Object object) {
@@ -67,9 +76,16 @@ public class FireBall extends GameObject {
         else disableOverwhelming();
     }
 
-    @Override
-    public Sprite getSprite() {
-        return ballSprite;
+    public void enableOverwhelming() {
+        isOverwhelming = true;
+        sprite.color = Color.ORANGE;
+        sprite.setImage(overwelmingImage);
+    }
+
+    public void disableOverwhelming() {
+        isOverwhelming = false;
+        sprite.color = Color.BLACK;
+        sprite.setImage(defaultImage);
     }
 
     public void fireBallDropped() {
@@ -77,35 +93,18 @@ public class FireBall extends GameObject {
         isAttached = true;
     }
 
-    public void enableOverwhelming() {
-        isOverwhelming = true;
-        ballSprite.color = Color.ORANGE;
+    @Override
+    public void onCollisionEnter(Collision collision) {
+        super.onCollisionEnter(collision);
+        GameObject other = collision.getOther(this);
+
+        if (other instanceof Barrier) {
+            if(isOverwhelming) ((Barrier) other).kill();
+            else ((Barrier) other).reduceLife();
+        }
     }
 
     public boolean isOverwhelming() {
         return isOverwhelming;
     }
-
-    public void disableOverwhelming() {
-        isOverwhelming = false;
-        ballSprite.color = Color.BLACK;
-    }
-
-    @Override
-    public void onCollisionEnter(Collision collision) {
-        super.onCollisionEnter(collision);
-
-        GameObject other = collision.getOther(this);
-        if (other instanceof MagicalStaff) {
-            int x = 31;
-        }
-        if (!isOverwhelming()) {
-            return;
-        }
-        if (other instanceof Barrier) {
-            ((Barrier) other).kill();
-        }
-
-    }
-
 }

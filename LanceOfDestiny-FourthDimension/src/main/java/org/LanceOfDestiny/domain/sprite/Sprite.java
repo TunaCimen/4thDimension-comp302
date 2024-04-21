@@ -21,7 +21,7 @@ public abstract class Sprite {
 
     public abstract void drawShape(Graphics g);
 
-    public void addImage(Image image){
+    public void setImage(Image image){
         this.image = image;
     }
 

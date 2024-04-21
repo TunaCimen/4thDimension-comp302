@@ -70,7 +70,7 @@ public class RewardBox extends GameObject {
 
     public void createSprite() {
         this.sprite = new RectangleSprite(this, new Color(0,0,0,0), WIDTH, HEIGHT);
-        this.sprite.addImage(ImageOperations.resizeImage(ImageLibrary.RewardBox.getImage(),32,32));
+        this.sprite.setImage(ImageOperations.resizeImage(ImageLibrary.RewardBox.getImage(),32,32));
         getSprite().setVisible(false);
     }
 
