@@ -106,9 +106,12 @@ public class DatabaseController {
                 int score = resultSet.getInt("score");
                 int chances = resultSet.getInt("chances");
                 String numberofspells = resultSet.getString("numberOfSpells");
+                String[] parts = numberofspells.split(", ");
                 rt.add(String.valueOf(score));
                 rt.add(String.valueOf(chances));
-                rt.add(numberofspells);
+                rt.add(parts[0]);
+                rt.add(parts[1]);
+                rt.add(parts[2]);
             }
         }
         return rt;

@@ -10,7 +10,7 @@ public class Player extends MonoBehaviour {
     private static final int DEFAULT_CHANCES = 3;
     private static final int MIN_CHANCES = 0;
 
-    private final SpellContainer spellContainer;
+    private SpellContainer spellContainer;
     private int chancesLeft;
 
     public Player() {
@@ -48,6 +48,9 @@ public class Player extends MonoBehaviour {
 
     public int getChancesLeft() {
         return chancesLeft;
+    }
+    public void resetSpells(){
+        this.spellContainer = new SpellContainer();
     }
 
     public SpellContainer getSpellContainer() {
