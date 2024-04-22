@@ -29,7 +29,8 @@ public enum Events {
 
     UpdateChance(Integer.class), // invoked with parameter -> change: change in chances
 
-    PauseGame(Object.class), ResumeGame(Object.class),
+    PauseGame(Object.class),
+    ResumeGame(Object.class),
 
     UpdateScore(Object.class),
 

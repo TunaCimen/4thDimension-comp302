@@ -23,6 +23,8 @@ public class GameView extends JFrame implements Window {
     JButton buttonBuild;
     JButton buttonSave;
 
+    HealthBar healthBarDisplay;
+
     private static final String STATUS_START = "START";
     private static final String STATUS_GAME = "GAME";
     private static String STATUS;
@@ -33,15 +35,16 @@ public class GameView extends JFrame implements Window {
     private CardLayout cardLayout;
 
     JPanel cardPanel;
+    JLabel scoreBar;
 
-    private GameView(SessionManager sessionManager) {
+    public GameView(SessionManager sessionManager) {
         this.sessionManager = sessionManager;
         initializeComponents();
         cardLayout = new CardLayout();
         setLayout(cardLayout);
         cardPanel = new JPanel(cardLayout);
         add(cardPanel,BorderLayout.CENTER);
-
+        Events.ResumeGame.addRunnableListener(this::startGame);
     }
 
 
@@ -49,8 +52,6 @@ public class GameView extends JFrame implements Window {
         if (instance == null) {
             instance = new GameView(sessionManager);
             STATUS = STATUS_START;
-        } else {
-            instance.setSessionManager(sessionManager);
         }
         return instance;
     }
@@ -104,15 +105,20 @@ public class GameView extends JFrame implements Window {
     }
 
     public void startGame() {
+        System.out.println("HEALTH " + SessionManager.getInstance().getPlayer().getChancesLeft());
+        healthBarDisplay.setHealth(SessionManager.getInstance().getPlayer().getChancesLeft());
+        scoreBar.setText(String.valueOf(ScoreManager.getInstance().getScore()));
+        healthBarDisplay.repaint();
         comboBoxAddBarrierType.setVisible(false);
         buttonPlay.setEnabled(false);
         buttonPause.setEnabled(true);
         buttonSave.setVisible(false);
         comboBoxAddBarrierType.setVisible(false);
         sessionManager.setStatus(Status.RunningMode);
-        Events.ResumeGame.invoke();
         sessionManager.getLoopExecutor().start();
+
     }
+
 
     public void showPanel(String cardName){
         cardLayout.show(cardPanel, cardName);
@@ -159,7 +165,7 @@ public class GameView extends JFrame implements Window {
 
     private JPanel createControlPanel(){
         initComboBox();
-        HealthBar healthBarDisplay = new HealthBar(3);
+        healthBarDisplay = new HealthBar(SessionManager.getInstance().getPlayer().getChancesLeft());
         SpellInventory spellInventory = new SpellInventory();
         JPanel controlPanel = new JPanel(new GridLayout(1, 5, 20, 20));
         controlPanel.setPreferredSize(new Dimension(Constants.SCREEN_WIDTH, 50));
@@ -213,20 +219,13 @@ public class GameView extends JFrame implements Window {
 
 
     private JLabel scoreBar(){
-        JLabel scoreBar = new JLabel( "SCORE:  " + String.valueOf(ScoreManager.getInstance().getScore()));
+        scoreBar = new JLabel( "SCORE:  " + ScoreManager.getInstance().getScore());
         scoreBar.setFont(new Font("Impact", Font.BOLD, 24));
         scoreBar.setPreferredSize(new Dimension(100,30));
         Events.UpdateScore.addListener(e-> scoreBar.setText("Score:  " + ScoreManager.getInstance().getScore()));
         return scoreBar;
     }
 
-    private JLabel chanceBar(){
-        ImageIcon healthBar = new ImageIcon(ImageLibrary.Heart.getImage());
-        JLabel chanceBar = new JLabel( "<3:  "+ String.valueOf(sessionManager.getPlayer().getChancesLeft()));
-        chanceBar.setIcon(healthBar);
-        Events.UpdateChance.addListener(e-> chanceBar.setText("<3:  " + String.valueOf(sessionManager.getPlayer().getChancesLeft())));
-        return chanceBar;
-    }
 
     private void createParentPanel(){
         JPanel parentPanel = new JPanel(new BorderLayout());
@@ -259,14 +258,18 @@ public class GameView extends JFrame implements Window {
     }
 
 
+    public void setUpComponents(){
+        createParentPanel();
+        createStartPanel();
+        showPanel(STATUS);
+    }
+
     @Override
     public void createAndShowUI() {
         this.setEnabled(true);
         this.requestFocusInWindow(true);
         sessionManager.initializePlayer();
-        createParentPanel();
-        createStartPanel();
-        showPanel(STATUS);
+        setUpComponents();
         setVisible(true);
     }
 }

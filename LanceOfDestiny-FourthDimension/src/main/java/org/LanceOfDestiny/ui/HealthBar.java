@@ -2,25 +2,26 @@ package org.LanceOfDestiny.ui;
 
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
+import org.LanceOfDestiny.domain.sprite.ImageOperations;
 
 import javax.swing.*;
 import java.util.Stack;
 
 public class HealthBar extends JPanel {
-    private final int maxHealth;
+    public int init_health;
     ImageIcon healthImageIcon;
     private Stack<JLabel> healths;
     public HealthBar(int maxHealth){
-        this.maxHealth = maxHealth;
-        healthImageIcon = new ImageIcon(ImageLibrary.Heart.getImage());
+        this.init_health = maxHealth;
+        healthImageIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.Heart.getImage(),20,20));
         healths = new Stack<>();
         this.setVisible(true);
         addToPanel();
         Events.UpdateChance.addListener(e->updateHealth((int)e) );
     }
 
-    public void addToPanel(){
-        for(int i = 0;i<maxHealth;++i){
+    public void initializePanel(){
+        for(int i = 0; i< init_health; ++i){
             JLabel newLabel = new JLabel();
             newLabel.setIcon(healthImageIcon);
             healths.push(newLabel);
@@ -49,6 +50,19 @@ public class HealthBar extends JPanel {
         else{
             reduceHealth();
         }
+    }
+
+    public void setHealth(int health){
+        healths.clear();
+        removeAll();
+        for(int i = 0; i< health; ++i){
+            JLabel newLabel = new JLabel();
+            newLabel.setIcon(healthImageIcon);
+            healths.push(newLabel);
+            add(newLabel);
+        }
+        repaint();
+        revalidate();
     }
 
 

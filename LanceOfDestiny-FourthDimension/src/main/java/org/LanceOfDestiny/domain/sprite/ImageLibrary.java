@@ -17,7 +17,8 @@ public enum ImageLibrary {
     OverWhelmingSpell("Image/Overwhelm.png"),
     ExpansionSpell("Image/expansion.png"),
     ExplosiveBarrier("Image/bomb.png"),
-    SimpleBarrier("Image/BlueGem.png");
+    SimpleBarrier("Image/BlueGem.png"),
+    ;
 
     private final BufferedImage image;
 

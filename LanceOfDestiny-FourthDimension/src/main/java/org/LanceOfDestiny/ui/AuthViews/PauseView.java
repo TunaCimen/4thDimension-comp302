@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.ui.AuthViews;
 
+import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.ui.GameViews.GameView;
 import org.LanceOfDestiny.ui.Window;
@@ -63,9 +64,8 @@ public class PauseView extends JFrame implements Window {
 
     private void handleResume() {
         dispose();
-        GameView gameView = GameView.getInstance(SessionManager.getInstance());
-        gameView.startGame();
-        gameView.revalidate();
-        gameView.repaint();
+        Events.ResumeGame.invoke();
+        //gameView.revalidate();
+        //gameView.repaint();
     }
 }
