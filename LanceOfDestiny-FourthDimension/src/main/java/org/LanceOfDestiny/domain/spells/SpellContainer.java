@@ -55,7 +55,7 @@ public class SpellContainer extends MonoBehaviour {
             return;
         }
 
-        if (!spellExists(spellType)){
+        if (spellExists(spellType)){
             return;
         }
 

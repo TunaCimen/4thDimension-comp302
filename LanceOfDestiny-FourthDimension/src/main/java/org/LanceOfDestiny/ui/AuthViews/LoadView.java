@@ -64,14 +64,15 @@ public class LoadView extends JFrame implements Window {
                         SessionManager.getInstance().getPlayer().getSpellContainer().addSpell(SpellFactory.createSpell(SpellType.CHANCE));
                     }
                     for(int i=0;i<Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(3));i++){
-                        SessionManager.getInstance().getPlayer().getSpellContainer().addSpell(SpellFactory.createSpell(SpellType.EXPANSION));
+                        SessionManager.getInstance().getPlayer().getSpellContainer().addSpell(new ExpansionSpell().getSpellType());
                     }
                     for(int i=0;i<Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(4));i++){
-                        SessionManager.getInstance().getPlayer().getSpellContainer().addSpell(SpellFactory.createSpell(SpellType.OVERWHELMING));
+                        SessionManager.getInstance().getPlayer().getSpellContainer().addSpell(new OverwhelmingFireBallSpell().getSpellType());
                     }
                     for(int i=0;i<Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(5));i++){
-                        SessionManager.getInstance().getPlayer().getSpellContainer().addSpell(SpellFactory.createSpell(SpellType.CANON));
+                        SessionManager.getInstance().getPlayer().getSpellContainer().addSpell(new CanonSpell().getSpellType());
                     }
+                    System.out.println(SessionManager.getInstance().getPlayer().getSpellContainer().getSpells());
                     JOptionPane.showMessageDialog(null, "Game loaded successfully!");
                     this.dispose();
                 } catch (SQLException ex) {

@@ -112,6 +112,7 @@ public class DatabaseController {
                 rt.add(parts[0]);
                 rt.add(parts[1]);
                 rt.add(parts[2]);
+                rt.add(parts[3]);
             }
         }
         return rt;
