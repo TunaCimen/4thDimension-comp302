@@ -40,7 +40,7 @@ public class LogInController {
         this.username = username;
         return dbController.loginUser(username, password);
     }
-    public boolean saveGame(String saveName, List<Barrier> blist,int score, int chances, int numberofSpells) throws SQLException {
+    public boolean saveGame(String saveName, List<Barrier> blist,int score, int chances, String numberofSpells) throws SQLException {
         return dbController.saveGame(this.username,saveName, blist,score,chances,numberofSpells);
     }
     public List<Barrier> loadBarriers(String saveName){

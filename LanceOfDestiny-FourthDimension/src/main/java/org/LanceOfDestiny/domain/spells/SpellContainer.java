@@ -100,6 +100,10 @@ public class SpellContainer extends MonoBehaviour {
         return null;
     }
 
+    public List<Spell> getSpells() {
+        return spells;
+    }
+
     private boolean spellExists(SpellType spellType) {
         return spellMap.get(spellType);
     }

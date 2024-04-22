@@ -5,6 +5,9 @@ import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.ScoreManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
+import org.LanceOfDestiny.domain.spells.Spell;
+import org.LanceOfDestiny.domain.spells.SpellContainer;
+import org.LanceOfDestiny.domain.spells.SpellType;
 import org.LanceOfDestiny.ui.Window;
 
 import javax.swing.*;
@@ -61,8 +64,28 @@ public class SaveView extends JFrame implements Window {
         saveButton.addActionListener(e -> {
             String saveName = saveNameField.getText();
             if (!saveName.isEmpty()) {
+                int chancespell = 0;
+                int expansionspell = 0;
+                int overwhelmingspell = 0;
+                int canonspell = 0;
+                for(Spell s: SessionManager.getInstance().getPlayer().getSpellContainer().getSpells()){
+                    if (s.getSpellType() == SpellType.CHANCE){
+                        chancespell+=1;
+                    }
+                    else if (s.getSpellType() == SpellType.EXPANSION){
+                        expansionspell+=1;
+                    }
+                    else if (s.getSpellType() == SpellType.OVERWHELMING){
+                        overwhelmingspell+=1;
+                    }
+                    else if (s.getSpellType() == SpellType.CANON){
+                        canonspell+=1;
+                    }
+
+                }
                 try {
-                    if (SaveView.this.userManager.saveGame(saveName, barManager.getBarriers(), scoreManager.getScore(), sesManager.getPlayer().getChancesLeft(), 5)) {
+                    String numspells = chancespell + ", " + expansionspell + ", " + overwhelmingspell + ", " + canonspell;
+                    if (SaveView.this.userManager.saveGame(saveName, barManager.getBarriers(), scoreManager.getScore(), sesManager.getPlayer().getChancesLeft(), numspells)) {
                         JOptionPane.showMessageDialog(null, "Game saved successfully!");
                         SaveView.this.dispose();
                     } else {

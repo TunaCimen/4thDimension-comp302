@@ -37,7 +37,7 @@ public class DatabaseController {
         }
     }
 
-    public boolean saveGame(String username, String saveName, List<Barrier> barrierList,int score, int chances, int numberOfSpells) throws SQLException {
+    public boolean saveGame(String username, String saveName, List<Barrier> barrierList,int score, int chances, String numberOfSpells) throws SQLException {
         for (Barrier b: barrierList){
             try (PreparedStatement pstmt = connection.prepareStatement("INSERT INTO savedBarrier (savedByUser, saveName, barrierType, hitsleft, coordinate) VALUES (?, ?, ?, ?, ?)")) {
                 pstmt.setString(1, username);
@@ -55,7 +55,7 @@ public class DatabaseController {
             pstmt2.setString(1, username);
             pstmt2.setInt(2, score);
             pstmt2.setInt(3, chances);
-            pstmt2.setInt(4, numberOfSpells);
+            pstmt2.setString(4, numberOfSpells);
             pstmt2.setString(5, saveName);
             pstmt2.executeUpdate();
         }
