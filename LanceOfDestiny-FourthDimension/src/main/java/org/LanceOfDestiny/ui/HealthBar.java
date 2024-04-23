@@ -5,6 +5,7 @@ import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.domain.sprite.ImageOperations;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.Stack;
 
 public class HealthBar extends JPanel {
@@ -33,14 +34,17 @@ public class HealthBar extends JPanel {
         JLabel reduced = healths.pop();
         remove(reduced);
         repaint();
+        revalidate();
     }
 
     public void addHealth(){
+        System.out.println("Chance Added");
         JLabel newLabel = new JLabel();
         newLabel.setIcon(healthImageIcon);
         healths.push(newLabel);
         add(newLabel);
         repaint();
+        revalidate();
     }
 
     public void updateHealth(int val){
@@ -64,9 +68,4 @@ public class HealthBar extends JPanel {
         repaint();
         revalidate();
     }
-
-
-
-
-
 }
