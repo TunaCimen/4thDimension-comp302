@@ -39,6 +39,7 @@ public class DatabaseController {
 
     public boolean saveGame(String username, String saveName, List<Barrier> barrierList,int score, int chances, String numberOfSpells) throws SQLException {
         for (Barrier b: barrierList){
+            if(b instanceof ExplosiveBarrier explosiveBarrier && explosiveBarrier.isFalling()) continue;;
             try (PreparedStatement pstmt = connection.prepareStatement("INSERT INTO savedBarrier (savedByUser, saveName, barrierType, hitsleft, coordinate) VALUES (?, ?, ?, ?, ?)")) {
                 pstmt.setString(1, username);
                 pstmt.setString(2, saveName);

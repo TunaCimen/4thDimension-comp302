@@ -2,12 +2,14 @@ package org.LanceOfDestiny.domain.spells;
 
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.Barrier;
+import org.LanceOfDestiny.domain.barriers.ExplosiveBarrier;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.physics.ColliderFactory;
 import org.LanceOfDestiny.domain.physics.ColliderType;
 import org.LanceOfDestiny.domain.physics.Collision;
 import org.LanceOfDestiny.domain.physics.Vector;
+import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.sprite.BallSprite;
 
 import java.awt.*;
@@ -48,6 +50,8 @@ public class Hex extends GameObject {
     public void onTriggerEnter(Collision collision) {
         super.onTriggerEnter(collision);
         var other = collision.getOther(this);
+        if(other instanceof FireBall) return;
+        if(other instanceof ExplosiveBarrier explosiveBarrier && explosiveBarrier.isFalling()) return;
 
         if (other instanceof Barrier || other == null) {
             sprite.setVisible(false);
