@@ -19,7 +19,7 @@ public class SpellContainer extends MonoBehaviour {
     private boolean isSpellActive = false;
     private int spellEndSecond;
     private final int spellDurationSecond = 30;
-    private SpellType activeSpellType;
+    private Spell activeSpell;
 
     public SpellContainer() {
         spells = new LinkedList<>();
@@ -40,7 +40,7 @@ public class SpellContainer extends MonoBehaviour {
         super.update();
         if (isSpellActive) {
             if (loopExecutor.getSecondsPassed() >= spellEndSecond ) {
-                deactivateSpell(activeSpellType);
+                deactivateSpell(activeSpell);
             }
         }
     }
@@ -66,20 +66,18 @@ public class SpellContainer extends MonoBehaviour {
         if (!spellExists(spellType)) return;
         if (isSpellActive) return;
         isSpellActive = true;
-
         var spell = getSpell(spellType);
         spell.activateSpell();
-
-        activeSpellType = spellType;
+        activeSpell = spell;
+        removeSpell(spell);
         spellEndSecond = loopExecutor.getSecondsPassed() + spellDurationSecond;
         Events.ActivateSpellUI.invoke(spellType);
     }
 
-    public void deactivateSpell(SpellType spellType) {
-        var spell = getSpell(spellType);
-        spell.deactivateSpell();
-        removeSpell(spell);
+    public void deactivateSpell(Spell spell) {
         isSpellActive = false;
+        spell.deactivateSpell();
+        activeSpell = null;
     }
 
     public void removeSpell(Spell spell) {

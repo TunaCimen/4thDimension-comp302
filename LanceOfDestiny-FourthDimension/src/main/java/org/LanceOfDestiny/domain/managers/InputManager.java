@@ -69,18 +69,9 @@ public class InputManager implements KeyListener {
 
     private void updateSpellActivation() {
         if (activateSpellKey == -1) return;
-        if (activateSpellKey == KeyEvent.VK_E) {
-            Events.TryUsingSpell.invoke(SpellType.EXPANSION);
-            System.out.println("EXPANSION IS TRIED");
-        }
-        if (activateSpellKey == KeyEvent.VK_C) {
-            Events.TryUsingSpell.invoke(SpellType.CANON);
-            System.out.println("CANNON IS TRIED");
-        }
-        if (activateSpellKey == KeyEvent.VK_O) {
-            Events.TryUsingSpell.invoke(SpellType.OVERWHELMING);
-            System.out.println("OVERWHELMING IS TRIED");
-        }
+        if (activateSpellKey == KeyEvent.VK_E) Events.TryUsingSpell.invoke(SpellType.EXPANSION);
+        if (activateSpellKey == KeyEvent.VK_C) Events.TryUsingSpell.invoke(SpellType.CANON);
+        if (activateSpellKey == KeyEvent.VK_O) Events.TryUsingSpell.invoke(SpellType.OVERWHELMING);
     }
 
 }

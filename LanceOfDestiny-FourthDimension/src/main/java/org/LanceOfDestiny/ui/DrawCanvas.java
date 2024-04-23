@@ -105,8 +105,7 @@ public class DrawCanvas extends JPanel {
                     clickedBarrier.setPosition(new Vector(x, y));
 
                     // Update the game view
-                    GameView gameView = GameView.getInstance();
-                    gameView.reinitializeUI();
+                    repaint();
 
                     // Log the barrier movement
                     System.out.println(String.format("Barrier moved to new location: %s from %s to %s",
@@ -159,7 +158,7 @@ public class DrawCanvas extends JPanel {
                 System.out.println("Barrier selected: " + (BarrierManager.getInstance().getSelectedBarrierType()).toString() );
                 System.out.println("Last Barrier added: " + BarrierManager.getInstance().getBarriers().get(BarrierManager.getInstance().getBarriers().size()-1).toString());
                 BarrierManager.getInstance().getBarrierByLocation(x, y).getSprite().setVisible(true);
-                GameView.getInstance().reinitializeUI();
+                repaint();
             }
 
         }
@@ -174,7 +173,7 @@ public class DrawCanvas extends JPanel {
 
             //debug
             System.out.println("Barrier removed: " + (BarrierManager.getInstance().getSelectedBarrierType()).toString() );
-            GameView.getInstance().reinitializeUI();
+            repaint();
 
         }
     }

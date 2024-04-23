@@ -50,7 +50,6 @@ public class Player extends MonoBehaviour {
         return chancesLeft;
     }
     public void resetSpells(){
-        System.out.println("Reset Spells");
         this.spellContainer = new SpellContainer();
     }
 
