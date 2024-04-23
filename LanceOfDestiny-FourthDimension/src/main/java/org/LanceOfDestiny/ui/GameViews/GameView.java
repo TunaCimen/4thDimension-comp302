@@ -72,6 +72,7 @@ public class GameView extends JFrame implements Window {
     public void startGame() {
         System.out.println("HEALTH " + SessionManager.getInstance().getPlayer().getChancesLeft());
         scoreBar.updateScore();
+        //pauseButton().setFocusable(false);
         healthBarDisplay.setHealth(SessionManager.getInstance().getPlayer().getChancesLeft());
         healthBarDisplay.repaint();
         comboBoxAddBarrierType.setVisible(false);
@@ -145,7 +146,7 @@ public class GameView extends JFrame implements Window {
         buttonPlay = new JButton("START");
         buttonPlay.setFont(new Font("Monospaced", Font.BOLD, 16));
         buttonPlay.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "none");
-        buttonPlay.addActionListener(e -> {startGame();});
+        buttonPlay.addActionListener(e->Events.ResumeGame.invoke());
         return buttonPlay;
     }
 
