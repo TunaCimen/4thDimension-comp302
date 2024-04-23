@@ -72,7 +72,6 @@ public class GameView extends JFrame implements Window {
     public void startGame() {
         System.out.println("HEALTH " + SessionManager.getInstance().getPlayer().getChancesLeft());
         scoreBar.updateScore();
-        //pauseButton().setFocusable(false);
         healthBarDisplay.setHealth(SessionManager.getInstance().getPlayer().getChancesLeft());
         healthBarDisplay.repaint();
         comboBoxAddBarrierType.setVisible(false);
@@ -82,7 +81,6 @@ public class GameView extends JFrame implements Window {
         comboBoxAddBarrierType.setVisible(false);
         sessionManager.setStatus(Status.RunningMode);
         sessionManager.getLoopExecutor().start();
-
     }
 
 
