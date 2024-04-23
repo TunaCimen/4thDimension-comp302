@@ -59,10 +59,10 @@ public class SessionBuilder {
 
             }
 
-            x += 50;
+            x += Constants.BARRIER_X_OFFSET;
             if (x >= Constants.SCREEN_WIDTH - 40) {
                 x = 40;
-                y += 30;
+                y += Constants.BARRIER_Y_OFFSET;
             }
         }
     }

@@ -70,8 +70,6 @@ public abstract class GameObject extends Behaviour {
         this.position = position;
     }
     public void shiftPosition(Vector position) {
-        this.position = position;
-
     }
 
 

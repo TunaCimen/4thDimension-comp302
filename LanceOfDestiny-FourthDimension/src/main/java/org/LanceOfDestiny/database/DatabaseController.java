@@ -45,7 +45,11 @@ public class DatabaseController {
                 pstmt.setString(2, saveName);
                 pstmt.setString(3, b.getBarrierType().toString());
                 pstmt.setInt(4, b.getHitsLeft());
-                pstmt.setString(5, b.getPosition().toString());
+                if(b instanceof ExplosiveBarrier explosiveBarrier) {
+                    pstmt.setString(5, explosiveBarrier.getInitPos().toString());
+                } else {
+                    pstmt.setString(5, b.getPosition().toString());
+                }
                 pstmt.executeUpdate();
             } catch (Exception e){
                 System.out.println("Couldn't save");

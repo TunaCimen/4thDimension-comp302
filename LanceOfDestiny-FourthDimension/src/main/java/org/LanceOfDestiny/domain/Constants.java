@@ -39,4 +39,7 @@ public class Constants {
     public static final int MAX_REINFORCED = 28;
     public static final int MAX_EXPLOSIVE = 15;
     public static final int MAX_REWARDING = 20;
+    public static final int BARRIER_X_OFFSET = 60;
+
+    public static final int BARRIER_Y_OFFSET = 50;
 }
