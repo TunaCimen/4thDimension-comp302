@@ -14,6 +14,7 @@ import java.util.Random;
 public class ExplosiveBarrier extends Barrier {
     public static final double MOVE_PROBABILITY = 0.2;
 
+
     Vector initPos;
     private boolean isFalling = false;
     private double angleInDegrees = 0;
@@ -21,7 +22,6 @@ public class ExplosiveBarrier extends Barrier {
 
     public ExplosiveBarrier(Vector position) {
         super(position, BarrierTypes.EXPLOSIVE);
-        this.position = new Vector(position.getX(), position.getY());
         if ((new Random()).nextDouble() <= MOVE_PROBABILITY) isMoving = true;
         adjustSprite();
         initPos = getPosition();
@@ -47,8 +47,8 @@ public class ExplosiveBarrier extends Barrier {
     public Vector getCircularMotionVector() {
         angleInDegrees += 360 * Constants.UPDATE_RATE; //Speed 360 deg per second.
         double angleInRadians = Math.toRadians(angleInDegrees);
-        double x = initPos.getX() + Constants.CIRCULAR_MOTION_RADIUS * Math.cos(angleInRadians);
-        double y = initPos.getY() + Constants.CIRCULAR_MOTION_RADIUS * Math.sin(angleInRadians);
+        double x = position.getX() + Constants.CIRCULAR_MOTION_RADIUS * Math.cos(angleInRadians);
+        double y = position.getY() + Constants.CIRCULAR_MOTION_RADIUS * Math.sin(angleInRadians);
         return new Vector(x, y);
     }
 
@@ -89,12 +89,12 @@ public class ExplosiveBarrier extends Barrier {
             double nextAngleInRadians = Math.toRadians(nextAngleInDegrees);
 
             // Compute the next position based on the next angle
-            double nextX = initPos.getX() + Constants.CIRCULAR_MOTION_RADIUS * Math.cos(nextAngleInRadians);
-            double nextY = initPos.getY() + Constants.CIRCULAR_MOTION_RADIUS * Math.sin(nextAngleInRadians);
+            double nextX = position.getX() + Constants.CIRCULAR_MOTION_RADIUS * Math.cos(nextAngleInRadians);
+            double nextY = position.getY() + Constants.CIRCULAR_MOTION_RADIUS * Math.sin(nextAngleInRadians);
 
             // Current position at current angle
-            double currentX = initPos.getX() + Constants.CIRCULAR_MOTION_RADIUS * Math.cos(Math.toRadians(angleInDegrees));
-            double currentY = initPos.getY() + Constants.CIRCULAR_MOTION_RADIUS * Math.sin(Math.toRadians(angleInDegrees));
+            double currentX = position.getX() + Constants.CIRCULAR_MOTION_RADIUS * Math.cos(Math.toRadians(angleInDegrees));
+            double currentY = position.getY() + Constants.CIRCULAR_MOTION_RADIUS * Math.sin(Math.toRadians(angleInDegrees));
 
             // Calculate the tangent vector (direction) by subtracting current position from next position
             Vector direction = new Vector(nextX - currentX, nextY - currentY);
@@ -106,7 +106,7 @@ public class ExplosiveBarrier extends Barrier {
     @Override
     public void setPosition(Vector position) {
         this.position = position;
-        this.initPos = position;
+        if(initPos.isZero()) this.initPos = position;
     }
 
     @Override
@@ -118,7 +118,6 @@ public class ExplosiveBarrier extends Barrier {
     public boolean isFalling() {
         return isFalling;
     }
-
     public Vector getInitPos() {
         return initPos;
     }

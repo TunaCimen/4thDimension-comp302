@@ -2,6 +2,8 @@ package org.LanceOfDestiny.domain.barriers;
 
 import org.LanceOfDestiny.domain.physics.Collision;
 import org.LanceOfDestiny.domain.physics.Vector;
+import org.LanceOfDestiny.domain.sprite.ImageLibrary;
+import org.LanceOfDestiny.domain.sprite.ImageOperations;
 
 import java.awt.*;
 import java.util.Random;
@@ -13,7 +15,8 @@ public class ReinforcedBarrier extends Barrier {
         super(position, BarrierTypes.REINFORCED, hitsRequired);
         if ((new Random()).nextDouble() <= MOVE_PROBABILITY) isMoving = true;
         initDirection();
-        getSprite().color = Color.CYAN;
+        getSprite().color = new Color(0,0,0,0);
+        this.getSprite().setImage(ImageOperations.resizeImageToSprite(ImageLibrary.ReinforcedBarrier.getImage(),getSprite()));
         getSprite().number = String.valueOf(hitsLeft);
     }
 
