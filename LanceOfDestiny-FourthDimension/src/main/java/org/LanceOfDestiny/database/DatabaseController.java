@@ -46,8 +46,6 @@ public class DatabaseController {
                     if (b.getBarrierType().equals(BarrierTypes.EXPLOSIVE)){
                         ExplosiveBarrier explosiveBarrier = (ExplosiveBarrier) b;
                         pos = explosiveBarrier.getInitPos().toString();
-                        System.out.println(explosiveBarrier.getInitPos());
-                        System.out.println(explosiveBarrier.getPosition());
                     }else{
                         pos = b.getPosition().toString();
                     }
