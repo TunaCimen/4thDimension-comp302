@@ -236,7 +236,7 @@ public class PhysicsManager {
             handleRegularBounce(collision);
             return;
         }
-        if (otherObjectDirection.isPerpendicular(fireballVelocity)) {
+        if (!otherObjectDirection.isZero() && otherObjectDirection.isPerpendicular(fireballVelocity)) {
             // Calculate the angle of reflection at 45 degrees relative to the line of movement direction
             double angleOfReflection = Math.PI / 4; // 45 degrees in radians
             Vector reflectionDirection = otherVelocity.normalize();

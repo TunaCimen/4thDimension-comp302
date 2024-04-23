@@ -3,6 +3,7 @@ package org.LanceOfDestiny.ui.AuthViews;
 import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.behaviours.Behaviour;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
+import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.ScoreManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
@@ -47,6 +48,7 @@ public class LoadView extends JFrame implements Window {
             button.setMinimumSize(buttonSize);
             button.addActionListener(e -> {
                 try {
+                    Events.LoadGame.invoke();
                     BarrierManager.getInstance().removeAllBarriers();
                     RewardBoxFactory.getInstance().removeRewardBoxes();
                     System.out.println("Barrier Count: " + BarrierManager.getInstance().barriers.size());
