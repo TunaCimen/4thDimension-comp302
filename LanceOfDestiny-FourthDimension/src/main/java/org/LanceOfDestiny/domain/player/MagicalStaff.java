@@ -8,6 +8,8 @@ import org.LanceOfDestiny.domain.physics.ColliderType;
 import org.LanceOfDestiny.domain.physics.RectangleCollider;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.spells.Canon;
+import org.LanceOfDestiny.domain.sprite.ImageLibrary;
+import org.LanceOfDestiny.domain.sprite.ImageOperations;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
 
 import java.awt.*;
@@ -33,7 +35,6 @@ public class MagicalStaff extends GameObject {
         this.canonRight = new Canon(this.position.add(new Vector(WIDTH, -HEIGHT)), false);
         ((RectangleSprite)canonLeft.getSprite()).parentObject = this;
         ((RectangleSprite)canonRight.getSprite()).parentObject = this;
-
         Events.MoveStaff.addListener(this::moveRight);
         Events.RotateStaff.addListener(this::rotate);
         Events.ResetStaff.addRunnableListener(this::resetStaff);
@@ -42,11 +43,13 @@ public class MagicalStaff extends GameObject {
     }
 
     public void initializeCollidersAndSprites() {
-        this.defaultSprite = new RectangleSprite(this, Color.orange, WIDTH, HEIGHT);
+        this.defaultSprite = new RectangleSprite(this, Color.WHITE, WIDTH, HEIGHT);
         this.sprite = defaultSprite;
+        this.sprite.setImage(ImageOperations.resizeImageToSprite(ImageLibrary.MagicalStaff.getImage(),this.sprite));
         this.defaultCollider = ColliderFactory.createRectangleCollider(this, new Vector(0, 0), ColliderType.STATIC, WIDTH, HEIGHT);
         this.collider = defaultCollider;
         this.expandedSprite = new RectangleSprite(this, Color.red, WIDTH * 2, HEIGHT);
+        this.expandedSprite.setImage(ImageOperations.resizeImageToSprite(ImageLibrary.MagicalStaff.getImage(), expandedSprite));
         this.expandedCollider = ColliderFactory.createRectangleCollider(this, new Vector(0, 0), ColliderType.STATIC, WIDTH * 2, HEIGHT);
         expandedCollider.setEnabled(false);
     }

@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.ui;
 
+import org.LanceOfDestiny.domain.AuthModels.LogInController;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.ui.AuthViews.*;
 import org.LanceOfDestiny.ui.GameViews.BuildViewMiniPanel;
@@ -9,7 +10,7 @@ public enum Windows {
         Login {
                 @Override
                 Window createWindow() {
-                        return new LogInView(org.LanceOfDestiny.domain.AuthModels.LogInController.getInstance());
+                        return new LogInView(LogInController.getInstance());
                 }
         },
         PhysicsTest {
@@ -33,7 +34,7 @@ public enum Windows {
         Signup {
                 @Override
                 Window createWindow() {
-                        return new SignUpView(org.LanceOfDestiny.domain.AuthModels.LogInController.getInstance());
+                        return new SignUpView(LogInController.getInstance());
                 }
         },
         SaveView {

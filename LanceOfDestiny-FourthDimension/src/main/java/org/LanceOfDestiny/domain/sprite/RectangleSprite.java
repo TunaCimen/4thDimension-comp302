@@ -47,15 +47,20 @@ public class RectangleSprite extends Sprite{
 
         //Calculate rotation anchor
 
-            int x = (int) parentObject.getPosition().getX();
-            int y = (int) parentObject.getPosition().getY();
-            int centerX = x + parentObject.getSprite().width() / 2;
-            int centerY = y + parentObject.getSprite().height() / 2;
+        int x = (int) parentObject.getPosition().getX();
+        int y = (int) parentObject.getPosition().getY();
+        int centerX = x + parentObject.getSprite().width() / 2;
+        int centerY = y + parentObject.getSprite().height() / 2;
 
         // Perform the rotation
         g2d.rotate(attachedGameObject.getAngle(), centerX, centerY);
         g.fillRect((int) attachedGameObject.getPosition().getX(), (int) attachedGameObject.getPosition().getY(), width,height);
-
+        if(image != null){
+            g.drawImage(getImage()
+                    , ((int) attachedGameObject.getPosition().getX())
+                    , ((int) attachedGameObject.getPosition().getY())
+                    ,null);
+        }
         ((Graphics2D) g).setTransform(originalTransform);
         if (number != null) {
             drawNumber(g, number);

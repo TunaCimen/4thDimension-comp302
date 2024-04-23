@@ -81,7 +81,6 @@ public class GameView extends JFrame implements Window {
         comboBoxAddBarrierType.setVisible(false);
         sessionManager.setStatus(Status.RunningMode);
         sessionManager.getLoopExecutor().start();
-
     }
 
 
@@ -145,7 +144,7 @@ public class GameView extends JFrame implements Window {
         buttonPlay = new JButton("START");
         buttonPlay.setFont(new Font("Monospaced", Font.BOLD, 16));
         buttonPlay.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "none");
-        buttonPlay.addActionListener(e -> {startGame();});
+        buttonPlay.addActionListener(e->Events.ResumeGame.invoke());
         return buttonPlay;
     }
 
