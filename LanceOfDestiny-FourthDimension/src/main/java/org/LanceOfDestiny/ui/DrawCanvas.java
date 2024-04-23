@@ -106,7 +106,7 @@ public class DrawCanvas extends JPanel {
                     clickedBarrier.setPosition(new Vector(x, y));
 
                     // Update the game view
-                    //GameView gameView = GameView.getInstance();
+
                     repaint();
 
                     // Log the barrier movement
