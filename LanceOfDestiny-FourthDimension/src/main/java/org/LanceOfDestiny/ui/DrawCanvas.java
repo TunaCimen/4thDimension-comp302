@@ -21,6 +21,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 
 /**
  * Custom drawing JPanel for graphics drawings.
@@ -196,11 +197,7 @@ public class DrawCanvas extends JPanel {
                                 , ((int) gameObjectSprite.attachedGameObject.getPosition().getX() - gameObjectSprite.width())
                                 , ((int) gameObjectSprite.attachedGameObject.getPosition().getY() - gameObjectSprite.height())
                                 ,null);
-                    } else if (gameObjectSprite instanceof RectangleSprite) {
-                        g.drawImage(gameObjectSprite.getImage()
-                                , ((int) gameObjectSprite.attachedGameObject.getPosition().getX())
-                                , ((int) gameObjectSprite.attachedGameObject.getPosition().getY())
-                                ,null);
+                    }
                     }
 
                 }
@@ -209,4 +206,4 @@ public class DrawCanvas extends JPanel {
     }
 
 
-}
+
