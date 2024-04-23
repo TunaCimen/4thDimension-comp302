@@ -6,8 +6,6 @@ import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.domain.sprite.ImageOperations;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class SpellInventory extends JPanel {
 
@@ -35,7 +33,7 @@ public class SpellInventory extends JPanel {
         overwhelmingSpell.setIcon(reducedOverwhelmingIcon);
 
         Events.GainSpell.addListener(e->gainSpell((SpellType) e));
-
+        Events.ActivateSpellUI.addListener(e-> loseSpell((SpellType) e));
 
         add(canonSpell);
         add(overwhelmingSpell);
@@ -44,22 +42,19 @@ public class SpellInventory extends JPanel {
 
     }
 
+    private void loseSpell(SpellType spellType) {
+        switch ((spellType)) {
+            case CANON -> canonSpell.setIcon(reducedCanonIcon);
+            case EXPANSION -> expansionSpell.setIcon(reducedExpansionIcon);
+            case OVERWHELMING -> overwhelmingSpell.setIcon(reducedOverwhelmingIcon);
+        }
+    }
+
     private void gainSpell(SpellType spellType) {
          switch(spellType){
-             case CANON -> gainCanonSpell();
-             case EXPANSION -> gainExpansionSpell();
-             case OVERWHELMING -> gainOverwhelmingSpell();
+             case CANON ->  canonSpell.setIcon(canonIcon);
+             case EXPANSION -> expansionSpell.setIcon(expansionIcon);
+             case OVERWHELMING -> overwhelmingSpell.setIcon(overwhelmingIcon);
          }
-    }
-
-
-    public void gainCanonSpell(){
-            canonSpell.setIcon(canonIcon);
-    }
-    public void gainOverwhelmingSpell(){
-        overwhelmingSpell.setIcon(overwhelmingIcon);
-    }
-    public void gainExpansionSpell(){
-        expansionSpell.setIcon(expansionIcon);
     }
 }

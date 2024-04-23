@@ -17,7 +17,7 @@ public class Player extends MonoBehaviour {
         super();
         this.spellContainer = new SpellContainer();
         this.chancesLeft = DEFAULT_CHANCES;
-        Events.UpdateChance.addListener(this::updateChances);
+        //Events.UpdateChance.addListener(this::updateChances);
         Events.TryUsingSpell.addListener(this::tryUsingSpell);
     }
 
