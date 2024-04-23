@@ -2,13 +2,16 @@ package org.LanceOfDestiny.ui;
 
 import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.barriers.BarrierFactory;
+
+
 import org.LanceOfDestiny.domain.behaviours.Behaviour;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
+
+
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.managers.Status;
 import org.LanceOfDestiny.domain.physics.Vector;
-import org.LanceOfDestiny.domain.spells.Canon;
 import org.LanceOfDestiny.domain.sprite.BallSprite;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
 import org.LanceOfDestiny.domain.sprite.Sprite;
@@ -102,7 +105,7 @@ public class DrawCanvas extends JPanel {
                     clickedBarrier.setPosition(new Vector(x, y));
 
                     // Update the game view
-                    GameView gameView = GameView.getInstance(SessionManager.getInstance());
+                    GameView gameView = GameView.getInstance();
                     gameView.reinitializeUI();
 
                     // Log the barrier movement
@@ -149,14 +152,14 @@ public class DrawCanvas extends JPanel {
         if (BarrierManager.getInstance().getBarrierByLocation(x, y) == null) {
             if (BarrierManager.getInstance().validateBarrierPlacement(x, y) && !(BarrierManager.getInstance().isBarrierColliding(x, y))) {
 
-                BarrierManager.getInstance().addBarrier(BarrierFactory.createBarrier(new Vector(x, y), BarrierManager.getInstance().getSelectedBarrierType()));
+                BarrierFactory.createBarrier(new Vector(x, y), BarrierManager.getInstance().getSelectedBarrierType());
 
                 //debug
                 //print last element in the list
                 System.out.println("Barrier selected: " + (BarrierManager.getInstance().getSelectedBarrierType()).toString() );
                 System.out.println("Last Barrier added: " + BarrierManager.getInstance().getBarriers().get(BarrierManager.getInstance().getBarriers().size()-1).toString());
                 BarrierManager.getInstance().getBarrierByLocation(x, y).getSprite().setVisible(true);
-                GameView.getInstance(SessionManager.getInstance()).reinitializeUI();
+                GameView.getInstance().reinitializeUI();
             }
 
         }
@@ -171,7 +174,7 @@ public class DrawCanvas extends JPanel {
 
             //debug
             System.out.println("Barrier removed: " + (BarrierManager.getInstance().getSelectedBarrierType()).toString() );
-            GameView.getInstance(SessionManager.getInstance()).reinitializeUI();
+            GameView.getInstance().reinitializeUI();
 
         }
     }

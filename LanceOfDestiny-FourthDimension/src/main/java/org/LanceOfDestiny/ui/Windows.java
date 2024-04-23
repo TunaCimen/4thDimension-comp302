@@ -21,7 +21,7 @@ public enum Windows {
         GameViewWindow {
                 @Override
                 Window createWindow() {
-                        return GameView.getInstance(SessionManager.getInstance());
+                        return GameView.getInstance();
                 }
         },
         PauseView {

@@ -7,6 +7,7 @@ import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.ui.CustomViews.CustomDialog;
 import org.LanceOfDestiny.ui.Window;
 import org.LanceOfDestiny.ui.WindowManager;
+import org.LanceOfDestiny.ui.Windows;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -15,7 +16,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class BuildViewMiniPanel extends JFrame implements Window {
-    private final WindowManager wm;
     private final SessionManager sessionManager;
 
     private JTextField textFieldBarrierSimple;
@@ -28,7 +28,6 @@ public class BuildViewMiniPanel extends JFrame implements Window {
 
 
     public BuildViewMiniPanel(SessionManager instance) {
-        wm = WindowManager.getInstance();
         this.sessionManager = instance;
 
     }
@@ -36,13 +35,10 @@ public class BuildViewMiniPanel extends JFrame implements Window {
     @Override
     public void createAndShowUI() {
         setDefaultLookAndFeelDecorated(true);
-
         setSize(350, 250);
-
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setResizable(false);
         setLayout(new BorderLayout());
-
 
         // BUILD label
         JLabel buildLabel = new JLabel("BUILD YOUR GAME", SwingConstants.CENTER);
@@ -146,11 +142,8 @@ public class BuildViewMiniPanel extends JFrame implements Window {
             this.dispose();
 
             // Ensure the game canvas is visible and properly updated
-            GameView gameView = GameView.getInstance(sessionManager);
-            gameView.reinitializeUI();
-            gameView.addDrawCanvas();
+            WindowManager.getInstance().showWindow(Windows.GameViewWindow);
             sessionManager.initializeSession();
-            gameView.setVisible(true);
         });
         buttonBuild.addMouseListener(new MouseAdapter() {
             @Override
@@ -200,12 +193,7 @@ public class BuildViewMiniPanel extends JFrame implements Window {
             userInputPanel.setVisible(false);
             this.dispose();
             // Ensure the game canvas is visible and properly updated
-            GameView gameView = GameView.getInstance(sessionManager);
-            gameView.reinitializeUI();
-            //gameView.add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
             sessionManager.initializeSession();
-            gameView.setVisible(true);
-            gameView.setPauseButtonEnabled(false);
         });
         buttonTest.addMouseListener(new MouseAdapter() {
             @Override

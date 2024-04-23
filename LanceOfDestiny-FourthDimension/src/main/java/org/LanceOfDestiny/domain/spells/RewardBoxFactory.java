@@ -43,6 +43,10 @@ public class RewardBoxFactory {
         rewardBoxes.remove(rewardBox);
     }
 
-
-
+    public void removeRewardBoxes() {
+        int initSize = rewardBoxes.size();
+        for (int i = initSize - 1; i >= 0; i--) {
+            rewardBoxes.get(i).destroy();
+        }
+    }
 }

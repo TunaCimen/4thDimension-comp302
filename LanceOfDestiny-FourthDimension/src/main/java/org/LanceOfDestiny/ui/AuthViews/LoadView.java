@@ -1,27 +1,19 @@
 package org.LanceOfDestiny.ui.AuthViews;
 
-import org.LanceOfDestiny.domain.GameMap;
 import org.LanceOfDestiny.domain.barriers.Barrier;
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.behaviours.Behaviour;
+import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.ScoreManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.spells.*;
 import org.LanceOfDestiny.ui.Window;
-import org.LanceOfDestiny.ui.Windows;
 
 import javax.swing.*;
 import java.awt.*;
 
-import javax.swing.*;
-import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-
-
-import javax.swing.*;
-import java.awt.*;
 import java.util.List;
 
 public class LoadView extends JFrame implements Window {
@@ -56,6 +48,11 @@ public class LoadView extends JFrame implements Window {
             button.addActionListener(e -> {
                 try {
                     BarrierManager.getInstance().removeAllBarriers();
+                    RewardBoxFactory.getInstance().removeRewardBoxes();
+                    System.out.println("Barrier Count: " + BarrierManager.getInstance().barriers.size());
+                    List<Behaviour> list = GameObject.getGameObjects();
+                    GameObject.displayGameObjects();
+                    System.out.println("GameObject Count" + GameObject.getGameObjects().size());
                     BarrierManager.getInstance().barriers = (ArrayList<Barrier>) LoadView.this.userManager.loadBarriers(name);
                     ScoreManager.getInstance().setScore(Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(0)));
                     SessionManager.getInstance().getPlayer().setChancesLeft(Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(1)));
@@ -74,6 +71,9 @@ public class LoadView extends JFrame implements Window {
                     }
                     System.out.println(SessionManager.getInstance().getPlayer().getSpellContainer().getSpells());
                     JOptionPane.showMessageDialog(null, "Game loaded successfully!");
+                    System.out.println("Barrier Count After: " + BarrierManager.getInstance().barriers.size());
+                    System.out.println("GameObject Count After" + GameObject.getGameObjects().size());
+                    GameObject.displayGameObjects();
                     this.dispose();
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);

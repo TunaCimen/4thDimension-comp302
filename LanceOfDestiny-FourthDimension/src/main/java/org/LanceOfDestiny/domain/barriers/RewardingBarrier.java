@@ -28,6 +28,11 @@ public class RewardingBarrier extends Barrier{
     }
 
     @Override
+    public void destroy() {
+        super.destroy();
+    }
+
+    @Override
     public void setPosition(Vector position) {
         super.setPosition(position);
         rewardBox.setPosition(position);

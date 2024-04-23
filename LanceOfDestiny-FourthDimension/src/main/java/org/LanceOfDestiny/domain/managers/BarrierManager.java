@@ -4,6 +4,7 @@ import org.LanceOfDestiny.LanceOfDestiny;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
+import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.physics.Vector;
 
@@ -16,11 +17,13 @@ import static org.LanceOfDestiny.domain.Constants.*;
 public class BarrierManager {
 
     private static BarrierManager instance;
-    public ArrayList<Barrier> barriers = LanceOfDestiny.getInstance().getGameMap().getBarriers();
+
+    public ArrayList<Barrier> barriers;
     private BarrierTypes selectedBarrierType;
     private Barrier clickedBarrier;
     private Vector oldLocationOfBarrier;
     private BarrierManager() {
+        barriers = new ArrayList<>();
         selectedBarrierType = BarrierTypes.SIMPLE;
     }
 
@@ -48,7 +51,7 @@ public class BarrierManager {
     }
 
     public void removeAllBarriers() {
-        for (Barrier barrier : LanceOfDestiny.getInstance().getGameMap().getBarriers()) {
+        for (Barrier barrier : barriers) {
             barrier.removeBarrierSprite();
         }
         barriers.clear();

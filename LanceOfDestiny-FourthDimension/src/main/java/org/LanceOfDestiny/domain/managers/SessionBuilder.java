@@ -2,17 +2,12 @@ package org.LanceOfDestiny.domain.managers;
 
 import org.LanceOfDestiny.LanceOfDestiny;
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.GameMap;
 import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.barriers.BarrierFactory;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
-import org.LanceOfDestiny.domain.behaviours.Behaviour;
 import org.LanceOfDestiny.domain.physics.Vector;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 
 public class SessionBuilder {
     private Integer numOfSimple;
@@ -35,29 +30,25 @@ public class SessionBuilder {
          //Add barrier types to the list based on the counts
         int i;
         for (i = 0; i < numOfSimple; i++) {
-            Barrier barrier = BarrierFactory.createBarrier(new Vector(0,0), BarrierTypes.SIMPLE);
-            LanceOfDestiny.getInstance().getGameMap().getBarriers().add(barrier);
+            BarrierFactory.createBarrier(new Vector(0,0), BarrierTypes.SIMPLE);
         }
         for (i = 0; i < numOfReinforced; i++) {
-            Barrier barrier = BarrierFactory.createBarrier(new Vector(0,0), BarrierTypes.REINFORCED);
-            LanceOfDestiny.getInstance().getGameMap().getBarriers().add(barrier);
+            BarrierFactory.createBarrier(new Vector(0,0), BarrierTypes.REINFORCED);
         }
         for (i = 0; i < numOfExplosive; i++) {
-            Barrier barrier = BarrierFactory.createBarrier(new Vector(0,0), BarrierTypes.EXPLOSIVE);
-            LanceOfDestiny.getInstance().getGameMap().getBarriers().add(barrier);
+            BarrierFactory.createBarrier(new Vector(0,0), BarrierTypes.EXPLOSIVE);
         }
         for (i = 0; i < numOfRewarding; i++) {
-            Barrier barrier = BarrierFactory.createBarrier(new Vector(0,0), BarrierTypes.REWARDING);
-            LanceOfDestiny.getInstance().getGameMap().getBarriers().add(barrier);
+            BarrierFactory.createBarrier(new Vector(0,0), BarrierTypes.REWARDING);
         }
 
         // shuffling for randomization
-        Collections.shuffle(LanceOfDestiny.getInstance().getGameMap().getBarriers());
+        Collections.shuffle(BarrierManager.getInstance().barriers);
 
         int x = 40;
         int y = 40;
 
-        for (Barrier barrier1 : LanceOfDestiny.getInstance().getGameMap().getBarriers()) {
+        for (Barrier barrier1 : BarrierManager.getInstance().barriers) {
             if (barrier1.getType() == BarrierTypes.EXPLOSIVE) {
                 barrier1.setPosition(new Vector(x, y));
                 barrier1.shiftPosition(new Vector(x , y));

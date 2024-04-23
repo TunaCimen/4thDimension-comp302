@@ -1,16 +1,23 @@
 package org.LanceOfDestiny.domain.behaviours;
 
 import org.LanceOfDestiny.domain.Constants;
+import org.LanceOfDestiny.domain.barriers.ExplosiveBarrier;
+import org.LanceOfDestiny.domain.barriers.ReinforcedBarrier;
+import org.LanceOfDestiny.domain.barriers.RewardingBarrier;
+import org.LanceOfDestiny.domain.barriers.SimpleBarrier;
 import org.LanceOfDestiny.domain.physics.Collider;
 import org.LanceOfDestiny.domain.physics.Collision;
 import org.LanceOfDestiny.domain.physics.PhysicsManager;
 import org.LanceOfDestiny.domain.physics.Vector;
+import org.LanceOfDestiny.domain.spells.Hex;
+import org.LanceOfDestiny.domain.spells.RewardBox;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
 import org.LanceOfDestiny.domain.sprite.Sprite;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class GameObject extends Behaviour {
 
@@ -98,5 +105,32 @@ public abstract class GameObject extends Behaviour {
   
     public void setParent(GameObject gameObject) {
         this.parent = gameObject;
+    }
+
+    public static void displayGameObjects(){
+        System.out.println("Explosive Barrier Count: " + gameObjects.stream().filter(e -> {
+            if(e instanceof ExplosiveBarrier)return true;
+            return false;
+        }).toList().size());
+        System.out.println("Reinforced Barrier Count: " + gameObjects.stream().filter(e -> {
+            if(e instanceof ReinforcedBarrier)return true;
+            return false;
+        }).toList().size());
+        System.out.println("Simple Barrier Count: " + gameObjects.stream().filter(e -> {
+            if(e instanceof SimpleBarrier)return true;
+            return false;
+        }).toList().size());
+        System.out.println("Rewarding Barrier Count: " + gameObjects.stream().filter(e -> {
+            if(e instanceof RewardingBarrier)return true;
+            return false;
+        }).toList().size());
+        System.out.println("Hex Count: " + gameObjects.stream().filter(e -> {
+            if(e instanceof Hex)return true;
+            return false;
+        }).toList().size());
+        System.out.println("Reward Box Count: " + gameObjects.stream().filter(e -> {
+            if(e instanceof RewardBox)return true;
+            return false;
+        }).toList().size());
     }
 }

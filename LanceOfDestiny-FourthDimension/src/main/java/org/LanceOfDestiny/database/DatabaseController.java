@@ -77,16 +77,16 @@ public class DatabaseController {
                     String[] parts = coordinate.split(", ");
 
                     if(Objects.equals(barrierType, "SIMPLE")){
-                        rt.add(new SimpleBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1]))));
+                        rt.add(BarrierFactory.createBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])),BarrierTypes.SIMPLE));
                     }
                     else if(Objects.equals(barrierType, "EXPLOSIVE")){
-                        rt.add(new ExplosiveBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1]))));
+                        rt.add(BarrierFactory.createBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])),BarrierTypes.EXPLOSIVE));
                     }
                     else if(Objects.equals(barrierType, "REINFORCED")){
-                        rt.add(new ReinforcedBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])),hitsLeft));
+                        rt.add(BarrierFactory.createBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])),BarrierTypes.REINFORCED));
                     }
                     else if(Objects.equals(barrierType, "REWARDING")){
-                        rt.add(new RewardingBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1]))));
+                        rt.add(BarrierFactory.createBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])),BarrierTypes.REWARDING));
                     }
                 } while (resultSet.next());
                 return rt;

@@ -4,13 +4,10 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.*;
-import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.ui.*;
 import org.LanceOfDestiny.ui.Window;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.text.BoxView;
 import java.awt.*;
 
 public class GameView extends JFrame implements Window {
@@ -35,30 +32,26 @@ public class GameView extends JFrame implements Window {
     private CardLayout cardLayout;
 
     JPanel cardPanel;
-    JLabel scoreBar;
+    ScoreBar scoreBar;
 
-    public GameView(SessionManager sessionManager) {
-        this.sessionManager = sessionManager;
+    public GameView() {
+        this.sessionManager = SessionManager.getInstance();
         initializeComponents();
         cardLayout = new CardLayout();
         setLayout(cardLayout);
         cardPanel = new JPanel(cardLayout);
         add(cardPanel,BorderLayout.CENTER);
+        scoreBar = new ScoreBar();
         Events.ResumeGame.addRunnableListener(this::startGame);
     }
 
 
-    public static GameView getInstance(SessionManager sessionManager) {
+    public static GameView getInstance() {
         if (instance == null) {
-            instance = new GameView(sessionManager);
+            instance = new GameView();
             STATUS = STATUS_START;
         }
         return instance;
-    }
-
-    private void setSessionManager(SessionManager newSessionManager) {
-        this.sessionManager = newSessionManager;
-        reinitializeUI();
     }
 
     private void initializeComponents() {
@@ -75,39 +68,11 @@ public class GameView extends JFrame implements Window {
         createAndShowUI();
     }
 
-    public void setPlayButtonVisibility(boolean isVisible) {
-        buttonPlay.setVisible(isVisible);
-
-    }
-    public void setPauseButtonVisibility(boolean isVisible) {
-        buttonPause.setVisible(isVisible);
-
-    }
-    public void setBuildButtonVisibility(boolean isVisible) {
-        buttonBuild.setVisible(isVisible);
-
-    }
-    public void setSaveButtonVisibility(boolean isVisible) {
-        buttonSave.setVisible(isVisible);
-
-    }
-    public void setPlayButtonEnabled(boolean isEnabled) {
-        buttonPlay.setEnabled(isEnabled);
-
-    }
-    public void setPauseButtonEnabled(boolean isEnabled) {
-        buttonPause.setEnabled(isEnabled);
-
-    }
-    public void setBuildButtonEnabled(boolean isEnabled) {
-        buttonBuild.setEnabled(isEnabled);
-
-    }
 
     public void startGame() {
         System.out.println("HEALTH " + SessionManager.getInstance().getPlayer().getChancesLeft());
+        scoreBar.updateScore();
         healthBarDisplay.setHealth(SessionManager.getInstance().getPlayer().getChancesLeft());
-        scoreBar.setText(String.valueOf(ScoreManager.getInstance().getScore()));
         healthBarDisplay.repaint();
         comboBoxAddBarrierType.setVisible(false);
         buttonPlay.setEnabled(false);
@@ -124,9 +89,6 @@ public class GameView extends JFrame implements Window {
         cardLayout.show(cardPanel, cardName);
     }
 
-    public void addDrawCanvas(){
-
-    }
 
     private void createStartPanel(){
         final Dimension maximumSizeButton = new Dimension(150, 45);
@@ -175,7 +137,7 @@ public class GameView extends JFrame implements Window {
         controlPanel.add(comboBoxAddBarrierType);//Right now useless?
         controlPanel.add(healthBarDisplay);
         controlPanel.add(spellInventory);
-        controlPanel.add(scoreBar());
+        controlPanel.add(scoreBar);
         return controlPanel;
     }
 
@@ -217,14 +179,6 @@ public class GameView extends JFrame implements Window {
         return buttonSave;
     }
 
-
-    private JLabel scoreBar(){
-        scoreBar = new JLabel( "SCORE:  " + ScoreManager.getInstance().getScore());
-        scoreBar.setFont(new Font("Impact", Font.BOLD, 24));
-        scoreBar.setPreferredSize(new Dimension(100,30));
-        Events.UpdateScore.addListener(e-> scoreBar.setText("Score:  " + ScoreManager.getInstance().getScore()));
-        return scoreBar;
-    }
 
 
     private void createParentPanel(){

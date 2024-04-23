@@ -18,20 +18,10 @@ public class BarrierFactory {
         if (createdBarrier == null) {
             return null;
         }
-        //todo delete this line
-//        BarrierManager.getInstance().createBarrierList(createdBarrier);
+        BarrierManager.getInstance().addBarrier(createdBarrier);
         return createdBarrier;
     }
 
-/**
- * This method is used to add a new barrier to the BarrierManager.
- * It calls the singleton instance of the BarrierManager and invokes its addBarrier method.
- *
- * @param barrier The barrier object to be added to the BarrierManager.
- */
-public static void addBarrier(Barrier barrier) {
-    BarrierManager.getInstance().addBarrier(barrier);
-}
 
     private static int calculateHitsRequired() {
         int chance = (new Random()).nextInt(100);
