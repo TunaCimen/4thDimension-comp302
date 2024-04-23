@@ -25,7 +25,7 @@ public class Constants {
     public static final int CANON_WIDTH = STAFF_WIDTH / 10;
     public static final Vector FIREBALL_POSITION = new Vector((double) SCREEN_WIDTH / 2, SCREEN_HEIGHT - 120); // initial position
     public static final int REWARD_BOX_WIDTH = BARRIER_WIDTH;
-    public static final int EXPLOSIVE_RADIUS = 8;
+    public static final int EXPLOSIVE_RADIUS = 15;
     public static final int FIREBALL_SPEED = -8;
 
     // the minimum required barriers
@@ -39,4 +39,7 @@ public class Constants {
     public static final int MAX_REINFORCED = 28;
     public static final int MAX_EXPLOSIVE = 15;
     public static final int MAX_REWARDING = 20;
+    public static final int BARRIER_X_OFFSET = 60;
+
+    public static final int BARRIER_Y_OFFSET = 50;
 }
