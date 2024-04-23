@@ -4,6 +4,8 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.*;
+import org.LanceOfDestiny.domain.sprite.ImageLibrary;
+import org.LanceOfDestiny.domain.sprite.ImageOperations;
 import org.LanceOfDestiny.ui.*;
 import org.LanceOfDestiny.ui.Window;
 
@@ -43,6 +45,12 @@ public class GameView extends JFrame implements Window {
         add(cardPanel,BorderLayout.CENTER);
         scoreBar = new ScoreBar();
         Events.ResumeGame.addRunnableListener(this::startGame);
+        Events.LoadGame.addRunnableListener(()->sessionManager.getDrawCanvas().repaint());
+        Events.LoadGame.addRunnableListener(()->{
+            healthBarDisplay.setHealth(
+                    SessionManager.getInstance().getPlayer().getChancesLeft());
+        });
+        Events.LoadGame.addRunnableListener(()->scoreBar.updateScore());
     }
 
 
@@ -64,16 +72,12 @@ public class GameView extends JFrame implements Window {
         setResizable(false);
     }
 
-    public void reinitializeUI() {
-        createAndShowUI();
-    }
 
 
     public void startGame() {
         System.out.println("HEALTH " + SessionManager.getInstance().getPlayer().getChancesLeft());
         scoreBar.updateScore();
         healthBarDisplay.setHealth(SessionManager.getInstance().getPlayer().getChancesLeft());
-        healthBarDisplay.repaint();
         comboBoxAddBarrierType.setVisible(false);
         buttonPlay.setEnabled(false);
         buttonPause.setEnabled(true);
@@ -116,6 +120,11 @@ public class GameView extends JFrame implements Window {
         label.setFont(new Font("Impact", Font.BOLD, 50));
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
         loadButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        loadButton.addActionListener(e->{
+            showPanel(STATUS_GAME);
+            sessionManager.initializeSession();
+            WindowManager.getInstance().showWindow(Windows.LoadView);
+        });
         startPanel.add(label);
         startPanel.add(Box.createRigidArea(new Dimension(0,15)));
         startPanel.add(newGameButton);
