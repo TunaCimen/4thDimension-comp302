@@ -39,16 +39,18 @@ public class DatabaseController {
 
     public boolean saveGame(String username, String saveName, List<Barrier> barrierList,int score, int chances, String numberOfSpells) throws SQLException {
         for (Barrier b: barrierList){
-            try (PreparedStatement pstmt = connection.prepareStatement("INSERT INTO savedBarrier (savedByUser, saveName, barrierType, hitsleft, coordinate) VALUES (?, ?, ?, ?, ?)")) {
-                pstmt.setString(1, username);
-                pstmt.setString(2, saveName);
-                pstmt.setString(3, b.getBarrierType().toString());
-                pstmt.setInt(4, b.getHitsLeft());
-                pstmt.setString(5, b.getPosition().toString());
-                pstmt.executeUpdate();
-            } catch (Exception e){
-                System.out.println("Couldn't save");
-                return false;
+            if(!b.isFalling()) {
+                try (PreparedStatement pstmt = connection.prepareStatement("INSERT INTO savedBarrier (savedByUser, saveName, barrierType, hitsleft, coordinate) VALUES (?, ?, ?, ?, ?)")) {
+                    pstmt.setString(1, username);
+                    pstmt.setString(2, saveName);
+                    pstmt.setString(3, b.getBarrierType().toString());
+                    pstmt.setInt(4, b.getHitsLeft());
+                    pstmt.setString(5, b.getPosition().toString());
+                    pstmt.executeUpdate();
+                } catch (Exception e) {
+                    System.out.println("Couldn't save");
+                    return false;
+                }
             }
         }
         try (PreparedStatement pstmt2 = connection.prepareStatement("INSERT INTO UserInfoSaved (savedByUser, score, chances, numberOfSpells, saveName) VALUES (?, ?, ?, ?, ?)")) {

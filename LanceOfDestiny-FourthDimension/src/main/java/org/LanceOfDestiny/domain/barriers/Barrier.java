@@ -21,6 +21,7 @@ public abstract class Barrier extends GameObject {
     protected int direction;
     protected boolean isMoving;
     protected int hitsLeft;
+    protected boolean isFalling;
 
     public Barrier(Vector position, BarrierTypes type, int hitsRequired) {
         super();
@@ -98,8 +99,11 @@ public abstract class Barrier extends GameObject {
         return barrierType;
     }
 
+    public boolean isFalling() {
+        return isFalling;
+    }
 
-@Override
+    @Override
 public String toString() {
     // return a string that represents the object
     return "Barrier Name{" +

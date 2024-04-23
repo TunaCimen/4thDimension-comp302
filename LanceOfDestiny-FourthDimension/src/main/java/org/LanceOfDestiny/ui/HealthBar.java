@@ -16,7 +16,7 @@ public class HealthBar extends JPanel {
         healthImageIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.Heart.getImage(),20,20));
         healths = new Stack<>();
         this.setVisible(true);
-        addToPanel();
+        //addToPanel();
         Events.UpdateChance.addListener(e->updateHealth((int)e) );
     }
 

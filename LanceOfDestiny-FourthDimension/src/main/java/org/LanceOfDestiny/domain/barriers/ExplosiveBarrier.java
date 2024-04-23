@@ -115,5 +115,7 @@ public class ExplosiveBarrier extends Barrier {
         this.initPos = position.add(SHIFT);
     }
 
-
+    public boolean isFalling() {
+        return isFalling;
+    }
 }

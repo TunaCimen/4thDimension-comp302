@@ -43,6 +43,7 @@ public class SessionManager {
         fireBall = new FireBall();
         magicalStaff = new MagicalStaff();
         builder.initializeBarriers();
+        initializePlayer();
         //initializeBarriers();
 
     }
