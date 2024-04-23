@@ -48,7 +48,7 @@ public class LoadView extends JFrame implements Window {
             button.setMinimumSize(buttonSize);
             button.addActionListener(e -> {
                 try {
-                    Events.LoadGame.invoke();
+
                     BarrierManager.getInstance().removeAllBarriers();
                     RewardBoxFactory.getInstance().removeRewardBoxes();
                     System.out.println("Barrier Count: " + BarrierManager.getInstance().barriers.size());
@@ -76,6 +76,7 @@ public class LoadView extends JFrame implements Window {
                     System.out.println("Barrier Count After: " + BarrierManager.getInstance().barriers.size());
                     System.out.println("GameObject Count After" + GameObject.getGameObjects().size());
                     GameObject.displayGameObjects();
+                    Events.LoadGame.invoke();
                     this.dispose();
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
