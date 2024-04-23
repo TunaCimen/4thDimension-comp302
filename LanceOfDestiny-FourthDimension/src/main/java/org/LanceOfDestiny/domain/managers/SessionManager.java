@@ -47,6 +47,7 @@ public class SessionManager {
 
     }
     public void initializePlayer(){
+        if (!(player == null)) return;
         player = new Player();
     }
 

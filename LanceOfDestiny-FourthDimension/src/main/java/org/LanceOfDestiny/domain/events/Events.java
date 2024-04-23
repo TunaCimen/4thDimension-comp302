@@ -44,7 +44,8 @@ public enum Events {
 
     SaveGame(Object.class), LoadGame(Object.class),
 
-    ResetFireBall(Object.class), WaitEvent(Object.class), ResetColorEvent(Object.class), TimedTestEvent(Color.class, 2000, ResetColorEvent), PauseGameEvent(Object.class), ShootBall(Object.class);
+    ResetFireBall(Object.class), WaitEvent(Object.class), ResetColorEvent(Object.class), TimedTestEvent(Color.class, 2000, ResetColorEvent), PauseGameEvent(Object.class), ShootBall(Object.class),
+    ActivateSpellUI(SpellType.class);
 
     final Class<?> paramType; //It is the Class that the particular event wants the invocation.
     Timer timer = null;

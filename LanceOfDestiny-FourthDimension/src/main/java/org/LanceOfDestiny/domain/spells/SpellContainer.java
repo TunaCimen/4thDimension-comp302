@@ -21,7 +21,6 @@ public class SpellContainer extends MonoBehaviour {
     private final int spellDurationSecond = 30;
     private SpellType activeSpellType;
 
-
     public SpellContainer() {
         spells = new LinkedList<>();
         for (SpellType spellType : SpellType.values()) {
@@ -64,15 +63,16 @@ public class SpellContainer extends MonoBehaviour {
     }
 
     public void activateSpell(SpellType spellType) {
-        if (isSpellActive) return;
         if (!spellExists(spellType)) return;
+        if (isSpellActive) return;
+        isSpellActive = true;
 
         var spell = getSpell(spellType);
         spell.activateSpell();
 
-        isSpellActive = true;
         activeSpellType = spellType;
         spellEndSecond = loopExecutor.getSecondsPassed() + spellDurationSecond;
+        Events.ActivateSpellUI.invoke(spellType);
     }
 
     public void deactivateSpell(SpellType spellType) {
