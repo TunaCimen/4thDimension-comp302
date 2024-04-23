@@ -1,6 +1,7 @@
 package org.LanceOfDestiny.database;
 
 import org.LanceOfDestiny.domain.barriers.*;
+import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.sql.*;
@@ -40,12 +41,22 @@ public class DatabaseController {
     public boolean saveGame(String username, String saveName, List<Barrier> barrierList,int score, int chances, String numberOfSpells) throws SQLException {
         for (Barrier b: barrierList){
             if(!b.isFalling()) {
-                try (PreparedStatement pstmt = connection.prepareStatement("INSERT INTO savedBarrier (savedByUser, saveName, barrierType, hitsleft, coordinate) VALUES (?, ?, ?, ?, ?)")) {
+                try (PreparedStatement pstmt = connection.prepareStatement("INSERT INTO savedBarrier (savedByUser, saveName, barrierType, hitsleft, coordinate, moving) VALUES (?, ?, ?, ?, ?, ?)")) {
+                    String pos;
+                    if (b.getBarrierType().equals(BarrierTypes.EXPLOSIVE)){
+                        ExplosiveBarrier explosiveBarrier = (ExplosiveBarrier) b;
+                        pos = explosiveBarrier.getInitPos().toString();
+                        System.out.println(explosiveBarrier.getInitPos());
+                        System.out.println(explosiveBarrier.getPosition());
+                    }else{
+                        pos = b.getPosition().toString();
+                    }
                     pstmt.setString(1, username);
                     pstmt.setString(2, saveName);
                     pstmt.setString(3, b.getBarrierType().toString());
                     pstmt.setInt(4, b.getHitsLeft());
-                    pstmt.setString(5, b.getPosition().toString());
+                    pstmt.setString(5, pos);
+                    pstmt.setBoolean(6, b.isMoving());
                     pstmt.executeUpdate();
                 } catch (Exception e) {
                     System.out.println("Couldn't save");
@@ -76,19 +87,40 @@ public class DatabaseController {
                     String barrierType = resultSet.getString("barrierType");
                     int hitsLeft = resultSet.getInt("hitsLeft");
                     String coordinate = resultSet.getString("coordinate");
+                    boolean moving = resultSet.getBoolean("moving");
                     String[] parts = coordinate.split(", ");
 
                     if(Objects.equals(barrierType, "SIMPLE")){
-                        rt.add(BarrierFactory.createBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])),BarrierTypes.SIMPLE));
+                        //rt.add(BarrierFactory.createBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])),BarrierTypes.SIMPLE));
+                        SimpleBarrier sp = new SimpleBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])));
+                        sp.setMoving(moving);
+                        sp.initDirection();
+                        sp.start();
+                        BarrierManager.getInstance().addBarrier(sp);
                     }
                     else if(Objects.equals(barrierType, "EXPLOSIVE")){
-                        rt.add(BarrierFactory.createBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])),BarrierTypes.EXPLOSIVE));
+                        //rt.add(BarrierFactory.createBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])),BarrierTypes.EXPLOSIVE));
+                        ExplosiveBarrier ep = new ExplosiveBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])));
+                        ep.setMoving(moving);
+                        ep.initDirection();
+                        ep.start();
+                        BarrierManager.getInstance().addBarrier(ep);
                     }
                     else if(Objects.equals(barrierType, "REINFORCED")){
-                        rt.add(BarrierFactory.createBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])),BarrierTypes.REINFORCED));
+                        //rt.add(BarrierFactory.createBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])),BarrierTypes.REINFORCED));
+                        ReinforcedBarrier rb = new ReinforcedBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])),hitsLeft);
+                        rb.setMoving(moving);
+                        rb.initDirection();
+                        rb.start();
+                        BarrierManager.getInstance().addBarrier(rb);
                     }
                     else if(Objects.equals(barrierType, "REWARDING")){
-                        rt.add(BarrierFactory.createBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])),BarrierTypes.REWARDING));
+                        //rt.add(BarrierFactory.createBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])),BarrierTypes.REWARDING));
+                        RewardingBarrier wb = new RewardingBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])));
+                        wb.setMoving(moving);
+                        wb.initDirection();
+                        wb.start();
+                        BarrierManager.getInstance().addBarrier(wb);
                     }
                 } while (resultSet.next());
                 return rt;

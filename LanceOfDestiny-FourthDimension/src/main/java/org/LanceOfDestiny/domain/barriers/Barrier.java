@@ -23,6 +23,7 @@ public abstract class Barrier extends GameObject {
     protected int hitsLeft;
     protected boolean isFalling;
 
+
     public Barrier(Vector position, BarrierTypes type, int hitsRequired) {
         super();
         this.position = position;
@@ -30,6 +31,7 @@ public abstract class Barrier extends GameObject {
         this.hitsLeft = hitsRequired;
         createColliderAndSprite();
     }
+
 
     public Barrier(Vector position, BarrierTypes type) {
         this(position, type, 1);
@@ -102,6 +104,16 @@ public abstract class Barrier extends GameObject {
     public boolean isFalling() {
         return isFalling;
     }
+
+    public boolean isMoving() {
+        return isMoving;
+    }
+
+    public void setMoving(boolean moving) {
+        isMoving = moving;
+    }
+
+
 
     @Override
 public String toString() {

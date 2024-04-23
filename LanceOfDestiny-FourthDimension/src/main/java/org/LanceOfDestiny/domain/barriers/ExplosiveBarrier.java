@@ -118,4 +118,8 @@ public class ExplosiveBarrier extends Barrier {
     public boolean isFalling() {
         return isFalling;
     }
+
+    public Vector getInitPos() {
+        return initPos;
+    }
 }
