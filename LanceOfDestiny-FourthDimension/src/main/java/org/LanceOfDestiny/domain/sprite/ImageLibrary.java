@@ -18,6 +18,8 @@ public enum ImageLibrary {
     ExpansionSpell("Image/expansion.png"),
     ExplosiveBarrier("Image/bomb.png"),
     SimpleBarrier("Image/BlueGem.png"),
+
+    ReinforcedBarrier("Image/2_health_firm.png")
     ;
 
     private final BufferedImage image;
