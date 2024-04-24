@@ -8,7 +8,7 @@ public class Constants {
     public static final int SCREEN_WIDTH = 1400;
     public static final int SCREEN_HEIGHT = 720;
     public static final int L = SCREEN_WIDTH / 10;
-    public static final int T = 20; // as in 20 px
+    public static final int T = 20;
     // MAGICAL STAFF
     public static final int STAFF_WIDTH = L;
     public static final int STAFF_HEIGHT = T;
@@ -17,7 +17,7 @@ public class Constants {
     public static final double STAFF_ANGULAR_SPEED = UPDATE_RATE * 50 * Math.PI / 180;
     // FIREBALL
     public static final Vector FIREBALL_POSITION = new Vector((double) SCREEN_WIDTH / 2, SCREEN_HEIGHT - 120);
-    public static final int FIREBALL_RADIUS = 8; // as in 8 pixels
+    public static final int FIREBALL_RADIUS = 8;
     public static final int FIREBALL_SPEED = -8;
     // BARRIERS
     public static final int BARRIER_HEIGHT = 20;
@@ -32,12 +32,11 @@ public class Constants {
     public static final double CANON_HEIGHT = STAFF_HEIGHT * 2;
     public static final int HEX_RADIUS = 3;
     public static final double HEX_SPEED = 5;
-    // the minimum required barriers
+    // BUILD MODE: BARRIER REQUIREMENTS
     public static final int MIN_SIMPLE = 75;
     public static final int MIN_REINFORCED = 10;
     public static final int MIN_EXPLOSIVE = 5;
     public static final int MIN_REWARDING = 10;
-    // maximum barriers if required 7 rows of barriers
     public static final int MAX_SIMPLE = 125;
     public static final int MAX_REINFORCED = 28;
     public static final int MAX_EXPLOSIVE = 15;
