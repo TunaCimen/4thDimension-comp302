@@ -22,6 +22,7 @@ public class GameExec extends Behaviour {
         Events.ResumeGame.addRunnableListener(this::resumeGame);
         Events.Reset.addRunnableListener(this::pauseGame);
         Events.Reset.addRunnableListener(()->setTimePassed(0));
+        Events.LoadGame.addRunnableListener(this::start);
     }
 
     @Override

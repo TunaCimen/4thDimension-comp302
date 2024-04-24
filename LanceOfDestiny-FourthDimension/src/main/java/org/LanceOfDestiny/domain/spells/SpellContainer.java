@@ -49,7 +49,6 @@ public class SpellContainer extends MonoBehaviour {
     public void addSpell(Object spellObject) {
         var spellType = (SpellType) spellObject;
         var spell = SpellFactory.createSpell(spellType);
-
         if (spellType.equals(SpellType.CHANCE)) {
             Events.UpdateChance.invoke(1);
             return;

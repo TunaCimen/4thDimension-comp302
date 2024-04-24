@@ -21,8 +21,6 @@ public class GameView extends JFrame implements Window {
     JButton buttonPlay;
     JButton buttonPause;
     final Dimension maximumSizeButton = new Dimension(150, 45);
-    JButton buttonBuild;
-    JButton buttonSave;
 
     HealthBar healthBarDisplay;
 
@@ -116,7 +114,6 @@ public class GameView extends JFrame implements Window {
         comboBoxAddBarrierType.setVisible(false);
         buttonPlay.setEnabled(false);
         buttonPause.setEnabled(true);
-        buttonSave.setVisible(false);
         comboBoxAddBarrierType.setVisible(false);
         sessionManager.setStatus(Status.RunningMode);
         sessionManager.getLoopExecutor().start();
@@ -173,8 +170,10 @@ public class GameView extends JFrame implements Window {
         newGameButton.addActionListener(e->{
             buttonPause.setEnabled(true);
             buttonPlay.setEnabled(true);
+            comboBoxAddBarrierType.setVisible(true);
             WindowManager.getInstance().showWindow(Windows.BuildViewMini);
             Events.Reset.invoke();
+            sessionManager.setStatus(Status.EditMode);
             cardLayout.show(cardPanel,STATUS_GAME);
             this.setEnabled(false);
         });
@@ -190,7 +189,6 @@ public class GameView extends JFrame implements Window {
         controlPanel.setPreferredSize(new Dimension(Constants.SCREEN_WIDTH, 50));
         controlPanel.add(startButton());
         controlPanel.add(pauseButton());
-        controlPanel.add(saveButton());
         controlPanel.add(comboBoxAddBarrierType);//Right now useless?
         controlPanel.add(healthBarDisplay);
         controlPanel.add(spellInventory);
@@ -221,20 +219,6 @@ public class GameView extends JFrame implements Window {
         });
         return buttonPause;
     }
-
-    private JButton saveButton(){
-        buttonSave = new JButton("Save Build");
-        buttonSave.setFocusable(false);
-        buttonSave.setFont(new Font("Monospaced", Font.BOLD, 16));
-        buttonSave.addActionListener(e -> {
-            sessionManager.getLoopExecutor().stop();
-            WindowManager.getInstance().showWindow(Windows.SaveView);
-            sessionManager.setStatus(Status.PausedMode);
-            Events.PauseGame.invoke();
-        });
-        return buttonSave;
-    }
-
 
     private JPanel createParentPanel(){
 

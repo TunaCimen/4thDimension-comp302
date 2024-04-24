@@ -27,6 +27,7 @@ public class FireBall extends GameObject {
         Events.ActivateOverwhelming.addListener(this::handleOverwhelming);
         Events.ShootBall.addRunnableListener(this::shootBall);
         Events.LoadGame.addRunnableListener(() -> isAttached = true);
+        Events.EndGame.addRunnableListener(()->isAttached=true);
     }
 
     private void createColliderAndSprite() {

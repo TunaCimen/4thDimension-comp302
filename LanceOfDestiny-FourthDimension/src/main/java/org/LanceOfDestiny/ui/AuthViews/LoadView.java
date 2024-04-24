@@ -61,17 +61,14 @@ public class LoadView extends JFrame implements Window {
                     ScoreManager.getInstance().setScore(Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(0)));
                     SessionManager.getInstance().getPlayer().setChancesLeft(Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(1)));
                     SessionManager.getInstance().getPlayer().resetSpells();
-                    for(int i=0;i<Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(2));i++){
-                        SessionManager.getInstance().getPlayer().getSpellContainer().addSpell(SpellFactory.createSpell(SpellType.CHANCE));
-                    }
                     for(int i=0;i<Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(3));i++){
-                        SessionManager.getInstance().getPlayer().getSpellContainer().addSpell(new ExpansionSpell().getSpellType());
+                        Events.GainSpell.invoke(SpellType.EXPANSION);
                     }
                     for(int i=0;i<Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(4));i++){
-                        SessionManager.getInstance().getPlayer().getSpellContainer().addSpell(new OverwhelmingFireBallSpell().getSpellType());
+                        Events.GainSpell.invoke(SpellType.OVERWHELMING);
                     }
                     for(int i=0;i<Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(5));i++){
-                        SessionManager.getInstance().getPlayer().getSpellContainer().addSpell(new CanonSpell().getSpellType());
+                        Events.GainSpell.invoke(SpellType.CANON);
                     }
                     System.out.println(SessionManager.getInstance().getPlayer().getSpellContainer().getSpells());
                     JOptionPane.showMessageDialog(null, "Game loaded successfully!");
