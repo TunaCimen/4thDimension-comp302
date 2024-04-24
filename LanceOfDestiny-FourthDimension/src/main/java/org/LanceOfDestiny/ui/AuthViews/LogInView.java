@@ -1,6 +1,5 @@
 package org.LanceOfDestiny.ui.AuthViews;
 
-
 import org.LanceOfDestiny.domain.AuthModels.LogInController;
 import org.LanceOfDestiny.ui.Window;
 import org.LanceOfDestiny.ui.WindowManager;
@@ -18,7 +17,6 @@ public class LogInView extends javax.swing.JFrame implements Window {
         this.userManager = userManager;
         this.wm = WindowManager.getInstance();
     }
-
 
     public void createAndShowUI() {
         jPanel1 = new javax.swing.JPanel();

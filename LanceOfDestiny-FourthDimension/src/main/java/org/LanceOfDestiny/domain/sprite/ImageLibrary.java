@@ -19,7 +19,8 @@ public enum ImageLibrary {
     ExplosiveBarrier("Image/bomb.png"),
     SimpleBarrier("Image/BlueGem.png"),
     ReinforcedBarrier("Image/2_health_firm.png"),
-    Canon("Image/Canon.png"),;
+    Canon("Image/Canon.png"),
+    Background("Image/Background.png");
 
     private final BufferedImage image;
 
