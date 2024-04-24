@@ -20,8 +20,8 @@ public class GameExec extends Behaviour {
         this.drawCanvas = drawCanvas;
         Events.PauseGame.addRunnableListener(this::pauseGame);
         Events.ResumeGame.addRunnableListener(this::resumeGame);
-        Events.LoseGame.addRunnableListener(this::pauseGame);
-        Events.LoseGame.addRunnableListener(()->setTimePassed(0));
+        Events.Reset.addRunnableListener(this::pauseGame);
+        Events.Reset.addRunnableListener(()->setTimePassed(0));
     }
 
     @Override

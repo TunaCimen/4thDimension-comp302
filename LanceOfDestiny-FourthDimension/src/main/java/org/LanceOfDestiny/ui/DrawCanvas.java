@@ -15,13 +15,11 @@ import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.managers.Status;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.sprite.*;
-import org.LanceOfDestiny.ui.GameViews.GameView;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
 
 /**
  * Custom drawing JPanel for graphics drawings.
@@ -31,7 +29,7 @@ public class DrawCanvas extends JPanel {
     private final Image backgroundImage;
     public DrawCanvas() {
         Events.CanvasUpdateEvent.addRunnableListener(this::repaint);
-        Events.LoseGame.addRunnableListener(Events.CanvasUpdateEvent::invoke);
+        Events.Reset.addRunnableListener(Events.CanvasUpdateEvent::invoke);
         setupMouseListener();
         var width = Constants.SCREEN_WIDTH;
         var height = Constants.SCREEN_HEIGHT;

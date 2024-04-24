@@ -14,7 +14,7 @@ import java.awt.*;
 
 public class GameView extends JFrame implements Window {
 
-    private static GameView instance = null;
+
     private SessionManager sessionManager;
 
 
@@ -29,7 +29,7 @@ public class GameView extends JFrame implements Window {
     private static final String STATUS_START = "START";
     private static final String STATUS_GAME = "GAME";
 
-    private static final String STATUS_LOSE = "LOSE";
+    private static final String STATUS_END = "END";
 
     private JComboBox<String> comboBoxAddBarrierType;
 
@@ -52,8 +52,9 @@ public class GameView extends JFrame implements Window {
         cardPanel.add(startPanel,STATUS_START);
         JPanel parentPanel = createParentPanel();
         cardPanel.add(parentPanel, STATUS_GAME);
-        JPanel loseGamePanel = createLoseGamePanel();
-        cardPanel.add(loseGamePanel, STATUS_LOSE);
+        JPanel loseGamePanel = createEndGamePanel();
+        cardPanel.add(loseGamePanel, STATUS_END);
+
         //Event subscriptions.
         Events.ResumeGame.addRunnableListener(this::startGame);
         Events.LoadGame.addRunnableListener(Events.CanvasUpdateEvent::invoke);
@@ -62,8 +63,8 @@ public class GameView extends JFrame implements Window {
                     SessionManager.getInstance().getPlayer().getChancesLeft());
         });
         Events.LoadGame.addRunnableListener(()->scoreBar.updateScore());
-        Events.LoseGame.addRunnableListener(()->{
-            showPanel(STATUS_LOSE);
+        Events.EndGame.addRunnableListener(()->{
+            showPanel(STATUS_END);
         });
         Events.BuildDoneEvent.addRunnableListener(()->{
             this.setEnabled(true);
@@ -71,12 +72,13 @@ public class GameView extends JFrame implements Window {
         });
     }
 
-    private JPanel createLoseGamePanel() {
+    private JPanel createEndGamePanel() {
+
         JPanel losePanel = new JPanel();
         losePanel.setLayout(new BoxLayout(losePanel, BoxLayout.Y_AXIS));
-
-        JLabel lostLabel = createLabel("YOU LOST");
-        JButton newGameButton = new JButton("NEW GAME");
+        JLabel endLabel = createLabel("");
+        Events.EndGame.addListener(e->endLabel.setText((String)e));
+        JButton newGameButton = createNewGameButton();
         JLabel scoreLabel = new JLabel();
         scoreLabel.setFont(scoreBar.getFont());
         scoreBar.addPropertyChangeListener(e->{
@@ -85,12 +87,12 @@ public class GameView extends JFrame implements Window {
         newGameButton.addActionListener(e->{
             showPanel(STATUS_START);
         });
-        lostLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        lostLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        endLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        endLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         newGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         losePanel.add(Box.createRigidArea(new Dimension(0,Constants.SCREEN_HEIGHT/2 - 100)));
-        losePanel.add(lostLabel);
+        losePanel.add(endLabel);
         losePanel.add(scoreLabel);
         losePanel.add(newGameButton);
         return losePanel;
@@ -148,7 +150,7 @@ public class GameView extends JFrame implements Window {
 
 
     private JPanel createStartPanel(){
-        final Dimension maximumSizeButton = new Dimension(150, 45);-
+        final Dimension maximumSizeButton = new Dimension(150, 45);
         JPanel startPanel = new JPanel();
         startPanel.setLayout(new BorderLayout());
         startPanel.setLayout(new BoxLayout(startPanel, BoxLayout.Y_AXIS));

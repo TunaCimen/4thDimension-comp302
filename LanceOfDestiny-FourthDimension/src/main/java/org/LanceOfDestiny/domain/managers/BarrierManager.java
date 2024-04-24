@@ -1,15 +1,10 @@
 package org.LanceOfDestiny.domain.managers;
 
 import org.LanceOfDestiny.domain.barriers.*;
-import org.LanceOfDestiny.domain.behaviours.Behaviour;
-import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.physics.Vector;
-import org.LanceOfDestiny.domain.spells.Hex;
-import org.LanceOfDestiny.domain.spells.RewardBox;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.LanceOfDestiny.domain.Constants.*;
 
@@ -24,7 +19,7 @@ public class BarrierManager {
     private BarrierManager() {
         barriers = new ArrayList<>();
         selectedBarrierType = BarrierTypes.SIMPLE;
-        Events.LoseGame.addRunnableListener(this::removeAllBarriers);
+        Events.EndGame.addRunnableListener(this::removeAllBarriers);
     }
 
     public static BarrierManager getInstance() {
@@ -42,7 +37,7 @@ public class BarrierManager {
 
     public void removeBarrier(Barrier barrier) {
         barriers.remove(barrier);
-        if(barriers.isEmpty()) Events.WinGame.invoke();
+        if(barriers.isEmpty()) Events.EndGame.invoke("You Win");
     }
 
     public void deleteBarrier(Barrier barrier) {

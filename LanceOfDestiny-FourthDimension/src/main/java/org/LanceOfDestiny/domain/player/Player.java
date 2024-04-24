@@ -43,7 +43,7 @@ public class Player extends MonoBehaviour {
         this.chancesLeft = chance;
         this.chancesLeft = Math.max(chancesLeft, MIN_CHANCES);
         if(this.chancesLeft == MIN_CHANCES) {
-            Events.LoseGame.invoke();
+            Events.EndGame.invoke("YOU SUCK AT THIS GAME BITCH GO FUCK YOURSELF LIL NIGGA");
         }
 
     }
