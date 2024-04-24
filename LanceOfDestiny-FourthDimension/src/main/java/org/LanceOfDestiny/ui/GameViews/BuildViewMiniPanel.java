@@ -26,8 +26,6 @@ public class BuildViewMiniPanel extends JFrame implements Window {
     private Color buildButtonColor = Color.decode("#90caf9");
     private Color testButtonColor = Color.decode("#ffa726");
 
-
-
     public BuildViewMiniPanel(SessionManager instance) {
         this.sessionManager = instance;
     }

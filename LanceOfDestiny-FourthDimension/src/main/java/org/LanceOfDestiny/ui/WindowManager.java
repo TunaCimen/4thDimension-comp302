@@ -9,16 +9,12 @@ public class WindowManager {
     private JFrame frame;
     private static WindowManager instance;
 
-
-
     private WindowManager(){
     }
 
     public void showWindow(Windows windowType) {
         windowType.getWindow().createAndShowUI();
     }
-
-
 
     public static WindowManager getInstance(){
         if(instance == null){

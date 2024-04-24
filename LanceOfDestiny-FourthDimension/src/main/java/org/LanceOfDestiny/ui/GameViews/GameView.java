@@ -109,7 +109,6 @@ public class GameView extends JFrame implements Window {
 
 
     public void startGame() {
-        System.out.println("HEALTH " + SessionManager.getInstance().getPlayer().getChancesLeft());
         scoreBar.updateScore();
         healthBarDisplay.setHealth(SessionManager.getInstance().getPlayer().getChancesLeft());
         comboBoxAddBarrierType.setVisible(false);
@@ -125,6 +124,7 @@ public class GameView extends JFrame implements Window {
     public void showPanel(String cardName){
         cardLayout.show(cardPanel, cardName);
     }
+
 
 
     private JLabel createLabel(String text){
@@ -146,7 +146,9 @@ public class GameView extends JFrame implements Window {
         return loadButton;
     }
 
+
     private JPanel createStartPanel(){
+        final Dimension maximumSizeButton = new Dimension(150, 45);-
         JPanel startPanel = new JPanel();
         startPanel.setLayout(new BorderLayout());
         startPanel.setLayout(new BoxLayout(startPanel, BoxLayout.Y_AXIS));
@@ -233,6 +235,7 @@ public class GameView extends JFrame implements Window {
 
 
     private JPanel createParentPanel(){
+
         JPanel parentPanel = new JPanel(new BorderLayout());
         parentPanel.add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
         parentPanel.add(createControlPanel(), BorderLayout.NORTH);

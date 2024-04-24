@@ -10,6 +10,7 @@ public class ScoreBar extends JLabel {
 
 
     private final String text = "SCORE: ";
+
     public ScoreBar(){
         setFont(new Font("Impact", Font.BOLD, 24));
         setPreferredSize(new Dimension(100,30));
