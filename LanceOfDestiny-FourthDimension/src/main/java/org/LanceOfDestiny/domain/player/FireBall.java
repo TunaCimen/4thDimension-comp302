@@ -50,7 +50,6 @@ public class FireBall extends GameObject {
 
     @Override
     public void update() {
-        if (getPosition().getY() >= Constants.SCREEN_HEIGHT - 40) fireBallDropped();
         if (isAttached) {
             var staffWidth =  (magicalStaff.isExpanded ? Constants.STAFF_WIDTH * 2 : Constants.STAFF_WIDTH);
             var attachedPosition = getAttachedPosition(staffWidth);
@@ -98,7 +97,11 @@ public class FireBall extends GameObject {
     public void onCollisionEnter(Collision collision) {
         super.onCollisionEnter(collision);
         GameObject other = collision.getOther(this);
-
+        if (other instanceof MagicalStaff) return;
+        if (other == null && getPosition().getY() >= Constants.SCREEN_HEIGHT - 70) {
+            fireBallDropped();
+            return;
+        }
         if (other instanceof Barrier) {
             if(isOverwhelming) ((Barrier) other).kill();
             else ((Barrier) other).reduceLife();

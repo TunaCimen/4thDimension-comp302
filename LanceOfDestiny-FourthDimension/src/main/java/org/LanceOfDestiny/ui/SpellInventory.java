@@ -9,7 +9,7 @@ import javax.swing.*;
 
 public class SpellInventory extends JPanel {
 
-    JLabel canonSpell;
+    JButton canonSpell;
     JLabel overwhelmingSpell;
     JLabel expansionSpell;
 
@@ -17,7 +17,7 @@ public class SpellInventory extends JPanel {
     ImageIcon reducedCanonIcon, reducedOverwhelmingIcon, reducedExpansionIcon;
 
     public SpellInventory(){
-        canonSpell = new JLabel();
+        canonSpell = new JButton();
         overwhelmingSpell = new JLabel();
         expansionSpell = new JLabel();
         canonIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.CannonSpell.getImage(), 40,40));
@@ -39,6 +39,7 @@ public class SpellInventory extends JPanel {
         add(overwhelmingSpell);
         add(expansionSpell);
         setVisible(true);
+
     }
 
     private void loseSpell(SpellType spellType) {

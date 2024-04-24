@@ -15,9 +15,9 @@ public class PhysicsManager {
     private static PhysicsManager instance;
     private List<Collider> colliders;
     // this will be made non-zero if we need predictive collision detection code
-    private double framesAhead = 2;
+    private final double framesAhead = 2;
     private int currentFrame = 0;
-    private int frameTreshold = 0;
+    private final int frameTreshold = 0;
     private Map<String, Integer> recentCollisions;  // Stores collision pairs with the frame of their last occurrence
 
     private PhysicsManager() {
