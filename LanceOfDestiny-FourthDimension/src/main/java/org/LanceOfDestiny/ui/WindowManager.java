@@ -7,8 +7,6 @@ public class WindowManager {
     private JFrame frame;
     private static WindowManager instance;
 
-
-
     private WindowManager(){
 
     }
@@ -17,8 +15,6 @@ public class WindowManager {
         Window window = windowType.getWindow(); // Create and Retrieve the window instance
         window.createAndShowUI(); //
     }
-
-
 
     public static WindowManager getInstance(){
         if(instance == null){
