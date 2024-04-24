@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.domain.spells;
 
+import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.behaviours.MonoBehaviour;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.looper.LoopExecutor;
@@ -18,7 +19,7 @@ public class SpellContainer extends MonoBehaviour {
     private final LoopExecutor loopExecutor = SessionManager.getInstance().getLoopExecutor();
     private boolean isSpellActive = false;
     private int spellEndSecond;
-    private final int spellDurationSecond = 30;
+    private final int spellDurationSecond = Constants.SPELL_DURATION;
     private Spell activeSpell;
 
     public SpellContainer() {
@@ -50,7 +51,6 @@ public class SpellContainer extends MonoBehaviour {
         var spell = SpellFactory.createSpell(spellType);
 
         if (spellType.equals(SpellType.CHANCE)) {
-            System.out.println("Chance Gained");
             Events.UpdateChance.invoke(1);
             return;
         }

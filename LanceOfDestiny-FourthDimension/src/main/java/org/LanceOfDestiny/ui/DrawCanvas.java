@@ -180,9 +180,6 @@ public class DrawCanvas extends JPanel {
         }
     }
 
-
-
-
     @Override
     protected void paintComponent(Graphics g) {
         for(Behaviour behaviour : GameObject.getGameObjects()) {

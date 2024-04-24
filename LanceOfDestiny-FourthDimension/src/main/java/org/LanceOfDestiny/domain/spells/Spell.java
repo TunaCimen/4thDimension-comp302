@@ -1,11 +1,7 @@
 package org.LanceOfDestiny.domain.spells;
 
-import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.behaviours.Behaviour;
+public abstract class Spell {
 
-public abstract class Spell extends Behaviour {
-
-    private final int spellDuration = Constants.SPELL_DURATION;
     private SpellType spellType;
 
     public Spell(){

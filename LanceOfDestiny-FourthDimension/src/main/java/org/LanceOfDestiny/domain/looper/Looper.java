@@ -10,6 +10,8 @@ public abstract class Looper {
 
     protected abstract void routine() throws LoopEndedException;
 
+    abstract int getSecondsPassed();
+
     public void run() {
         active = true;
         try {
@@ -49,7 +51,6 @@ public abstract class Looper {
 
     }
 
-    abstract int getSecondsPassed();
 
 
 }
