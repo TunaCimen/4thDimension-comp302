@@ -84,7 +84,9 @@ public class Hex extends GameObject {
         var angle = canon.getAngle();
         var canonPosition = canon.getPosition();
         var hexPosition = canonPosition.add(new Vector((double) Constants.CANON_WIDTH / 2, 0));
-        var center = (isLeft ? staffPositionLeft.add(new Vector((double) Constants.STAFF_WIDTH / 2, 0)) : staffPositionRight.subtract(new Vector((double) Constants.STAFF_WIDTH / 2, 0)));
+        var center = (isLeft ?
+                staffPositionLeft.add(new Vector((double) Constants.STAFF_WIDTH / 2, 0)) :
+                staffPositionRight.subtract(new Vector((double) Constants.STAFF_WIDTH / 2, 0)));
         return calculateRotatedPosition(center, hexPosition, angle);
     }
 

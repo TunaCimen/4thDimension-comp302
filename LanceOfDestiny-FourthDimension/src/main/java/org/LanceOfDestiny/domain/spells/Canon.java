@@ -59,7 +59,6 @@ public class Canon extends GameObject {
         var hex = hexes.poll();
         hexes.add(hex);
         if (hex != null) hex.shoot();
-
     }
 
     public void createHexes() {
@@ -78,4 +77,8 @@ public class Canon extends GameObject {
         getSprite().setVisible(false);
     }
 
+    @Override
+    public void shiftPosition(Vector position) {
+        return;
+    }
 }
