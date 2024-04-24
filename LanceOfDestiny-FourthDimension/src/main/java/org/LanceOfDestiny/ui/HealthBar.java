@@ -19,6 +19,7 @@ public class HealthBar extends JPanel {
         this.setVisible(true);
         initializePanel();
         Events.UpdateChance.addListener(e->updateHealth((int)e) );
+        Events.Reset.addRunnableListener(()->setHealth(init_health));
     }
 
     public void initializePanel(){

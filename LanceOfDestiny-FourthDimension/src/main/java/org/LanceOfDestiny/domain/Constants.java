@@ -44,4 +44,6 @@ public class Constants {
     // BARRIER POSITIONING
     public static final int BARRIER_X_OFFSET = 60;
     public static final int BARRIER_Y_OFFSET = 50;
+
+    public static final int DEFAULT_CHANCES = 3;
 }

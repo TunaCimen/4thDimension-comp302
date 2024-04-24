@@ -52,8 +52,11 @@ public enum Events {
 
     WaitEvent(Object.class),
     ResetColorEvent(Object.class),
-    TimedTestEvent(Color.class, 2000, ResetColorEvent);
+    TimedTestEvent(Color.class, 2000, ResetColorEvent),
+    CanvasUpdateEvent(Object.class),
 
+    BuildDoneEvent(Object.class),
+    Reset(Object.class);
     //It is the Class that the particular event wants the invocation.
     final Class<?> paramType;
     Timer timer = null;
