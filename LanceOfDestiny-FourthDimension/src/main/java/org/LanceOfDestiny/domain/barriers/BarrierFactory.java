@@ -22,7 +22,6 @@ public class BarrierFactory {
         return createdBarrier;
     }
 
-
     private static int calculateHitsRequired() {
         int chance = (new Random()).nextInt(100);
         if (chance < 50) {                // 50% probability
@@ -35,5 +34,4 @@ public class BarrierFactory {
             return 5;
         }
     }
-
 }

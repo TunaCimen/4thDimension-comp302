@@ -1,8 +1,6 @@
-package org.LanceOfDestiny.domain.AuthModels;//
+package org.LanceOfDestiny.domain.AuthModels;
 // Source code recreated from a .class file by IntelliJ IDEA
 // (powered by FernFlower decompiler)
-//
-
 import org.LanceOfDestiny.database.DatabaseController;
 import org.LanceOfDestiny.domain.barriers.Barrier;
 
@@ -27,7 +25,6 @@ public class LogInController {
         return null;
     }
 
-
     private LogInController() throws SQLException {
         this.dbController = new DatabaseController();
     }
@@ -40,15 +37,19 @@ public class LogInController {
         this.username = username;
         return dbController.loginUser(username, password);
     }
+
     public boolean saveGame(String saveName, List<Barrier> blist,int score, int chances, String numberofSpells) throws SQLException {
         return dbController.saveGame(this.username,saveName, blist,score,chances,numberofSpells);
     }
+
     public List<Barrier> loadBarriers(String saveName){
         return dbController.loadBarriers(this.username,saveName);
     }
+
     public List<String> loadUserInfo(String saveName) throws SQLException {
         return dbController.loadUserInfo(this.username,saveName);
     }
+
     public List<String> loadSavedNames(){
         return dbController.loadSavedNames(this.username);
     }

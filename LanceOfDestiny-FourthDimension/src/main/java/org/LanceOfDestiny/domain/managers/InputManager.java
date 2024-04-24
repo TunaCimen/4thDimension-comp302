@@ -5,6 +5,8 @@ import org.LanceOfDestiny.domain.spells.SpellType;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 
 public class InputManager implements KeyListener {
@@ -13,8 +15,6 @@ public class InputManager implements KeyListener {
     public int moveKey;
     public int rotateKey;
     public int activateSpellKey;
-    private boolean spellActivated;
-
 
     private InputManager() {
     }
@@ -28,7 +28,6 @@ public class InputManager implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
 
     @Override

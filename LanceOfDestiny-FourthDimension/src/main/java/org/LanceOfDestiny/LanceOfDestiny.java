@@ -11,8 +11,4 @@ public class LanceOfDestiny {
         WindowManager wm = WindowManager.getInstance();
         wm.showWindow(Windows.Login);
     }
-
-
-
-
 }

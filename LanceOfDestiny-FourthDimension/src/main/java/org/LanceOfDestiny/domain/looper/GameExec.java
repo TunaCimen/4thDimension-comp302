@@ -20,17 +20,17 @@ public class GameExec extends Behaviour {
         Events.ResumeGame.addRunnableListener(this::resumeGame);
     }
 
-    public void pauseGame() {
-        isPaused = true;
-    }
-
-    public void resumeGame() {
-        isPaused = false;
+    @Override
+    public void start() {
+        timePassed = 0;
+        startTime = System.nanoTime();
+        for (int i = 0; i < getBehaviours().size(); i++) {
+            getBehaviours().get(i).start();
+        }
     }
 
     @Override
     public void update() {
-
         if (isPaused) {
             startTime = System.nanoTime();
             return;
@@ -47,14 +47,11 @@ public class GameExec extends Behaviour {
         }
     }
 
-    @Override
-    public void start() {
-        timePassed = 0;
-        startTime = System.nanoTime();
-        for (int i = 0; i < getBehaviours().size(); i++) {
-            getBehaviours().get(i).start();
-        }
+    public void pauseGame() {
+        isPaused = true;
     }
 
-
+    public void resumeGame() {
+        isPaused = false;
+    }
 }

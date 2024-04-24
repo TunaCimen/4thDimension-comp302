@@ -39,7 +39,6 @@ public class SpellInventory extends JPanel {
         add(overwhelmingSpell);
         add(expansionSpell);
         setVisible(true);
-
     }
 
     private void loseSpell(SpellType spellType) {

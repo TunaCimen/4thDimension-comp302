@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.domain.managers;
 
+import com.mysql.cj.NoSubInterceptorWrapper;
 import org.LanceOfDestiny.LanceOfDestiny;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.Barrier;
@@ -46,13 +47,13 @@ public class BarrierManager {
     }
 
     public void deleteBarrier(Barrier barrier) {
-        barrier.removeBarrierSprite();
-        barriers.remove(barrier);
+        barrier.destroy();
     }
 
     public void removeAllBarriers() {
-        for (Barrier barrier : barriers) {
-            barrier.removeBarrierSprite();
+        for (int i = 0; i < barriers.size(); i++) {
+            var barrier = barriers.get(i);
+            barrier.destroy();
         }
         barriers.clear();
     }
@@ -60,6 +61,7 @@ public class BarrierManager {
     public BarrierTypes getSelectedBarrierType() {
         return selectedBarrierType;
     }
+
     public void setSelectedBarrierType(BarrierTypes selectedBarrierType) {
         this.selectedBarrierType = selectedBarrierType;
     }
