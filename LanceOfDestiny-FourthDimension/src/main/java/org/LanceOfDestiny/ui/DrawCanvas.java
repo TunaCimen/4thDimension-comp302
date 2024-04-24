@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.ui;
 
+import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.barriers.BarrierFactory;
 
@@ -12,9 +13,7 @@ import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.managers.Status;
 import org.LanceOfDestiny.domain.physics.Vector;
-import org.LanceOfDestiny.domain.sprite.BallSprite;
-import org.LanceOfDestiny.domain.sprite.RectangleSprite;
-import org.LanceOfDestiny.domain.sprite.Sprite;
+import org.LanceOfDestiny.domain.sprite.*;
 import org.LanceOfDestiny.ui.GameViews.GameView;
 
 import javax.swing.*;
@@ -28,8 +27,14 @@ import java.awt.geom.AffineTransform;
  * paints all the game objects.
  */
 public class DrawCanvas extends JPanel {
+    private final Image backgroundImage;
     public DrawCanvas() {
         setupMouseListener();
+        var width = Constants.SCREEN_WIDTH;
+        var height = Constants.SCREEN_HEIGHT;
+        // Load and resize the background image directly in DrawCanvas
+        this.backgroundImage = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.Background.getImage(), width, height)).getImage();
+        setVisible(true);
     }
 
     private void setupMouseListener() {
@@ -182,6 +187,8 @@ public class DrawCanvas extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
         for(Behaviour behaviour : GameObject.getGameObjects()) {
             if (behaviour.gameObject != null) {
                 Sprite gameObjectSprite = behaviour.gameObject.getSprite();

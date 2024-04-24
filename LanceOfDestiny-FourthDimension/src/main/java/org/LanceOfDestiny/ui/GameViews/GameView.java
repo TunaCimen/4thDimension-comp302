@@ -33,7 +33,6 @@ public class GameView extends JFrame implements Window {
 
     JPanel cardPanel;
     ScoreBar scoreBar;
-    BackgroundPanel backgroundPanel;
 
     public GameView() {
         this.sessionManager = SessionManager.getInstance();
@@ -185,28 +184,10 @@ public class GameView extends JFrame implements Window {
     }
 
     private void createParentPanel(){
-//        JPanel parentPanel = new JPanel(new BorderLayout());
-//        parentPanel.add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
-//        parentPanel.add(createControlPanel(), BorderLayout.NORTH);
-//        cardPanel.add(parentPanel, STATUS_GAME);
-        JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setPreferredSize(new Dimension(Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT));
-
-        backgroundPanel = new BackgroundPanel();
-        backgroundPanel.setBounds(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
-        backgroundPanel.setOpaque(true);
-
-        JPanel gamePanel = new JPanel(new BorderLayout());
-        gamePanel.setOpaque(false);
-        gamePanel.setBounds(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
-
-        gamePanel.add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
-        gamePanel.add(createControlPanel(), BorderLayout.NORTH);
-
-        layeredPane.add(backgroundPanel, Integer.valueOf(1)); // Lower number = lower layer
-        layeredPane.add(gamePanel, Integer.valueOf(2)); // Higher number = higher layer
-
-        cardPanel.add(layeredPane, STATUS_GAME);
+        JPanel parentPanel = new JPanel(new BorderLayout());
+        parentPanel.add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
+        parentPanel.add(createControlPanel(), BorderLayout.NORTH);
+        cardPanel.add(parentPanel, STATUS_GAME);
     }
 
     private void initComboBox(){
