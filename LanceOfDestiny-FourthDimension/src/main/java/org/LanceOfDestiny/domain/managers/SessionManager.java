@@ -33,7 +33,7 @@ public class SessionManager {
         currentMode = Status.EditMode;
         loopExecutor.setLooper(gameLooper);
         Events.BuildDoneEvent.addRunnableListener(this::initializeBarriers);
-        Events.LoseGame.addRunnableListener(()->getPlayer().setChancesLeft(Constants.DEFAULT_CHANCES));
+        Events.Reset.addRunnableListener(()->getPlayer().setChancesLeft(Constants.DEFAULT_CHANCES));
 
     }
 

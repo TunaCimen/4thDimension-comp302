@@ -34,8 +34,7 @@ public enum Events {
     ResetFireBall(Object.class),
     // GAME STAT. EVENTS
     UpdateChance(Integer.class),
-    LoseGame(Object.class),
-    WinGame(Object.class),
+    EndGame(String.class),
     UpdateScore(Object.class),
     //SPELL EVENTS
     GainSpell(SpellType.class),
