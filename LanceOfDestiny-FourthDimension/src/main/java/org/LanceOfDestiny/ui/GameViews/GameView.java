@@ -138,6 +138,7 @@ public class GameView extends JFrame implements Window {
         healthBarDisplay = new HealthBar(SessionManager.getInstance().getPlayer().getChancesLeft());
         SpellInventory spellInventory = new SpellInventory();
         JPanel controlPanel = new JPanel(new GridLayout(1, 5, 20, 20));
+        controlPanel.setFocusable(false);
         controlPanel.setPreferredSize(new Dimension(Constants.SCREEN_WIDTH, 50));
         controlPanel.add(startButton());
         controlPanel.add(pauseButton());
@@ -151,16 +152,16 @@ public class GameView extends JFrame implements Window {
 
     private JButton startButton(){
         buttonPlay = new JButton("START");
+        buttonPlay.setFocusable(false);
         buttonPlay.setFont(new Font("Monospaced", Font.BOLD, 16));
-        buttonPlay.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "none");
         buttonPlay.addActionListener(e->Events.ResumeGame.invoke());
         return buttonPlay;
     }
 
     private JButton pauseButton(){
         buttonPause = new JButton("Pause Game");
+        buttonPause.setFocusable(false);
         buttonPause.setFont(new Font("Monospce", Font.BOLD, 16));
-        buttonPause.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "none");
         buttonPause.setEnabled(false);
         buttonPause.addActionListener(e -> {
             sessionManager.getLoopExecutor().stop();
@@ -176,7 +177,6 @@ public class GameView extends JFrame implements Window {
     private JButton saveButton(){
         buttonSave = new JButton("Save Build");
         buttonSave.setFont(new Font("Monospce", Font.BOLD, 16));
-        buttonSave.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "none");
         buttonSave.addActionListener(e -> {
             sessionManager.getLoopExecutor().stop();
             WindowManager.getInstance().showWindow(Windows.SaveView);
@@ -204,8 +204,6 @@ public class GameView extends JFrame implements Window {
                 BarrierTypes.REWARDING.toString()
         });
         comboBoxAddBarrierType.setFont(new Font("Monospaced", Font.BOLD, 12));
-        comboBoxAddBarrierType.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "none");
-
         // Set the initial selection based on BarrierManager
         BarrierTypes currentType = BarrierManager.getInstance().getSelectedBarrierType();
         if (currentType == null) currentType = BarrierTypes.SIMPLE;
