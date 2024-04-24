@@ -18,6 +18,7 @@ public class Player extends MonoBehaviour {
         this.chancesLeft = Constants.DEFAULT_CHANCES;
         Events.UpdateChance.addListener(this::updateChances);
         Events.TryUsingSpell.addListener(this::tryUsingSpell);
+        Events.Reset.addRunnableListener(this::resetSpells);
     }
 
     @Override
@@ -43,16 +44,19 @@ public class Player extends MonoBehaviour {
         this.chancesLeft = chance;
         this.chancesLeft = Math.max(chancesLeft, MIN_CHANCES);
         if(this.chancesLeft == MIN_CHANCES) {
-            Events.EndGame.invoke("YOU SUCK AT THIS GAME BITCH GO FUCK YOURSELF LIL NIGGA");
+            Events.EndGame.invoke("You Lost");
         }
-
     }
 
     public int getChancesLeft() {
         return chancesLeft;
     }
     public void resetSpells(){
-        this.spellContainer = new SpellContainer();
+        this.spellContainer.getSpells().clear();
+        this.spellContainer.getSpellMap().forEach((a,b)-> b = false);
+        for(SpellType spellType : SpellType.values()){
+            Events.ActivateSpellUI.invoke(spellType);
+        }
     }
 
     public SpellContainer getSpellContainer() {

@@ -16,6 +16,8 @@ public class InputManager implements KeyListener {
     public int rotateKey;
     public int activateSpellKey;
 
+    public boolean isShootFlag;
+
     private InputManager() {
     }
 
@@ -32,21 +34,21 @@ public class InputManager implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_SPACE) Events.ShootBall.invoke();
+
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) isShootFlag = true;
         if (e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_D) rotateKey = e.getKeyCode();
         if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT) moveKey = e.getKeyCode();
         if (e.getKeyCode() == KeyEvent.VK_O || e.getKeyCode() == KeyEvent.VK_E || e.getKeyCode() == KeyEvent.VK_C) {
             activateSpellKey = e.getKeyCode();
         }
-        updateActions();
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_SPACE) isShootFlag = false;
         if (moveKey == e.getKeyCode()) moveKey = -1;
         if (rotateKey == e.getKeyCode()) rotateKey = -1;
         if (activateSpellKey == e.getKeyCode()) activateSpellKey = -1;
-        updateActions();
     }
 
     public void updateActions() {
@@ -54,6 +56,7 @@ public class InputManager implements KeyListener {
         updateMovement();
         updateSpellActivation();
     }
+
 
     private void updateRotation() {
         if (rotateKey == KeyEvent.VK_A) Events.RotateStaff.invoke(-1d);
@@ -64,6 +67,7 @@ public class InputManager implements KeyListener {
     private void updateMovement() {
         if (moveKey == KeyEvent.VK_LEFT) Events.MoveStaff.invoke(-1);
         if (moveKey == KeyEvent.VK_RIGHT) Events.MoveStaff.invoke(1);
+        if(isShootFlag)Events.ShootBall.invoke();
     }
 
     private void updateSpellActivation() {

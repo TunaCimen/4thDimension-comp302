@@ -31,7 +31,7 @@ public class Hex extends GameObject {
     }
 
     private void createColliderAndSprite() {
-        this.sprite = new BallSprite(this, Color.BLACK, HEX_RADIUS);
+        this.sprite = new BallSprite(this, Color.WHITE, HEX_RADIUS);
         this.collider = ColliderFactory.createBallCollider(this, velocity, ColliderType.STATIC, HEX_RADIUS);
         collider.setEnabled(false);
         collider.setTrigger(true);

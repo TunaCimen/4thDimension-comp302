@@ -34,9 +34,10 @@ public class BuildViewMiniPanel extends JFrame implements Window {
     public void createAndShowUI() {
         setDefaultLookAndFeelDecorated(true);
         setSize(350, 250);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setResizable(false);
         setLayout(new BorderLayout());
+
 
         // BUILD label
         JLabel buildLabel = new JLabel("BUILD YOUR GAME", SwingConstants.CENTER);

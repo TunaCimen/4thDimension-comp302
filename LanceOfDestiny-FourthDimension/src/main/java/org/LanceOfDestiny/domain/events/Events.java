@@ -108,6 +108,7 @@ public enum Events {
             try {
                 consumer.accept(l);
             } catch (Exception e) {
+                e.printStackTrace();
                 System.out.println("Wrong Argument to Invoke for:" + this.name() + "\n" + "Check your casting for listeners.Note:Tunic");
             }
         }
@@ -118,6 +119,7 @@ public enum Events {
             try {
                 consumer.accept(new Object());
             } catch (Exception e) {
+                e.printStackTrace();
                 System.out.println("Wrong Argument to Invoke for:" + this.name() + "\n" + "Check your casting for listeners.Note:Tunic");
             }
         }
