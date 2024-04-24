@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.domain.spells;
 
+import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class RewardBoxFactory {
 
 
     private RewardBoxFactory() {
+        Events.LoseGame.addRunnableListener(this::removeRewardBoxes);
     }
 
     public static RewardBoxFactory getInstance() {

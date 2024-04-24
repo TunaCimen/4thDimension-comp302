@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.ui;
 
+import org.LanceOfDestiny.PhysicsTest;
 import org.LanceOfDestiny.domain.AuthModels.LogInController;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.ui.AuthViews.*;
@@ -7,58 +8,21 @@ import org.LanceOfDestiny.ui.GameViews.BuildViewMiniPanel;
 import org.LanceOfDestiny.ui.GameViews.GameView;
 
 public enum Windows {
-        Login {
-                @Override
-                Window createWindow() {
-                        return new LogInView(LogInController.getInstance());
-                }
-        },
-        PhysicsTest {
-                @Override
-                Window createWindow() {
-                        return new PhysicsTestView();
-                }
-        },
-        GameViewWindow {
-                @Override
-                Window createWindow() {
-                        return GameView.getInstance();
-                }
-        },
-        PauseView {
-                @Override
-                Window createWindow() {
-                        return new PauseView();
-                }
-        },
-        Signup {
-                @Override
-                Window createWindow() {
-                        return new SignUpView(LogInController.getInstance());
-                }
-        },
-        SaveView {
-                @Override
-                Window createWindow() {
-                        return new SaveView();
-                }
-        },
-        LoadView {
-                @Override
-                Window createWindow() {
-                        return new LoadView();
-                }
-        },
-        BuildViewMini {
-                @Override
-                Window createWindow() {
-                        return new BuildViewMiniPanel(SessionManager.getInstance());
-                }
-        };
+        Login(new LogInView(LogInController.getInstance())),
+        PhysicsTest(new PhysicsTestView()),
+        GameViewWindow(new GameView()),
+        PauseView (new PauseView()),
+        Signup(new SignUpView(LogInController.getInstance())),
+        SaveView(new SaveView()),
+        LoadView(new LoadView()),
+        BuildViewMini(new BuildViewMiniPanel(SessionManager.getInstance()));
 
-        abstract Window createWindow();
+        private final Window window;
+        Windows(Window window){
+                this.window = window;
+        }
 
-        public Window getWindow() {
-                return createWindow();
+        public Window getWindow(){
+                return window;
         }
 }

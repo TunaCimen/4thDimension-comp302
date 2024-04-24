@@ -106,6 +106,7 @@ public abstract class GameObject extends Behaviour {
     }
 
     public static void displayGameObjects() {
+        System.out.println("Game Objects Info");
         System.out.println("Explosive Barrier Count: " + gameObjects.stream().filter(e -> {
             return e instanceof ExplosiveBarrier;
         }).toList().size());

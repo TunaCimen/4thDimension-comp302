@@ -1,17 +1,15 @@
 package org.LanceOfDestiny.domain.managers;
 
-import com.mysql.cj.NoSubInterceptorWrapper;
-import org.LanceOfDestiny.LanceOfDestiny;
-import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.barriers.Barrier;
-import org.LanceOfDestiny.domain.barriers.BarrierTypes;
+import org.LanceOfDestiny.domain.barriers.*;
+import org.LanceOfDestiny.domain.behaviours.Behaviour;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.physics.Vector;
+import org.LanceOfDestiny.domain.spells.Hex;
+import org.LanceOfDestiny.domain.spells.RewardBox;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.LanceOfDestiny.domain.Constants.*;
 
@@ -19,13 +17,14 @@ public class BarrierManager {
 
     private static BarrierManager instance;
 
-    public ArrayList<Barrier> barriers;
+    public static ArrayList<Barrier> barriers;
     private BarrierTypes selectedBarrierType;
     private Barrier clickedBarrier;
     private Vector oldLocationOfBarrier;
     private BarrierManager() {
         barriers = new ArrayList<>();
         selectedBarrierType = BarrierTypes.SIMPLE;
+        Events.LoseGame.addRunnableListener(this::removeAllBarriers);
     }
 
     public static BarrierManager getInstance() {
@@ -51,7 +50,7 @@ public class BarrierManager {
     }
 
     public void removeAllBarriers() {
-        for (int i = 0; i < barriers.size(); i++) {
+        for (int i = barriers.size()-1; i >= 0; i--) {
             var barrier = barriers.get(i);
             barrier.destroy();
         }
@@ -176,7 +175,21 @@ public class BarrierManager {
         return errorMessage.length() == 0 ? null : errorMessage.toString();
     }
 
-
+    public static void displayBarrierInfo() {
+        System.out.println("Barrier Manager Info");
+        System.out.println("Explosive Barrier Count: " + barriers.stream().filter(e -> {
+            return e instanceof ExplosiveBarrier;
+        }).toList().size());
+        System.out.println("Reinforced Barrier Count: " + barriers.stream().filter(e -> {
+            return e instanceof ReinforcedBarrier;
+        }).toList().size());
+        System.out.println("Simple Barrier Count: " + barriers.stream().filter(e -> {
+            return e instanceof SimpleBarrier;
+        }).toList().size());
+        System.out.println("Rewarding Barrier Count: " + barriers.stream().filter(e -> {
+            return e instanceof RewardingBarrier;
+        }).toList().size());
+    }
 
 
 }

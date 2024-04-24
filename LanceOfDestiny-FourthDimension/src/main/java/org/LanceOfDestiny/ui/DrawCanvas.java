@@ -9,6 +9,7 @@ import org.LanceOfDestiny.domain.behaviours.Behaviour;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
 
 
+import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.managers.Status;
@@ -29,6 +30,8 @@ import java.awt.geom.AffineTransform;
 public class DrawCanvas extends JPanel {
     private final Image backgroundImage;
     public DrawCanvas() {
+        Events.CanvasUpdateEvent.addRunnableListener(this::repaint);
+        Events.LoseGame.addRunnableListener(Events.CanvasUpdateEvent::invoke);
         setupMouseListener();
         var width = Constants.SCREEN_WIDTH;
         var height = Constants.SCREEN_HEIGHT;
@@ -195,15 +198,6 @@ public class DrawCanvas extends JPanel {
                 if(!gameObjectSprite.isVisible) continue;
                 g.setColor(gameObjectSprite.color);
                 gameObjectSprite.drawShape(g);
-                if(gameObjectSprite.getImage() != null){
-                    if(gameObjectSprite instanceof BallSprite){
-                        g.drawImage(gameObjectSprite.getImage()
-                                , ((int) gameObjectSprite.attachedGameObject.getPosition().getX() - gameObjectSprite.width())
-                                , ((int) gameObjectSprite.attachedGameObject.getPosition().getY() - gameObjectSprite.height())
-                                ,null);
-                    }
-                    }
-
                 }
             }
         }

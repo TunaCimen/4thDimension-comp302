@@ -13,9 +13,11 @@ import java.util.Map;
 public class PhysicsManager {
     private static PhysicsManager instance;
     private List<Collider> colliders;
+
     private int framesAhead = 2;
     private int currentFrame = 0;
     private int frameTreshold = 0; // currently not effective within the code
+
     private Map<String, Integer> recentCollisions;  // Stores collision pairs with the frame of their last occurrence
 
     private PhysicsManager() {
