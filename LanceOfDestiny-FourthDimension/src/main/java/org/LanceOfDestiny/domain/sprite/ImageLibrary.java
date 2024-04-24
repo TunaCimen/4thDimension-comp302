@@ -20,7 +20,8 @@ public enum ImageLibrary {
     SimpleBarrier("Image/BlueGem.png"),
     ReinforcedBarrier("Image/2_health_firm.png"),
     Canon("Image/Canon.png"),
-    Background("Image/Background.png");
+    Background("Image/Background.png"),
+    HelpViewBackground("Image/HelpBackground.png");
 
     private final BufferedImage image;
 
