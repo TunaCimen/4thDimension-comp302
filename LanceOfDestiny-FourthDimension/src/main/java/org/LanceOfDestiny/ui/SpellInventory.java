@@ -6,20 +6,37 @@ import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.domain.sprite.ImageOperations;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class SpellInventory extends JPanel {
 
     JButton canonSpell;
-    JLabel overwhelmingSpell;
-    JLabel expansionSpell;
+    JButton overwhelmingSpell;
+    JButton expansionSpell;
 
     ImageIcon canonIcon,overwhelmingIcon, expansionIcon;
     ImageIcon reducedCanonIcon, reducedOverwhelmingIcon, reducedExpansionIcon;
 
     public SpellInventory(){
         canonSpell = new JButton();
-        overwhelmingSpell = new JLabel();
-        expansionSpell = new JLabel();
+        overwhelmingSpell = new JButton();
+        expansionSpell = new JButton();
+
+        canonSpell.setFocusable(false);
+        expansionSpell.setFocusable(false);
+        overwhelmingSpell.setFocusable(false);
+
+        canonSpell.setBorder(BorderFactory.createEmptyBorder());
+        canonSpell.setContentAreaFilled(false);
+        overwhelmingSpell.setBorder(BorderFactory.createEmptyBorder());
+        overwhelmingSpell.setContentAreaFilled(false);
+        expansionSpell.setBorder(BorderFactory.createEmptyBorder());
+        expansionSpell.setContentAreaFilled(false);
+
+        canonSpell.addActionListener(e->Events.TryUsingSpell.invoke(SpellType.CANON));
+        overwhelmingSpell.addActionListener(e->Events.TryUsingSpell.invoke(SpellType.OVERWHELMING));
+        expansionSpell.addActionListener(e->Events.TryUsingSpell.invoke(SpellType.EXPANSION));
+
         canonIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.CannonSpell.getImage(), 40,40));
         overwhelmingIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.OverWhelmingSpell.getImage(), 30,30));
         expansionIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.ExpansionSpell.getImage(),30,30));

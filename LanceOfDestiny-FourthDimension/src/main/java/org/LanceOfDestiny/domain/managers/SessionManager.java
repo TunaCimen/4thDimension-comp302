@@ -85,4 +85,9 @@ public class SessionManager {
         return currentMode;
     }
 
+    public void setTimePassed(double timePassed){
+        gameLooper.setTimePassed(timePassed);
+    }
+
+
 }
