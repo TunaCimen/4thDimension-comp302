@@ -38,7 +38,7 @@ public class Canon extends GameObject {
     }
 
     private void createColliderAndSprite() {
-        this.sprite = new RectangleSprite(this, Color.WHITE, WIDTH, (int) HEIGHT);
+        this.sprite = new RectangleSprite(this, new Color(0,0,0,0), WIDTH, (int) HEIGHT);
         this.collider = ColliderFactory.createRectangleCollider(this, Vector.getZeroVector(), ColliderType.STATIC, WIDTH, HEIGHT);
         collider.setEnabled(false);
         sprite.setVisible(false);
