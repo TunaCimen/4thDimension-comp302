@@ -97,7 +97,12 @@ public class SpellContainer extends MonoBehaviour {
         }
         return null;
     }
-
+    public void deactivateAllSpells() {
+        if (activeSpell != null) {
+            deactivateSpell(activeSpell);
+        }
+        spells.forEach(this::deactivateSpell);
+    }
     public List<Spell> getSpells() {
         return spells;
     }
