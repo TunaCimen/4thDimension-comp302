@@ -54,7 +54,7 @@ public class GameView extends JFrame implements Window {
         cardPanel.add(loseGamePanel, STATUS_END);
 
         //Event subscriptions.
-        Events.ResumeGame.addRunnableListener(this::startGame);
+        //Events.ResumeGame.addRunnableListener(this::startGame);
         Events.LoadGame.addRunnableListener(Events.CanvasUpdateEvent::invoke);
         Events.LoadGame.addRunnableListener(()->{
             healthBarDisplay.setHealth(
@@ -113,8 +113,14 @@ public class GameView extends JFrame implements Window {
         buttonPlay.setEnabled(false);
         buttonPause.setEnabled(true);
         comboBoxAddBarrierType.setVisible(false);
+        if(!sessionManager.getLoopExecutor().isStarted()){
+            sessionManager.getLoopExecutor().start();
+        }
+        else{
+            sessionManager.getLoopExecutor().resume();
+        }
         sessionManager.setStatus(Status.RunningMode);
-        sessionManager.getLoopExecutor().start();
+
     }
 
     public void showPanel(String cardName){
@@ -195,7 +201,9 @@ public class GameView extends JFrame implements Window {
         buttonPlay = new JButton("START");
         buttonPlay.setFocusable(false);
         buttonPlay.setFont(new Font("Monospaced", Font.BOLD, 16));
-        buttonPlay.addActionListener(e->Events.ResumeGame.invoke());
+        buttonPlay.addActionListener(e->{
+            startGame();
+        });
         return buttonPlay;
     }
 
