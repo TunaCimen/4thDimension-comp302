@@ -52,6 +52,7 @@ public class Player extends MonoBehaviour {
         return chancesLeft;
     }
     public void resetSpells(){
+        this.spellContainer.deactivateAllSpells();
         this.spellContainer.getSpells().clear();
         this.spellContainer.getSpellMap().forEach((a,b)-> b = false);
         for(SpellType spellType : SpellType.values()){
