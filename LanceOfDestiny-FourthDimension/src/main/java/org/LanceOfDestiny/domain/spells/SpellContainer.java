@@ -69,7 +69,7 @@ public class SpellContainer extends MonoBehaviour {
 
     public void deactivateActiveSpell() {
         isSpellActive = false;
-        activeSpell.deactivateSpell();
+        if(activeSpell!= null) activeSpell.deactivateSpell();
         activeSpell = null;
     }
 
