@@ -55,6 +55,7 @@ public class LoadView extends JFrame implements Window {
                     RewardBoxFactory.getInstance().removeRewardBoxes();
                     List<Behaviour> list = GameObject.getGameObjects();
                     System.out.println("After clearing");
+
                     BarrierManager.displayBarrierInfo();
                     GameObject.displayGameObjects();
                     LoadView.this.userManager.loadBarriers(name);
