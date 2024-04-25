@@ -40,6 +40,8 @@ public class MagicalStaff extends GameObject {
         Events.ResetStaff.addRunnableListener(this::resetStaff);
         Events.ActivateCanons.addListener(this::handleCanons);
         Events.ActivateExpansion.addListener(this::handleExpansion);
+        Events.Reset.addRunnableListener(this::resetStaffPosition);
+        Events.Reset.addRunnableListener(this::resetStaffPosition);
     }
 
     public void initializeCollidersAndSprites() {
@@ -123,5 +125,19 @@ public class MagicalStaff extends GameObject {
     public void disableCanons() {
         canonLeft.deactivateCanon();
         canonRight.deactivateCanon();
+    }
+
+    public void resetStaffPosition() {
+        setPosition(Constants.STAFF_POSITION);
+        canonLeft.setPosition(this.position.add(new Vector(0, -HEIGHT)));
+        canonRight.setPosition(this.position.add(new Vector(WIDTH-Constants.CANON_WIDTH, -HEIGHT)));
+    }
+
+    public Canon getCanonLeft() {
+        return canonLeft;
+    }
+
+    public Canon getCanonRight() {
+        return canonRight;
     }
 }

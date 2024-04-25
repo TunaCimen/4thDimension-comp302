@@ -106,8 +106,6 @@ public class GameView extends JFrame implements Window {
         setResizable(false);
     }
 
-
-
     public void startGame() {
         scoreBar.updateScore();
         healthBarDisplay.setHealth(SessionManager.getInstance().getPlayer().getChancesLeft());
@@ -128,8 +126,6 @@ public class GameView extends JFrame implements Window {
     public void showPanel(String cardName){
         cardLayout.show(cardPanel, cardName);
     }
-
-
 
     private JLabel createLabel(String text){
         JLabel label = new JLabel(text);
