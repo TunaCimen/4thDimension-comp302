@@ -72,7 +72,7 @@ public class LoadView extends JFrame implements Window {
                     for(int i=0;i<Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(5));i++){
                         Events.GainSpell.invoke(SpellType.CANON);
                     }
-                    System.out.println(SessionManager.getInstance().getPlayer().getSpellContainer().getSpells());
+                    System.out.println(SessionManager.getInstance().getPlayer().getSpellContainer().getSpellMap());
                     JOptionPane.showMessageDialog(null, "Game loaded successfully!");
                     System.out.println("After loading");
                     BarrierManager.displayBarrierInfo();
