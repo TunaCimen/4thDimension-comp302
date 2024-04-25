@@ -13,6 +13,7 @@ import org.LanceOfDestiny.ui.Window;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
+import java.util.Map;
 
 public class SaveView extends JFrame implements Window {
     private final LogInController userManager;
@@ -68,18 +69,17 @@ public class SaveView extends JFrame implements Window {
                 int expansionspell = 0;
                 int overwhelmingspell = 0;
                 int canonspell = 0;
-                for(Spell s: SessionManager.getInstance().getPlayer().getSpellContainer().getSpells()){
-                    if (s.getSpellType() == SpellType.CHANCE){
-
+                for(Map.Entry entry: SessionManager.getInstance().getPlayer().getSpellContainer().getSpellMap().entrySet()){
+                    if ((entry.getKey() == SpellType.CHANCE) && ((boolean) entry.getValue())){
                         chancespell+=1;
                     }
-                    else if (s.getSpellType() == SpellType.EXPANSION){
+                    else if (entry.getKey() == SpellType.EXPANSION && ((boolean) entry.getValue())){
                         expansionspell+=1;
                     }
-                    else if (s.getSpellType() == SpellType.OVERWHELMING){
+                    else if (entry.getKey() == SpellType.OVERWHELMING && ((boolean) entry.getValue())){
                         overwhelmingspell+=1;
                     }
-                    else if (s.getSpellType() == SpellType.CANON){
+                    else if (entry.getKey() == SpellType.CANON && ((boolean) entry.getValue())){
                         canonspell+=1;
                     }
 

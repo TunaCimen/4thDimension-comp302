@@ -28,6 +28,8 @@ public class FireBall extends GameObject {
         Events.ShootBall.addRunnableListener(this::shootBall);
         Events.LoadGame.addRunnableListener(() -> isAttached = true);
         Events.EndGame.addRunnableListener(()->isAttached=true);
+        Events.Reset.addRunnableListener(this::resetFireballPosition);
+        Events.LoadGame.addRunnableListener(this::resetFireballPosition);
     }
 
     private void createColliderAndSprite() {
@@ -111,5 +113,9 @@ public class FireBall extends GameObject {
 
     public boolean isOverwhelming() {
         return isOverwhelming;
+    }
+
+    public void resetFireballPosition() {
+        this.position = Constants.FIREBALL_POSITION;
     }
 }
