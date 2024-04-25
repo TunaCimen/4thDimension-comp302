@@ -41,7 +41,7 @@ public class MagicalStaff extends GameObject {
         Events.ActivateCanons.addListener(this::handleCanons);
         Events.ActivateExpansion.addListener(this::handleExpansion);
         Events.Reset.addRunnableListener(this::resetStaffPosition);
-        Events.Reset.addRunnableListener(this::resetStaffPosition);
+        Events.LoadGame.addRunnableListener(this::resetStaffPosition);
     }
 
     public void initializeCollidersAndSprites() {
