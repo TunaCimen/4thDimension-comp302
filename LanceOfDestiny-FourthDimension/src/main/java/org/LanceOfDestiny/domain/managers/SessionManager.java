@@ -34,6 +34,11 @@ public class SessionManager {
         loopExecutor.setLooper(gameLooper);
         Events.BuildDoneEvent.addRunnableListener(this::initializeBarriers);
         Events.Reset.addRunnableListener(()->getPlayer().setChancesLeft(Constants.DEFAULT_CHANCES));
+        Events.Reset.addRunnableListener(()->getLoopExecutor().setLoadedTime(0));
+        Events.Reset.addRunnableListener(()->getLoopExecutor().setTimePassed(0));
+        Events.LoadGame.addRunnableListener(()->getLoopExecutor().setTimePassed(0));
+        Events.EndGame.addRunnableListener(()->getLoopExecutor().stop());
+        Events.ResumeGame.addRunnableListener(()->getLoopExecutor().resume());
 
     }
 
@@ -92,9 +97,10 @@ public class SessionManager {
         return currentMode;
     }
 
-    public void setTimePassed(double timePassed){
-        gameLooper.setTimePassed(timePassed);
+    public void setTimePassed(int timePassed){
+        loopExecutor.setLoadedTime(timePassed);
     }
+
 
 
 }

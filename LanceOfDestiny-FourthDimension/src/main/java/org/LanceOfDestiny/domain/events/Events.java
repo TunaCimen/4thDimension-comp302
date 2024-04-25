@@ -55,6 +55,8 @@ public enum Events {
     CanvasUpdateEvent(Object.class),
 
     BuildDoneEvent(Object.class),
+
+
     Reset(Object.class);
     //It is the Class that the particular event wants the invocation.
     final Class<?> paramType;

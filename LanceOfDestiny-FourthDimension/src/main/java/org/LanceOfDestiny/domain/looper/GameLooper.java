@@ -11,14 +11,6 @@ public class GameLooper extends Looper {
         gameExec = new GameExec(drawCanvas);
     }
 
-    public int getSecondsPassed() {
-        return (int) (gameExec.timePassed * Math.pow(10, -9));
-    }
-
-    public void setTimePassed(double timePassed){
-        gameExec.setTimePassed(timePassed);
-    }
-
     @Override
     protected void routine() throws LoopEndedException {
         execute(gameExec);
