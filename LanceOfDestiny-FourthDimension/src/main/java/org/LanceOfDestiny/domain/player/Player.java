@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.domain.player;
 
+import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.behaviours.MonoBehaviour;
 import org.LanceOfDestiny.domain.spells.SpellContainer;
@@ -7,7 +8,7 @@ import org.LanceOfDestiny.domain.spells.SpellType;
 
 public class Player extends MonoBehaviour {
 
-    private static final int DEFAULT_CHANCES = 1;
+    private static final int DEFAULT_CHANCES = 3;
     private static final int MIN_CHANCES = 0;
 
     private SpellContainer spellContainer;
@@ -16,9 +17,10 @@ public class Player extends MonoBehaviour {
     public Player() {
         super();
         this.spellContainer = new SpellContainer();
-        this.chancesLeft = DEFAULT_CHANCES;
-        //Events.UpdateChance.addListener(this::updateChances);
+        this.chancesLeft = Constants.DEFAULT_CHANCES;
+        Events.UpdateChance.addListener(this::updateChances);
         Events.TryUsingSpell.addListener(this::tryUsingSpell);
+        Events.Reset.addRunnableListener(this::resetSpells);
     }
 
     @Override
@@ -43,14 +45,20 @@ public class Player extends MonoBehaviour {
     public void setChancesLeft(int chance) {
         this.chancesLeft = chance;
         this.chancesLeft = Math.max(chancesLeft, MIN_CHANCES);
-        if(this.chancesLeft == MIN_CHANCES) Events.LoseGame.invoke();
+        if(this.chancesLeft == MIN_CHANCES) {
+            Events.EndGame.invoke("You Lost");
+        }
     }
 
     public int getChancesLeft() {
         return chancesLeft;
     }
     public void resetSpells(){
-        this.spellContainer = new SpellContainer();
+        this.spellContainer.getSpells().clear();
+        this.spellContainer.getSpellMap().forEach((a,b)-> b = false);
+        for(SpellType spellType : SpellType.values()){
+            Events.ActivateSpellUI.invoke(spellType);
+        }
     }
 
     public SpellContainer getSpellContainer() {

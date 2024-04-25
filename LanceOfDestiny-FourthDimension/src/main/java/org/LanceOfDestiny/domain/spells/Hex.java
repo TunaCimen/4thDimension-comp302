@@ -31,7 +31,7 @@ public class Hex extends GameObject {
     }
 
     private void createColliderAndSprite() {
-        this.sprite = new BallSprite(this, Color.BLACK, HEX_RADIUS);
+        this.sprite = new BallSprite(this, Color.WHITE, HEX_RADIUS);
         this.collider = ColliderFactory.createBallCollider(this, velocity, ColliderType.STATIC, HEX_RADIUS);
         collider.setEnabled(false);
         collider.setTrigger(true);
@@ -84,7 +84,9 @@ public class Hex extends GameObject {
         var angle = canon.getAngle();
         var canonPosition = canon.getPosition();
         var hexPosition = canonPosition.add(new Vector((double) Constants.CANON_WIDTH / 2, 0));
-        var center = (isLeft ? staffPositionLeft.add(new Vector((double) Constants.STAFF_WIDTH / 2, 0)) : staffPositionRight.subtract(new Vector((double) Constants.STAFF_WIDTH / 2, 0)));
+        var center = (isLeft ?
+                staffPositionLeft.add(new Vector((double) Constants.STAFF_WIDTH / 2, 0)) :
+                staffPositionRight.subtract(new Vector((double) Constants.STAFF_WIDTH / 2, 0)));
         return calculateRotatedPosition(center, hexPosition, angle);
     }
 

@@ -22,35 +22,46 @@ import java.util.function.Consumer;
  * @Param -> Follow-up event you want to invoke.//TODO:It can be optional(?).
  */
 public enum Events {
-
-    LogEvent(String.class), LogIntegerEvent(Integer.class), CollisionEvent(Collision.class),
-
-    MoveStaff(Integer.class), RotateStaff(Double.class), ResetStaff(Object.class),
-
-    UpdateChance(Integer.class), // invoked with parameter -> change: change in chances
-
+    LogEvent(String.class),
+    LogIntegerEvent(Integer.class),
+    CollisionEvent(Collision.class),
+    //MAGICAL STAFF EVENTS
+    MoveStaff(Integer.class),
+    RotateStaff(Double.class),
+    ResetStaff(Object.class),
+    //FIREBALL EVENTS
+    ShootBall(Object.class),
+    ResetFireBall(Object.class),
+    // GAME STAT. EVENTS
+    UpdateChance(Integer.class),
+    EndGame(String.class),
+    UpdateScore(Object.class),
+    //SPELL EVENTS
+    GainSpell(SpellType.class),
+    TryUsingSpell(SpellType.class),
+    ActivateSpellUI(SpellType.class),
+    ActivateCanons(Boolean.class),
+    ActivateOverwhelming(Boolean.class),
+    ActivateExpansion(Boolean.class),
+    // EVENTS RELATED TO OTHER GAME FEATURES
     PauseGame(Object.class),
     ResumeGame(Object.class),
+    SaveGame(Object.class),
+    LoadGame(Object.class),
 
-    UpdateScore(Object.class),
+    WaitEvent(Object.class),
+    ResetColorEvent(Object.class),
+    TimedTestEvent(Color.class, 2000, ResetColorEvent),
+    CanvasUpdateEvent(Object.class),
 
-    GainSpell(SpellType.class), // ui will be subscriber of this event to show the spells at hand
-    TryUsingSpell(SpellType.class), // invoked when the player inputs spell related keys, does not concern ui.
-
-    // Invoked with true when player actually activates the spell and false when deactivated
-    ActivateCanons(Boolean.class), ActivateOverwhelming(Boolean.class), ActivateExpansion(Boolean.class),
-
-    LoseGame(Object.class), WinGame(Object.class),
-
-    SaveGame(Object.class), LoadGame(Object.class),
-
-    ResetFireBall(Object.class), WaitEvent(Object.class), ResetColorEvent(Object.class), TimedTestEvent(Color.class, 2000, ResetColorEvent), PauseGameEvent(Object.class), ShootBall(Object.class),
-    ActivateSpellUI(SpellType.class);
-
-    final Class<?> paramType; //It is the Class that the particular event wants the invocation.
+    BuildDoneEvent(Object.class),
+    Reset(Object.class);
+    //It is the Class that the particular event wants the invocation.
+    final Class<?> paramType;
     Timer timer = null;
     boolean isActive = false;
-    private List<Consumer<Object>> listeners = new ArrayList<>(); //List that listeners subscribe to.
+    //List that listeners subscribe to.
+    private List<Consumer<Object>> listeners = new ArrayList<>();
 
     Events(Class<?> stringClass) {
         paramType = stringClass;
@@ -63,7 +74,6 @@ public enum Events {
             System.out.println(LocalTime.now().getSecond());
             isActive = false;
             ((Timer) e.getSource()).stop();
-
         });
     }
 
@@ -88,8 +98,6 @@ public enum Events {
                 consumer.accept(l);
             }
         }
-
-
     }
 
     private void invokeUntimed(Object l) throws IllegalEventInvocationException {
@@ -100,6 +108,7 @@ public enum Events {
             try {
                 consumer.accept(l);
             } catch (Exception e) {
+                e.printStackTrace();
                 System.out.println("Wrong Argument to Invoke for:" + this.name() + "\n" + "Check your casting for listeners.Note:Tunic");
             }
         }
@@ -110,6 +119,7 @@ public enum Events {
             try {
                 consumer.accept(new Object());
             } catch (Exception e) {
+                e.printStackTrace();
                 System.out.println("Wrong Argument to Invoke for:" + this.name() + "\n" + "Check your casting for listeners.Note:Tunic");
             }
         }
@@ -121,10 +131,6 @@ public enum Events {
 
     public void addRunnableListener(Runnable r) {
         listeners.add(e -> r.run());
-    }
-
-    public void addFollowerListener() {
-
     }
 
     public void removeListener(Consumer<Object> subscriber) {

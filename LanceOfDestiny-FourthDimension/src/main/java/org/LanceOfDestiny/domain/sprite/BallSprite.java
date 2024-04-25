@@ -23,10 +23,13 @@ public class BallSprite extends Sprite {
         g.fillOval((int) attachedGameObject.getPosition().getX() - radius,
                 (int) attachedGameObject.getPosition().getY() - radius,
                 2 * radius, 2 * radius);
-        g.drawImage(getImage()
-                , ((int) attachedGameObject.getPosition().getX() - width())
-                , ((int) attachedGameObject.getPosition().getY() - height())
-                ,null);
+        if(image != null){
+            g.drawImage(getImage()
+                    , ((int) attachedGameObject.getPosition().getX() - width())
+                    , ((int) attachedGameObject.getPosition().getY() - height())
+                    ,null);
+        }
+
     }
 
     @Override

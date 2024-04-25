@@ -1,5 +1,7 @@
 package org.LanceOfDestiny.domain.managers;
 
+import org.LanceOfDestiny.domain.Constants;
+import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.looper.GameLooper;
 import org.LanceOfDestiny.domain.looper.LoopExecutor;
 import org.LanceOfDestiny.domain.player.FireBall;
@@ -30,6 +32,9 @@ public class SessionManager {
         this.builder = new SessionBuilder(0, 0, 0, 0);
         currentMode = Status.EditMode;
         loopExecutor.setLooper(gameLooper);
+        Events.BuildDoneEvent.addRunnableListener(this::initializeBarriers);
+        Events.Reset.addRunnableListener(()->getPlayer().setChancesLeft(Constants.DEFAULT_CHANCES));
+
     }
 
     public static SessionManager getInstance() {
@@ -42,9 +47,8 @@ public class SessionManager {
     public void initializeSession() {
         fireBall = new FireBall();
         magicalStaff = new MagicalStaff();
-        builder.initializeBarriers();
         initializePlayer();
-        //initializeBarriers();
+        //builder.initializeBarriers();
 
     }
     public void initializePlayer(){
@@ -52,7 +56,9 @@ public class SessionManager {
         player = new Player();
     }
 
-
+    public void initializeBarriers(){
+        builder.initializeBarriers();
+    }
 
     public MagicalStaff getMagicalStaff() {
         return magicalStaff;
@@ -85,5 +91,10 @@ public class SessionManager {
     public Status getStatus() {
         return currentMode;
     }
+
+    public void setTimePassed(double timePassed){
+        gameLooper.setTimePassed(timePassed);
+    }
+
 
 }

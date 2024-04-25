@@ -5,13 +5,13 @@ import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.domain.sprite.ImageOperations;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.Stack;
 
 public class HealthBar extends JPanel {
     public int init_health;
     ImageIcon healthImageIcon;
     private Stack<JLabel> healths;
+
     public HealthBar(int maxHealth){
         this.init_health = maxHealth;
         healthImageIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.Heart.getImage(),20,20));
@@ -19,6 +19,7 @@ public class HealthBar extends JPanel {
         this.setVisible(true);
         initializePanel();
         Events.UpdateChance.addListener(e->updateHealth((int)e) );
+        Events.Reset.addRunnableListener(()->setHealth(init_health));
     }
 
     public void initializePanel(){

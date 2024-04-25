@@ -13,9 +13,7 @@ import java.util.Random;
 
 public class ExplosiveBarrier extends Barrier {
     public static final double MOVE_PROBABILITY = 0.2;
-
-
-    Vector initPos;
+    private Vector initPos;
     private boolean isFalling = false;
     private double angleInDegrees = 0;
     private final Vector SHIFT= new Vector(14,9);
@@ -118,6 +116,7 @@ public class ExplosiveBarrier extends Barrier {
     public boolean isFalling() {
         return isFalling;
     }
+
     public Vector getInitPos() {
         return initPos;
     }

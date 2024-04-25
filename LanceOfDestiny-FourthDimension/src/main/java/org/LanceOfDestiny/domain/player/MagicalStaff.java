@@ -32,7 +32,7 @@ public class MagicalStaff extends GameObject {
         initializeCollidersAndSprites();
 
         this.canonLeft = new Canon(this.position.add(new Vector(0, -HEIGHT)), true);
-        this.canonRight = new Canon(this.position.add(new Vector(WIDTH, -HEIGHT)), false);
+        this.canonRight = new Canon(this.position.add(new Vector(WIDTH-Constants.CANON_WIDTH, -HEIGHT)), false);
         ((RectangleSprite)canonLeft.getSprite()).parentObject = this;
         ((RectangleSprite)canonRight.getSprite()).parentObject = this;
         Events.MoveStaff.addListener(this::moveRight);
@@ -43,12 +43,12 @@ public class MagicalStaff extends GameObject {
     }
 
     public void initializeCollidersAndSprites() {
-        this.defaultSprite = new RectangleSprite(this, Color.WHITE, WIDTH, HEIGHT);
+        this.defaultSprite = new RectangleSprite(this, new Color(0,0,0,0), WIDTH, HEIGHT);
         this.sprite = defaultSprite;
         this.sprite.setImage(ImageOperations.resizeImageToSprite(ImageLibrary.MagicalStaff.getImage(),this.sprite));
         this.defaultCollider = ColliderFactory.createRectangleCollider(this, new Vector(0, 0), ColliderType.STATIC, WIDTH, HEIGHT);
         this.collider = defaultCollider;
-        this.expandedSprite = new RectangleSprite(this, Color.red, WIDTH * 2, HEIGHT);
+        this.expandedSprite = new RectangleSprite(this, new Color(0,0,0,0), WIDTH * 2, HEIGHT);
         this.expandedSprite.setImage(ImageOperations.resizeImageToSprite(ImageLibrary.MagicalStaff.getImage(), expandedSprite));
         this.expandedCollider = ColliderFactory.createRectangleCollider(this, new Vector(0, 0), ColliderType.STATIC, WIDTH * 2, HEIGHT);
         expandedCollider.setEnabled(false);
@@ -56,8 +56,6 @@ public class MagicalStaff extends GameObject {
 
     @Override
     public void setPosition(Vector position) {
-
-
         //var x = (position.getX() <= (double) Constants.SCREEN_WIDTH / 2) ? Math.max(minX, position.getX()) : Math.min(position.getX(), maxX);
         this.position = position;
 

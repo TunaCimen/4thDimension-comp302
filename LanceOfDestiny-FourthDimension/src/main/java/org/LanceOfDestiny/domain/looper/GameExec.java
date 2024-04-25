@@ -10,27 +10,30 @@ import javax.swing.*;
 public class GameExec extends Behaviour {
 
     private final JPanel drawCanvas;
+
     protected double timePassed;
+
     private boolean isPaused = false;
     private double startTime;
-
     public GameExec(JPanel drawCanvas) {
+        timePassed = 0;
         this.drawCanvas = drawCanvas;
         Events.PauseGame.addRunnableListener(this::pauseGame);
         Events.ResumeGame.addRunnableListener(this::resumeGame);
-    }
-
-    public void pauseGame() {
-        isPaused = true;
-    }
-
-    public void resumeGame() {
-        isPaused = false;
+        Events.Reset.addRunnableListener(this::pauseGame);
+        Events.Reset.addRunnableListener(()->setTimePassed(0));
+        Events.LoadGame.addRunnableListener(this::start);
     }
 
     @Override
+    public void start() {
+        startTime = System.nanoTime();
+        for (int i = 0; i < getBehaviours().size(); i++) {
+            getBehaviours().get(i).start();
+        }
+    }
+    @Override
     public void update() {
-
         if (isPaused) {
             startTime = System.nanoTime();
             return;
@@ -47,14 +50,16 @@ public class GameExec extends Behaviour {
         }
     }
 
-    @Override
-    public void start() {
-        timePassed = 0;
-        startTime = System.nanoTime();
-        for (int i = 0; i < getBehaviours().size(); i++) {
-            getBehaviours().get(i).start();
-        }
+    public void pauseGame() {
+
+        isPaused = true;
     }
 
+    public void resumeGame() {
+        isPaused = false;
+    }
 
+    public void setTimePassed(double timePassed) {
+        this.timePassed = timePassed;
+    }
 }

@@ -41,7 +41,6 @@ public class PhysicsTestView extends JFrame implements Window {
                 }
             }
         }
-        barrier = new SimpleBarrier(new Vector(500,500));
         magicalStaff = new MagicalStaff();
 
     }

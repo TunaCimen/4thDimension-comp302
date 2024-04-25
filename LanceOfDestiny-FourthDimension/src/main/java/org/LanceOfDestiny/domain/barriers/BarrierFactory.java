@@ -13,15 +13,10 @@ public class BarrierFactory {
             case REINFORCED -> new ReinforcedBarrier(position, calculateHitsRequired());
             case EXPLOSIVE -> new ExplosiveBarrier(position);
             case REWARDING -> new RewardingBarrier(position);
-            default -> null;
         };
-        if (createdBarrier == null) {
-            return null;
-        }
         BarrierManager.getInstance().addBarrier(createdBarrier);
         return createdBarrier;
     }
-
 
     private static int calculateHitsRequired() {
         int chance = (new Random()).nextInt(100);
@@ -35,5 +30,4 @@ public class BarrierFactory {
             return 5;
         }
     }
-
 }

@@ -2,6 +2,7 @@ package org.LanceOfDestiny.ui.GameViews;
 
 //This panel will be displayed on gameview screen to build game in a more aesthetic way
 
+import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.ui.CustomViews.CustomDialog;
@@ -25,20 +26,18 @@ public class BuildViewMiniPanel extends JFrame implements Window {
     private Color buildButtonColor = Color.decode("#90caf9");
     private Color testButtonColor = Color.decode("#ffa726");
 
-
-
     public BuildViewMiniPanel(SessionManager instance) {
         this.sessionManager = instance;
-
     }
 
     @Override
     public void createAndShowUI() {
         setDefaultLookAndFeelDecorated(true);
         setSize(350, 250);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setResizable(false);
         setLayout(new BorderLayout());
+
 
         // BUILD label
         JLabel buildLabel = new JLabel("BUILD YOUR GAME", SwingConstants.CENTER);
@@ -142,8 +141,7 @@ public class BuildViewMiniPanel extends JFrame implements Window {
             this.dispose();
 
             // Ensure the game canvas is visible and properly updated
-            WindowManager.getInstance().showWindow(Windows.GameViewWindow);
-            sessionManager.initializeSession();
+            Events.BuildDoneEvent.invoke();
         });
         buttonBuild.addMouseListener(new MouseAdapter() {
             @Override
@@ -169,32 +167,7 @@ public class BuildViewMiniPanel extends JFrame implements Window {
         buttonTest.setCursor(new Cursor(Cursor.HAND_CURSOR));
         buttonTest.setBorder(roundedBorder);
         userInputPanel.add(buttonTest);
-        buttonTest.addActionListener(e -> {
 
-            int numOfSimple = 111;
-            int numOfReinforced = 11;
-            int numOfExplosive = 11;
-            int numOfRewarding = 11;
-
-            // debug the numbers with system.out.println
-            System.out.println("Simple: " + numOfSimple);
-            System.out.println("Reinforced: " + numOfReinforced);
-            System.out.println("Explosive: " + numOfExplosive);
-            System.out.println("Rewarding: " + numOfRewarding);
-
-
-            // Set barrier numbers in session manager's builder
-            this.sessionManager.getBuilder().setNumOfSimple(numOfSimple);
-            this.sessionManager.getBuilder().setNumOfReinforced(numOfReinforced);
-            this.sessionManager.getBuilder().setNumOfExplosive(numOfExplosive);
-            this.sessionManager.getBuilder().setNumOfRewarding(numOfRewarding);
-
-            // Hide the build panel and close it
-            userInputPanel.setVisible(false);
-            this.dispose();
-            // Ensure the game canvas is visible and properly updated
-            sessionManager.initializeSession();
-        });
         buttonTest.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -206,8 +179,6 @@ public class BuildViewMiniPanel extends JFrame implements Window {
                 buttonTest.setBackground(testButtonColor);
             }
         });
-
-
 
 
         // Add button panel to the frame

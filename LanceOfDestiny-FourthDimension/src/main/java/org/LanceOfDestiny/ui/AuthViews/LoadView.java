@@ -48,33 +48,32 @@ public class LoadView extends JFrame implements Window {
             button.setMinimumSize(buttonSize);
             button.addActionListener(e -> {
                 try {
-
+                    System.out.println("Before clearing");
+                    BarrierManager.displayBarrierInfo();
+                    GameObject.displayGameObjects();
                     BarrierManager.getInstance().removeAllBarriers();
                     RewardBoxFactory.getInstance().removeRewardBoxes();
-                    System.out.println("Barrier Count: " + BarrierManager.getInstance().barriers.size());
                     List<Behaviour> list = GameObject.getGameObjects();
+                    System.out.println("After clearing");
+                    BarrierManager.displayBarrierInfo();
                     GameObject.displayGameObjects();
-                    System.out.println("GameObject Count" + GameObject.getGameObjects().size());
-                    BarrierManager.getInstance().barriers = (ArrayList<Barrier>) LoadView.this.userManager.loadBarriers(name);
+                    LoadView.this.userManager.loadBarriers(name);
                     ScoreManager.getInstance().setScore(Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(0)));
                     SessionManager.getInstance().getPlayer().setChancesLeft(Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(1)));
                     SessionManager.getInstance().getPlayer().resetSpells();
-                    for(int i=0;i<Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(2));i++){
-                        SessionManager.getInstance().getPlayer().getSpellContainer().addSpell(SpellFactory.createSpell(SpellType.CHANCE));
-                    }
                     for(int i=0;i<Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(3));i++){
-                        SessionManager.getInstance().getPlayer().getSpellContainer().addSpell(new ExpansionSpell().getSpellType());
+                        Events.GainSpell.invoke(SpellType.EXPANSION);
                     }
                     for(int i=0;i<Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(4));i++){
-                        SessionManager.getInstance().getPlayer().getSpellContainer().addSpell(new OverwhelmingFireBallSpell().getSpellType());
+                        Events.GainSpell.invoke(SpellType.OVERWHELMING);
                     }
                     for(int i=0;i<Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(5));i++){
-                        SessionManager.getInstance().getPlayer().getSpellContainer().addSpell(new CanonSpell().getSpellType());
+                        Events.GainSpell.invoke(SpellType.CANON);
                     }
                     System.out.println(SessionManager.getInstance().getPlayer().getSpellContainer().getSpells());
                     JOptionPane.showMessageDialog(null, "Game loaded successfully!");
-                    System.out.println("Barrier Count After: " + BarrierManager.getInstance().barriers.size());
-                    System.out.println("GameObject Count After" + GameObject.getGameObjects().size());
+                    System.out.println("After loading");
+                    BarrierManager.displayBarrierInfo();
                     GameObject.displayGameObjects();
                     Events.LoadGame.invoke();
                     this.dispose();

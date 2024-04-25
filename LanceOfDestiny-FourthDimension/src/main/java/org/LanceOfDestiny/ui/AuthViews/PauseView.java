@@ -1,8 +1,6 @@
 package org.LanceOfDestiny.ui.AuthViews;
 
 import org.LanceOfDestiny.domain.events.Events;
-import org.LanceOfDestiny.domain.managers.SessionManager;
-import org.LanceOfDestiny.ui.GameViews.GameView;
 import org.LanceOfDestiny.ui.Window;
 import org.LanceOfDestiny.ui.WindowManager;
 import org.LanceOfDestiny.ui.Windows;

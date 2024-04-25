@@ -13,6 +13,7 @@ public class ScoreManager {
         this.score = 0;
         loopExecutor = SessionManager.getInstance().getLoopExecutor();
         Events.UpdateScore.addRunnableListener(this::updateScore);
+        Events.Reset.addRunnableListener(()->setScore(0));
     }
 
     public static ScoreManager getInstance() {

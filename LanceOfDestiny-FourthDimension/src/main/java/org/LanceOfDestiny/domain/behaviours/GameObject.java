@@ -1,6 +1,5 @@
 package org.LanceOfDestiny.domain.behaviours;
 
-import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.ExplosiveBarrier;
 import org.LanceOfDestiny.domain.barriers.ReinforcedBarrier;
 import org.LanceOfDestiny.domain.barriers.RewardingBarrier;
@@ -17,7 +16,6 @@ import org.LanceOfDestiny.domain.sprite.Sprite;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public abstract class GameObject extends Behaviour {
 
@@ -41,11 +39,13 @@ public abstract class GameObject extends Behaviour {
         super.start();
     }
 
+    @Override
     public void update() {
         super.update();
         setPosition((getPosition().add(getCollider().getVelocity())));
     }
 
+    @Override
     public void destroy() {
         super.destroy();
         gameObjects.remove(this);
@@ -62,6 +62,10 @@ public abstract class GameObject extends Behaviour {
         return gameObjects;
     }
 
+    public Vector getDirection() {
+        return getCollider().getVelocity().normalize();
+    }
+
     public Vector getPosition() {
         return position;
     }
@@ -69,9 +73,9 @@ public abstract class GameObject extends Behaviour {
     public void setPosition(Vector position) {
         this.position = position;
     }
+
     public void shiftPosition(Vector position) {
     }
-
 
     public double getAngle() {
         return angle;
@@ -97,38 +101,29 @@ public abstract class GameObject extends Behaviour {
         this.sprite = sprite;
     }
 
-    public Vector getDirection() {
-        return getCollider().getVelocity().normalize();
-    }
-  
     public void setParent(GameObject gameObject) {
         this.parent = gameObject;
     }
 
-    public static void displayGameObjects(){
+    public static void displayGameObjects() {
+        System.out.println("Game Objects Info");
         System.out.println("Explosive Barrier Count: " + gameObjects.stream().filter(e -> {
-            if(e instanceof ExplosiveBarrier)return true;
-            return false;
+            return e instanceof ExplosiveBarrier;
         }).toList().size());
         System.out.println("Reinforced Barrier Count: " + gameObjects.stream().filter(e -> {
-            if(e instanceof ReinforcedBarrier)return true;
-            return false;
+            return e instanceof ReinforcedBarrier;
         }).toList().size());
         System.out.println("Simple Barrier Count: " + gameObjects.stream().filter(e -> {
-            if(e instanceof SimpleBarrier)return true;
-            return false;
+            return e instanceof SimpleBarrier;
         }).toList().size());
         System.out.println("Rewarding Barrier Count: " + gameObjects.stream().filter(e -> {
-            if(e instanceof RewardingBarrier)return true;
-            return false;
+            return e instanceof RewardingBarrier;
         }).toList().size());
         System.out.println("Hex Count: " + gameObjects.stream().filter(e -> {
-            if(e instanceof Hex)return true;
-            return false;
+            return e instanceof Hex;
         }).toList().size());
         System.out.println("Reward Box Count: " + gameObjects.stream().filter(e -> {
-            if(e instanceof RewardBox)return true;
-            return false;
+            return e instanceof RewardBox;
         }).toList().size());
     }
 }

@@ -7,6 +7,8 @@ import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.physics.ColliderFactory;
 import org.LanceOfDestiny.domain.physics.ColliderType;
 import org.LanceOfDestiny.domain.physics.Vector;
+import org.LanceOfDestiny.domain.sprite.ImageLibrary;
+import org.LanceOfDestiny.domain.sprite.ImageOperations;
 import org.LanceOfDestiny.domain.sprite.RectangleSprite;
 
 import java.awt.*;
@@ -36,10 +38,11 @@ public class Canon extends GameObject {
     }
 
     private void createColliderAndSprite() {
-        this.sprite = new RectangleSprite(this, Color.DARK_GRAY, WIDTH, (int) HEIGHT);
+        this.sprite = new RectangleSprite(this, new Color(0,0,0,0), WIDTH, (int) HEIGHT);
         this.collider = ColliderFactory.createRectangleCollider(this, Vector.getZeroVector(), ColliderType.STATIC, WIDTH, HEIGHT);
         collider.setEnabled(false);
         sprite.setVisible(false);
+        this.sprite.setImage(ImageOperations.resizeImageToSprite(ImageLibrary.Canon.getImage(), this.sprite));
     }
 
     @Override
@@ -56,7 +59,6 @@ public class Canon extends GameObject {
         var hex = hexes.poll();
         hexes.add(hex);
         if (hex != null) hex.shoot();
-
     }
 
     public void createHexes() {
@@ -75,4 +77,8 @@ public class Canon extends GameObject {
         getSprite().setVisible(false);
     }
 
+    @Override
+    public void shiftPosition(Vector position) {
+        return;
+    }
 }

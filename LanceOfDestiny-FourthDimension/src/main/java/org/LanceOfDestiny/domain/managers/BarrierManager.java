@@ -1,15 +1,9 @@
 package org.LanceOfDestiny.domain.managers;
 
-import org.LanceOfDestiny.LanceOfDestiny;
-import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.barriers.Barrier;
-import org.LanceOfDestiny.domain.barriers.BarrierTypes;
-import org.LanceOfDestiny.domain.behaviours.GameObject;
+import org.LanceOfDestiny.domain.barriers.*;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.physics.Vector;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
 import static org.LanceOfDestiny.domain.Constants.*;
@@ -18,13 +12,14 @@ public class BarrierManager {
 
     private static BarrierManager instance;
 
-    public ArrayList<Barrier> barriers;
+    public static ArrayList<Barrier> barriers;
     private BarrierTypes selectedBarrierType;
     private Barrier clickedBarrier;
     private Vector oldLocationOfBarrier;
     private BarrierManager() {
         barriers = new ArrayList<>();
         selectedBarrierType = BarrierTypes.SIMPLE;
+        Events.EndGame.addRunnableListener(this::removeAllBarriers);
     }
 
     public static BarrierManager getInstance() {
@@ -42,17 +37,17 @@ public class BarrierManager {
 
     public void removeBarrier(Barrier barrier) {
         barriers.remove(barrier);
-        if(barriers.isEmpty()) Events.WinGame.invoke();
+        // if(barriers.isEmpty()) Events.EndGame.invoke("You Win"); this is not pretty
     }
 
     public void deleteBarrier(Barrier barrier) {
-        barrier.removeBarrierSprite();
-        barriers.remove(barrier);
+        barrier.destroy();
     }
 
     public void removeAllBarriers() {
-        for (Barrier barrier : barriers) {
-            barrier.removeBarrierSprite();
+        for (int i = barriers.size()-1; i >= 0; i--) {
+            var barrier = barriers.get(i);
+            barrier.destroy();
         }
         barriers.clear();
     }
@@ -60,6 +55,7 @@ public class BarrierManager {
     public BarrierTypes getSelectedBarrierType() {
         return selectedBarrierType;
     }
+
     public void setSelectedBarrierType(BarrierTypes selectedBarrierType) {
         this.selectedBarrierType = selectedBarrierType;
     }
@@ -82,61 +78,66 @@ public class BarrierManager {
 
     public Barrier getBarrierByLocation(int x, int y) {
         for (Barrier barrier : barriers) {
+            double barrierX = barrier.getPosition().getX();
+            double barrierY = barrier.getPosition().getY();
+            double barrierWidth = BARRIER_WIDTH;
+            double barrierHeight = BARRIER_HEIGHT;
 
             if (barrier.getBarrierType() == BarrierTypes.EXPLOSIVE) {
-                if (barrier.getPosition().getX() <= x + 16 &&
-                        barrier.getPosition().getX() + 28 >= x + 16 &&
-                        barrier.getPosition().getY() <= y + 8 &&
-                        barrier.getPosition().getY() + 20 >= y + 8) {
+                double distanceX = x - barrierX;
+                double distanceY = y - barrierY;
+                double distanceSquared = distanceX * distanceX + distanceY * distanceY;
+                double radiusSquared = EXPLOSIVE_RADIUS * EXPLOSIVE_RADIUS;
+
+                if (distanceSquared <= radiusSquared) {
                     return barrier;
                 }
-            } else if (barrier.getPosition().getX() <= x &&
-                    barrier.getPosition().getX() + 28  >= x &&
-                    barrier.getPosition().getY() <= y &&
-                    barrier.getPosition().getY() + 20 >= y) {
-                return barrier;
+            } else {
+                if (x >= barrierX && x <= barrierX + barrierWidth &&
+                        y >= barrierY && y <= barrierY + barrierHeight) {
+                    return barrier;
+                }
             }
         }
         return null;
     }
-
     public boolean validateBarrierPlacement(int x, int y) {
         // this method allows 6 rows of barriers to be placed
         return (y <= 290);
     }
 
     public boolean isBarrierColliding(int x, int y) {
-        // Retrieve the list of barriers, assuming barriers is a member of the class
-        ArrayList<Barrier> barriers = BarrierManager.getInstance().getBarriers();
+        for (Barrier barrier : barriers) {
+            double barrierX = barrier.getPosition().getX();
+            double barrierY = barrier.getPosition().getY();
 
-        for (int i = 0; i < barriers.size(); i++) {
-            double barrierX = barriers.get(i).getPosition().getX();
-            double barrierY = barriers.get(i).getPosition().getY();
+            // Define the width and height for a rectangular barrier
+            double barrierWidth = BARRIER_WIDTH;
+            double barrierHeight = BARRIER_HEIGHT;
 
-            // Check right and below
-            if (x >= barrierX && x <= barrierX + 28 &&
-                    y >= barrierY && y <= barrierY + 20) {
-                System.out.println("Collision on the right or below detected");
-                return true;
-            }
+            if (barrier.getBarrierType() == BarrierTypes.EXPLOSIVE) {
+                // For explosive barriers, check collision as circles
+                double dx = x - barrierX;
+                double dy = y - barrierY;
+                double distanceSquared = dx * dx + dy * dy;
+                double combinedRadius = EXPLOSIVE_RADIUS + EXPLOSIVE_RADIUS; // If you are placing another explosive
+                double combinedRadiusSquared = combinedRadius * combinedRadius;
 
-            // Check left (28 pixels to the left of the barrier)
-            if (x <= barrierX && x >= barrierX - 28 &&
-                    y >= barrierY && y <= barrierY + 20) {
-                System.out.println("Collision on the left detected");
-                return true;
-            }
-
-            // Check above (20 pixels above the barrier)
-            if (x >= barrierX && x <= barrierX + 28 &&
-                    y <= barrierY && y >= barrierY - 20) {
-                System.out.println("Collision above detected");
-                return true;
+                if (distanceSquared < combinedRadiusSquared) {
+                    return true; // Collision detected
+                }
+            } else {
+                // For non-explosive barriers, check collision as rectangles
+                // Adjust x and y as if placing a new barrier's top left corner
+                if ((x + BARRIER_WIDTH > barrierX && x < barrierX + barrierWidth) &&
+                        (y + BARRIER_HEIGHT > barrierY && y < barrierY + barrierHeight)) {
+                    return true; // Collision detected
+                }
             }
         }
-
-        return false;
+        return false; // No collision detected
     }
+
 
     /**
      * Validates the number of barriers against defined criteria.
@@ -169,7 +170,21 @@ public class BarrierManager {
         return errorMessage.length() == 0 ? null : errorMessage.toString();
     }
 
-
+    public static void displayBarrierInfo() {
+        System.out.println("Barrier Manager Info");
+        System.out.println("Explosive Barrier Count: " + barriers.stream().filter(e -> {
+            return e instanceof ExplosiveBarrier;
+        }).toList().size());
+        System.out.println("Reinforced Barrier Count: " + barriers.stream().filter(e -> {
+            return e instanceof ReinforcedBarrier;
+        }).toList().size());
+        System.out.println("Simple Barrier Count: " + barriers.stream().filter(e -> {
+            return e instanceof SimpleBarrier;
+        }).toList().size());
+        System.out.println("Rewarding Barrier Count: " + barriers.stream().filter(e -> {
+            return e instanceof RewardingBarrier;
+        }).toList().size());
+    }
 
 
 }
