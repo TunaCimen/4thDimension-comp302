@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.domain.managers;
 
+import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.*;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.physics.Vector;
@@ -103,7 +104,7 @@ public class BarrierManager {
     }
     public boolean validateBarrierPlacement(int x, int y) {
         // this method allows 6 rows of barriers to be placed
-        return (y <= 290);
+        return (y <= Constants.SCREEN_HEIGHT-300);
     }
 
     public boolean isBarrierColliding(int x, int y) {

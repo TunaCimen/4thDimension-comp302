@@ -1,5 +1,4 @@
 package org.LanceOfDestiny;
-import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.ui.WindowManager;
 import org.LanceOfDestiny.ui.Windows;
 

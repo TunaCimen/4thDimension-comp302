@@ -50,5 +50,6 @@ public class RewardBoxFactory {
         for (int i = initSize - 1; i >= 0; i--) {
             rewardBoxes.get(i).destroy();
         }
+        rewardBoxes.clear();
     }
 }
