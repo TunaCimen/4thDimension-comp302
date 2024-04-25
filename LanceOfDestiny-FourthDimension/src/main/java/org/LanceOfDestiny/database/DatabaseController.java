@@ -2,6 +2,7 @@ package org.LanceOfDestiny.database;
 
 import org.LanceOfDestiny.domain.barriers.*;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
+import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.sql.*;
@@ -62,12 +63,13 @@ public class DatabaseController {
                 }
             }
         }
-        try (PreparedStatement pstmt2 = connection.prepareStatement("INSERT INTO UserInfoSaved (savedByUser, score, chances, numberOfSpells, saveName) VALUES (?, ?, ?, ?, ?)")) {
+        try (PreparedStatement pstmt2 = connection.prepareStatement("INSERT INTO UserInfoSaved (savedByUser, score, chances, numberOfSpells, saveName, time) VALUES (?, ?, ?, ?, ?, ?)")) {
             pstmt2.setString(1, username);
             pstmt2.setInt(2, score);
             pstmt2.setInt(3, chances);
             pstmt2.setString(4, numberOfSpells);
             pstmt2.setString(5, saveName);
+            pstmt2.setInt(6,SessionManager.getInstance().getLoopExecutor().getSecondsPassed());
             pstmt2.executeUpdate();
         }
         return true;
@@ -137,6 +139,7 @@ public class DatabaseController {
             if (resultSet.next()) {
                 int score = resultSet.getInt("score");
                 int chances = resultSet.getInt("chances");
+                int time = resultSet.getInt("time");
                 String numberofspells = resultSet.getString("numberOfSpells");
                 String[] parts = numberofspells.split(", ");
                 rt.add(String.valueOf(score));
@@ -145,6 +148,7 @@ public class DatabaseController {
                 rt.add(parts[1]);
                 rt.add(parts[2]);
                 rt.add(parts[3]);
+                rt.add(String.valueOf(time));
             }
         }
         return rt;
