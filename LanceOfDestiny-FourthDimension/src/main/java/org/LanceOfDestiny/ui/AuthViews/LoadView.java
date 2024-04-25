@@ -55,11 +55,13 @@ public class LoadView extends JFrame implements Window {
                     RewardBoxFactory.getInstance().removeRewardBoxes();
                     List<Behaviour> list = GameObject.getGameObjects();
                     System.out.println("After clearing");
+
                     BarrierManager.displayBarrierInfo();
                     GameObject.displayGameObjects();
                     LoadView.this.userManager.loadBarriers(name);
                     ScoreManager.getInstance().setScore(Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(0)));
                     SessionManager.getInstance().getPlayer().setChancesLeft(Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(1)));
+                    SessionManager.getInstance().setTimePassed(Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(6)));
                     SessionManager.getInstance().getPlayer().resetSpells();
                     for(int i=0;i<Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(3));i++){
                         Events.GainSpell.invoke(SpellType.EXPANSION);

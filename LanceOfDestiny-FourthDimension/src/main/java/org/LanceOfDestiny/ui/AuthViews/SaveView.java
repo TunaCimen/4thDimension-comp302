@@ -70,6 +70,7 @@ public class SaveView extends JFrame implements Window {
                 int canonspell = 0;
                 for(Spell s: SessionManager.getInstance().getPlayer().getSpellContainer().getSpells()){
                     if (s.getSpellType() == SpellType.CHANCE){
+
                         chancespell+=1;
                     }
                     else if (s.getSpellType() == SpellType.EXPANSION){

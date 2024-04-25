@@ -19,6 +19,14 @@ public class SimpleBarrier extends Barrier {
         this.sprite.setImage(ImageOperations.resizeImageToSprite(ImageLibrary.SimpleBarrier.getImage(),this.sprite));
         initDirection();
     }
+    public SimpleBarrier(Vector position,boolean moving) {
+        super(position, BarrierTypes.SIMPLE);
+        if ((new Random()).nextDouble() <= MOVE_PROBABILITY) isMoving = true;
+        this.sprite.color = new Color(0,0,0,0);
+        this.sprite.setImage(ImageOperations.resizeImageToSprite(ImageLibrary.SimpleBarrier.getImage(),this.sprite));
+        this.isMoving = moving;
+        initDirection();
+    }
 
     @Override
     public void onCollisionEnter(Collision collision) {

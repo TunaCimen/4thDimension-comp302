@@ -7,6 +7,8 @@ import org.LanceOfDestiny.domain.spells.SpellContainer;
 import org.LanceOfDestiny.domain.spells.SpellType;
 
 public class Player extends MonoBehaviour {
+
+    private static final int DEFAULT_CHANCES = 3;
     private static final int MIN_CHANCES = 0;
 
     private SpellContainer spellContainer;
