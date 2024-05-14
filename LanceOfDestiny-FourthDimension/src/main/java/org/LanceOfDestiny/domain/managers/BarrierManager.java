@@ -17,6 +17,7 @@ public class BarrierManager {
     private BarrierTypes selectedBarrierType;
     private Barrier clickedBarrier;
     private Vector oldLocationOfBarrier;
+
     private BarrierManager() {
         barriers = new ArrayList<>();
         selectedBarrierType = BarrierTypes.SIMPLE;

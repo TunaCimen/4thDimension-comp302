@@ -7,10 +7,6 @@ import org.LanceOfDestiny.domain.spells.SpellContainer;
 import org.LanceOfDestiny.domain.spells.SpellType;
 
 public class Player extends MonoBehaviour {
-
-    private static final int DEFAULT_CHANCES = 3;
-    private static final int MIN_CHANCES = 0;
-
     private SpellContainer spellContainer;
     private int chancesLeft;
 
@@ -43,6 +39,7 @@ public class Player extends MonoBehaviour {
     }
 
     public void setChancesLeft(int chance) {
+        var MIN_CHANCES = 0;
         this.chancesLeft = chance;
         this.chancesLeft = Math.max(chancesLeft, MIN_CHANCES);
         if(this.chancesLeft == MIN_CHANCES) {

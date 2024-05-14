@@ -30,7 +30,9 @@ public class FireBall extends GameObject {
         Events.EndGame.addRunnableListener(()->isAttached=true);
         Events.Reset.addRunnableListener(this::resetFireballPosition);
         Events.LoadGame.addRunnableListener(this::resetFireballPosition);
+        Events.ActivateDoubleAccel.addListener(this::handleDoubleAccel);
     }
+
 
     private void createColliderAndSprite() {
         int radius = Constants.FIREBALL_RADIUS;
@@ -89,6 +91,18 @@ public class FireBall extends GameObject {
         isOverwhelming = false;
         sprite.color = Color.BLACK;
         sprite.setImage(defaultImage);
+    }
+
+    private void handleDoubleAccel(Object object) {
+        if((boolean) object) enableDoubleAccel();
+        else disableDoubleAccel();
+    }
+
+    private void enableDoubleAccel() {
+        //TODO: set fireball speed to half
+    }
+    private void disableDoubleAccel() {
+        //TODO: set fireball speed to default
     }
 
     public void fireBallDropped() {
