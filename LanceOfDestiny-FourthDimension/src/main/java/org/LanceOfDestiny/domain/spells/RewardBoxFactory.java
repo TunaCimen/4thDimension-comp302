@@ -1,15 +1,19 @@
 package org.LanceOfDestiny.domain.spells;
 
 import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class RewardBoxFactory {
 
     private static RewardBoxFactory instance;
     private static ArrayList<RewardBox> rewardBoxes = new ArrayList<>();
+    private static final Random RANDOM = new Random();
 
 
     private RewardBoxFactory() {
@@ -34,8 +38,17 @@ public class RewardBoxFactory {
         return rewardBox;
     }
 
-    public static SpellType getRandomSpellType(){
-        return SpellType.values()[new Random().nextInt(SpellType.values().length)];
+    public static SpellType getRandomSpellType() {
+        if (SessionManager.getInstance().isMultiplayer()) {
+            // Any type of spell in multiplayer mode
+            return SpellType.values()[RANDOM.nextInt(SpellType.values().length)];
+        } else {
+            // Only good spells in single-player mode
+            List<SpellType> goodSpells = Arrays.stream(SpellType.values())
+                    .filter(SpellType::isGood)
+                    .toList();
+            return goodSpells.get(RANDOM.nextInt(goodSpells.size()));
+        }
     }
 
     public ArrayList<RewardBox> getRewardBoxes() {

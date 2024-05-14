@@ -41,6 +41,9 @@ public class SessionManager {
         Events.EndGame.addRunnableListener(()->getLoopExecutor().stop());
         Events.ResumeGame.addRunnableListener(()->getLoopExecutor().resume());
 
+        //should change, we only have single player mode now, maybe convert game mode to enum
+        isMultiplayer = false;
+
     }
 
     public static SessionManager getInstance() {
