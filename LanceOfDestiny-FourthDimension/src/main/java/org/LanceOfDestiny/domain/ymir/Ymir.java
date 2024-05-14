@@ -1,35 +1,41 @@
 package org.LanceOfDestiny.domain.ymir;
 
 import org.LanceOfDestiny.domain.behaviours.MonoBehaviour;
-import org.LanceOfDestiny.domain.spells.curses.CurseType;
+import org.LanceOfDestiny.domain.spells.SpellType;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class Ymir extends MonoBehaviour {
 
-    private ArrayList<CurseType> recentCurses = new ArrayList<>();
+    private static final int COIN_FLIP_INTERVAL = 30;
+    private static final double COIN_FLIP_PROBABILITY = 0.5;
+    private final Random RANDOM = new Random();
+    private SpellType[] lastTwoAbilities = new SpellType[2];
 
      public Ymir() {
         super();
+         lastTwoAbilities[0] = getRandomCurse();
+         lastTwoAbilities[1] = getRandomCurse();
     }
 
-    private void addCurseToRecent(CurseType curseType){
-         recentCurses.add(curseType);
+    @Override
+    public void update() {
+        super.update();
     }
 
-    public void activateRandomCurse() {
-         return;
+    private SpellType getRandomCurse() {
+        List<SpellType> badSpells = Arrays.stream(SpellType.values())
+                .filter(spellType -> !spellType.isGood())
+                .toList();
+        return badSpells.get(RANDOM.nextInt(badSpells.size()));
     }
 
-    public CurseType getRandomCurse() {
-         return CurseType.DOUBLE_ACCEL;
+    private void updateLastTwoAbilities(SpellType newAbility) {
+        lastTwoAbilities[0] = lastTwoAbilities[1];
+        lastTwoAbilities[1] = newAbility;
     }
-
-
-
-
-
-
 
 
 }
