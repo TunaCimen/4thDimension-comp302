@@ -23,6 +23,7 @@ public class SessionManager {
     private DrawCanvas drawCanvas;
     BufferedImage image;
     private SessionBuilder builder;
+    private boolean isMultiplayer;
 
     private SessionManager() {
         this.drawCanvas = new DrawCanvas();
@@ -39,6 +40,9 @@ public class SessionManager {
         Events.LoadGame.addRunnableListener(()->getLoopExecutor().setTimePassed(0));
         Events.EndGame.addRunnableListener(()->getLoopExecutor().stop());
         Events.ResumeGame.addRunnableListener(()->getLoopExecutor().resume());
+
+        //should change, we only have single player mode now, maybe convert game mode to enum
+        isMultiplayer = false;
 
     }
 
@@ -102,5 +106,11 @@ public class SessionManager {
     }
 
 
+    public boolean isMultiplayer() {
+        return isMultiplayer;
+    }
 
+    public void setMultiplayer(boolean multiplayer) {
+        isMultiplayer = multiplayer;
+    }
 }

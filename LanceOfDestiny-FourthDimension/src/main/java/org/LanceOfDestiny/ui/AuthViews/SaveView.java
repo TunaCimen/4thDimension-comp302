@@ -5,8 +5,6 @@ import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.ScoreManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
-import org.LanceOfDestiny.domain.spells.Spell;
-import org.LanceOfDestiny.domain.spells.SpellContainer;
 import org.LanceOfDestiny.domain.spells.SpellType;
 import org.LanceOfDestiny.ui.Window;
 

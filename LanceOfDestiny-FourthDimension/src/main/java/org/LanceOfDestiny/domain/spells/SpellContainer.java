@@ -17,7 +17,7 @@ public class SpellContainer extends MonoBehaviour {
     private boolean isSpellActive = false;
     private int spellEndSecond;
     private final int spellDurationSecond = Constants.SPELL_DURATION;
-    private Spell activeSpell;
+    private SpellType activeSpellType;
 
     public SpellContainer() {
         for (SpellType spellType : SpellType.values()) {
@@ -38,7 +38,7 @@ public class SpellContainer extends MonoBehaviour {
     public void update() {
         super.update();
         if (isSpellActive) {
-            if (loopExecutor.getSecondsPassed() >= spellEndSecond ) {
+            if (loopExecutor.getSecondsPassed() >= spellEndSecond) {
                 deactivateActiveSpell();
             }
         }
@@ -50,7 +50,7 @@ public class SpellContainer extends MonoBehaviour {
             Events.UpdateChance.invoke(1);
             return;
         }
-        if (spellExists(spellType)){
+        if (spellExists(spellType)) {
             return;
         }
         spellMap.put(spellType, true);
@@ -60,8 +60,8 @@ public class SpellContainer extends MonoBehaviour {
         if (!spellExists(spellType)) return;
         if (isSpellActive) return;
         isSpellActive = true;
-        activeSpell = SpellFactory.createSpell(spellType);
-        activeSpell.activateSpell();
+        activeSpellType = spellType;
+        spellType.activate();
         removeSpell(spellType);
         spellEndSecond = loopExecutor.getSecondsPassed() + spellDurationSecond;
         Events.ActivateSpellUI.invoke(spellType);
@@ -69,8 +69,8 @@ public class SpellContainer extends MonoBehaviour {
 
     public void deactivateActiveSpell() {
         isSpellActive = false;
-        if(activeSpell!= null) activeSpell.deactivateSpell();
-        activeSpell = null;
+        if (activeSpellType != null) activeSpellType.deactivate();
+        activeSpellType = null;
     }
 
     public void removeSpell(SpellType spellType) {
@@ -84,5 +84,4 @@ public class SpellContainer extends MonoBehaviour {
     public HashMap<SpellType, Boolean> getSpellMap() {
         return spellMap;
     }
-
 }
