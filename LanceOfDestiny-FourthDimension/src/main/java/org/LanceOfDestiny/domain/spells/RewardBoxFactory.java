@@ -30,6 +30,7 @@ public class RewardBoxFactory {
     public static RewardBox createRewardBox(Vector position, SpellType spellType) {
         var rewardBox = new RewardBox(position, spellType);
         rewardBoxes.add(rewardBox);
+        System.out.println(spellType);
         return rewardBox;
     }
 
