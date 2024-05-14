@@ -71,13 +71,11 @@ public enum SpellType {
     INFINITE_VOID {
         @Override
         public void activate() {
-            // Implement the activation logic for Infinite Void
             Events.ActivateInfiniteVoid.invoke(true);
         }
 
         @Override
         public void deactivate() {
-            // Implement the deactivation logic for Infinite Void
             Events.ActivateInfiniteVoid.invoke(false);
         }
 
@@ -89,13 +87,11 @@ public enum SpellType {
     DOUBLE_ACCEL {
         @Override
         public void activate() {
-            // Implement the activation logic for Double Accel
             Events.ActivateDoubleAccel.invoke(true);
         }
 
         @Override
         public void deactivate() {
-            // Implement the deactivation logic for Double Accel
             Events.ActivateDoubleAccel.invoke(false);
         }
 
@@ -107,13 +103,11 @@ public enum SpellType {
     HOLLOW_PURPLE {
         @Override
         public void activate() {
-            // Implement the activation logic for Hollow Purple
             Events.ActivateHollowPurple.invoke(true);
         }
 
         @Override
         public void deactivate() {
-            // Implement the deactivation logic for Hollow Purple
             Events.ActivateHollowPurple.invoke(false);
         }
 
