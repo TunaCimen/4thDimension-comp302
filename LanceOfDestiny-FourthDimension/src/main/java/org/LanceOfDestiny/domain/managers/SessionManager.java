@@ -35,17 +35,35 @@ public class SessionManager {
         this.builder = new SessionBuilder(0, 0, 0, 0);
         currentMode = Status.EditMode;
         loopExecutor.setLooper(gameLooper);
-        Events.BuildDoneEvent.addRunnableListener(this::initializeBarriers);
-        Events.Reset.addRunnableListener(() -> getPlayer().setChancesLeft(Constants.DEFAULT_CHANCES));
-        Events.Reset.addRunnableListener(() -> getLoopExecutor().setLoadedTime(0));
-        Events.Reset.addRunnableListener(() -> getLoopExecutor().setTimePassed(0));
-        Events.LoadGame.addRunnableListener(() -> getLoopExecutor().setTimePassed(0));
-        Events.EndGame.addRunnableListener(() -> getLoopExecutor().stop());
-        Events.ResumeGame.addRunnableListener(() -> getLoopExecutor().resume());
+        subscribeEvents();
 
+    }
+
+    private void subscribeEvents() {
+        Events.BuildDoneEvent.addRunnableListener(this::initializeBarriers);
+       
         //should change, we only have single player mode now
         gameMode = GameMode.SINGLEPLAYER;
 
+
+        Events.Reset.addRunnableListener(()->getPlayer().setChancesLeft(Constants.DEFAULT_CHANCES));
+        Events.Reset.addRunnableListener(()->getLoopExecutor().setLoadedTime(0));
+        Events.Reset.addRunnableListener(()->getLoopExecutor().setTimePassed(0));
+        Events.LoadGame.addRunnableListener(()->getLoopExecutor().setTimePassed(0));
+        Events.EndGame.addRunnableListener(()->getLoopExecutor().stop());
+        Events.ResumeGame.addRunnableListener(()->getLoopExecutor().resume());
+        Events.PauseGame.addRunnableListener(()->{
+            getLoopExecutor().stop();
+            setStatus(Status.PausedMode);
+        });
+        Events.StartGame.addRunnableListener(()->{
+            if (!getLoopExecutor().isStarted()) {
+                getLoopExecutor().start();
+            } else {
+                getLoopExecutor().resume();
+            }
+            setStatus(Status.RunningMode);
+        });
     }
 
     public static SessionManager getInstance() {

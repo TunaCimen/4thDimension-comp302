@@ -14,11 +14,18 @@ public enum ImageLibrary {
     MagicalStaff("Image/MagicalStaff.png"),
     RewardBox("Image/RewardBox.png"),
     CannonSpell("Image/CannonSpell.png"),
+
     OverWhelmingSpell("Image/OverwhelmSpell.png"),
     ExpansionSpell("Image/ExpansionSpell.png"),
     ExplosiveBarrier("Image/ExplosiveBarrier.png"),
     SimpleBarrier("Image/SimpleBarrier.png"),
     ReinforcedBarrier("Image/ReinforcedBarrier.png"),
+
+
+
+    DoubleAccelSpell("Image/snow_flake.png"),
+    HollowSpell("Image/hourglass.png"),
+
     Canon("Image/Canon.png"),
     Background("Image/Background.png"),
     HollowBarrier("Image/HollowBarrier.png"),

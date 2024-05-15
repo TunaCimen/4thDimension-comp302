@@ -10,8 +10,6 @@ import javax.swing.*;
 public class GameExec extends Behaviour {
 
     private final JPanel drawCanvas;
-
-
     private boolean isPaused = false;
     public GameExec(JPanel drawCanvas) {
         this.drawCanvas = drawCanvas;
@@ -39,7 +37,6 @@ public class GameExec extends Behaviour {
     }
 
     public void pauseGame() {
-
         isPaused = true;
     }
 

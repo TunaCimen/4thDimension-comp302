@@ -57,7 +57,7 @@ public class Player extends MonoBehaviour {
     public void resetSpells(){
         this.spellContainer.getSpellMap().forEach((a,b)-> b = false);
         for(SpellType spellType : SpellType.values()){
-            Events.ActivateSpellUI.invoke(spellType);
+            Events.ResetSpells.invoke(spellType);
         }
     }
 

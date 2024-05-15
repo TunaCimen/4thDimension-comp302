@@ -53,7 +53,7 @@ public abstract class Looper {
                 timePassed += System.nanoTime() - startTime;
                 startTime = System.nanoTime();
                 action.update();
-                System.out.println(getSecondsPassed());
+                //System.out.println(getSecondsPassed());
             }
             else{
                 startTime = System.nanoTime();
