@@ -36,7 +36,7 @@ public class SignUpView extends javax.swing.JFrame implements Window {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lance of Destiny");
         setPreferredSize(new java.awt.Dimension(800, 500));
 
