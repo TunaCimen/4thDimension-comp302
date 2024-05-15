@@ -32,10 +32,20 @@ public enum Events {
     //FIREBALL EVENTS
     ShootBall(Object.class),
     ResetFireBall(Object.class),
+    // Events after opponent is notified
+    ReceiveChanceUpdate(Integer.class),
+    ReceiveScoreUpdate(Integer.class),
+    ReceiveBarrierCountUpdate(Integer.class),
+    // Events to notify the opponent
+    SendChanceUpdate(Object.class),
+    SendScoreUpdate(Object.class),
+    SendBarrierCountUpdate(Object.class),
     // GAME STAT. EVENTS
-    UpdateChance(Integer.class),
+    // The second args are events that are invoked after all the listeners of the actual event are invoked
+    UpdateChance(Integer.class,SendChanceUpdate),
+    UpdateBarrierCount(Object.class, SendBarrierCountUpdate),
+    UpdateScore(Object.class, SendScoreUpdate),
     EndGame(String.class),
-    UpdateScore(Object.class),
     //SPELL EVENTS
     GainSpell(SpellType.class),
     TryUsingSpell(SpellType.class),
@@ -54,38 +64,27 @@ public enum Events {
     StartGame(Object.class),
     SaveGame(Object.class),
     LoadGame(Object.class),
-
     WaitEvent(Object.class),
     ResetColorEvent(Object.class),
-    TimedTestEvent(Color.class, 2000, ResetColorEvent),
+    TimedTestEvent(Color.class, ResetColorEvent),
     CanvasUpdateEvent(Object.class),
-
     BuildDoneEvent(Object.class),
-
-
     Reset(Object.class),
     ResetSpells(Object.class);
-
-
     //It is the Class that the particular event wants the invocation.
     final Class<?> paramType;
     Timer timer = null;
     boolean isActive = false;
     //List that listeners subscribe to.
     private List<Consumer<Object>> listeners = new ArrayList<>();
-
+    Events onFinishEvent;
     Events(Class<?> stringClass) {
         paramType = stringClass;
     }
 
-    Events(Class<?> stringClass, int duration, Events onFinish) {
+    Events(Class<?> stringClass, Events onFinish) {
         paramType = stringClass;
-        timer = new Timer(duration, e -> {
-            onFinish.invoke();
-            System.out.println(LocalTime.now().getSecond());
-            isActive = false;
-            ((Timer) e.getSource()).stop();
-        });
+        onFinishEvent = onFinish;
     }
 
     public static void clearAllListeners() {
@@ -122,6 +121,9 @@ public enum Events {
                 e.printStackTrace();
                 System.out.println("Wrong Argument to Invoke for:" + this.name() + "\n" + "Check your casting for listeners.Note:Tunic");
             }
+        }
+        if(onFinishEvent != null){
+            onFinishEvent.invoke();
         }
     }
 
