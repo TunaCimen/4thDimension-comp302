@@ -22,7 +22,9 @@ public class NetworkManager {
         Events.SendChanceUpdate.addRunnableListener(() -> sendGameState("Chances: " + SessionManager.getInstance().getPlayer().getChancesLeft()));
         Events.SendScoreUpdate.addRunnableListener(() -> sendGameState("Score: " + ScoreManager.getInstance().getScore()));
         Events.SendBarrierCountUpdate.addRunnableListener(() -> sendGameState("Barrier Count: " + BarrierManager.barriers.size()));
+
         Events.TryJoiningSession.addListener(this::joinGame);
+
     }
 
     public static NetworkManager getInstance() {
@@ -37,6 +39,7 @@ public class NetworkManager {
         socket = serverSocket.accept();
         setupStreams();
     }
+
 
     public void joinGame(Object ip) {
         try {
@@ -76,6 +79,7 @@ public class NetworkManager {
         }).start();
     }
 
+
     private void handleReceivedGameState(String gameState) {
         if (gameState == null || gameState.isEmpty()) {
             return;
@@ -89,7 +93,6 @@ public class NetworkManager {
         String eventData = parts[1].trim();
         switch (eventType) {
             case "Chances":
-                System.out.println("Chances Received Game State");
                 Events.ReceiveChanceUpdate.invoke(Integer.parseInt(eventData));
                 break;
             case "Score":
@@ -111,3 +114,6 @@ public class NetworkManager {
         if (serverSocket != null) serverSocket.close();
     }
 }
+
+
+

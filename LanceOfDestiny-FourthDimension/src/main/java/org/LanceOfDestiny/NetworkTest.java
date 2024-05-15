@@ -9,7 +9,6 @@ public class NetworkTest {
     public static void main(String[] args) {
         NetworkManager networkManager = NetworkManager.getInstance();
         Scanner scanner = new Scanner(System.in);
-
         System.out.println("Choose mode: ");
         System.out.println("1. Host a Game");
         System.out.println("2. Join a Game");
