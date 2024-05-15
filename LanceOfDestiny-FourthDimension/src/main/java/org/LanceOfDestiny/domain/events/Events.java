@@ -40,12 +40,19 @@ public enum Events {
     GainSpell(SpellType.class),
     TryUsingSpell(SpellType.class),
     ActivateSpellUI(SpellType.class),
+    //GOOD SPELLS
     ActivateCanons(Boolean.class),
     ActivateOverwhelming(Boolean.class),
     ActivateExpansion(Boolean.class),
+    //BAD SPELLS
+    TryUsingCurse(SpellType.class),
+    ActivateHollowPurple(Object.class),
+    ActivateInfiniteVoid(Boolean.class),
+    ActivateDoubleAccel(Boolean.class),
     // EVENTS RELATED TO OTHER GAME FEATURES
     PauseGame(Object.class),
     ResumeGame(Object.class),
+    StartGame(Object.class),
     SaveGame(Object.class),
     LoadGame(Object.class),
 
@@ -55,7 +62,10 @@ public enum Events {
     CanvasUpdateEvent(Object.class),
 
     BuildDoneEvent(Object.class),
-    Reset(Object.class);
+
+    Reset(Object.class),
+    ResetSpells(Object.class);
+
     //It is the Class that the particular event wants the invocation.
     final Class<?> paramType;
     Timer timer = null;

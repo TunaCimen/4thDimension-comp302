@@ -18,6 +18,13 @@ public class BarrierFactory {
         return createdBarrier;
     }
 
+    public static HollowBarrier createHollowBarrier(Vector position) {
+        var hollowBarrier = new HollowBarrier(position);
+        BarrierManager.getInstance().addBarrier(hollowBarrier);
+        BarrierManager.getInstance().addHollowBarrier(hollowBarrier);
+        return hollowBarrier;
+    }
+
     private static int calculateHitsRequired() {
         int chance = (new Random()).nextInt(100);
         if (chance < 50) {                // 50% probability

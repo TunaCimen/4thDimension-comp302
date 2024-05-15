@@ -7,8 +7,7 @@ import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.physics.ColliderFactory;
 import org.LanceOfDestiny.domain.physics.ColliderType;
 import org.LanceOfDestiny.domain.physics.Vector;
-import org.LanceOfDestiny.domain.sprite.BallSprite;
-import org.LanceOfDestiny.domain.sprite.RectangleSprite;
+import org.LanceOfDestiny.domain.sprite.*;
 
 import java.awt.*;
 import java.util.Random;
@@ -22,6 +21,9 @@ public abstract class Barrier extends GameObject {
     protected boolean isMoving;
     protected int hitsLeft;
     protected boolean isFalling;
+    protected boolean isFrozen;
+    protected Sprite defaultSprite;
+    protected Sprite frozenSprite;
 
 
     public Barrier(Vector position, BarrierTypes type, int hitsRequired) {
@@ -29,9 +31,9 @@ public abstract class Barrier extends GameObject {
         this.position = position;
         this.barrierType = type;
         this.hitsLeft = hitsRequired;
+        this.isFrozen = false;
         createColliderAndSprite();
     }
-
 
     public Barrier(Vector position, BarrierTypes type) {
         this(position, type, 1);
@@ -45,6 +47,9 @@ public abstract class Barrier extends GameObject {
         }
         this.collider = ColliderFactory.createRectangleCollider(this, Vector.getZeroVector(), ColliderType.STATIC, WIDTH, HEIGHT);
         this.sprite = new RectangleSprite(this, Color.DARK_GRAY, WIDTH, HEIGHT);
+        this.defaultSprite = sprite;
+        this.frozenSprite = new RectangleSprite(this, Color.DARK_GRAY, WIDTH, HEIGHT);
+        this.frozenSprite.setImage(ImageOperations.resizeImageToSprite(ImageLibrary.FrozenBarrierRectangle.getImage(), this.sprite));
     }
 
     @Override
@@ -113,7 +118,23 @@ public abstract class Barrier extends GameObject {
         isMoving = moving;
     }
 
+    public void activateFrozen() {
+        isFrozen = true;
+        this.sprite = frozenSprite;
+    }
 
+    public void deactivateFrozen() {
+        isFrozen = false;
+        this.sprite = defaultSprite;
+    }
+
+    public boolean isFrozen() {
+        return isFrozen;
+    }
+
+    public void setFrozen(boolean frozen) {
+        isFrozen = frozen;
+    }
 
     @Override
 public String toString() {

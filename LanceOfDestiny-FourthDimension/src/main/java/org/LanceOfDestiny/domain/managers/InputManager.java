@@ -2,12 +2,10 @@ package org.LanceOfDestiny.domain.managers;
 
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.spells.SpellType;
+import org.LanceOfDestiny.domain.spells.curses.CurseType;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 
 public class InputManager implements KeyListener {
 
@@ -15,6 +13,7 @@ public class InputManager implements KeyListener {
     public int moveKey;
     public int rotateKey;
     public int activateSpellKey;
+    public int activateCurseKey;
 
     public boolean isShootFlag;
 
@@ -41,6 +40,8 @@ public class InputManager implements KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_O || e.getKeyCode() == KeyEvent.VK_E || e.getKeyCode() == KeyEvent.VK_C) {
             activateSpellKey = e.getKeyCode();
         }
+        if (e.getKeyCode() == KeyEvent.VK_1 || e.getKeyCode() == KeyEvent.VK_2 || e.getKeyCode() == KeyEvent.VK_3 ) {
+            activateCurseKey = e.getKeyCode();}
     }
 
     @Override
@@ -49,6 +50,7 @@ public class InputManager implements KeyListener {
         if (moveKey == e.getKeyCode()) moveKey = -1;
         if (rotateKey == e.getKeyCode()) rotateKey = -1;
         if (activateSpellKey == e.getKeyCode()) activateSpellKey = -1;
+        if (activateCurseKey == e.getKeyCode()) activateCurseKey = -1;
     }
 
     public void updateActions() {
@@ -56,7 +58,6 @@ public class InputManager implements KeyListener {
         updateMovement();
         updateSpellActivation();
     }
-
 
     private void updateRotation() {
         if (rotateKey == KeyEvent.VK_A) Events.RotateStaff.invoke(-1d);
@@ -75,6 +76,8 @@ public class InputManager implements KeyListener {
         if (activateSpellKey == KeyEvent.VK_E) Events.TryUsingSpell.invoke(SpellType.EXPANSION);
         if (activateSpellKey == KeyEvent.VK_C) Events.TryUsingSpell.invoke(SpellType.CANON);
         if (activateSpellKey == KeyEvent.VK_O) Events.TryUsingSpell.invoke(SpellType.OVERWHELMING);
+        if (activateCurseKey == KeyEvent.VK_1) Events.TryUsingCurse.invoke(SpellType.INFINITE_VOID);
+        if (activateCurseKey == KeyEvent.VK_2) Events.TryUsingCurse.invoke(SpellType.DOUBLE_ACCEL);
+        if (activateCurseKey == KeyEvent.VK_3) Events.TryUsingCurse.invoke(SpellType.HOLLOW_PURPLE);
     }
-
 }

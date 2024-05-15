@@ -25,10 +25,14 @@ public class FireBall extends GameObject {
         this.position = Constants.FIREBALL_POSITION;
         createColliderAndSprite();
         Events.ActivateOverwhelming.addListener(this::handleOverwhelming);
+        Events.ActivateDoubleAccel.addListener(this::handleDoubleAccel);
         Events.ShootBall.addRunnableListener(this::shootBall);
         Events.LoadGame.addRunnableListener(() -> isAttached = true);
         Events.EndGame.addRunnableListener(()->isAttached=true);
+        Events.Reset.addRunnableListener(this::resetFireballPosition);
+        Events.LoadGame.addRunnableListener(this::resetFireballPosition);
     }
+
 
     private void createColliderAndSprite() {
         int radius = Constants.FIREBALL_RADIUS;
@@ -89,6 +93,20 @@ public class FireBall extends GameObject {
         sprite.setImage(defaultImage);
     }
 
+    private void handleDoubleAccel(Object object) {
+        if((boolean) object) enableDoubleAccel();
+        else disableDoubleAccel();
+    }
+
+    private void enableDoubleAccel() {
+        var newVelocity = new Vector(collider.getVelocity().getX()/2, collider.getVelocity().getY()/2);
+        this.collider.setVelocity(newVelocity);
+    }
+    private void disableDoubleAccel() {
+        var newVelocity = new Vector(collider.getVelocity().getX()*2, collider.getVelocity().getY()*2);
+        this.collider.setVelocity(newVelocity);
+    }
+
     public void fireBallDropped() {
         Events.UpdateChance.invoke(-1);
         isAttached = true;
@@ -103,13 +121,23 @@ public class FireBall extends GameObject {
             fireBallDropped();
             return;
         }
+
         if (other instanceof Barrier) {
+            if (((Barrier) other).isFrozen()) {
+                if(isOverwhelming) ((Barrier) other).reduceLife();
+                return;
+            }
             if(isOverwhelming) ((Barrier) other).kill();
             else ((Barrier) other).reduceLife();
         }
+
     }
 
     public boolean isOverwhelming() {
         return isOverwhelming;
+    }
+
+    public void resetFireballPosition() {
+        this.position = Constants.FIREBALL_POSITION;
     }
 }

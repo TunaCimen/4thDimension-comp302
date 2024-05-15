@@ -7,28 +7,26 @@ import org.LanceOfDestiny.domain.looper.LoopExecutor;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Spells gained by the Player will be held here.
  **/
 public class SpellContainer extends MonoBehaviour {
-    private List<Spell> spells;
     private HashMap<SpellType, Boolean> spellMap = new HashMap<>();
     private final LoopExecutor loopExecutor = SessionManager.getInstance().getLoopExecutor();
     private boolean isSpellActive = false;
     private int spellEndSecond;
     private final int spellDurationSecond = Constants.SPELL_DURATION;
-    private Spell activeSpell;
+    private SpellType activeSpellType;
 
     public SpellContainer() {
-        spells = new LinkedList<>();
         for (SpellType spellType : SpellType.values()) {
             if (spellType.equals(SpellType.CHANCE)) continue;
             spellMap.put(spellType, false);
         }
         Events.GainSpell.addListener(this::addSpell);
+        Events.LoadGame.addRunnableListener(this::deactivateActiveSpell);
+        Events.Reset.addRunnableListener(this::deactivateActiveSpell);
     }
 
     @Override
@@ -40,25 +38,22 @@ public class SpellContainer extends MonoBehaviour {
     public void update() {
         super.update();
         if (isSpellActive) {
-            if (loopExecutor.getSecondsPassed() >= spellEndSecond ) {
-                deactivateSpell(activeSpell);
+
+            if (loopExecutor.getSecondsPassed() >= spellEndSecond) {
+                deactivateActiveSpell();
             }
         }
     }
 
     public void addSpell(Object spellObject) {
         var spellType = (SpellType) spellObject;
-        var spell = SpellFactory.createSpell(spellType);
         if (spellType.equals(SpellType.CHANCE)) {
             Events.UpdateChance.invoke(1);
             return;
         }
-
-        if (spellExists(spellType)){
+        if (spellExists(spellType)) {
             return;
         }
-
-        spells.add(spell);
         spellMap.put(spellType, true);
     }
 
@@ -66,45 +61,21 @@ public class SpellContainer extends MonoBehaviour {
         if (!spellExists(spellType)) return;
         if (isSpellActive) return;
         isSpellActive = true;
-        var spell = getSpell(spellType);
-        spell.activateSpell();
-        activeSpell = spell;
-        removeSpell(spell);
+        activeSpellType = spellType;
+        spellType.activate();
+        removeSpell(spellType);
         spellEndSecond = loopExecutor.getSecondsPassed() + spellDurationSecond;
         Events.ActivateSpellUI.invoke(spellType);
     }
 
-    public void deactivateSpell(Spell spell) {
+    public void deactivateActiveSpell() {
         isSpellActive = false;
-        spell.deactivateSpell();
-        activeSpell = null;
+        if (activeSpellType != null) activeSpellType.deactivate();
+        activeSpellType = null;
     }
 
-    public void removeSpell(Spell spell) {
-        spells.remove(spell);
-        spellMap.put(spell.getSpellType(), false);
-    }
-
-    public Spell getSpell(SpellType spellType) {
-        if (!spellExists(spellType)) {
-            return null;
-        }
-
-        for (Spell spell : spells) {
-            if (spell.getSpellType() == spellType) {
-                return spell;
-            }
-        }
-        return null;
-    }
-    public void deactivateAllSpells() {
-        if (activeSpell != null) {
-            deactivateSpell(activeSpell);
-        }
-        spells.forEach(this::deactivateSpell);
-    }
-    public List<Spell> getSpells() {
-        return spells;
+    public void removeSpell(SpellType spellType) {
+        spellMap.put(spellType, false);
     }
 
     private boolean spellExists(SpellType spellType) {

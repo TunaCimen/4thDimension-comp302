@@ -7,10 +7,11 @@ import javax.swing.*;
 
 public abstract class Looper {
     protected boolean active = false;
-
     protected abstract void routine() throws LoopEndedException;
+    long timePassed;
+    long startTime;
 
-    abstract int getSecondsPassed();
+    int loadedTime;
 
     public void run() {
         active = true;
@@ -32,6 +33,10 @@ public abstract class Looper {
         active = false;
     }
 
+    public void resume(){
+        active = true;
+    }
+
     public boolean isActive() {
         return active;
     }
@@ -43,12 +48,27 @@ public abstract class Looper {
 
     public void execute(Behaviour action) throws LoopEndedException {
         action.start();
-
         Timer timer = new Timer((int) (1000 * Constants.UPDATE_RATE), e -> {
-            action.update();
+            if(isActive()){
+                timePassed += System.nanoTime() - startTime;
+                startTime = System.nanoTime();
+                action.update();
+                //System.out.println(getSecondsPassed());
+            }
+            else{
+                startTime = System.nanoTime();
+            }
         });
-        timer.start();
+            timer.start();
 
+    }
+
+    public int getSecondsPassed(){
+        return ((int) (timePassed * Math.pow(10, -9))) + loadedTime ;
+    }
+
+    public void setTimePassed(int timePassed){
+        this.timePassed = timePassed;
     }
 
 

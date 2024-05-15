@@ -1,25 +1,35 @@
 package org.LanceOfDestiny.domain.looper;
 
-import java.time.LocalTime;
-
 public class LoopExecutor {
 
     private Looper mLoop;
     private Thread mThread = null;
-    private LocalTime startingTime;
+
+    private boolean isStarted = false;
 
     public void start() {
         if (mThread != null) {
-            startingTime = LocalTime.now();
+            isStarted = true;
+            mLoop.startTime = System.nanoTime();
             mThread.start();
         }
+    }
+
+    public boolean isStarted(){
+        return isStarted;
     }
 
     public void stop() {
         if (mLoop != null) {
             mLoop.stop();
         }
-        mThread = null;
+        //mThread = null;
+    }
+    public void resume() {
+        if (mLoop != null) {
+            mLoop.resume();
+        }
+       // mThread = null;
     }
 
     public void setLooper(Looper newLooper) {
@@ -34,13 +44,18 @@ public class LoopExecutor {
     public int getSecondsPassed() {
         return mLoop.getSecondsPassed();
     }
+    public void setTimePassed(int timePassed) {
+        mLoop.setTimePassed(timePassed);
+    }
+
+    public void setLoadedTime(int loadedTime){
+        mLoop.loadedTime = loadedTime;
+    }
 
 
     public Looper getLoop() {
         return mLoop;
     }
 
-    public LocalTime getStartingTime() {
-        return startingTime;
-    }
+
 }
