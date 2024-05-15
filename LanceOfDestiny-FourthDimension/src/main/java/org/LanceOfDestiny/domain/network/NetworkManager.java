@@ -1,4 +1,6 @@
 package org.LanceOfDestiny.domain.network;
+import org.LanceOfDestiny.domain.managers.InputManager;
+
 import java.io.*;
 import java.net.Socket;
 import java.net.ServerSocket;
@@ -8,6 +10,19 @@ import java.net.ServerSocket;
         private ServerSocket serverSocket;
         private BufferedReader in;
         private PrintWriter out;
+
+        private static NetworkManager instance;
+
+
+        private NetworkManager() {
+        }
+
+        public static NetworkManager getInstance() {
+            if (instance == null) {
+                instance = new NetworkManager();
+            }
+            return instance;
+        }
 
         public void hostGame(int port) throws IOException {
             serverSocket = new ServerSocket(port);
