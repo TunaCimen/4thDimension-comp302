@@ -7,21 +7,23 @@ import java.io.IOException;
 
 public enum ImageLibrary {
 
-    FireBall("Image/200Fireball.png"),
+    FireBall("Image/Fireball.png"),
     FireBallOverwhelmed("Image/FireballOverwhelmed.png"),
-    RewardingBarrier("Image/200Greengem.png"),
-    Heart("Image/200Heart.png"),
-    MagicalStaff("Image/200Player.png"),
+    RewardingBarrier("Image/RewardingBarrier.png"),
+    Heart("Image/Heart.png"),
+    MagicalStaff("Image/MagicalStaff.png"),
     RewardBox("Image/RewardBox.png"),
     CannonSpell("Image/CannonSpell.png"),
-    OverWhelmingSpell("Image/Overwhelm.png"),
-    ExpansionSpell("Image/expansion.png"),
-    ExplosiveBarrier("Image/bomb.png"),
-    SimpleBarrier("Image/BlueGem.png"),
-    ReinforcedBarrier("Image/2_health_firm.png"),
+    OverWhelmingSpell("Image/OverwhelmSpell.png"),
+    ExpansionSpell("Image/ExpansionSpell.png"),
+    ExplosiveBarrier("Image/ExplosiveBarrier.png"),
+    SimpleBarrier("Image/SimpleBarrier.png"),
+    ReinforcedBarrier("Image/ReinforcedBarrier.png"),
     Canon("Image/Canon.png"),
     Background("Image/Background.png"),
-    HollowBarrier("Image/HollowBarrier.png");
+    HollowBarrier("Image/HollowBarrier.png"),
+    FrozenBarrierCircle("Image/FrozenExplosive.png"),
+    FrozenBarrierRectangle("Image/FrozenBarrier.png");
 
     private final BufferedImage image;
 

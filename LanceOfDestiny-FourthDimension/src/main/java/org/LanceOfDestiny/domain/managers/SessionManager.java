@@ -7,6 +7,7 @@ import org.LanceOfDestiny.domain.looper.LoopExecutor;
 import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
 import org.LanceOfDestiny.domain.player.Player;
+import org.LanceOfDestiny.domain.ymir.Ymir;
 import org.LanceOfDestiny.ui.DrawCanvas;
 
 import java.awt.image.BufferedImage;
@@ -19,6 +20,7 @@ public class SessionManager {
     private MagicalStaff magicalStaff;
     private FireBall fireBall;
     private Player player;
+    private Ymir ymir;
     private LoopExecutor loopExecutor = new LoopExecutor();
     private DrawCanvas drawCanvas;
     BufferedImage image;
@@ -34,12 +36,12 @@ public class SessionManager {
         currentMode = Status.EditMode;
         loopExecutor.setLooper(gameLooper);
         Events.BuildDoneEvent.addRunnableListener(this::initializeBarriers);
-        Events.Reset.addRunnableListener(()->getPlayer().setChancesLeft(Constants.DEFAULT_CHANCES));
-        Events.Reset.addRunnableListener(()->getLoopExecutor().setLoadedTime(0));
-        Events.Reset.addRunnableListener(()->getLoopExecutor().setTimePassed(0));
-        Events.LoadGame.addRunnableListener(()->getLoopExecutor().setTimePassed(0));
-        Events.EndGame.addRunnableListener(()->getLoopExecutor().stop());
-        Events.ResumeGame.addRunnableListener(()->getLoopExecutor().resume());
+        Events.Reset.addRunnableListener(() -> getPlayer().setChancesLeft(Constants.DEFAULT_CHANCES));
+        Events.Reset.addRunnableListener(() -> getLoopExecutor().setLoadedTime(0));
+        Events.Reset.addRunnableListener(() -> getLoopExecutor().setTimePassed(0));
+        Events.LoadGame.addRunnableListener(() -> getLoopExecutor().setTimePassed(0));
+        Events.EndGame.addRunnableListener(() -> getLoopExecutor().stop());
+        Events.ResumeGame.addRunnableListener(() -> getLoopExecutor().resume());
 
         //should change, we only have single player mode now
         gameMode = GameMode.SINGLEPLAYER;
@@ -57,15 +59,22 @@ public class SessionManager {
         fireBall = new FireBall();
         magicalStaff = new MagicalStaff();
         initializePlayer();
+        initializeYmir();
         //builder.initializeBarriers();
 
     }
-    public void initializePlayer(){
+
+    public void initializePlayer() {
         if (!(player == null)) return;
         player = new Player();
     }
 
-    public void initializeBarriers(){
+    public void initializeYmir() {
+        if (!(ymir == null)) return;
+        ymir = new Ymir();
+    }
+
+    public void initializeBarriers() {
         builder.initializeBarriers();
     }
 
@@ -89,6 +98,10 @@ public class SessionManager {
         return player;
     }
 
+    public Ymir getYmir() {
+        return ymir;
+    }
+
     public SessionBuilder getBuilder() {
         return builder;
     }
@@ -101,7 +114,7 @@ public class SessionManager {
         return currentMode;
     }
 
-    public void setTimePassed(int timePassed){
+    public void setTimePassed(int timePassed) {
         loopExecutor.setLoadedTime(timePassed);
     }
 
@@ -114,7 +127,6 @@ public class SessionManager {
     }
 
     public enum GameMode {
-        MULTIPLAYER,
-        SINGLEPLAYER
+        MULTIPLAYER, SINGLEPLAYER
     }
 }

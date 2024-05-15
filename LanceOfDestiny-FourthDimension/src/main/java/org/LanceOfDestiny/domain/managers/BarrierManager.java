@@ -7,6 +7,7 @@ import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import static org.LanceOfDestiny.domain.Constants.*;
 
@@ -188,13 +189,19 @@ public class BarrierManager {
 
         return errorMessage.length() == 0 ? null : errorMessage.toString();
     }
+    public List<Barrier> getRandomBarriersToFreeze() {
+        if(barriers.size() <= 8) return barriers;
+        Collections.shuffle(barriers);
+        return barriers.subList(0,8);
+    }
+
     /**
      * Method for finding valid barrier placements for Hollow Purple Spell.
-     * @return Arraylist of size 8 containing possible position Vectors for barriers.
+     * @return Arraylist of size 8 containing possible position Vectors for new barriers.
      * **/
-    public ArrayList<Vector> getPossibleHollowBarrierLocations() {
+    public List<Vector> getPossibleHollowBarrierLocations() {
         var allPossibleBarrierLocations = new ArrayList<Vector>();
-        int maxX = Constants.SCREEN_WIDTH;
+        int maxX = Constants.SCREEN_WIDTH - 50;
         int minX = 40;
         int maxY = Constants.SCREEN_HEIGHT-300;
         int minY = 40;
@@ -207,8 +214,7 @@ public class BarrierManager {
         }
 
         Collections.shuffle(allPossibleBarrierLocations);
-        return (ArrayList<Vector>) allPossibleBarrierLocations.subList(0,8);
-
+        return allPossibleBarrierLocations.subList(0,8);
     }
 
     public static void displayBarrierInfo() {
@@ -226,6 +232,5 @@ public class BarrierManager {
             return e instanceof RewardingBarrier;
         }).toList().size());
     }
-
 
 }

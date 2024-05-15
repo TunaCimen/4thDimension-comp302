@@ -1,18 +1,27 @@
 package org.LanceOfDestiny.domain.spells;
 
+import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.barriers.BarrierFactory;
+import org.LanceOfDestiny.domain.behaviours.MonoBehaviour;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 
-public class CurseManager {
+import java.util.List;
+
+/**
+ * Curse Manager for singleplayer mode.
+ *
+ * **/
+public class CurseManager extends MonoBehaviour {
     private static CurseManager instance;
     private SpellType activeCurse;
     private boolean isCurseActive;
+    private List<Barrier> barriersToFreeze;
 
 
     private CurseManager() {
         Events.TryUsingCurse.addListener(this::tryUsingCurse);
-        Events.ActivateHollowPurple.addListener(this::handleHollowPurple);
+        Events.ActivateHollowPurple.addRunnableListener(this::activateHollowPurple);
         Events.ActivateInfiniteVoid.addListener(this::handleInfiniteVoid);
         this.isCurseActive = false;
     }
@@ -31,22 +40,14 @@ public class CurseManager {
         return instance;
     }
 
-    public void handleHollowPurple(Object object) {
-        var isActive = (boolean) object;
-        if (isActive) activateHollowPurple();
-        else deactivateHollowPurple();
-    }
-
     public void activateHollowPurple() {
         System.out.println("Activating Hollow Purple");
         var locations = BarrierManager.getInstance().getPossibleHollowBarrierLocations();
         for (var location : locations) {
             BarrierFactory.createHollowBarrier(location);
         }
-    }
 
-    public void deactivateHollowPurple() {
-
+        isCurseActive = false;
     }
 
     public void handleInfiniteVoid(Object object) {
@@ -56,10 +57,16 @@ public class CurseManager {
     }
 
     public void activateInfiniteVoid() {
-
+        this.barriersToFreeze = BarrierManager.getInstance().getRandomBarriersToFreeze();
+        for (Barrier barrier : barriersToFreeze) {
+            barrier.activateFrozen();
+        }
     }
 
     public void deactivateInfiniteVoid() {
-
+        for (int i = barriersToFreeze.size() - 1; i >= 0; i--) {
+            barriersToFreeze.get(i).deactivateFrozen();
+        }
+        this.barriersToFreeze.clear();
     }
 }

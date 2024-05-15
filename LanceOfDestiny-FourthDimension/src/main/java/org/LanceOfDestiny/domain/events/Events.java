@@ -46,7 +46,7 @@ public enum Events {
     ActivateExpansion(Boolean.class),
     //BAD SPELLS
     TryUsingCurse(SpellType.class),
-    ActivateHollowPurple(Boolean.class),
+    ActivateHollowPurple(Object.class),
     ActivateInfiniteVoid(Boolean.class),
     ActivateDoubleAccel(Boolean.class),
     // EVENTS RELATED TO OTHER GAME FEATURES

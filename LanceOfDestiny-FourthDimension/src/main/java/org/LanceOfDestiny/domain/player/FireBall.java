@@ -25,12 +25,12 @@ public class FireBall extends GameObject {
         this.position = Constants.FIREBALL_POSITION;
         createColliderAndSprite();
         Events.ActivateOverwhelming.addListener(this::handleOverwhelming);
+        Events.ActivateDoubleAccel.addListener(this::handleDoubleAccel);
         Events.ShootBall.addRunnableListener(this::shootBall);
         Events.LoadGame.addRunnableListener(() -> isAttached = true);
         Events.EndGame.addRunnableListener(()->isAttached=true);
         Events.Reset.addRunnableListener(this::resetFireballPosition);
         Events.LoadGame.addRunnableListener(this::resetFireballPosition);
-        Events.ActivateDoubleAccel.addListener(this::handleDoubleAccel);
     }
 
 
@@ -99,10 +99,12 @@ public class FireBall extends GameObject {
     }
 
     private void enableDoubleAccel() {
-        //TODO: set fireball speed to half
+        var newVelocity = new Vector(collider.getVelocity().getX()/2, collider.getVelocity().getY()/2);
+        this.collider.setVelocity(newVelocity);
     }
     private void disableDoubleAccel() {
-        //TODO: set fireball speed to default
+        var newVelocity = new Vector(collider.getVelocity().getX()*2, collider.getVelocity().getY()*2);
+        this.collider.setVelocity(newVelocity);
     }
 
     public void fireBallDropped() {
@@ -119,10 +121,16 @@ public class FireBall extends GameObject {
             fireBallDropped();
             return;
         }
+
         if (other instanceof Barrier) {
+            if (((Barrier) other).isFrozen()) {
+                if(isOverwhelming) ((Barrier) other).reduceLife();
+                return;
+            }
             if(isOverwhelming) ((Barrier) other).kill();
             else ((Barrier) other).reduceLife();
         }
+
     }
 
     public boolean isOverwhelming() {
