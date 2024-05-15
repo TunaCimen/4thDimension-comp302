@@ -1,4 +1,4 @@
-package org.LanceOfDestiny;
+package org.LanceOfDestiny.domain.behaviours;
 
 import org.LanceOfDestiny.domain.behaviours.Behaviour;
 import org.LanceOfDestiny.domain.behaviours.MonoBehaviour;

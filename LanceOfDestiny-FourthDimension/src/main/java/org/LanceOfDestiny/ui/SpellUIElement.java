@@ -1,6 +1,6 @@
 package org.LanceOfDestiny.ui;
 
-import org.LanceOfDestiny.TimedAction;
+import org.LanceOfDestiny.domain.behaviours.TimedAction;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.sprite.ImageOperations;
 
