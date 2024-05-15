@@ -1,6 +1,5 @@
 package org.LanceOfDestiny.domain.managers;
 
-import org.LanceOfDestiny.LanceOfDestiny;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.barriers.BarrierFactory;
@@ -21,7 +20,6 @@ public class SessionBuilder {
         this.numOfExplosive = numOfExplosive;
         this.numOfRewarding = numOfRewarding;
     }
-
 
     public void initializeBarriers() {
 
@@ -55,8 +53,6 @@ public class SessionBuilder {
             }
             else {
                 barrier1.setPosition(new Vector(x, y));
-
-
             }
 
             x += Constants.BARRIER_X_OFFSET;
@@ -66,9 +62,6 @@ public class SessionBuilder {
             }
         }
     }
-
-
-
 
     private BarrierTypes determineTypeToCreate(int numSimpleCreated, int numFirmCreated, int numExplosiveCreated, int numGiftCreated) {
 
@@ -85,8 +78,6 @@ public class SessionBuilder {
         } else {
             return BarrierTypes.REWARDING;
         }
-
-
     }
 
     public Integer getNumOfSimple() {

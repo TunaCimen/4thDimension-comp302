@@ -13,7 +13,6 @@ import java.awt.*;
 
 public class GameView extends JFrame implements Window {
 
-
     private static final String STATUS_START = "START";
     private static final String STATUS_GAME = "GAME";
     private static final String STATUS_END = "END";

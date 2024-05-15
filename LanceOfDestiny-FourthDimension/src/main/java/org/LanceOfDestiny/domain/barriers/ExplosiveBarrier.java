@@ -5,8 +5,10 @@ import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.physics.Collision;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
+import org.LanceOfDestiny.domain.sprite.BallSprite;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.domain.sprite.ImageOperations;
+import org.LanceOfDestiny.domain.sprite.Sprite;
 
 import java.awt.*;
 import java.util.Random;
@@ -23,12 +25,20 @@ public class ExplosiveBarrier extends Barrier {
         if ((new Random()).nextDouble() <= MOVE_PROBABILITY) isMoving = true;
         adjustSprite();
         initPos = getPosition();
+        defaultSprite = sprite;
     }
 
     private void adjustSprite() {
         this.getSprite().color = new Color(0,0,0,0);
         this.getSprite().setImage(ImageOperations.resizeImage(ImageLibrary.ExplosiveBarrier.getImage(), sprite.width()*2,sprite.height()*2));
         getSprite().setImage(ImageOperations.resizeImage(ImageLibrary.ExplosiveBarrier.getImage(),Constants.EXPLOSIVE_RADIUS*2,Constants.EXPLOSIVE_RADIUS*2));
+
+        // Adjust Frozen Sprite
+        frozenSprite = sprite;
+        frozenSprite.color = new Color(0,0,0,0);
+        frozenSprite.setImage(ImageOperations.resizeImage(ImageLibrary.FrozenBarrierCircle.getImage(), sprite.width()*2,sprite.height()*2));
+        frozenSprite.setImage(ImageOperations.resizeImage(ImageLibrary.FrozenBarrierCircle.getImage(),Constants.EXPLOSIVE_RADIUS*2,Constants.EXPLOSIVE_RADIUS*2));
+
     }
 
     @Override
@@ -75,6 +85,18 @@ public class ExplosiveBarrier extends Barrier {
 
     private void addScore() {
         Events.UpdateScore.invoke();
+    }
+
+    @Override
+    public void activateFrozen() {
+        isFrozen = true;
+        setSprite(frozenSprite);
+    }
+
+    @Override
+    public void deactivateFrozen() {
+        isFrozen = false;
+        setSprite(defaultSprite);
     }
 
     @Override

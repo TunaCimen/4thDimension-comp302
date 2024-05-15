@@ -45,7 +45,8 @@ public enum Events {
     ActivateOverwhelming(Boolean.class),
     ActivateExpansion(Boolean.class),
     //BAD SPELLS
-    ActivateHollowPurple(Boolean.class),
+    TryUsingCurse(SpellType.class),
+    ActivateHollowPurple(Object.class),
     ActivateInfiniteVoid(Boolean.class),
     ActivateDoubleAccel(Boolean.class),
     // EVENTS RELATED TO OTHER GAME FEATURES
@@ -62,10 +63,8 @@ public enum Events {
 
     BuildDoneEvent(Object.class),
 
-
     Reset(Object.class),
     ResetSpells(Object.class);
-
 
     //It is the Class that the particular event wants the invocation.
     final Class<?> paramType;
