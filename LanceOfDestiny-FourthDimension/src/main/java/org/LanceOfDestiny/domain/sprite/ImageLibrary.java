@@ -17,6 +17,10 @@ public enum ImageLibrary {
     OverWhelmingSpell("Image/Overwhelm.png"),
     ExpansionSpell("Image/expansion.png"),
     ExplosiveBarrier("Image/bomb.png"),
+
+    DoubleAccelSpell("Image/snow_flake.png"),
+
+    HollowSpell("Image/hourglass.png"),
     SimpleBarrier("Image/BlueGem.png"),
     ReinforcedBarrier("Image/2_health_firm.png"),
     Canon("Image/Canon.png"),

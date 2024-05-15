@@ -33,6 +33,11 @@ public class SessionManager {
         this.builder = new SessionBuilder(0, 0, 0, 0);
         currentMode = Status.EditMode;
         loopExecutor.setLooper(gameLooper);
+        subscribeEvents();
+
+    }
+
+    private void subscribeEvents() {
         Events.BuildDoneEvent.addRunnableListener(this::initializeBarriers);
         Events.Reset.addRunnableListener(()->getPlayer().setChancesLeft(Constants.DEFAULT_CHANCES));
         Events.Reset.addRunnableListener(()->getLoopExecutor().setLoadedTime(0));
@@ -40,10 +45,18 @@ public class SessionManager {
         Events.LoadGame.addRunnableListener(()->getLoopExecutor().setTimePassed(0));
         Events.EndGame.addRunnableListener(()->getLoopExecutor().stop());
         Events.ResumeGame.addRunnableListener(()->getLoopExecutor().resume());
-
-        //should change, we only have single player mode now, maybe convert game mode to enum
-        isMultiplayer = false;
-
+        Events.PauseGame.addRunnableListener(()->{
+            getLoopExecutor().stop();
+            setStatus(Status.PausedMode);
+        });
+        Events.StartGame.addRunnableListener(()->{
+            if (!getLoopExecutor().isStarted()) {
+                getLoopExecutor().start();
+            } else {
+                getLoopExecutor().resume();
+            }
+            setStatus(Status.RunningMode);
+        });
     }
 
     public static SessionManager getInstance() {

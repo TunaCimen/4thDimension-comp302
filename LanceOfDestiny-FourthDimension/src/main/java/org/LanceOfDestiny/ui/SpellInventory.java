@@ -10,68 +10,90 @@ import java.awt.*;
 
 public class SpellInventory extends JPanel {
 
-    JButton canonSpell;
-    JButton overwhelmingSpell;
-    JButton expansionSpell;
+    SpellUIElement canonSpell;
+    SpellUIElement overwhelmingSpell;
+    SpellUIElement expansionSpell;
 
-    ImageIcon canonIcon,overwhelmingIcon, expansionIcon;
+    JLayeredPane cannonPane,overwhelmPane, expansionPane;
+
+    JLabel hollowSpell;
+
+    JLabel doubleAccel;
+
+    ImageIcon canonIcon,overwhelmingIcon, expansionIcon,hollowSpellIcon, doubleAccelIcon;
     ImageIcon reducedCanonIcon, reducedOverwhelmingIcon, reducedExpansionIcon;
 
+    JProgressBar activeGoodSpellBar, activeBadSpellBar;
+
+
     public SpellInventory(){
-        canonSpell = new JButton();
-        overwhelmingSpell = new JButton();
-        expansionSpell = new JButton();
 
-        canonSpell.setFocusable(false);
-        expansionSpell.setFocusable(false);
-        overwhelmingSpell.setFocusable(false);
+        //Progress Bars
+        hollowSpell = new JLabel();
+        doubleAccel = new JLabel();
 
-        canonSpell.setBorder(BorderFactory.createEmptyBorder());
-        canonSpell.setContentAreaFilled(false);
-        overwhelmingSpell.setBorder(BorderFactory.createEmptyBorder());
-        overwhelmingSpell.setContentAreaFilled(false);
-        expansionSpell.setBorder(BorderFactory.createEmptyBorder());
-        expansionSpell.setContentAreaFilled(false);
 
-        canonSpell.addActionListener(e->Events.TryUsingSpell.invoke(SpellType.CANON));
-        overwhelmingSpell.addActionListener(e->Events.TryUsingSpell.invoke(SpellType.OVERWHELMING));
-        expansionSpell.addActionListener(e->Events.TryUsingSpell.invoke(SpellType.EXPANSION));
+
 
         canonIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.CannonSpell.getImage(), 40,40));
-        overwhelmingIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.OverWhelmingSpell.getImage(), 30,30));
-        expansionIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.ExpansionSpell.getImage(),30,30));
 
-        reducedCanonIcon = ImageOperations.reducedTransparencyImageIcon(canonIcon);
+        overwhelmingIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.OverWhelmingSpell.getImage(), 40,40));
+        expansionIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.ExpansionSpell.getImage(),40,40));
+        hollowSpellIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.HollowSpell.getImage(), 40,40));
+        doubleAccelIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.DoubleAccelSpell.getImage(), 40,40));
+
         reducedOverwhelmingIcon =ImageOperations.reducedTransparencyImageIcon(overwhelmingIcon);
         reducedExpansionIcon = ImageOperations.reducedTransparencyImageIcon(expansionIcon);
 
-        canonSpell.setIcon(reducedCanonIcon);
-        expansionSpell.setIcon(reducedExpansionIcon);
-        overwhelmingSpell.setIcon(reducedOverwhelmingIcon);
+        canonSpell = new SpellUIElement(canonIcon, new Dimension(50,50));
+        overwhelmingSpell = new SpellUIElement(overwhelmingIcon, new Dimension(50,50));
+        expansionSpell = new SpellUIElement(expansionIcon, new Dimension(50,50));
+
+        canonSpell.addClickEvent(e->Events.TryUsingSpell.invoke(SpellType.CANON));
+        overwhelmingSpell.addClickEvent(e->Events.TryUsingSpell.invoke(SpellType.OVERWHELMING));
+        expansionSpell.addClickEvent(e->Events.TryUsingSpell.invoke(SpellType.EXPANSION));
+
+        hollowSpell.setIcon(hollowSpellIcon);
+        doubleAccel.setIcon(doubleAccelIcon);
 
         Events.GainSpell.addListener(e->gainSpell((SpellType) e));
         Events.ActivateSpellUI.addListener(e-> loseSpell((SpellType) e));
+        Events.ResetSpells.addListener(e->resetSpellUI());
+
+
 
         add(canonSpell);
         add(overwhelmingSpell);
         add(expansionSpell);
+        add(hollowSpell);
+        add(doubleAccel);
         setVisible(true);
 
     }
 
     private void loseSpell(SpellType spellType) {
         switch ((spellType)) {
-            case CANON -> canonSpell.setIcon(reducedCanonIcon);
-            case EXPANSION -> expansionSpell.setIcon(reducedExpansionIcon);
-            case OVERWHELMING -> overwhelmingSpell.setIcon(reducedOverwhelmingIcon);
+            case CANON -> canonSpell.disableSpell();
+            case EXPANSION -> expansionSpell.disableSpell();
+            case OVERWHELMING -> overwhelmingSpell.disableSpell();
         }
     }
 
     private void gainSpell(SpellType spellType) {
          switch(spellType){
-             case CANON ->  canonSpell.setIcon(canonIcon);
-             case EXPANSION -> expansionSpell.setIcon(expansionIcon);
-             case OVERWHELMING -> overwhelmingSpell.setIcon(overwhelmingIcon);
+             case CANON ->  canonSpell.enableSpell();
+             case EXPANSION -> expansionSpell.enableSpell();
+             case OVERWHELMING -> overwhelmingSpell.enableSpell();
          }
     }
+
+    public void resetSpellUI(){
+        canonSpell.resetSpellUI();
+        overwhelmingSpell.resetSpellUI();
+        expansionSpell.resetSpellUI();
+    }
+
+
+
+
 }

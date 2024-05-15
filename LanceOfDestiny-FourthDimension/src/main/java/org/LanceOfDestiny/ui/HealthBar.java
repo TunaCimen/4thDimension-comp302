@@ -34,8 +34,7 @@ public class HealthBar extends JPanel {
     public void reduceHealth(){
         JLabel reduced = healths.pop();
         remove(reduced);
-        repaint();
-        revalidate();
+        repaintHealthBar();
     }
 
     public void addHealth(){
@@ -44,8 +43,7 @@ public class HealthBar extends JPanel {
         newLabel.setIcon(healthImageIcon);
         healths.push(newLabel);
         add(newLabel);
-        repaint();
-        revalidate();
+        repaintHealthBar();
     }
 
     public void updateHealth(int val){
@@ -66,6 +64,10 @@ public class HealthBar extends JPanel {
             healths.push(newLabel);
             add(newLabel);
         }
+        repaintHealthBar();
+    }
+
+    private void repaintHealthBar() {
         repaint();
         revalidate();
     }
