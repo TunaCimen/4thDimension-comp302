@@ -46,7 +46,7 @@ public class SignUpView extends javax.swing.JFrame implements Window {
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 102));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("/Users/emretaskend/Documents/GitHub/4thDimension-comp302/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/Resources/Image/Screenshot 2024-04-13 at 15.41.59.png"));
+        jLabel1.setIcon(new javax.swing.ImageIcon("LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/Resources/Image/Screenshot 2024-04-13 at 15.41.59.png"));
 
         jLabel2.setFont(new java.awt.Font("Showcard Gothic", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -188,7 +188,6 @@ public class SignUpView extends javax.swing.JFrame implements Window {
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        wm.showWindow(Windows.Login);
         this.dispose();
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {

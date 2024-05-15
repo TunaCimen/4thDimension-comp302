@@ -39,7 +39,7 @@ public class RewardBoxFactory {
     }
 
     public static SpellType getRandomSpellType() {
-        if (SessionManager.getInstance().isMultiplayer()) {
+        if (SessionManager.getInstance().getGameMode().equals(SessionManager.GameMode.MULTIPLAYER)) {
             // Any type of spell in multiplayer mode
             return SpellType.values()[RANDOM.nextInt(SpellType.values().length)];
         } else {
