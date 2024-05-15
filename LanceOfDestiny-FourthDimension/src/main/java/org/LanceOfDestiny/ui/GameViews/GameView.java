@@ -4,11 +4,13 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.*;
+import org.LanceOfDestiny.ui.InitPanel;
 import org.LanceOfDestiny.ui.Window;
 import org.LanceOfDestiny.ui.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.function.IntSupplier;
 
 
 public class GameView extends JFrame implements Window {
@@ -16,6 +18,8 @@ public class GameView extends JFrame implements Window {
     private static final String STATUS_START = "START";
     private static final String STATUS_GAME = "GAME";
     private static final String STATUS_END = "END";
+
+    private static final String STATUS_INIT = "INIT";
     final Dimension maximumSizeButton = new Dimension(150, 45);
     JButton buttonPlay;
     JButton buttonPause;
@@ -24,7 +28,7 @@ public class GameView extends JFrame implements Window {
     SpellInventory spellInventory;
 
     JPanel cardPanel;
-    ScoreBar scoreBar;
+    ScoreBar scoreBar,scoreBarOther;
     private SessionManager sessionManager;
     private JComboBox<String> comboBoxAddBarrierType;
     private CardLayout cardLayout;
@@ -44,12 +48,15 @@ public class GameView extends JFrame implements Window {
     }
 
     private void decorateCardPanel() {
-        JPanel startPanel = createStartPanel();
+        JPanel initPanel = new InitPanel();
+        cardPanel.add(initPanel, STATUS_INIT);
+        JPanel startPanel = new StartPanel();
         cardPanel.add(startPanel, STATUS_START);
         JPanel parentPanel = createParentPanel();
         cardPanel.add(parentPanel, STATUS_GAME);
-        JPanel loseGamePanel = createEndGamePanel();
+        JPanel loseGamePanel = new EndGamePanel();
         cardPanel.add(loseGamePanel, STATUS_END);
+
     }
 
     private void subscribeMethods() {
@@ -61,7 +68,11 @@ public class GameView extends JFrame implements Window {
             healthBarDisplay.setHealth(
                     SessionManager.getInstance().getPlayer().getChancesLeft());
         });
-        Events.LoadGame.addRunnableListener(() -> scoreBar.updateScore());
+        //Events.Load.addRunnableListener(()->showPanel(STATUS_GAME));
+        Events.LoadGame.addRunnableListener(() -> {
+            showPanel(STATUS_GAME);
+            scoreBar.updateScore();
+        });
         Events.EndGame.addRunnableListener(() -> {
             showPanel(STATUS_END);
         });
@@ -76,34 +87,11 @@ public class GameView extends JFrame implements Window {
         Events.PauseGame.addRunnableListener(() -> {
             WindowManager.getInstance().showWindow(Windows.PauseView);
         });
+        Events.SingleplayerSelected.addRunnableListener(()->showPanel(STATUS_START));
 
 
     }
 
-    private JPanel createEndGamePanel() {
-        JPanel losePanel = new JPanel();
-        losePanel.setLayout(new BoxLayout(losePanel, BoxLayout.Y_AXIS));
-        JLabel endLabel = createLabel("");
-        Events.EndGame.addListener(e -> endLabel.setText((String) e));
-        JButton newGameButton = createNewGameButton();
-        JLabel scoreLabel = new JLabel();
-        scoreLabel.setFont(scoreBar.getFont());
-        scoreBar.addPropertyChangeListener(e -> {
-            scoreLabel.setText(scoreBar.getText());
-        });
-        newGameButton.addActionListener(e -> {
-            showPanel(STATUS_START);
-        });
-        endLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        endLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        scoreLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        newGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        losePanel.add(Box.createRigidArea(new Dimension(0, Constants.SCREEN_HEIGHT / 2 - 100)));
-        losePanel.add(endLabel);
-        losePanel.add(scoreLabel);
-        losePanel.add(newGameButton);
-        return losePanel;
-    }
 
     private void initializeComponents() {
         setFocusable(true);
@@ -126,52 +114,6 @@ public class GameView extends JFrame implements Window {
 
     public void showPanel(String cardName) {
         cardLayout.show(cardPanel, cardName);
-    }
-
-    private JLabel createLabel(String text) {
-        JLabel label = new JLabel(text);
-        label.setFont(new Font("Impact", Font.BOLD, 50));
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        return label;
-    }
-
-    private JButton createLoadButton() {
-        JButton loadButton = new JButton("LOAD");
-        loadButton.setMaximumSize(maximumSizeButton);
-        loadButton.setFont(new Font("Monospaced", Font.BOLD, 15));
-        loadButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        loadButton.addActionListener(e -> {
-            showPanel(STATUS_GAME);
-            WindowManager.getInstance().showWindow(Windows.LoadView);
-        });
-        return loadButton;
-    }
-
-
-    private JPanel createStartPanel() {
-        JPanel startPanel = new JPanel();
-        JButton newGameButton = createNewGameButton();
-        startPanel.setLayout(new BorderLayout());
-        startPanel.setLayout(new BoxLayout(startPanel, BoxLayout.Y_AXIS));
-        startPanel.add(Box.createRigidArea(new Dimension(0, Constants.SCREEN_HEIGHT / 2 - 100)));
-        startPanel.add(createLabel("Lance Of Destiny"));
-        startPanel.add(Box.createRigidArea(new Dimension(0, 15)));
-        startPanel.add(newGameButton);
-        startPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        startPanel.add(createLoadButton());
-        return startPanel;
-
-    }
-
-    private JButton createNewGameButton() {
-        JButton newGameButton = new JButton("NEW GAME");
-        newGameButton.setFont(new Font("Monospaced", Font.BOLD, 15));
-        newGameButton.setMaximumSize(maximumSizeButton);
-        newGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        newGameButton.addActionListener(e -> {
-            Events.Reset.invoke();
-        });
-        return newGameButton;
     }
 
     private void handleNewGame() {

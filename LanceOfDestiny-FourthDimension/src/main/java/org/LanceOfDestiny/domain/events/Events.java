@@ -64,7 +64,11 @@ public enum Events {
     BuildDoneEvent(Object.class),
 
     Reset(Object.class),
-    ResetSpells(Object.class);
+    Load(Object.class),
+    ResetSpells(Object.class),
+    ReturnStartScreen(Object.class),
+    SingleplayerSelected(Object.class),
+    MultiplayerSelected(Object.class);
 
     //It is the Class that the particular event wants the invocation.
     final Class<?> paramType;
