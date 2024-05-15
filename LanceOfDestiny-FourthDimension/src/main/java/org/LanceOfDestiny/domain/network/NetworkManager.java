@@ -10,10 +10,7 @@ import java.net.ServerSocket;
         private ServerSocket serverSocket;
         private BufferedReader in;
         private PrintWriter out;
-
         private static NetworkManager instance;
-
-
         private NetworkManager() {
         }
 
@@ -42,12 +39,12 @@ import java.net.ServerSocket;
 
         public void sendGameState(String gameState) {
             out.println(gameState);
-            System.out.printf("Sent state: %s%n", gameState);
+            //System.out.printf("Sent state: %s%n", gameState);
         }
 
         public String receiveGameState() throws IOException {
             String gameState = in.readLine();
-            System.out.printf("Received state: %s%n", gameState);
+            //System.out.printf("Received state: %s%n", gameState);
             return gameState;
         }
 
