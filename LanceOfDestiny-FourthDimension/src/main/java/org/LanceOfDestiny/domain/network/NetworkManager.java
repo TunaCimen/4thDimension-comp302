@@ -22,6 +22,9 @@ public class NetworkManager {
         Events.SendChanceUpdate.addRunnableListener(() -> sendGameState("Chances: " + SessionManager.getInstance().getPlayer().getChancesLeft()));
         Events.SendScoreUpdate.addRunnableListener(() -> sendGameState("Score: " + ScoreManager.getInstance().getScore()));
         Events.SendBarrierCountUpdate.addRunnableListener(() -> sendGameState("Barrier Count: " + BarrierManager.barriers.size()));
+
+        Events.TryJoiningSession.addListener(this::joinGame);
+
     }
 
     public static NetworkManager getInstance() {
@@ -35,6 +38,15 @@ public class NetworkManager {
         serverSocket = new ServerSocket(port);
         socket = serverSocket.accept();
         setupStreams();
+    }
+
+
+    public void joinGame(Object ip) {
+        try {
+            joinGame((String)ip, 12345);
+        } catch (IOException e) {
+            throw new RuntimeException(e);//TODO: A prompt about failed connection.
+        }
     }
 
     public void joinGame(String ip, int port) throws IOException {
@@ -66,6 +78,7 @@ public class NetworkManager {
             }
         }).start();
     }
+
 
     private void handleReceivedGameState(String gameState) {
         if (gameState == null || gameState.isEmpty()) {
@@ -101,3 +114,6 @@ public class NetworkManager {
         if (serverSocket != null) serverSocket.close();
     }
 }
+
+
+
