@@ -75,7 +75,10 @@ public enum Events {
     ResetSpells(Object.class),
     ReturnStartScreen(Object.class),
     SingleplayerSelected(Object.class),
-    MultiplayerSelected(Object.class);
+    MultiplayerSelected(Object.class),
+    HostPanel(Object.class),
+    JoinPanel(Object.class),
+    TryJoiningSession(String.class);
 
     //It is the Class that the particular event wants the invocation.
     final Class<?> paramType;
@@ -141,6 +144,9 @@ public enum Events {
                 e.printStackTrace();
                 System.out.println("Wrong Argument to Invoke for:" + this.name() + "\n" + "Check your casting for listeners.Note:Tunic");
             }
+        }
+        if(onFinishEvent != null){
+            onFinishEvent.invoke();
         }
     }
 

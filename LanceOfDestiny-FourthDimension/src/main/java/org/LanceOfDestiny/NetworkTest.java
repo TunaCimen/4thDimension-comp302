@@ -25,8 +25,7 @@ public class NetworkTest {
             try {
                 networkManager.hostGame(port);
                 System.out.println("Hosting game on port " + port);
-
-                // Simulate game state exchange
+                networkManager.receiveGameState();
                 simulateGameStateExchange(networkManager, scanner);
 
             } catch (IOException e) {
@@ -44,8 +43,7 @@ public class NetworkTest {
             try {
                 networkManager.joinGame(hostIp, port);
                 System.out.println("Joined game at " + hostIp + ":" + port);
-
-                // Simulate game state exchange
+                networkManager.receiveGameState();
                 simulateGameStateExchange(networkManager, scanner);
 
             } catch (IOException e) {
@@ -57,25 +55,7 @@ public class NetworkTest {
     }
 
     private static void simulateGameStateExchange(NetworkManager networkManager, Scanner scanner) {
-        // Create a thread to listen for incoming game states
-        new Thread(() -> {
-            while (true) {
-                try {
-                    String gameState = networkManager.receiveGameState();
-                    if (gameState == null) {
-                        break;
-                    }
-                    System.out.println("Received from opponent: " + gameState);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    break;
-                }
-            }
-        }).start();
-
-        // Main thread to send game states
         while (true) {
-            System.out.print("Enter game state to send: ");
             String gameState = scanner.nextLine();
             networkManager.sendGameState(gameState);
         }

@@ -29,7 +29,7 @@ public class InitPanel extends JPanel {
         add(multiplayerButton);
 
         multiplayerButton.addActionListener(e -> {
-            //TODO
+            Events.MultiplayerSelected.invoke();
         });
 
         singlePlayerButton.addActionListener(e -> {

@@ -18,8 +18,8 @@ public class GameView extends JFrame implements Window {
     private static final String STATUS_START = "START";
     private static final String STATUS_GAME = "GAME";
     private static final String STATUS_END = "END";
-
     private static final String STATUS_INIT = "INIT";
+    private static final String STATUS_MULTI = "INIT";
     final Dimension maximumSizeButton = new Dimension(150, 45);
     JButton buttonPlay;
     JButton buttonPause;
@@ -28,7 +28,7 @@ public class GameView extends JFrame implements Window {
     SpellInventory spellInventory;
 
     JPanel cardPanel;
-    ScoreBar scoreBar,scoreBarOther;
+    ScoreBar scoreBar, scoreBarOther;
     private SessionManager sessionManager;
     private JComboBox<String> comboBoxAddBarrierType;
     private CardLayout cardLayout;
@@ -37,6 +37,7 @@ public class GameView extends JFrame implements Window {
         ScoreManager scoreManager = ScoreManager.getInstance();
         this.sessionManager = SessionManager.getInstance();
         this.scoreBar = new ScoreBar(scoreManager::getScore);
+        this.scoreBarOther = new ScoreBar(Events.ReceiveScoreUpdate);
         this.sessionManager.initializeSession();
         this.cardLayout = new CardLayout();
         this.cardPanel = new JPanel(cardLayout);
@@ -56,7 +57,8 @@ public class GameView extends JFrame implements Window {
         cardPanel.add(parentPanel, STATUS_GAME);
         JPanel loseGamePanel = new EndGamePanel();
         cardPanel.add(loseGamePanel, STATUS_END);
-
+        JPanel multiPanel = new MultiplayerPanel();
+        cardPanel.add(multiPanel,STATUS_MULTI);
     }
 
     private void subscribeMethods() {
@@ -88,6 +90,7 @@ public class GameView extends JFrame implements Window {
             WindowManager.getInstance().showWindow(Windows.PauseView);
         });
         Events.SingleplayerSelected.addRunnableListener(()->showPanel(STATUS_START));
+        Events.MultiplayerSelected.addRunnableListener(()->showPanel(STATUS_MULTI));
 
 
     }
@@ -140,6 +143,7 @@ public class GameView extends JFrame implements Window {
         controlPanel.add(healthBarDisplay);
         controlPanel.add(spellInventory);
         controlPanel.add(scoreBar);
+        controlPanel.add(scoreBarOther);
         controlPanel.add(Box.createRigidArea(new Dimension(25,10)));
         return controlPanel;
     }
