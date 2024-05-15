@@ -16,7 +16,6 @@ public enum Windows {
         SaveView(new SaveView()),
         LoadView(new LoadView()),
         BuildViewMini(new BuildViewMiniPanel(SessionManager.getInstance()));
-
         private final Window window;
         Windows(Window window){
                 this.window = window;

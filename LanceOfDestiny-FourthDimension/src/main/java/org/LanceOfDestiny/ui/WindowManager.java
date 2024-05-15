@@ -6,7 +6,6 @@ import javax.swing.*;
 
 public class WindowManager {
 
-    private JFrame frame;
     private static WindowManager instance;
 
     private WindowManager(){
@@ -23,7 +22,4 @@ public class WindowManager {
         return instance;
     }
 
-    public JFrame getFrame() {
-        return frame;
-    }
 }

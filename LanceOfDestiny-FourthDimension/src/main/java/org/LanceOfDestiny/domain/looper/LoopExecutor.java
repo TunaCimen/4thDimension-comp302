@@ -1,7 +1,5 @@
 package org.LanceOfDestiny.domain.looper;
 
-import java.time.LocalTime;
-
 public class LoopExecutor {
 
     private Looper mLoop;

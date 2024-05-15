@@ -38,6 +38,7 @@ public class SpellContainer extends MonoBehaviour {
     public void update() {
         super.update();
         if (isSpellActive) {
+
             if (loopExecutor.getSecondsPassed() >= spellEndSecond ) {
                 deactivateActiveSpell();
             }

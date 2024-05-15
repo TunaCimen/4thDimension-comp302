@@ -11,7 +11,6 @@ public class GameExec extends Behaviour {
 
     private final JPanel drawCanvas;
 
-
     private boolean isPaused = false;
     public GameExec(JPanel drawCanvas) {
         this.drawCanvas = drawCanvas;
