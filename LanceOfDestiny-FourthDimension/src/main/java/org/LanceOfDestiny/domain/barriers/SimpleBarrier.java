@@ -19,11 +19,8 @@ public class SimpleBarrier extends Barrier {
         this.sprite.setImage(ImageOperations.resizeImageToSprite(ImageLibrary.SimpleBarrier.getImage(),this.sprite));
         initDirection();
     }
-    public SimpleBarrier(Vector position,boolean moving) {
-        super(position, BarrierTypes.SIMPLE);
-        if ((new Random()).nextDouble() <= MOVE_PROBABILITY) isMoving = true;
-        this.sprite.color = new Color(0,0,0,0);
-        this.sprite.setImage(ImageOperations.resizeImageToSprite(ImageLibrary.SimpleBarrier.getImage(),this.sprite));
+    public SimpleBarrier(Vector position, boolean moving) {
+        this(position);
         this.isMoving = moving;
         initDirection();
     }
@@ -36,10 +33,5 @@ public class SimpleBarrier extends Barrier {
         if ((other instanceof Barrier && isMoving)) {
             getCollider().setVelocity(getCollider().getVelocity().scale(-1));
         }
-    }
-
-    @Override
-    public void update() {
-        super.update();
     }
 }
