@@ -1,5 +1,10 @@
 package org.LanceOfDestiny.domain.network;
-import org.LanceOfDestiny.domain.managers.InputManager;
+import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.managers.BarrierManager;
+import org.LanceOfDestiny.domain.managers.ScoreManager;
+import org.LanceOfDestiny.domain.managers.SessionManager;
+import org.LanceOfDestiny.ui.WindowManager;
+import org.LanceOfDestiny.ui.Windows;
 
 import java.io.*;
 import java.net.Socket;
@@ -12,7 +17,12 @@ import java.net.ServerSocket;
         private PrintWriter out;
         private static NetworkManager instance;
         private NetworkManager() {
+            Events.SendChanceUpdate.addRunnableListener(()->sendGameState("Chances: " + Integer.toString(SessionManager.getInstance().getPlayer().getChancesLeft())));
+            Events.SendScoreUpdate.addRunnableListener(()->sendGameState("Score: " + Integer.toString(ScoreManager.getInstance().getScore())));
+            Events.SendBarrierCountUpdate.addRunnableListener(()->sendGameState("Barrier Count: " + Integer.toString(BarrierManager.barriers.size())));
         }
+
+
 
         public static NetworkManager getInstance() {
             if (instance == null) {
@@ -24,6 +34,7 @@ import java.net.ServerSocket;
         public void hostGame(int port) throws IOException {
             serverSocket = new ServerSocket(port);
             socket = serverSocket.accept();
+
             setupStreams();
         }
 
@@ -35,6 +46,9 @@ import java.net.ServerSocket;
         private void setupStreams() throws IOException {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
+
+                WindowManager.getInstance().showWindow(Windows.GameViewWindow);
+
         }
 
         public void sendGameState(String gameState) {
@@ -44,7 +58,24 @@ import java.net.ServerSocket;
 
         public String receiveGameState() throws IOException {
             String gameState = in.readLine();
-            //System.out.printf("Received state: %s%n", gameState);
+            String[] parts = gameState.split(":");
+            if (parts.length != 2) return "What happened, this is impossible????";
+            String eventType = parts[0].trim();
+            String eventData = parts[1].trim();
+            switch (eventType) {
+                case "Chances":
+                    Events.ReceiveChanceUpdate.invoke(Integer.parseInt(eventData));
+                    break;
+                case "Score":
+                    Events.ReceiveScoreUpdate.invoke(Integer.parseInt(eventData));
+                    break;
+                case "Barrier Count":
+                    Events.ReceiveBarrierCountUpdate.invoke(Integer.parseInt(eventData));
+                    break;
+                default:
+                    System.out.println("Unknown event type: " + eventType);
+                    break;
+            }
             return gameState;
         }
 

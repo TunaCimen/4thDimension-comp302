@@ -45,7 +45,7 @@ public class LogInView extends javax.swing.JFrame implements Window {
         Right.setBackground(new java.awt.Color(0, 102, 102));
         Right.setPreferredSize(new java.awt.Dimension(400, 500));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon("/Users/emretaskend/Documents/GitHub/4thDimension-comp302/LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/Resources/Image/Screenshot 2024-04-13 at 15.41.59.png"));
+        jLabel5.setIcon(new javax.swing.ImageIcon("LanceOfDestiny-FourthDimension/src/main/java/org/LanceOfDestiny/Resources/Image/Screenshot 2024-04-13 at 15.41.59.png"));
 
 
         jLabel6.setFont(new java.awt.Font("Showcard Gothic", 1, 24)); // NOI18N
@@ -194,7 +194,6 @@ public class LogInView extends javax.swing.JFrame implements Window {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         wm.showWindow(Windows.Signup);
-        this.dispose();
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         String enteredUsername = jTextField1.getText();
