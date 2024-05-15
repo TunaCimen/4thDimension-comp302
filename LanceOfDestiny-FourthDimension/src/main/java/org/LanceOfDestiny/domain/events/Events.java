@@ -142,6 +142,9 @@ public enum Events {
                 System.out.println("Wrong Argument to Invoke for:" + this.name() + "\n" + "Check your casting for listeners.Note:Tunic");
             }
         }
+        if(onFinishEvent != null){
+            onFinishEvent.invoke();
+        }
     }
 
     public void addListener(Consumer<Object> subscriber) {
