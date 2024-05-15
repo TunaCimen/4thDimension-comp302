@@ -13,10 +13,7 @@ import java.awt.*;
 
 
 public class GameView extends JFrame implements Window {
-
-
     private SessionManager sessionManager;
-
 
     JButton buttonPlay;
     JButton buttonPause;
