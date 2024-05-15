@@ -41,6 +41,7 @@ public class InputManager implements KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_O || e.getKeyCode() == KeyEvent.VK_E || e.getKeyCode() == KeyEvent.VK_C) {
             activateSpellKey = e.getKeyCode();
         }
+        if (e.getKeyCode() == KeyEvent.VK_H) { activateSpellKey = e.getKeyCode();}
     }
 
     @Override
@@ -56,7 +57,6 @@ public class InputManager implements KeyListener {
         updateMovement();
         updateSpellActivation();
     }
-
 
     private void updateRotation() {
         if (rotateKey == KeyEvent.VK_A) Events.RotateStaff.invoke(-1d);
@@ -75,6 +75,10 @@ public class InputManager implements KeyListener {
         if (activateSpellKey == KeyEvent.VK_E) Events.TryUsingSpell.invoke(SpellType.EXPANSION);
         if (activateSpellKey == KeyEvent.VK_C) Events.TryUsingSpell.invoke(SpellType.CANON);
         if (activateSpellKey == KeyEvent.VK_O) Events.TryUsingSpell.invoke(SpellType.OVERWHELMING);
+        if (activateSpellKey == KeyEvent.VK_H) {
+            Events.TryUsingCurse.invoke(SpellType.HOLLOW_PURPLE);
+            System.out.println("Try Using Curse");
+        }
     }
 
 }

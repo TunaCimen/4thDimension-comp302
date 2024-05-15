@@ -45,6 +45,7 @@ public enum Events {
     ActivateOverwhelming(Boolean.class),
     ActivateExpansion(Boolean.class),
     //BAD SPELLS
+    TryUsingCurse(SpellType.class),
     ActivateHollowPurple(Boolean.class),
     ActivateInfiniteVoid(Boolean.class),
     ActivateDoubleAccel(Boolean.class),
@@ -60,10 +61,7 @@ public enum Events {
     CanvasUpdateEvent(Object.class),
 
     BuildDoneEvent(Object.class),
-
-
     Reset(Object.class);
-
 
     //It is the Class that the particular event wants the invocation.
     final Class<?> paramType;

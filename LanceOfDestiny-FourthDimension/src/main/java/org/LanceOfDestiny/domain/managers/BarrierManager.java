@@ -6,6 +6,7 @@ import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static org.LanceOfDestiny.domain.Constants.*;
 
@@ -14,12 +15,14 @@ public class BarrierManager {
     private static BarrierManager instance;
 
     public static ArrayList<Barrier> barriers;
+    public static ArrayList<HollowBarrier> hollowBarriers;
     private BarrierTypes selectedBarrierType;
     private Barrier clickedBarrier;
     private Vector oldLocationOfBarrier;
 
     private BarrierManager() {
         barriers = new ArrayList<>();
+        hollowBarriers = new ArrayList<>();
         selectedBarrierType = BarrierTypes.SIMPLE;
         Events.EndGame.addRunnableListener(this::removeAllBarriers);
     }
@@ -33,13 +36,21 @@ public class BarrierManager {
         barriers.add(barrier);
     }
 
+    public void addHollowBarrier(HollowBarrier hollowBarrier) {
+        hollowBarriers.add(hollowBarrier);
+    }
+
     public ArrayList<Barrier> getBarriers() {
         return barriers;
     }
 
+    public ArrayList<HollowBarrier> getHollowBarriers() {
+        return hollowBarriers;
+    }
+
     public void removeBarrier(Barrier barrier) {
         barriers.remove(barrier);
-        // if(barriers.isEmpty()) Events.EndGame.invoke("You Win"); this is not pretty
+        if(barriers.isEmpty()) Events.EndGame.invoke("You Win"); //this is not pretty
     }
 
     public void deleteBarrier(Barrier barrier) {
@@ -52,6 +63,12 @@ public class BarrierManager {
             barrier.destroy();
         }
         barriers.clear();
+
+        for (int i = hollowBarriers.size()-1; i >= 0; i--) {
+            var barrier = hollowBarriers.get(i);
+            barrier.destroy();
+        }
+        hollowBarriers.clear();
     }
 
     public BarrierTypes getSelectedBarrierType() {
@@ -170,6 +187,28 @@ public class BarrierManager {
         }
 
         return errorMessage.length() == 0 ? null : errorMessage.toString();
+    }
+    /**
+     * Method for finding valid barrier placements for Hollow Purple Spell.
+     * @return Arraylist of size 8 containing possible position Vectors for barriers.
+     * **/
+    public ArrayList<Vector> getPossibleHollowBarrierLocations() {
+        var allPossibleBarrierLocations = new ArrayList<Vector>();
+        int maxX = Constants.SCREEN_WIDTH;
+        int minX = 40;
+        int maxY = Constants.SCREEN_HEIGHT-300;
+        int minY = 40;
+
+        for (int x = minX; x <= maxX; x+= BARRIER_X_OFFSET) {
+            for (int y = minY; y <= maxY; y+= BARRIER_Y_OFFSET) {
+                if(isBarrierColliding(x, y)) continue;
+                allPossibleBarrierLocations.add(new Vector(x, y));
+            }
+        }
+
+        Collections.shuffle(allPossibleBarrierLocations);
+        return (ArrayList<Vector>) allPossibleBarrierLocations.subList(0,8);
+
     }
 
     public static void displayBarrierInfo() {
