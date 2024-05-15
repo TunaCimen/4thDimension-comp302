@@ -2,8 +2,6 @@ package org.LanceOfDestiny.domain.managers;
 
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.spells.SpellType;
-import org.LanceOfDestiny.domain.spells.curses.CurseType;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 

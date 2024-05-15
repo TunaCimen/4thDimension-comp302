@@ -51,7 +51,6 @@ public class BarrierManager {
 
     public void removeBarrier(Barrier barrier) {
         barriers.remove(barrier);
-        if(barriers.isEmpty()) Events.EndGame.invoke("You Win"); //this is not pretty
     }
 
     public void deleteBarrier(Barrier barrier) {
