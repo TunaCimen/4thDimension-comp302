@@ -40,6 +40,16 @@ public class PhysicsHelper {
         return new double[]{min, max};
     }
 
+    /**
+     * Calculates the normal of a collision between two rectangles using the Separating Axis Theorem.
+     * @requires rect1 and rect2 to be non-null and have valid positions and dimensions.
+     * @modifies None.
+     * @effects Returns the minimum translation vector normal if a collision is detected, otherwise returns null.
+     * @param framesAhead The number of frames to look ahead for the collision.
+     * @param rect1 The first rectangle collider.
+     * @param rect2 The second rectangle collider.
+     * @return The collision normal vector or null if no collision is detected.
+     */
     static Vector getRectRectCollisionNormal(int framesAhead, RectangleCollider rect1, RectangleCollider rect2) {
         // Extract the corners of the first rectangle
         Vector[] rect1Corners = rect1.getCorners(framesAhead);
