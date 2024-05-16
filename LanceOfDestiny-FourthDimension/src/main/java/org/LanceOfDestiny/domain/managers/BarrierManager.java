@@ -232,4 +232,19 @@ public class BarrierManager {
         }).toList().size());
     }
 
+    public boolean repOk() {
+        // Check for null values in barriers list
+        for (Barrier barrier : barriers) {
+            if (barrier == null) return false;
+        }
+        // Check for null values in hollowBarriers list
+        for (HollowBarrier hollowBarrier : hollowBarriers) {
+            if (hollowBarrier == null) return false;
+        }
+        // Ensure selectedBarrierType is not null
+        if (selectedBarrierType == null) return false;
+        // Ensure there are no duplicate barriers in the list
+        return barriers.stream().distinct().count() == barriers.size();
+    }
+
 }
