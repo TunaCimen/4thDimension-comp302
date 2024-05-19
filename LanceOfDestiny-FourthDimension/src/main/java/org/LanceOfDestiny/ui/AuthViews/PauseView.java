@@ -1,9 +1,9 @@
 package org.LanceOfDestiny.ui.AuthViews;
 
 import org.LanceOfDestiny.domain.events.Events;
-import org.LanceOfDestiny.ui.Window;
-import org.LanceOfDestiny.ui.WindowManager;
-import org.LanceOfDestiny.ui.Windows;
+import org.LanceOfDestiny.ui.UIUtilities.Window;
+import org.LanceOfDestiny.ui.UIUtilities.WindowManager;
+import org.LanceOfDestiny.ui.UIUtilities.Windows;
 
 import javax.swing.*;
 import java.awt.*;

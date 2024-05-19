@@ -1,9 +1,10 @@
-package org.LanceOfDestiny.ui;
+package org.LanceOfDestiny.ui.UIElements;
 
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.spells.SpellType;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.domain.sprite.ImageOperations;
+import org.LanceOfDestiny.ui.UIElements.SpellUIElement;
 
 import javax.swing.*;
 import java.awt.*;

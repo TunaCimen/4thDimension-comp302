@@ -1,8 +1,4 @@
-package org.LanceOfDestiny.ui;
-
-import org.LanceOfDestiny.domain.events.Events;
-
-import javax.swing.*;
+package org.LanceOfDestiny.ui.UIUtilities;
 
 public class WindowManager {
 

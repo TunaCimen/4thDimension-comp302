@@ -1,8 +1,6 @@
-package org.LanceOfDestiny.ui;
+package org.LanceOfDestiny.ui.UIUtilities;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.barriers.Barrier;
-import org.LanceOfDestiny.domain.barriers.BarrierFactory;
 
 
 import org.LanceOfDestiny.domain.behaviours.Behaviour;
@@ -10,16 +8,11 @@ import org.LanceOfDestiny.domain.behaviours.GameObject;
 
 
 import org.LanceOfDestiny.domain.events.Events;
-import org.LanceOfDestiny.domain.managers.BarrierManager;
-import org.LanceOfDestiny.domain.managers.SessionManager;
-import org.LanceOfDestiny.domain.managers.Status;
-import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.sprite.*;
+import org.LanceOfDestiny.ui.UIUtilities.BuildModeMouseHandler;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 /**
  * Custom drawing JPanel for graphics drawings.
