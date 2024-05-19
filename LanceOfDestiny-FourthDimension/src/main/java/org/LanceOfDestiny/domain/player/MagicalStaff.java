@@ -62,7 +62,24 @@ public class MagicalStaff extends GameObject {
         this.position = position;
 
     }
-
+    /**
+     * Moves the magical staff horizontally within the game boundaries.
+     *
+     * @param integer an Object that should be an Integer representing the direction and magnitude of movement.
+     *                A positive value moves the staff to the right, and a negative value moves it to the left.
+     * Requires:
+     *                - 'integer' must be an Integer instance
+     *                - 'position' of the staff must be initialized within the game boundaries.
+     *                - 'Constants.SCREEN_WIDTH', 'Constants.STAFF_SPEED', 'WIDTH', and, 'HEIGHT' must be defined beforehand.
+     * Modifies:
+     *                - 'position' of the MagicalStaff
+     *                - 'position' of the 'canonRight' and 'canonLeft'
+     * Effects:
+     *                - Moves the staff to the right if `integer` is positive, and to the left if `integer` is negative.
+     *                - Ensures the staff does not move outside the horizontal boundaries of the game screen.
+     *                - If the staff is expanded, it adjusts the maximum boundary accordingly.
+     *                - Updates the positions of `canonLeft` and `canonRight` according to staff's new position.
+     * **/
     public void moveRight(Object integer) {
         int sign = ((Integer) integer) > 0 ? 1 : -1;
         var minX = 0;
