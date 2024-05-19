@@ -16,6 +16,7 @@ public class InputManager implements KeyListener {
     public boolean isShootFlag;
 
     private InputManager() {
+        reset();
     }
 
     public static InputManager getInstance() {
@@ -31,26 +32,44 @@ public class InputManager implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
         if (e.getKeyCode() == KeyEvent.VK_SPACE) isShootFlag = true;
         if (e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_D) rotateKey = e.getKeyCode();
         if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT) moveKey = e.getKeyCode();
         if (e.getKeyCode() == KeyEvent.VK_O || e.getKeyCode() == KeyEvent.VK_E || e.getKeyCode() == KeyEvent.VK_C) {
             activateSpellKey = e.getKeyCode();
         }
-        if (e.getKeyCode() == KeyEvent.VK_1 || e.getKeyCode() == KeyEvent.VK_2 || e.getKeyCode() == KeyEvent.VK_3 ) {
-            activateCurseKey = e.getKeyCode();}
+        if (e.getKeyCode() == KeyEvent.VK_1 || e.getKeyCode() == KeyEvent.VK_2 || e.getKeyCode() == KeyEvent.VK_3) {
+            activateCurseKey = e.getKeyCode();
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_SPACE) isShootFlag = false;
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) isShootFlag = false;
         if (moveKey == e.getKeyCode()) moveKey = -1;
         if (rotateKey == e.getKeyCode()) rotateKey = -1;
         if (activateSpellKey == e.getKeyCode()) activateSpellKey = -1;
         if (activateCurseKey == e.getKeyCode()) activateCurseKey = -1;
     }
 
+    /**
+     * Updates the actions based on the current state of inputs.
+     *
+     * Requires:
+     * - `moveKey`, `rotateKey`, `activateSpellKey`, `activateCurseKey` to be integer key codes.
+     * - `isShootFlag` to be a boolean indicating if the shoot action is triggered.
+     *
+     * Modifies:
+     * - Triggers events corresponding to the current state of inputs.
+     *
+     * Effects:
+     * - For each key pressed, triggers the corresponding event.
+     * - For rotation keys (`A` and `D`), triggers `RotateStaff` event.
+     * - For movement keys (`LEFT` and `RIGHT`), triggers `MoveStaff` event.
+     * - For the shoot key (`SPACE`), triggers `ShootBall` event.
+     * - For spell activation keys (`O`, `E`, `C`), triggers `TryUsingSpell` event.
+     * - For curse activation keys (`1`, `2`, `3`), triggers `TryUsingCurse` event.
+     */
     public void updateActions() {
         updateRotation();
         updateMovement();
@@ -66,16 +85,24 @@ public class InputManager implements KeyListener {
     private void updateMovement() {
         if (moveKey == KeyEvent.VK_LEFT) Events.MoveStaff.invoke(-1);
         if (moveKey == KeyEvent.VK_RIGHT) Events.MoveStaff.invoke(1);
-        if(isShootFlag)Events.ShootBall.invoke();
+        if (isShootFlag) Events.ShootBall.invoke();
     }
 
     private void updateSpellActivation() {
-        if (activateSpellKey == -1) return;
+        if (activateSpellKey == -1 && activateCurseKey == -1) return;
         if (activateSpellKey == KeyEvent.VK_E) Events.TryUsingSpell.invoke(SpellType.EXPANSION);
         if (activateSpellKey == KeyEvent.VK_C) Events.TryUsingSpell.invoke(SpellType.CANON);
         if (activateSpellKey == KeyEvent.VK_O) Events.TryUsingSpell.invoke(SpellType.OVERWHELMING);
         if (activateCurseKey == KeyEvent.VK_1) Events.TryUsingCurse.invoke(SpellType.INFINITE_VOID);
         if (activateCurseKey == KeyEvent.VK_2) Events.TryUsingCurse.invoke(SpellType.DOUBLE_ACCEL);
         if (activateCurseKey == KeyEvent.VK_3) Events.TryUsingCurse.invoke(SpellType.HOLLOW_PURPLE);
+    }
+
+    public void reset() {
+        moveKey = -1;
+        rotateKey = -1;
+        activateSpellKey = -1;
+        activateCurseKey = -1;
+        isShootFlag = false;
     }
 }

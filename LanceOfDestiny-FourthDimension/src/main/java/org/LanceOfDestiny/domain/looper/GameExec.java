@@ -32,8 +32,8 @@ public class GameExec extends Behaviour {
         for (int i = 0; i < getBehaviours().size(); i++) {
             var behaviour = getBehaviours().get(i);
             behaviour.update();
-            drawCanvas.repaint();
         }
+        drawCanvas.repaint();
     }
 
     public void pauseGame() {

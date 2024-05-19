@@ -35,7 +35,7 @@ public class PhysicsManager {
         handleCollisionEvents(PhysicsManager.getInstance().checkCollisions());
     }
     private List<Collision> checkCollisions() {
-        currentFrame++; // Assume a method to get the current frame
+        currentFrame++;
         List<Collision> detectedCollisions = new ArrayList<>();
         processBoundaryCollisions(detectedCollisions);
         processObjectCollisions(detectedCollisions, currentFrame);
