@@ -42,7 +42,7 @@ public enum Events {
     SendBarrierCountUpdate(Object.class),
     // GAME STAT. EVENTS
     // The second args are events that are invoked after all the listeners of the actual event are invoked
-    UpdateChance(Integer.class,SendChanceUpdate),
+    UpdateChance(Integer.class, SendChanceUpdate),
     UpdateBarrierCount(Object.class, SendBarrierCountUpdate),
     UpdateScore(Object.class, SendScoreUpdate),
     EndGame(String.class),
@@ -84,6 +84,8 @@ public enum Events {
     //List that listeners subscribe to.
     private List<Consumer<Object>> listeners = new ArrayList<>();
     Events onFinishEvent;
+    private boolean eventFired;
+
     Events(Class<?> stringClass) {
         paramType = stringClass;
     }
@@ -120,6 +122,7 @@ public enum Events {
         if (!paramType.isAssignableFrom(l.getClass())) {
             throw new IllegalEventInvocationException(name() + " expected " + paramType.getName() + "\n" + "Received: " + l.getClass().getName());
         }
+        eventFired = true; // Set the flag when the event is fired
         for (Consumer<Object> consumer : listeners) {
             try {
                 consumer.accept(l);
@@ -134,6 +137,7 @@ public enum Events {
     }
 
     public void invoke() {
+        eventFired = true; // Set the flag when the event is fired
         for (Consumer<Object> consumer : listeners) {
             try {
                 consumer.accept(new Object());
@@ -163,4 +167,11 @@ public enum Events {
         listeners.clear();
     }
 
+    public boolean eventsFired() {
+        return eventFired;
+    }
+
+    public void resetEventFired() {
+        eventFired = false;
+    }
 }
