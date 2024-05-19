@@ -36,6 +36,15 @@ public class NetworkManager {
         setupStreams();
     }
 
+
+    public void joinGame(Object ip) {
+        try {
+            joinGame((String)ip, 12345);
+        } catch (IOException e) {
+            throw new RuntimeException(e);//TODO: A prompt about failed connection.
+        }
+    }
+
     public void joinGame(String ip, int port) throws IOException {
         socket = new Socket(ip, port);
         setupStreams();
@@ -59,6 +68,7 @@ public class NetworkManager {
 
     public NetworkEventHandler getEventHandler() {
         return eventHandler;
+
     }
 
     public void closeConnection() throws IOException {
@@ -68,3 +78,6 @@ public class NetworkManager {
         if (serverSocket != null) serverSocket.close();
     }
 }
+
+
+
