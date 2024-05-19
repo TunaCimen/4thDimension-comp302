@@ -15,59 +15,50 @@ public class SpellInventory extends JPanel {
     SpellUIElement overwhelmingSpell;
     SpellUIElement expansionSpell;
 
-    JLayeredPane cannonPane,overwhelmPane, expansionPane;
+    SpellUIElement hollowSpell;
+    SpellUIElement infiniteVoidSpell;
+    SpellUIElement doubleAccelSpell;
 
-    JLabel hollowSpell;
 
-    JLabel doubleAccel;
 
-    ImageIcon canonIcon,overwhelmingIcon, expansionIcon,hollowSpellIcon, doubleAccelIcon;
-    ImageIcon reducedCanonIcon, reducedOverwhelmingIcon, reducedExpansionIcon;
-
-    JProgressBar activeGoodSpellBar, activeBadSpellBar;
+    ImageIcon canonIcon,overwhelmingIcon, expansionIcon,hollowSpellIcon, doubleAccelIcon,infVoidIcon;
 
 
     public SpellInventory(){
 
         //Progress Bars
-        hollowSpell = new JLabel();
-        doubleAccel = new JLabel();
-
-
-
-
         canonIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.CannonSpell.getImage(), 40,40));
-
         overwhelmingIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.OverWhelmingSpell.getImage(), 40,40));
         expansionIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.ExpansionSpell.getImage(),40,40));
         hollowSpellIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.HollowSpell.getImage(), 40,40));
         doubleAccelIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.DoubleAccelSpell.getImage(), 40,40));
-
-        reducedOverwhelmingIcon =ImageOperations.reducedTransparencyImageIcon(overwhelmingIcon);
-        reducedExpansionIcon = ImageOperations.reducedTransparencyImageIcon(expansionIcon);
+        infVoidIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.InfVoidSpell.getImage(), 40,40));
 
         canonSpell = new SpellUIElement(canonIcon, new Dimension(50,50));
         overwhelmingSpell = new SpellUIElement(overwhelmingIcon, new Dimension(50,50));
         expansionSpell = new SpellUIElement(expansionIcon, new Dimension(50,50));
+        hollowSpell = new SpellUIElement(hollowSpellIcon, new Dimension(50,50));
+        doubleAccelSpell = new SpellUIElement(doubleAccelIcon, new Dimension(50,50));
+        infiniteVoidSpell = new SpellUIElement(infVoidIcon, new Dimension(50,50));
 
         canonSpell.addClickEvent(e->Events.TryUsingSpell.invoke(SpellType.CANON));
         overwhelmingSpell.addClickEvent(e->Events.TryUsingSpell.invoke(SpellType.OVERWHELMING));
         expansionSpell.addClickEvent(e->Events.TryUsingSpell.invoke(SpellType.EXPANSION));
+        hollowSpell.addClickEvent(e->Events.TryUsingCurse.invoke(SpellType.HOLLOW_PURPLE));
+        doubleAccelSpell.addClickEvent(e->Events.TryUsingCurse.invoke(SpellType.DOUBLE_ACCEL));
+        infiniteVoidSpell.addClickEvent(e->Events.TryUsingCurse.invoke(SpellType.INFINITE_VOID));
 
-        hollowSpell.setIcon(hollowSpellIcon);
-        doubleAccel.setIcon(doubleAccelIcon);
 
         Events.GainSpell.addListener(e->gainSpell((SpellType) e));
         Events.ActivateSpellUI.addListener(e-> loseSpell((SpellType) e));
         Events.ResetSpells.addListener(e->resetSpellUI());
 
-
-
         add(canonSpell);
         add(overwhelmingSpell);
         add(expansionSpell);
         add(hollowSpell);
-        add(doubleAccel);
+        add(doubleAccelSpell);
+        add(infiniteVoidSpell);
         setVisible(true);
 
     }
@@ -77,6 +68,9 @@ public class SpellInventory extends JPanel {
             case CANON -> canonSpell.disableSpell();
             case EXPANSION -> expansionSpell.disableSpell();
             case OVERWHELMING -> overwhelmingSpell.disableSpell();
+            case INFINITE_VOID -> infiniteVoidSpell.disableSpell();
+            case HOLLOW_PURPLE -> hollowSpell.disableSpell();
+            case DOUBLE_ACCEL -> doubleAccelSpell.disableSpell();
         }
     }
 
@@ -85,6 +79,9 @@ public class SpellInventory extends JPanel {
              case CANON ->  canonSpell.enableSpell();
              case EXPANSION -> expansionSpell.enableSpell();
              case OVERWHELMING -> overwhelmingSpell.enableSpell();
+             case INFINITE_VOID -> infiniteVoidSpell.enableSpell();
+             case HOLLOW_PURPLE -> hollowSpell.enableSpell();
+             case DOUBLE_ACCEL -> doubleAccelSpell.enableSpell();
          }
     }
 
@@ -92,6 +89,9 @@ public class SpellInventory extends JPanel {
         canonSpell.resetSpellUI();
         overwhelmingSpell.resetSpellUI();
         expansionSpell.resetSpellUI();
+        hollowSpell.resetSpellUI();
+        doubleAccelSpell.resetSpellUI();
+        infiniteVoidSpell.resetSpellUI();
     }
 
 
