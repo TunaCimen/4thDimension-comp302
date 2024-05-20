@@ -90,6 +90,7 @@ public class GameView extends JFrame implements Window {
             WindowManager.getInstance().showWindow(Windows.PauseView);
         });
         Events.SingleplayerSelected.addRunnableListener(()->showPanel(STATUS_START));
+        Events.ShowBuildMode.addRunnableListener(()->showPanel(STATUS_GAME));
         Events.MultiplayerSelected.addRunnableListener(()->showPanel(STATUS_MULTI));
 
 

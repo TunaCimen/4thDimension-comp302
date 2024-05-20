@@ -19,21 +19,41 @@ public class MultiplayerPanel extends JPanel {
         ipField.setAlignmentX(Component.CENTER_ALIGNMENT);
         ipField.setMaximumSize(new Dimension(150,45));
         setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-        hostButton = UILibrary.createButton("Host Game",Events.Reset::invoke);
-        joinButton = UILibrary.createButton("Join Game", this::showHostPrompt);
+        hostButton = UILibrary.createButton("Host Game",this::showHostPrompt);
+        joinButton = UILibrary.createButton("Join Game", this::showJoinPrompt);
         add(Box.createRigidArea(new Dimension(Constants.SCREEN_WIDTH,Constants.SCREEN_HEIGHT/2-100)));
         add(hostButton);
         add(joinButton);
     }
 
-    public void showHostPrompt(){
+    public void showJoinPrompt(){
         remove(hostButton);
         remove(joinButton);
         add(ipField);
         add(joinButton);
         joinButton.removeActionListener(joinButton.getActionListeners()[0]);
-        joinButton.addActionListener(e->Events.TryJoiningSession.invoke(ipField));
+        joinButton.addActionListener(e->{
+            Events.TryJoiningSession.invoke(ipField.getText());
+        });
         revalidate();
         repaint();
     }
+
+    public void showHostPrompt(){
+        System.out.println("Shown host prompt");
+        remove(hostButton);
+        remove(joinButton);
+        add(hostButton);
+        hostButton.removeActionListener(joinButton.getActionListeners()[0]);
+        hostButton.addActionListener(e->{
+            Events.TryHostingSession.invoke();
+            Events.ShowBuildMode.invoke();
+            System.out.println("Host Clickeeeeeeeed");
+        });
+
+        revalidate();
+        repaint();
+    }
+
+
 }

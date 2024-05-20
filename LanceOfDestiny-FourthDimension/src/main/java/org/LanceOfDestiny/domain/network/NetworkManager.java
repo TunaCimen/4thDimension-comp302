@@ -1,16 +1,13 @@
 package org.LanceOfDestiny.domain.network;
 
 import org.LanceOfDestiny.domain.events.Events;
-import org.LanceOfDestiny.domain.managers.BarrierManager;
-import org.LanceOfDestiny.domain.managers.ScoreManager;
-import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.ui.UIUtilities.WindowManager;
 import org.LanceOfDestiny.ui.UIUtilities.Windows;
 
 
 import java.io.*;
-import java.net.Socket;
-import java.net.ServerSocket;
+import java.net.*;
+import java.util.Enumeration;
 
 public class NetworkManager {
     private Socket socket;
@@ -22,6 +19,8 @@ public class NetworkManager {
 
     private NetworkManager() {
         this.eventHandler = new NetworkEventHandler();
+        Events.TryJoiningSession.addListener(this::joinGame);
+        Events.TryHostingSession.addRunnableListener(this::hostGame);
     }
 
     public static NetworkManager getInstance() {
@@ -31,10 +30,55 @@ public class NetworkManager {
         return instance;
     }
 
-    public void hostGame(int port) throws IOException {
-        serverSocket = new ServerSocket(port);
-        socket = serverSocket.accept();
-        setupStreams();
+    public void hostGame(int port){
+        new Thread(() -> {
+            try{
+                serverSocket = new ServerSocket(port);
+                socket = serverSocket.accept();
+                setupStreams();
+            }catch(Exception e){
+                throw new RuntimeException(e);
+            }
+        }).start();
+
+        System.out.println("Hosted the game connect ");
+    }
+
+    public void hostGame(){
+
+        System.out.println("here hosting a session niga");
+        try {
+            InetAddress ipAddress = getIPAddress();
+            if (ipAddress != null) {
+                System.out.println("IP Address: " + ipAddress.getHostAddress());
+            } else {
+                System.out.println("No IP address found.");
+            }
+        } catch (SocketException e) {
+            System.err.println("Unable to retrieve network interfaces.");
+            e.printStackTrace();
+        }
+        hostGame(12345);
+
+    }
+
+    private static InetAddress getIPAddress() throws SocketException {
+        Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+        while (networkInterfaces.hasMoreElements()) {
+            NetworkInterface networkInterface = networkInterfaces.nextElement();
+            if (networkInterface.isLoopback() || !networkInterface.isUp()) {
+                continue; // Skip loopback and inactive interfaces
+            }
+
+            Enumeration<InetAddress> inetAddresses = networkInterface.getInetAddresses();
+            while (inetAddresses.hasMoreElements()) {
+                InetAddress inetAddress = inetAddresses.nextElement();
+                if (!inetAddress.isLoopbackAddress() && inetAddress.isSiteLocalAddress()) {
+                    return inetAddress; // Return the first non-loopback and site-local address
+                }
+            }
+        }
+        return null; // No appropriate IP address found
     }
 
 
@@ -44,6 +88,8 @@ public class NetworkManager {
         } catch (IOException e) {
             throw new RuntimeException(e);//TODO: A prompt about failed connection.
         }
+
+        System.out.println("Joined Successfuly ");
     }
 
     public void joinGame(String ip, int port) throws IOException {

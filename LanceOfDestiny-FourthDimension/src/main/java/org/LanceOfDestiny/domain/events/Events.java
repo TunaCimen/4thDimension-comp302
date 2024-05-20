@@ -78,7 +78,9 @@ public enum Events {
     MultiplayerSelected(Object.class),
     HostPanel(Object.class),
     JoinPanel(Object.class),
-    TryJoiningSession(String.class);
+    TryJoiningSession(String.class),
+    TryHostingSession(Object.class),
+    ShowBuildMode(Object.class);
 
     //It is the Class that the particular event wants the invocation.
     final Class<?> paramType;
