@@ -4,6 +4,7 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.looper.GameLooper;
 import org.LanceOfDestiny.domain.looper.LoopExecutor;
+import org.LanceOfDestiny.domain.network.NetworkBehavior;
 import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
 import org.LanceOfDestiny.domain.player.Player;
@@ -64,6 +65,7 @@ public class SessionManager {
             }
             setStatus(Status.RunningMode);
         });
+        Events.MultiplayerSelected.addRunnableListener(NetworkBehavior::new);
     }
 
     public static SessionManager getInstance() {
