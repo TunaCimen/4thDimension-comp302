@@ -1,4 +1,4 @@
-package org.LanceOfDestiny.ui;
+package org.LanceOfDestiny.ui.UIUtilities;
 
 public class WindowManager {
 

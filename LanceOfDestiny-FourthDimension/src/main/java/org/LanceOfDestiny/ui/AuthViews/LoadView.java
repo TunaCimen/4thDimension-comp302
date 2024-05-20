@@ -7,7 +7,7 @@ import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.ScoreManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.spells.*;
-import org.LanceOfDestiny.ui.Window;
+import org.LanceOfDestiny.ui.UIUtilities.Window;
 
 import javax.swing.*;
 import java.awt.*;

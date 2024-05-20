@@ -1,4 +1,4 @@
-package org.LanceOfDestiny.ui;
+package org.LanceOfDestiny.ui.UIUtilities;
 
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.managers.Status;
@@ -8,7 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public abstract class MouseHandler {
-    JPanel parentPanel;
+    protected JPanel parentPanel;
 
     public MouseHandler(JPanel panel) {
         this.parentPanel = panel;

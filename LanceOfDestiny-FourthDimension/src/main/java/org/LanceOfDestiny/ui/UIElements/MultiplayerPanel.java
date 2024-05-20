@@ -1,7 +1,8 @@
-package org.LanceOfDestiny.ui;
+package org.LanceOfDestiny.ui.UIElements;
 
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.ui.UIElements.UILibrary;
 
 import javax.swing.*;
 import java.awt.*;
