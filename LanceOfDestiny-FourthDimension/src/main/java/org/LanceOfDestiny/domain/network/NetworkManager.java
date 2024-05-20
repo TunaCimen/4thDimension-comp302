@@ -36,6 +36,7 @@ public class NetworkManager {
                 serverSocket = new ServerSocket(port);
                 socket = serverSocket.accept();
                 setupStreams();
+                System.out.println("Connected the other Player succesfulyl.");
             }catch(Exception e){
                 throw new RuntimeException(e);
             }
