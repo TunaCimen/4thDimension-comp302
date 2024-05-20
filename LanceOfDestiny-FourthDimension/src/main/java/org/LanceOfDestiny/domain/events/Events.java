@@ -32,14 +32,16 @@ public enum Events {
     //FIREBALL EVENTS
     ShootBall(Object.class),
     ResetFireBall(Object.class),
-    // Events after opponent is notified
+    // NETWORK: Events after opponent is notified
     ReceiveChanceUpdate(Integer.class),
     ReceiveScoreUpdate(Integer.class),
     ReceiveBarrierCountUpdate(Integer.class),
-    // Events to notify the opponent
+    ReceiveGameDataToLoad(String.class),
+    // NETWORK: Events to notify the opponent
     SendChanceUpdate(Object.class),
     SendScoreUpdate(Object.class),
     SendBarrierCountUpdate(Object.class),
+    SendGameDataToLoad(Object.class),
     // GAME STAT. EVENTS
     // The second args are events that are invoked after all the listeners of the actual event are invoked
     UpdateChance(Integer.class, SendChanceUpdate),

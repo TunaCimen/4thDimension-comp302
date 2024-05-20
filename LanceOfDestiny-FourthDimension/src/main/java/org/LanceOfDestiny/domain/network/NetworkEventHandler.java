@@ -11,7 +11,7 @@ public class NetworkEventHandler {
         Events.SendChanceUpdate.addRunnableListener(() -> sendGameState("Chances: " + SessionManager.getInstance().getPlayer().getChancesLeft()));
         Events.SendScoreUpdate.addRunnableListener(() -> sendGameState("Score: " + ScoreManager.getInstance().getScore()));
         Events.SendBarrierCountUpdate.addRunnableListener(() -> sendGameState("Barrier Count: " + BarrierManager.barriers.size()));
-
+        Events.SendGameDataToLoad.addRunnableListener(() -> sendGameState("Game Data: " + BarrierManager.getInstance().serializeAllBarriers()));
     }
 
     public void sendGameState(String gameState) {
@@ -39,6 +39,8 @@ public class NetworkEventHandler {
             case "Barrier Count":
                 Events.ReceiveBarrierCountUpdate.invoke(Integer.parseInt(eventData));
                 break;
+            case "Game Data":
+                Events.ReceiveGameDataToLoad.invoke(eventData);
             default:
                 System.out.println("Unknown event type: " + eventType);
                 break;

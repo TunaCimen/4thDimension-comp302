@@ -142,7 +142,7 @@ public abstract class Barrier extends GameObject {
     public String toSerializedString() {
         return barrierType + "," +
                 hitsLeft + "," +
-                position.getX() + " " + position.getY() + "," +
+                position.getX() + "," + position.getY() + "," +
                 isMoving;
     }
 

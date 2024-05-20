@@ -232,4 +232,13 @@ public class BarrierManager {
     public void setOldLocationOfBarrier(Vector oldLocationOfBarrier) {
         this.oldLocationOfBarrier = oldLocationOfBarrier;
     }
+
+    public String serializeAllBarriers() {
+        // use Barrier::toSerializedString for all barriers, join them using ;
+        StringBuilder serializedData = new StringBuilder();
+        for (Barrier barrier : barriers) {
+            serializedData.append(barrier.toSerializedString()).append(";");
+        }
+        return serializedData.toString();
+    }
 }

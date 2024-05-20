@@ -1,6 +1,7 @@
 package org.LanceOfDestiny.database;
 
 import org.LanceOfDestiny.domain.barriers.*;
+import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.physics.Vector;
@@ -8,7 +9,6 @@ import org.LanceOfDestiny.domain.physics.Vector;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class DatabaseController {
     private final Connection connection;
@@ -19,6 +19,7 @@ public class DatabaseController {
                 "sql11698733",
                 "UI1TfUfkQa"
         );
+        Events.ReceiveGameDataToLoad.addListener(c -> loadBarriersFromString((String)c));
     }
 
     public boolean addUser(String username, String password) throws SQLException {
@@ -87,7 +88,11 @@ public class DatabaseController {
                         + resultSet.getInt("hitsLeft") + ","
                         + resultSet.getString("coordinate") + ","
                         + resultSet.getBoolean("moving");
-                loadBarrierFromString(barrierInfo);
+                Barrier barrier = loadBarrierFromString(barrierInfo);
+                if (barrier != null) {
+                    barriers.add(barrier);
+                    BarrierManager.getInstance().addBarrier(barrier);
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -95,52 +100,27 @@ public class DatabaseController {
         return barriers;
     }
 
-
-    private void loadBarrierFromString(String barrierInfo) {
+    private Barrier loadBarrierFromString(String barrierInfo) {
         String[] parts = barrierInfo.split(",");
-        if (parts.length < 4) return;
+        if (parts.length < 4) return null;
 
         String barrierType = parts[0].trim();
         int hitsLeft = Integer.parseInt(parts[1].trim());
-        String[] coordinateParts = parts[2].trim().split(" ");
-        boolean moving = Boolean.parseBoolean(parts[3].trim());
+        String[] coordinateParts = {parts[2], parts[3]};
+        boolean moving = Boolean.parseBoolean(parts[4].trim());
         Vector position = new Vector(Float.parseFloat(coordinateParts[0]), Float.parseFloat(coordinateParts[1]));
 
-        Barrier barrier = null;
+        return BarrierFactory.createBarrier(position, barrierType, hitsLeft, moving);
+    }
 
-        if(Objects.equals(barrierType, "SIMPLE")){
-            //rt.add(BarrierFactory.createBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])),BarrierTypes.SIMPLE));
-            SimpleBarrier sp = new SimpleBarrier(position);
-            sp.setMoving(moving);
-            sp.initDirection();
-            sp.start();
-            BarrierManager.getInstance().addBarrier(sp);
+    public void loadBarriersFromString(String barriersData) {
+        String[] barriersArray = barriersData.split(";");
+        for (String barrierInfo : barriersArray) {
+            Barrier barrier = loadBarrierFromString(barrierInfo);
+            if (barrier != null) {
+                BarrierManager.getInstance().addBarrier(barrier);
+            }
         }
-        else if(Objects.equals(barrierType, "EXPLOSIVE")){
-            //rt.add(BarrierFactory.createBarrier(position,BarrierTypes.EXPLOSIVE));
-            ExplosiveBarrier ep = new ExplosiveBarrier(position);
-            ep.setMoving(moving);
-            ep.initDirection();
-            ep.start();
-            BarrierManager.getInstance().addBarrier(ep);
-        }
-        else if(Objects.equals(barrierType, "REINFORCED")){
-            //rt.add(BarrierFactory.createBarrier(position,BarrierTypes.REINFORCED));
-            ReinforcedBarrier rb = new ReinforcedBarrier(position, hitsLeft);
-            rb.setMoving(moving);
-            rb.initDirection();
-            rb.start();
-            BarrierManager.getInstance().addBarrier(rb);
-        }
-        else if(Objects.equals(barrierType, "REWARDING")){
-            //rt.add(BarrierFactory.createBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])),BarrierTypes.REWARDING));
-            RewardingBarrier wb = new RewardingBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])));
-            wb.setMoving(moving);
-            wb.initDirection();
-            wb.start();
-            BarrierManager.getInstance().addBarrier(wb);
-        }
-
     }
 
     public List<String> loadUserInfo(String username, String saveName) throws SQLException {
