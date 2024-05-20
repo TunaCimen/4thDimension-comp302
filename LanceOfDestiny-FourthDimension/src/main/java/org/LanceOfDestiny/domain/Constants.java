@@ -26,6 +26,7 @@ public class Constants {
     public static final int CIRCULAR_MOTION_RADIUS = 1;
     // SPELLS
     public static final int SPELL_DURATION = 30; // in seconds
+    public static final int CURSE_DURATION = 15;
     public static final int REWARD_BOX_HEIGHT = BARRIER_HEIGHT;
     public static final int REWARD_BOX_WIDTH = BARRIER_WIDTH;
     public static final int CANON_WIDTH = STAFF_WIDTH / 10;

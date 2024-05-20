@@ -1,6 +1,7 @@
 package org.LanceOfDestiny.domain.ymir;
 
 import org.LanceOfDestiny.domain.behaviours.MonoBehaviour;
+import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.looper.LoopExecutor;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.spells.SpellType;
@@ -12,12 +13,8 @@ import java.util.Random;
 public class Ymir extends MonoBehaviour {
 
     private final LoopExecutor loopExecutor;
-    private static final int COIN_FLIP_INTERVAL = 15;
+    private static final int COIN_FLIP_INTERVAL = 20;
     private static final double COIN_FLIP_PROBABILITY = 1;
-    private static final int SPELL_DURATION = 5;
-    private int curseEndSecond;
-    private boolean isCurseActive;
-    private SpellType activeCurse;
     private int nextCoinFlipSeconds = 0;
     private final Random RANDOM = new Random();
     private SpellType[] lastTwoAbilities = new SpellType[2];
@@ -27,6 +24,7 @@ public class Ymir extends MonoBehaviour {
         lastTwoAbilities[0] = getRandomCurse();
         lastTwoAbilities[1] = getRandomCurse();
         this.loopExecutor = SessionManager.getInstance().getLoopExecutor();
+        Events.Reset.addRunnableListener(() -> nextCoinFlipSeconds = 0);
     }
 
     @Override
@@ -35,17 +33,16 @@ public class Ymir extends MonoBehaviour {
         if (loopExecutor.getSecondsPassed() >= nextCoinFlipSeconds) {
             coinFlip();
         }
-
-        if (isCurseActive && loopExecutor.getSecondsPassed() >= curseEndSecond) {
-            deactivateCurse();
-            System.out.println("Deactivated Curse");
-        }
     }
 
-    private void deactivateCurse() {
-         System.out.println("Deactivating curse");
-         activeCurse.deactivate();
-         isCurseActive = false;
+    private void activateRandomCurse() {
+         var randomCurse = getRandomCurse();
+         while (!validateCurse(randomCurse)) {
+             randomCurse = getRandomCurse();
+         }
+
+         Events.TryUsingCurse.invoke(randomCurse);
+         updateLastTwoAbilities(randomCurse);
     }
 
     private SpellType getRandomCurse() {
@@ -65,24 +62,6 @@ public class Ymir extends MonoBehaviour {
          var coinFlip = RANDOM.nextDouble() < COIN_FLIP_PROBABILITY;
          System.out.println("Coin flipped: " + coinFlip);
          if (coinFlip) activateRandomCurse();
-    }
-
-    private void activateRandomCurse() {
-         var randomCurse = getRandomCurse();
-         while (!validateCurse(randomCurse)) {
-             randomCurse = getRandomCurse();
-         }
-         System.out.println("Random Curse Activating: " + randomCurse);
-         randomCurse.activate();
-         updateLastTwoAbilities(randomCurse);
-
-         if(SpellType.HOLLOW_PURPLE.equals(randomCurse))
-             return;
-
-         isCurseActive = true;
-         activeCurse = randomCurse;
-         curseEndSecond = loopExecutor.getSecondsPassed() + SPELL_DURATION;
-         System.out.println("Curse end Second: " + activeCurse);
     }
 
     private boolean validateCurse(SpellType curse) {
