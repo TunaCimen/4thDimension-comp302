@@ -47,7 +47,9 @@ public abstract class Barrier extends GameObject {
         }
         this.collider = ColliderFactory.createRectangleCollider(this, Vector.getZeroVector(), ColliderType.STATIC, WIDTH, HEIGHT);
         this.sprite = new RectangleSprite(this, Color.DARK_GRAY, WIDTH, HEIGHT);
-        this.defaultSprite = sprite;
+    }
+
+    public void adjustFrozenSprite() {
         this.frozenSprite = new RectangleSprite(this, Color.DARK_GRAY, WIDTH, HEIGHT);
         this.frozenSprite.setImage(ImageOperations.resizeImageToSprite(ImageLibrary.FrozenBarrierRectangle.getImage(), this.sprite));
     }
@@ -76,9 +78,6 @@ public abstract class Barrier extends GameObject {
         if (isDestroyed()) {
             kill();
         }
-    }
-    public void removeBarrierSprite() {
-        super.destroy();
     }
 
     public void initDirection() {
@@ -120,20 +119,16 @@ public abstract class Barrier extends GameObject {
 
     public void activateFrozen() {
         isFrozen = true;
-        this.sprite = frozenSprite;
+        setSprite(frozenSprite);
     }
 
     public void deactivateFrozen() {
         isFrozen = false;
-        this.sprite = defaultSprite;
+        setSprite(defaultSprite);
     }
 
     public boolean isFrozen() {
         return isFrozen;
-    }
-
-    public void setFrozen(boolean frozen) {
-        isFrozen = frozen;
     }
 
     @Override

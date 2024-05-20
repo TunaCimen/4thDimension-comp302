@@ -30,11 +30,6 @@ public class SpellContainer extends MonoBehaviour {
     }
 
     @Override
-    public void start() {
-        super.start();
-    }
-
-    @Override
     public void update() {
         super.update();
         if (isSpellActive) {

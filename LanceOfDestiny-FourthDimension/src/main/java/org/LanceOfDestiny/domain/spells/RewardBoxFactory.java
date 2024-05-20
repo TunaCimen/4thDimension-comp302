@@ -15,7 +15,6 @@ public class RewardBoxFactory {
     private static ArrayList<RewardBox> rewardBoxes = new ArrayList<>();
     private static final Random RANDOM = new Random();
 
-
     private RewardBoxFactory() {
         Events.Reset.addRunnableListener(this::removeRewardBoxes);
     }
@@ -34,7 +33,6 @@ public class RewardBoxFactory {
     public static RewardBox createRewardBox(Vector position, SpellType spellType) {
         var rewardBox = new RewardBox(position, spellType);
         rewardBoxes.add(rewardBox);
-        System.out.println(spellType);
         return rewardBox;
     }
 
@@ -49,10 +47,6 @@ public class RewardBoxFactory {
                     .toList();
             return goodSpells.get(RANDOM.nextInt(goodSpells.size()));
         }
-    }
-
-    public ArrayList<RewardBox> getRewardBoxes() {
-        return rewardBoxes;
     }
 
     public void removeRewardBox(RewardBox rewardBox) {

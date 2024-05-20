@@ -18,6 +18,8 @@ public class RewardingBarrier extends Barrier{
         this.getSprite().color = new Color(0,0,0,0);
         this.getSprite().setImage(ImageOperations.resizeImage(ImageLibrary.RewardingBarrier.getImage()
                 ,this.getSprite().width(),this.getSprite().height()));
+        this.defaultSprite = sprite;
+        adjustFrozenSprite();
     }
 
     @Override
