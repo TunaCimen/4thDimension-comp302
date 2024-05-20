@@ -9,13 +9,11 @@ import org.LanceOfDestiny.domain.spells.SpellType;
 
 public class Player extends MonoBehaviour {
     private SpellContainer spellContainer;
-    private CurseManager curseManager;
     private int chancesLeft;
 
     public Player() {
         super();
         this.spellContainer = new SpellContainer();
-        this.curseManager = CurseManager.getInstance();
         this.chancesLeft = Constants.DEFAULT_CHANCES;
         Events.UpdateChance.addListener(this::updateChances);
         Events.TryUsingSpell.addListener(this::tryUsingSpell);
@@ -34,7 +32,7 @@ public class Player extends MonoBehaviour {
 
     private void tryUsingSpell(Object objectSpellType) {
         SpellType spellType = (SpellType) objectSpellType;
-        spellContainer.activateSpell(spellType);
+        if(spellType.isGood()) spellContainer.activateSpell(spellType);
     }
 
     public void updateChances(Object change){

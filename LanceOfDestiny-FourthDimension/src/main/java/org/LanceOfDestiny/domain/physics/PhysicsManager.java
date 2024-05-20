@@ -205,7 +205,7 @@ public class PhysicsManager {
         collision.getCollider1().setVelocity(reflection);
     }
 
-    private void handleFireballBounce(Collision collision) {
+    public void handleFireballBounce(Collision collision) {
         FireBall fireball = PhysicsHelper.getFireballFromCollision(collision);
         GameObject otherGameObject = collision.getOther(fireball);
         Vector fireballVelocity = fireball.getCollider().getVelocity();
