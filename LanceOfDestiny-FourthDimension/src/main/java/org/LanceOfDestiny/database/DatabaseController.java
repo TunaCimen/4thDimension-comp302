@@ -87,10 +87,7 @@ public class DatabaseController {
                         + resultSet.getInt("hitsLeft") + ","
                         + resultSet.getString("coordinate") + ","
                         + resultSet.getBoolean("moving");
-                Barrier barrier = loadBarrierFromString(barrierInfo);
-                if (barrier != null) {
-                    BarrierManager.getInstance().addBarrier(barrier);
-                }
+                loadBarrierFromString(barrierInfo);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -98,9 +95,10 @@ public class DatabaseController {
         return barriers;
     }
 
-    private Barrier loadBarrierFromString(String barrierInfo) {
+
+    private void loadBarrierFromString(String barrierInfo) {
         String[] parts = barrierInfo.split(",");
-        if (parts.length < 4) return null;
+        if (parts.length < 4) return;
 
         String barrierType = parts[0].trim();
         int hitsLeft = Integer.parseInt(parts[1].trim());
@@ -109,27 +107,40 @@ public class DatabaseController {
         Vector position = new Vector(Float.parseFloat(coordinateParts[0]), Float.parseFloat(coordinateParts[1]));
 
         Barrier barrier = null;
-        switch (barrierType) {
-            case "SIMPLE":
-                barrier = new SimpleBarrier(position);
-                break;
-            case "EXPLOSIVE":
-                barrier = new ExplosiveBarrier(position);
-                break;
-            case "REINFORCED":
-                barrier = new ReinforcedBarrier(position, hitsLeft);
-                break;
-            case "REWARDING":
-                barrier = new RewardingBarrier(position);
-                break;
+
+        if(Objects.equals(barrierType, "SIMPLE")){
+            //rt.add(BarrierFactory.createBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])),BarrierTypes.SIMPLE));
+            SimpleBarrier sp = new SimpleBarrier(position);
+            sp.setMoving(moving);
+            sp.initDirection();
+            sp.start();
+            BarrierManager.getInstance().addBarrier(sp);
+        }
+        else if(Objects.equals(barrierType, "EXPLOSIVE")){
+            //rt.add(BarrierFactory.createBarrier(position,BarrierTypes.EXPLOSIVE));
+            ExplosiveBarrier ep = new ExplosiveBarrier(position);
+            ep.setMoving(moving);
+            ep.initDirection();
+            ep.start();
+            BarrierManager.getInstance().addBarrier(ep);
+        }
+        else if(Objects.equals(barrierType, "REINFORCED")){
+            //rt.add(BarrierFactory.createBarrier(position,BarrierTypes.REINFORCED));
+            ReinforcedBarrier rb = new ReinforcedBarrier(position, hitsLeft);
+            rb.setMoving(moving);
+            rb.initDirection();
+            rb.start();
+            BarrierManager.getInstance().addBarrier(rb);
+        }
+        else if(Objects.equals(barrierType, "REWARDING")){
+            //rt.add(BarrierFactory.createBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])),BarrierTypes.REWARDING));
+            RewardingBarrier wb = new RewardingBarrier(new Vector(Float.parseFloat(parts[0]),Float.parseFloat(parts[1])));
+            wb.setMoving(moving);
+            wb.initDirection();
+            wb.start();
+            BarrierManager.getInstance().addBarrier(wb);
         }
 
-        if (barrier != null) {
-            barrier.setMoving(moving);
-            barrier.initDirection();
-            barrier.start();
-        }
-        return barrier;
     }
 
     public List<String> loadUserInfo(String username, String saveName) throws SQLException {
