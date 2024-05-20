@@ -241,4 +241,27 @@ public class BarrierManager {
         }
         return serializedData.toString();
     }
+
+    public Barrier loadBarrierFromString(String barrierInfo) {
+        String[] parts = barrierInfo.split(",");
+        if (parts.length < 4) return null;
+
+        String barrierType = parts[0].trim();
+        int hitsLeft = Integer.parseInt(parts[1].trim());
+        String[] coordinateParts = {parts[2], parts[3]};
+        boolean moving = Boolean.parseBoolean(parts[4].trim());
+        Vector position = new Vector(Float.parseFloat(coordinateParts[0]), Float.parseFloat(coordinateParts[1]));
+
+        return BarrierFactory.createBarrier(position, barrierType, hitsLeft, moving);
+    }
+
+    public void loadBarriersFromString(String barriersData) {
+        String[] barriersArray = barriersData.split(";");
+        for (String barrierInfo : barriersArray) {
+            Barrier barrier = loadBarrierFromString(barrierInfo);
+            if (barrier != null) {
+                BarrierManager.getInstance().addBarrier(barrier);
+            }
+        }
+    }
 }

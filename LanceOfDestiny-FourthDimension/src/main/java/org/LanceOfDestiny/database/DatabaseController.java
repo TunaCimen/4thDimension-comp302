@@ -19,7 +19,6 @@ public class DatabaseController {
                 "sql11698733",
                 "UI1TfUfkQa"
         );
-        Events.ReceiveGameDataToLoad.addListener(c -> loadBarriersFromString((String)c));
     }
 
     public boolean addUser(String username, String password) throws SQLException {
@@ -88,7 +87,7 @@ public class DatabaseController {
                         + resultSet.getInt("hitsLeft") + ","
                         + resultSet.getString("coordinate") + ","
                         + resultSet.getBoolean("moving");
-                Barrier barrier = loadBarrierFromString(barrierInfo);
+                Barrier barrier = BarrierManager.getInstance().loadBarrierFromString(barrierInfo);
                 if (barrier != null) {
                     barriers.add(barrier);
                     BarrierManager.getInstance().addBarrier(barrier);
@@ -100,28 +99,7 @@ public class DatabaseController {
         return barriers;
     }
 
-    private Barrier loadBarrierFromString(String barrierInfo) {
-        String[] parts = barrierInfo.split(",");
-        if (parts.length < 4) return null;
 
-        String barrierType = parts[0].trim();
-        int hitsLeft = Integer.parseInt(parts[1].trim());
-        String[] coordinateParts = {parts[2], parts[3]};
-        boolean moving = Boolean.parseBoolean(parts[4].trim());
-        Vector position = new Vector(Float.parseFloat(coordinateParts[0]), Float.parseFloat(coordinateParts[1]));
-
-        return BarrierFactory.createBarrier(position, barrierType, hitsLeft, moving);
-    }
-
-    public void loadBarriersFromString(String barriersData) {
-        String[] barriersArray = barriersData.split(";");
-        for (String barrierInfo : barriersArray) {
-            Barrier barrier = loadBarrierFromString(barrierInfo);
-            if (barrier != null) {
-                BarrierManager.getInstance().addBarrier(barrier);
-            }
-        }
-    }
 
     public List<String> loadUserInfo(String username, String saveName) throws SQLException {
         List<String> rt = new ArrayList<>();

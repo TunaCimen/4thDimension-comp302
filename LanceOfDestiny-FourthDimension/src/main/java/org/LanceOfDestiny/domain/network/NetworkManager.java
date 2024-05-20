@@ -9,7 +9,6 @@ import org.LanceOfDestiny.ui.UIUtilities.Windows;
 import java.io.*;
 import java.net.*;
 import java.util.Enumeration;
-import java.util.Objects;
 
 public class NetworkManager {
     private Socket socket;
@@ -24,9 +23,6 @@ public class NetworkManager {
         this.eventHandler = new NetworkEventHandler();
         Events.TryJoiningSession.addListener(this::joinGame);
         Events.TryHostingSession.addRunnableListener(this::hostGame);
-        Events.SendGameStarted.addRunnableListener(()->{
-            out.println("STARTED");
-        });
     }
 
     public static NetworkManager getInstance() {
@@ -106,22 +102,7 @@ public class NetworkManager {
         setupStreams();
         Events.Reset.invoke();
         Events.JoinedTheHost.invoke();
-        new Thread(()->{
-            while(true){
-                try {
-                    String s = receiveGameState();
-                    if(Objects.equals(s, "STARTED")){
-                        Events.StartGame.invoke();
-                        return;
-                    }
-
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }).start();
-
-
+        BarrierManager.getInstance().loadBarriersFromString(in.readLine());
     }
 
     private void setupStreams() throws IOException {
@@ -129,7 +110,6 @@ public class NetworkManager {
         out = new PrintWriter(socket.getOutputStream(), true);
 
     }
-
 
     public void sendGameState(String gameState) {
         out.println(gameState);
