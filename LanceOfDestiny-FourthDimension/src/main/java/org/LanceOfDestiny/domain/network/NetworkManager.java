@@ -4,8 +4,9 @@ import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.ScoreManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
-import org.LanceOfDestiny.ui.WindowManager;
-import org.LanceOfDestiny.ui.Windows;
+import org.LanceOfDestiny.ui.UIUtilities.WindowManager;
+import org.LanceOfDestiny.ui.UIUtilities.Windows;
+
 
 import java.io.*;
 import java.net.Socket;
@@ -17,12 +18,10 @@ public class NetworkManager {
     private BufferedReader in;
     private PrintWriter out;
     private static NetworkManager instance;
+    private final NetworkEventHandler eventHandler;
 
     private NetworkManager() {
-        Events.SendChanceUpdate.addRunnableListener(() -> sendGameState("Chances: " + SessionManager.getInstance().getPlayer().getChancesLeft()));
-        Events.SendScoreUpdate.addRunnableListener(() -> sendGameState("Score: " + ScoreManager.getInstance().getScore()));
-        Events.SendBarrierCountUpdate.addRunnableListener(() -> sendGameState("Barrier Count: " + BarrierManager.barriers.size()));
-        Events.TryJoiningSession.addListener(this::joinGame);
+        this.eventHandler = new NetworkEventHandler();
     }
 
     public static NetworkManager getInstance() {
@@ -37,6 +36,7 @@ public class NetworkManager {
         socket = serverSocket.accept();
         setupStreams();
     }
+
 
     public void joinGame(Object ip) {
         try {
@@ -63,45 +63,13 @@ public class NetworkManager {
         out.println(gameState);
     }
 
-    public void receiveGameState() throws IOException {
-        new Thread(() -> {
-            try {
-                String gameState;
-                while ((gameState = in.readLine()) != null) {
-                    handleReceivedGameState(gameState);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }).start();
+    public String receiveGameState() throws IOException {
+        return in.readLine();
     }
 
-    private void handleReceivedGameState(String gameState) {
-        if (gameState == null || gameState.isEmpty()) {
-            return;
-        }
-        String[] parts = gameState.split(":");
-        if (parts.length != 2) {
-            System.out.println("Invalid game state received: " + gameState);
-            return;
-        }
-        String eventType = parts[0].trim();
-        String eventData = parts[1].trim();
-        switch (eventType) {
-            case "Chances":
-                System.out.println("Chances Received Game State");
-                Events.ReceiveChanceUpdate.invoke(Integer.parseInt(eventData));
-                break;
-            case "Score":
-                Events.ReceiveScoreUpdate.invoke(Integer.parseInt(eventData));
-                break;
-            case "Barrier Count":
-                Events.ReceiveBarrierCountUpdate.invoke(Integer.parseInt(eventData));
-                break;
-            default:
-                System.out.println("Unknown event type: " + eventType);
-                break;
-        }
+    public NetworkEventHandler getEventHandler() {
+        return eventHandler;
+
     }
 
     public void closeConnection() throws IOException {

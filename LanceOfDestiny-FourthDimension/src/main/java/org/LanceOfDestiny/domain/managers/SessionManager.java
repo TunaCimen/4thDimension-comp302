@@ -8,7 +8,7 @@ import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
 import org.LanceOfDestiny.domain.player.Player;
 import org.LanceOfDestiny.domain.ymir.Ymir;
-import org.LanceOfDestiny.ui.DrawCanvas;
+import org.LanceOfDestiny.ui.UIUtilities.DrawCanvas;
 
 import java.awt.image.BufferedImage;
 
