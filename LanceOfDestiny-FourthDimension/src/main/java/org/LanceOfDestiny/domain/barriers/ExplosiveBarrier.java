@@ -34,7 +34,7 @@ public class ExplosiveBarrier extends Barrier {
         getSprite().setImage(ImageOperations.resizeImage(ImageLibrary.ExplosiveBarrier.getImage(),Constants.EXPLOSIVE_RADIUS*2,Constants.EXPLOSIVE_RADIUS*2));
 
         // Adjust Frozen Sprite
-        frozenSprite = sprite;
+        frozenSprite = new BallSprite(this, Color.RED, (int) Constants.EXPLOSIVE_RADIUS);
         frozenSprite.color = new Color(0,0,0,0);
         frozenSprite.setImage(ImageOperations.resizeImage(ImageLibrary.FrozenBarrierCircle.getImage(), sprite.width()*2,sprite.height()*2));
         frozenSprite.setImage(ImageOperations.resizeImage(ImageLibrary.FrozenBarrierCircle.getImage(),Constants.EXPLOSIVE_RADIUS*2,Constants.EXPLOSIVE_RADIUS*2));
