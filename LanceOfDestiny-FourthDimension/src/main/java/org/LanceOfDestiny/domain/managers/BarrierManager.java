@@ -14,18 +14,15 @@ import static org.LanceOfDestiny.domain.Constants.*;
 public class BarrierManager {
 
     private static BarrierManager instance;
-
     public static ArrayList<Barrier> barriers;
-    public static ArrayList<HollowBarrier> hollowBarriers;
     private BarrierTypes selectedBarrierType;
     private Barrier clickedBarrier;
     private Vector oldLocationOfBarrier;
 
     private BarrierManager() {
         barriers = new ArrayList<>();
-        hollowBarriers = new ArrayList<>();
         selectedBarrierType = BarrierTypes.SIMPLE;
-        Events.EndGame.addRunnableListener(this::removeAllBarriers);
+        Events.EndGame.addRunnableListener(this::deleteAllBarriers);
     }
 
     public static BarrierManager getInstance() {
@@ -36,71 +33,38 @@ public class BarrierManager {
     public void addBarrier(Barrier barrier) {
         barriers.add(barrier);
     }
-
-    public void addHollowBarrier(HollowBarrier hollowBarrier) {
-        hollowBarriers.add(hollowBarrier);
-    }
-
-    public ArrayList<Barrier> getBarriers() {
-        return barriers;
-    }
-
-    public ArrayList<HollowBarrier> getHollowBarriers() {
-        return hollowBarriers;
-    }
-
+    /**
+     * This method removes the given barrier from the barriers list. <p>
+     * Note: It does not ensure that the barrier is destroyed.
+     * @param barrier barrier to remove from the barriers list.
+     */
     public void removeBarrier(Barrier barrier) {
         barriers.remove(barrier);
     }
-
+    /**
+     * This method successfully destroys the given barrier and
+     * deletes it from both barriers and game objects list.
+     * @param barrier barrier to be destroyed and deleted from the game.
+     */
     public void deleteBarrier(Barrier barrier) {
         barrier.destroy();
     }
-
-    public void removeAllBarriers() {
+    /**
+     * This method successfully destroys all barriers and
+     * deletes them from both barriers and game objects list.
+     */
+    public void deleteAllBarriers() {
         for (int i = barriers.size()-1; i >= 0; i--) {
             var barrier = barriers.get(i);
             barrier.destroy();
         }
         barriers.clear();
-
-        for (int i = hollowBarriers.size()-1; i >= 0; i--) {
-            var barrier = hollowBarriers.get(i);
-            barrier.destroy();
-        }
-        hollowBarriers.clear();
-    }
-
-    public BarrierTypes getSelectedBarrierType() {
-        return selectedBarrierType;
-    }
-
-    public void setSelectedBarrierType(BarrierTypes selectedBarrierType) {
-        this.selectedBarrierType = selectedBarrierType;
-    }
-
-    public Barrier getClickedBarrier() {
-        return clickedBarrier;
-    }
-
-    public void setClickedBarrier(Barrier clickedBarrier) {
-        this.clickedBarrier = clickedBarrier;
-    }
-
-    public Vector getOldLocationOfBarrier() {
-        return oldLocationOfBarrier;
-    }
-
-    public void setOldLocationOfBarrier(Vector oldLocationOfBarrier) {
-        this.oldLocationOfBarrier = oldLocationOfBarrier;
     }
 
     public Barrier getBarrierByLocation(int x, int y) {
         for (Barrier barrier : barriers) {
             double barrierX = barrier.getPosition().getX();
             double barrierY = barrier.getPosition().getY();
-            double barrierWidth = BARRIER_WIDTH;
-            double barrierHeight = BARRIER_HEIGHT;
 
             if (barrier.getBarrierType() == BarrierTypes.EXPLOSIVE) {
                 double distanceX = x - barrierX;
@@ -112,27 +76,19 @@ public class BarrierManager {
                     return barrier;
                 }
             } else {
-                if (x >= barrierX && x <= barrierX + barrierWidth &&
-                        y >= barrierY && y <= barrierY + barrierHeight) {
+                if (x >= barrierX && x <= barrierX + BARRIER_WIDTH &&
+                        y >= barrierY && y <= barrierY + BARRIER_HEIGHT) {
                     return barrier;
                 }
             }
         }
         return null;
     }
-    public boolean validateBarrierPlacement(int x, int y) {
-        // this method allows 6 rows of barriers to be placed
-        return (y <= Constants.SCREEN_HEIGHT-300);
-    }
 
     public boolean isBarrierColliding(int x, int y) {
         for (Barrier barrier : barriers) {
             double barrierX = barrier.getPosition().getX();
             double barrierY = barrier.getPosition().getY();
-
-            // Define the width and height for a rectangular barrier
-            double barrierWidth = BARRIER_WIDTH;
-            double barrierHeight = BARRIER_HEIGHT;
 
             if (barrier.getBarrierType() == BarrierTypes.EXPLOSIVE) {
                 // For explosive barriers, check collision as circles
@@ -148,15 +104,14 @@ public class BarrierManager {
             } else {
                 // For non-explosive barriers, check collision as rectangles
                 // Adjust x and y as if placing a new barrier's top left corner
-                if ((x + BARRIER_WIDTH > barrierX && x < barrierX + barrierWidth) &&
-                        (y + BARRIER_HEIGHT > barrierY && y < barrierY + barrierHeight)) {
+                if ((x + BARRIER_WIDTH > barrierX && x < barrierX + BARRIER_WIDTH) &&
+                        (y + BARRIER_HEIGHT > barrierY && y < barrierY + BARRIER_HEIGHT)) {
                     return true; // Collision detected
                 }
             }
         }
         return false; // No collision detected
     }
-
 
     /**
      * Validates the number of barriers against defined criteria.
@@ -188,17 +143,28 @@ public class BarrierManager {
 
         return errorMessage.length() == 0 ? null : errorMessage.toString();
     }
-    public List<Barrier> getRandomBarriersToFreeze() {
-        if(barriers.size() <= 8) return barriers;
-        Collections.shuffle(barriers);
-        return barriers.subList(0,8);
+    /**
+     * Method for getting random barriers from barriers list according to the given amount.
+     * @param amount integer specifying the amount of random barriers to get
+     * @return Arraylist of size amount that contains random Barrier instances from the barriers list.
+     */
+    public ArrayList<Barrier> getRandomBarriersWithAmount(int amount) {
+        if (barriers.size() <= amount) {
+            return new ArrayList<>(barriers);
+        }
+
+        ArrayList<Barrier> shuffledBarriers = new ArrayList<>(barriers);
+        Collections.shuffle(shuffledBarriers);
+
+        return new ArrayList<>(shuffledBarriers.subList(0, amount));
     }
 
     /**
      * Method for finding valid barrier placements for Hollow Purple Spell.
-     * @return Arraylist of size 8 containing possible position Vectors for new barriers.
-     * **/
-    public List<Vector> getPossibleHollowBarrierLocations() {
+     * @param amount integer specifying the amount of random possible barrier locations to get
+     * @return Arraylist of size amount containing possible position Vectors for new barriers.
+     */
+    public List<Vector> getPossibleHollowBarrierLocations(int amount) {
         var allPossibleBarrierLocations = new ArrayList<Vector>();
         int maxX = Constants.SCREEN_WIDTH - 50;
         int minX = 40;
@@ -213,7 +179,7 @@ public class BarrierManager {
         }
 
         Collections.shuffle(allPossibleBarrierLocations);
-        return allPossibleBarrierLocations.subList(0,8);
+        return allPossibleBarrierLocations.subList(0,amount);
     }
 
     public static void displayBarrierInfo() {
@@ -232,4 +198,38 @@ public class BarrierManager {
         }).toList().size());
     }
 
+    /**
+     * This method allows 6 rows of barriers to be placed
+     **/
+    public boolean validateBarrierPlacement(int x, int y) {
+        return (y <= Constants.SCREEN_HEIGHT-300);
+    }
+
+    public ArrayList<Barrier> getBarriers() {
+        return barriers;
+    }
+
+    public BarrierTypes getSelectedBarrierType() {
+        return selectedBarrierType;
+    }
+
+    public void setSelectedBarrierType(BarrierTypes selectedBarrierType) {
+        this.selectedBarrierType = selectedBarrierType;
+    }
+
+    public Barrier getClickedBarrier() {
+        return clickedBarrier;
+    }
+
+    public void setClickedBarrier(Barrier clickedBarrier) {
+        this.clickedBarrier = clickedBarrier;
+    }
+
+    public Vector getOldLocationOfBarrier() {
+        return oldLocationOfBarrier;
+    }
+
+    public void setOldLocationOfBarrier(Vector oldLocationOfBarrier) {
+        this.oldLocationOfBarrier = oldLocationOfBarrier;
+    }
 }
