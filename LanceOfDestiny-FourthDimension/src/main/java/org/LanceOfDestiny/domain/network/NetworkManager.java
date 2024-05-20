@@ -37,6 +37,7 @@ public class NetworkManager {
                 serverSocket = new ServerSocket(port);
                 socket = serverSocket.accept();
                 setupStreams();
+                Events.OtherPlayerJoined.invoke();
                 System.out.println("Connected the other Player succesfulyl.");
             }catch(Exception e){
                 throw new RuntimeException(e);
@@ -98,6 +99,7 @@ public class NetworkManager {
         socket = new Socket(ip, port);
         setupStreams();
         Events.Reset.invoke();
+        Events.JoinedTheHost.invoke();
     }
 
     private void setupStreams() throws IOException {

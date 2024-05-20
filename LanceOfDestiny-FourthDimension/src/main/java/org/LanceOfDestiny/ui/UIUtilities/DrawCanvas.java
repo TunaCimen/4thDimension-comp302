@@ -23,7 +23,6 @@ public class DrawCanvas extends JPanel {
     private final Image backgroundImage;
     private final int ymirWidth = 250;
     private final int ymirHeight = 250;
-
     YmirUI ymirUI;
     public DrawCanvas() {
         Events.CanvasUpdateEvent.addRunnableListener(this::repaint);
@@ -41,7 +40,6 @@ public class DrawCanvas extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
-
         g.drawImage(ymirUI.getYmirImage(), ymirUI.getX(),ymirUI.getY(),this);
         for(Behaviour behaviour : GameObject.getGameObjects()) {
             if (behaviour.gameObject != null) {
@@ -52,7 +50,9 @@ public class DrawCanvas extends JPanel {
                 }
             }
         }
-    }
+
+
+}
 
 
 

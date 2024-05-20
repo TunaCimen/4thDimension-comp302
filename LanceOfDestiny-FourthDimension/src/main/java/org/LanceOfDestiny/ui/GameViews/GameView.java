@@ -4,6 +4,7 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.*;
+import org.LanceOfDestiny.ui.CustomViews.CustomDialog;
 import org.LanceOfDestiny.ui.UIElements.*;
 import org.LanceOfDestiny.ui.UIUtilities.Window;
 import org.LanceOfDestiny.ui.UIUtilities.WindowManager;
@@ -78,9 +79,25 @@ public class GameView extends JFrame implements Window {
             showPanel(STATUS_END);
         });
         Events.BuildDoneEvent.addRunnableListener(() -> {
+            if(sessionManager.getGameMode() == SessionManager.GameMode.MULTIPLAYER){
+                System.out.println("Waiting For other player to connect!!!");
+                return;
+            }
+            this.setEnabled(true);
+            this.requestFocusInWindow(true);
+
+        });
+        Events.OtherPlayerJoined.addRunnableListener(()->{
             this.setEnabled(true);
             this.requestFocusInWindow(true);
         });
+
+        Events.JoinedTheHost.addRunnableListener(()->{
+            this.setEnabled(true);
+            this.requestFocusInWindow(true);
+        });
+
+
 
         Events.PauseGame.addRunnableListener(() -> {
             buttonPlay.setEnabled(true);

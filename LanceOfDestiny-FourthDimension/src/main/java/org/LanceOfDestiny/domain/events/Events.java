@@ -81,7 +81,9 @@ public enum Events {
     HostPanel(Object.class),
     JoinPanel(Object.class),
     TryJoiningSession(String.class),
-    TryHostingSession(Object.class);
+    TryHostingSession(Object.class),
+    OtherPlayerJoined(Object.class),
+    JoinedTheHost(Object.class);
 
     //It is the Class that the particular event wants the invocation.
     final Class<?> paramType;
