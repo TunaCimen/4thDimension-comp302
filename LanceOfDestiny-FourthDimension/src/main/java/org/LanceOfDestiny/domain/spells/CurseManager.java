@@ -68,6 +68,7 @@ public class CurseManager extends MonoBehaviour {
         for (var location : locations) {
             BarrierFactory.createHollowBarrier(location);
         }
+        Events.ActivateSpellUI.invoke(SpellType.HOLLOW_PURPLE);
     }
 
     public void deactivateHollowPurple() {
@@ -87,6 +88,7 @@ public class CurseManager extends MonoBehaviour {
         for (Barrier barrier : barriersToFreeze) {
             barrier.activateFrozen();
         }
+        Events.ActivateSpellUI.invoke(SpellType.INFINITE_VOID);
     }
 
     public void deactivateInfiniteVoid() {

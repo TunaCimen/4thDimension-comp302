@@ -98,6 +98,7 @@ public class NetworkManager {
         socket = new Socket(ip, port);
         setupStreams();
         Events.Reset.invoke();
+        notifyAll();
     }
 
     private void setupStreams() throws IOException {
