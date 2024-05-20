@@ -79,16 +79,17 @@ public class GameView extends JFrame implements Window {
             showPanel(STATUS_END);
         });
         Events.BuildDoneEvent.addRunnableListener(() -> {
-            this.setEnabled(true);
-            this.requestFocusInWindow(true);
             if(sessionManager.getGameMode() == SessionManager.GameMode.MULTIPLAYER){
                 System.out.println("Waiting For other player to connect!!!");
-                try {
-                    wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                return;
             }
+            this.setEnabled(true);
+            this.requestFocusInWindow(true);
+
+        });
+        Events.OtherPlayerJoined.addRunnableListener(()->{
+            this.setEnabled(true);
+            this.requestFocusInWindow(true);
         });
 
         Events.PauseGame.addRunnableListener(() -> {
