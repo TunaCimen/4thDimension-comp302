@@ -72,7 +72,10 @@ public enum Events {
     TimedTestEvent(Color.class, ResetColorEvent),
     CanvasUpdateEvent(Object.class),
     BuildDoneEvent(Object.class),
-    Reset(Object.class),
+
+    ShowEditMode(Object.class),
+
+    Reset(Integer.class),
     Load(Object.class),
     ResetSpells(Object.class),
     ReturnStartScreen(Object.class),

@@ -25,6 +25,8 @@ public class GameView extends JFrame implements Window {
     final Dimension maximumSizeButton = new Dimension(150, 45);
     JButton buttonPlay;
     JButton buttonPause;
+
+    JButton hostButton;
     HealthBar healthBarDisplay;
     SpellInventory spellInventory;
     JPanel cardPanel;
@@ -63,7 +65,7 @@ public class GameView extends JFrame implements Window {
 
     private void subscribeMethods() {
         Events.StartGame.addRunnableListener(this::startGame);
-        Events.Reset.addRunnableListener(this::handleNewGame);
+        Events.Reset.addListener(this::handleNewGame);
         Events.ResumeGame.addRunnableListener(this::requestFocusInWindow);
         Events.LoadGame.addRunnableListener(Events.CanvasUpdateEvent::invoke);
         Events.LoadGame.addRunnableListener(() -> {
@@ -81,6 +83,8 @@ public class GameView extends JFrame implements Window {
         Events.BuildDoneEvent.addRunnableListener(() -> {
             if(sessionManager.getGameMode() == SessionManager.GameMode.MULTIPLAYER){
                 System.out.println("Waiting For other player to connect!!!");
+                this.setEnabled(true);
+                this.startButton().setFocusable(false);
                 return;
             }
             this.setEnabled(true);
@@ -89,6 +93,7 @@ public class GameView extends JFrame implements Window {
         });
         Events.OtherPlayerJoined.addRunnableListener(()->{
             this.setEnabled(true);
+            startButton().setEnabled(true);
             this.requestFocusInWindow(true);
         });
 
@@ -135,14 +140,21 @@ public class GameView extends JFrame implements Window {
         cardLayout.show(cardPanel, cardName);
     }
 
-    private void handleNewGame() {
+    private void handleNewGame(Object x) {
+        cardLayout.show(cardPanel, STATUS_GAME);
         buttonPause.setEnabled(true);
         buttonPlay.setEnabled(true);
+        this.setEnabled(false);
+        if(((Integer) x) == 1){
+            handleNewGameWithEditMode();
+        }
+    }
+
+    public void handleNewGameWithEditMode(){
         comboBoxAddBarrierType.setVisible(true);
         sessionManager.setStatus(Status.EditMode);
         cardLayout.show(cardPanel, STATUS_GAME);
         WindowManager.getInstance().showWindow(Windows.BuildViewMini);
-        this.setEnabled(false);
     }
 
     private JPanel createControlPanel() {
@@ -160,6 +172,11 @@ public class GameView extends JFrame implements Window {
         controlPanel.add(spellInventory);
         controlPanel.add(scoreBar);
         controlPanel.add(scoreBarOther);
+        hostButton  = new JButton("Host");
+        hostButton.addActionListener(e->{
+            Events.TryHostingSession.invoke();
+        });
+        controlPanel.add(hostButton);
         controlPanel.add(Box.createRigidArea(new Dimension(25,10)));
         return controlPanel;
     }
