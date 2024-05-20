@@ -1,6 +1,5 @@
 package org.LanceOfDestiny.ui.AuthViews;
 
-import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.behaviours.Behaviour;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.events.Events;
@@ -51,7 +50,7 @@ public class LoadView extends JFrame implements Window {
                     System.out.println("Before clearing");
                     BarrierManager.displayBarrierInfo();
                     GameObject.displayGameObjects();
-                    BarrierManager.getInstance().removeAllBarriers();
+                    BarrierManager.getInstance().deleteAllBarriers();
                     RewardBoxFactory.getInstance().removeRewardBoxes();
                     List<Behaviour> list = GameObject.getGameObjects();
                     System.out.println("After clearing");

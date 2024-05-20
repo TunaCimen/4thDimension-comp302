@@ -8,24 +8,23 @@ import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.util.Collections;
 
-public class SessionBuilder {
+public class SessionBarrierBuilder {
     private Integer numOfSimple;
     private Integer numOfReinforced;
     private Integer numOfExplosive;
     private Integer numOfRewarding;
 
-    public SessionBuilder(Integer numOfSimple, Integer numOfReinforced, Integer numOfExplosive, Integer numOfRewarding) {
-        this.numOfSimple = numOfSimple;
-        this.numOfReinforced = numOfReinforced;
-        this.numOfExplosive = numOfExplosive;
-        this.numOfRewarding = numOfRewarding;
+    public SessionBarrierBuilder() {
+        this.numOfSimple = 0;
+        this.numOfReinforced = 0;
+        this.numOfExplosive = 0;
+        this.numOfRewarding = 0;
     }
 
     public void initializeBarriers() {
+        BarrierManager.getInstance().deleteAllBarriers();
 
-        BarrierManager.getInstance().removeAllBarriers();
-
-         //Add barrier types to the list based on the counts
+        // Add barrier types to the list based on the counts
         int i;
         for (i = 0; i < numOfSimple; i++) {
             BarrierFactory.createBarrier(new Vector(0,0), BarrierTypes.SIMPLE);
@@ -40,19 +39,16 @@ public class SessionBuilder {
             BarrierFactory.createBarrier(new Vector(0,0), BarrierTypes.REWARDING);
         }
 
-        // shuffling for randomization
-        Collections.shuffle(BarrierManager.getInstance().barriers);
+        // Shuffling for randomization
+        Collections.shuffle(BarrierManager.barriers);
 
         int x = 40;
         int y = 40;
 
-        for (Barrier barrier1 : BarrierManager.getInstance().barriers) {
-            if (barrier1.getType() == BarrierTypes.EXPLOSIVE) {
-                barrier1.setPosition(new Vector(x, y));
-                barrier1.shiftPosition(new Vector(x , y));
-            }
-            else {
-                barrier1.setPosition(new Vector(x, y));
+        for (Barrier barrier : BarrierManager.barriers) {
+            barrier.setPosition(new Vector(x, y));
+            if (barrier.getType() == BarrierTypes.EXPLOSIVE) {
+                barrier.shiftPosition(new Vector(x, y));
             }
 
             x += Constants.BARRIER_X_OFFSET;
@@ -60,23 +56,6 @@ public class SessionBuilder {
                 x = 40;
                 y += Constants.BARRIER_Y_OFFSET;
             }
-        }
-    }
-
-    private BarrierTypes determineTypeToCreate(int numSimpleCreated, int numFirmCreated, int numExplosiveCreated, int numGiftCreated) {
-
-        //Weighted Randomization
-        double totalWeight = numOfSimple + numOfReinforced + numOfExplosive + numOfRewarding;
-        double randomValue = Math.random() * totalWeight;
-
-        if (randomValue < numOfSimple) {
-            return BarrierTypes.SIMPLE;
-        } else if (randomValue < numOfSimple + numOfReinforced) {
-            return BarrierTypes.REINFORCED;
-        } else if (randomValue < numOfSimple + numOfReinforced + numOfExplosive) {
-            return BarrierTypes.EXPLOSIVE;
-        } else {
-            return BarrierTypes.REWARDING;
         }
     }
 

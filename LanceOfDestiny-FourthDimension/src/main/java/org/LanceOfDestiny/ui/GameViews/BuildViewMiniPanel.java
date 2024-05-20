@@ -7,8 +7,6 @@ import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.ui.CustomViews.CustomDialog;
 import org.LanceOfDestiny.ui.Window;
-import org.LanceOfDestiny.ui.WindowManager;
-import org.LanceOfDestiny.ui.Windows;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -131,10 +129,10 @@ public class BuildViewMiniPanel extends JFrame implements Window {
 
 
             // Set barrier numbers in session manager's builder
-            this.sessionManager.getBuilder().setNumOfSimple(numOfSimple);
-            this.sessionManager.getBuilder().setNumOfReinforced(numOfReinforced);
-            this.sessionManager.getBuilder().setNumOfExplosive(numOfExplosive);
-            this.sessionManager.getBuilder().setNumOfRewarding(numOfRewarding);
+            this.sessionManager.getBarrierBuilder().setNumOfSimple(numOfSimple);
+            this.sessionManager.getBarrierBuilder().setNumOfReinforced(numOfReinforced);
+            this.sessionManager.getBarrierBuilder().setNumOfExplosive(numOfExplosive);
+            this.sessionManager.getBarrierBuilder().setNumOfRewarding(numOfRewarding);
 
             // Hide the build panel and close it
             userInputPanel.setVisible(false);
