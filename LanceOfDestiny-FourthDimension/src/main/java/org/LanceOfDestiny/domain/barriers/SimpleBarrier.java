@@ -18,6 +18,8 @@ public class SimpleBarrier extends Barrier {
         this.sprite.color = new Color(0,0,0,0);
         this.sprite.setImage(ImageOperations.resizeImageToSprite(ImageLibrary.SimpleBarrier.getImage(),this.sprite));
         initDirection();
+        this.defaultSprite = sprite;
+        adjustFrozenSprite();
     }
     public SimpleBarrier(Vector position, boolean moving) {
         this(position);

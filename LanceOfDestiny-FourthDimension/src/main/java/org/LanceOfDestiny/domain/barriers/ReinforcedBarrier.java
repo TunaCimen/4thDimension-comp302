@@ -18,6 +18,8 @@ public class ReinforcedBarrier extends Barrier {
         getSprite().color = new Color(0,0,0,0);
         this.getSprite().setImage(ImageOperations.resizeImageToSprite(ImageLibrary.ReinforcedBarrier.getImage(),getSprite()));
         getSprite().number = String.valueOf(hitsLeft);
+        this.defaultSprite = sprite;
+        adjustFrozenSprite();
     }
 
     @Override

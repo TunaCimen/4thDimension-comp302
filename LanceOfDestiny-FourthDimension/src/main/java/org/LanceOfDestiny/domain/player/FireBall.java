@@ -15,7 +15,7 @@ import java.awt.*;
 public class FireBall extends GameObject {
     private boolean isOverwhelming = false;
     private boolean isAttached = true;
-    private final int defaultSpeed = Constants.FIREBALL_SPEED;
+    private int speed = Constants.FIREBALL_SPEED;
     private MagicalStaff magicalStaff;
     private Image defaultImage;
     private Image overwelmingImage;
@@ -30,6 +30,7 @@ public class FireBall extends GameObject {
         Events.LoadGame.addRunnableListener(() -> isAttached = true);
         Events.EndGame.addRunnableListener(()->isAttached=true);
         Events.Reset.addRunnableListener(this::resetFireballPosition);
+        Events.Reset.addRunnableListener(() -> speed = Constants.FIREBALL_SPEED);
         Events.LoadGame.addRunnableListener(this::resetFireballPosition);
     }
 
@@ -72,7 +73,7 @@ public class FireBall extends GameObject {
     private void shootBall() {
         if(!isAttached) return;
         isAttached = false;
-        Vector velocity = Vector.getVelocityByAngleAndMagnitude(defaultSpeed, magicalStaff.getAngle());
+        Vector velocity = Vector.getVelocityByAngleAndMagnitude(speed, magicalStaff.getAngle());
         collider.setVelocity(velocity);
     }
 
@@ -94,17 +95,21 @@ public class FireBall extends GameObject {
     }
 
     private void handleDoubleAccel(Object object) {
-        if((boolean) object) enableDoubleAccel();
-        else disableDoubleAccel();
+        if((boolean) object) activateDoubleAccel();
+        else deactivateDoubleAccel();
     }
 
-    private void enableDoubleAccel() {
-        var newVelocity = new Vector(collider.getVelocity().getX()/2, collider.getVelocity().getY()/2);
-        this.collider.setVelocity(newVelocity);
+    private void activateDoubleAccel() {
+        System.out.println("Activating Double Accel");
+        speed = Constants.FIREBALL_SPEED / 2;
+        if(!isAttached)
+            this.collider.setVelocity(getCollider().getVelocity().scale(0.5));
     }
-    private void disableDoubleAccel() {
-        var newVelocity = new Vector(collider.getVelocity().getX()*2, collider.getVelocity().getY()*2);
-        this.collider.setVelocity(newVelocity);
+    private void deactivateDoubleAccel() {
+        System.out.println("Deactivating Double Accel");
+        speed = Constants.FIREBALL_SPEED;
+        if(!isAttached)
+            this.collider.setVelocity(getCollider().getVelocity().scale(2));
     }
 
     public void fireBallDropped() {
@@ -124,8 +129,11 @@ public class FireBall extends GameObject {
 
         if (other instanceof Barrier) {
             if (((Barrier) other).isFrozen()) {
-                if(isOverwhelming) ((Barrier) other).reduceLife();
-                return;
+                if(isOverwhelming) {
+                    ((Barrier) other).reduceLife();
+                    PhysicsManager.getInstance().handleFireballBounce(collision);
+                }
+                else return;
             }
             if(isOverwhelming) ((Barrier) other).kill();
             else ((Barrier) other).reduceLife();

@@ -129,10 +129,10 @@ public class BuildViewMiniPanel extends JFrame implements Window {
 
 
             // Set barrier numbers in session manager's builder
-            this.sessionManager.getBuilder().setNumOfSimple(numOfSimple);
-            this.sessionManager.getBuilder().setNumOfReinforced(numOfReinforced);
-            this.sessionManager.getBuilder().setNumOfExplosive(numOfExplosive);
-            this.sessionManager.getBuilder().setNumOfRewarding(numOfRewarding);
+            this.sessionManager.getBarrierBuilder().setNumOfSimple(numOfSimple);
+            this.sessionManager.getBarrierBuilder().setNumOfReinforced(numOfReinforced);
+            this.sessionManager.getBarrierBuilder().setNumOfExplosive(numOfExplosive);
+            this.sessionManager.getBarrierBuilder().setNumOfRewarding(numOfRewarding);
 
             // Hide the build panel and close it
             userInputPanel.setVisible(false);

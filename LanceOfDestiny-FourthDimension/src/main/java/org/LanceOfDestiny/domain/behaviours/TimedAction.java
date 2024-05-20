@@ -1,7 +1,5 @@
 package org.LanceOfDestiny.domain.behaviours;
 
-import org.LanceOfDestiny.domain.behaviours.Behaviour;
-import org.LanceOfDestiny.domain.behaviours.MonoBehaviour;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 
 public abstract class TimedAction extends MonoBehaviour {
@@ -13,6 +11,7 @@ public abstract class TimedAction extends MonoBehaviour {
 
     private int startTime;
     private int timePassed;
+
     public TimedAction(int duration){
         isStarted = false;
         this.duration = duration;

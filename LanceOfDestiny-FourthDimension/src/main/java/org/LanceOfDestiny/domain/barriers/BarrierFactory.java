@@ -21,7 +21,6 @@ public class BarrierFactory {
     public static HollowBarrier createHollowBarrier(Vector position) {
         var hollowBarrier = new HollowBarrier(position);
         BarrierManager.getInstance().addBarrier(hollowBarrier);
-        BarrierManager.getInstance().addHollowBarrier(hollowBarrier);
         return hollowBarrier;
     }
 
