@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.domain.looper;
 
+import org.LanceOfDestiny.domain.behaviours.AnimationBehaviour;
 import org.LanceOfDestiny.domain.behaviours.Behaviour;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.InputManager;
@@ -29,6 +30,7 @@ public class GameExec extends Behaviour {
     public void update() {
         InputManager.getInstance().updateActions();
         PhysicsManager.getInstance().updateCollisions();
+        AnimationBehaviour.getAnimationBehaviourList().forEach(AnimationBehaviour::onAnimate);
         for (int i = 0; i < getBehaviours().size(); i++) {
             var behaviour = getBehaviours().get(i);
             behaviour.update();
