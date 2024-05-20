@@ -20,13 +20,12 @@ public class GameView extends JFrame implements Window {
     private static final String STATUS_END = "END";
     private static final String STATUS_INIT = "INIT";
     private static final String STATUS_MULTI = "INIT";
+
     final Dimension maximumSizeButton = new Dimension(150, 45);
     JButton buttonPlay;
     JButton buttonPause;
     HealthBar healthBarDisplay;
-
     SpellInventory spellInventory;
-
     JPanel cardPanel;
     ScoreBar scoreBar, scoreBarOther;
     private SessionManager sessionManager;
@@ -90,7 +89,6 @@ public class GameView extends JFrame implements Window {
             WindowManager.getInstance().showWindow(Windows.PauseView);
         });
         Events.SingleplayerSelected.addRunnableListener(()->showPanel(STATUS_START));
-        Events.ShowBuildMode.addRunnableListener(()->showPanel(STATUS_GAME));
         Events.MultiplayerSelected.addRunnableListener(()->showPanel(STATUS_MULTI));
 
 

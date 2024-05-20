@@ -18,6 +18,7 @@ public class NetworkManager {
     private final NetworkEventHandler eventHandler;
 
     private NetworkManager() {
+
         this.eventHandler = new NetworkEventHandler();
         Events.TryJoiningSession.addListener(this::joinGame);
         Events.TryHostingSession.addRunnableListener(this::hostGame);
@@ -96,14 +97,12 @@ public class NetworkManager {
     public void joinGame(String ip, int port) throws IOException {
         socket = new Socket(ip, port);
         setupStreams();
+        Events.Reset.invoke();
     }
 
     private void setupStreams() throws IOException {
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new PrintWriter(socket.getOutputStream(), true);
-
-        // Launch game view window after connecting
-        WindowManager.getInstance().showWindow(Windows.GameViewWindow);
     }
 
     public void sendGameState(String gameState) {

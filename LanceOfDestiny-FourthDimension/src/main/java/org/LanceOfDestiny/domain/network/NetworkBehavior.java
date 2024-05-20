@@ -6,20 +6,29 @@ public class NetworkBehavior extends MonoBehaviour {
 
     private final NetworkManager networkManager;
 
-    public NetworkBehavior() {
+    Thread updateThread;
+
+    public NetworkBehavior()
+    {
         this.networkManager = NetworkManager.getInstance();
+        updateThread = new Thread(()->{
+            while(true){
+                try {
+                    String gameState = networkManager.receiveGameState();
+                    if (gameState != null && !gameState.isEmpty()) {
+                        networkManager.getEventHandler().handleReceivedGameState(gameState);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        });
     }
 
     @Override
     public void update() {
-        super.update();
-        try {
-            String gameState = networkManager.receiveGameState();
-            if (gameState != null && !gameState.isEmpty()) {
-                networkManager.getEventHandler().handleReceivedGameState(gameState);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-    }
+        if(updateThread.isAlive())return;
+        updateThread.start();
     }
 }

@@ -13,7 +13,6 @@ public class MonoBehaviour extends Behaviour {
 
     @Override
     public void update() {
-        super.update();
     }
 
     @Override

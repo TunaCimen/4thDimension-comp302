@@ -59,7 +59,12 @@ public class SessionManager {
             }
             setStatus(Status.RunningMode);
         });
-
+        Events.MultiplayerSelected.addRunnableListener(()->{
+            gameMode = GameMode.MULTIPLAYER;
+        });
+        Events.SingleplayerSelected.addRunnableListener(()->{
+            gameMode = GameMode.SINGLEPLAYER;
+        });
         Events.MultiplayerSelected.addRunnableListener(NetworkBehavior::new);
 
     }
