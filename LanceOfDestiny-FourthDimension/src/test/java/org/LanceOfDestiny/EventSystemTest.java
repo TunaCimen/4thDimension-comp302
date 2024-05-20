@@ -30,7 +30,6 @@ public class EventSystemTest {
     }
     @AfterEach
     public void restoreStreams() {
-
         // Restore the original System.out
         System.setOut(out);
     }

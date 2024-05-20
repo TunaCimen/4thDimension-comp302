@@ -104,4 +104,9 @@ public class Vector {
         ySign = Integer.compare(y, 0);
         return new Vector(xSign, ySign);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (this.getX() == ((Vector) obj).getX()) && (this.getY() == ((Vector) obj).getY());
+    }
 }
