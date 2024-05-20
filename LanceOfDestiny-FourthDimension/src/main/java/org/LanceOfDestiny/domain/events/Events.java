@@ -75,7 +75,7 @@ public enum Events {
 
     ShowEditMode(Object.class),
 
-    Reset(Integer.class),
+    Reset(Object.class),
     Load(Object.class),
     ResetSpells(Object.class),
     ReturnStartScreen(Object.class),

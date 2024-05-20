@@ -65,7 +65,7 @@ public class GameView extends JFrame implements Window {
 
     private void subscribeMethods() {
         Events.StartGame.addRunnableListener(this::startGame);
-        Events.Reset.addListener(this::handleNewGame);
+        Events.Reset.addRunnableListener(this::handleNewGame);
         Events.ResumeGame.addRunnableListener(this::requestFocusInWindow);
         Events.LoadGame.addRunnableListener(Events.CanvasUpdateEvent::invoke);
         Events.LoadGame.addRunnableListener(() -> {
@@ -100,6 +100,7 @@ public class GameView extends JFrame implements Window {
         Events.JoinedTheHost.addRunnableListener(()->{
             this.setEnabled(true);
             this.requestFocusInWindow(true);
+            ((JFrame)Windows.BuildViewMini.getWindow()).dispose();
         });
 
 
@@ -140,22 +141,18 @@ public class GameView extends JFrame implements Window {
         cardLayout.show(cardPanel, cardName);
     }
 
-    private void handleNewGame(Object x) {
+    private void handleNewGame() {
         cardLayout.show(cardPanel, STATUS_GAME);
         buttonPause.setEnabled(true);
         buttonPlay.setEnabled(true);
         this.setEnabled(false);
-        if(((Integer) x) == 1){
-            handleNewGameWithEditMode();
-        }
-    }
-
-    public void handleNewGameWithEditMode(){
         comboBoxAddBarrierType.setVisible(true);
         sessionManager.setStatus(Status.EditMode);
         cardLayout.show(cardPanel, STATUS_GAME);
         WindowManager.getInstance().showWindow(Windows.BuildViewMini);
+
     }
+
 
     private JPanel createControlPanel() {
         initComboBox();
