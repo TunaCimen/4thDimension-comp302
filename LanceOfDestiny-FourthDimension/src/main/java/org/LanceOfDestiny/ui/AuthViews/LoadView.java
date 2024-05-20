@@ -1,6 +1,5 @@
 package org.LanceOfDestiny.ui.AuthViews;
 
-import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.behaviours.Behaviour;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.events.Events;
@@ -8,7 +7,7 @@ import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.ScoreManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.spells.*;
-import org.LanceOfDestiny.ui.Window;
+import org.LanceOfDestiny.ui.UIUtilities.Window;
 
 import javax.swing.*;
 import java.awt.*;

@@ -4,15 +4,14 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.barriers.BarrierFactory;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
-import org.LanceOfDestiny.domain.barriers.SimpleBarrier;
 import org.LanceOfDestiny.domain.managers.InputManager;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.looper.GameLooper;
 import org.LanceOfDestiny.domain.looper.LoopExecutor;
 import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
-import org.LanceOfDestiny.ui.DrawCanvas;
-import org.LanceOfDestiny.ui.Window;
+import org.LanceOfDestiny.ui.UIUtilities.DrawCanvas;
+import org.LanceOfDestiny.ui.UIUtilities.Window;
 
 import javax.swing.*;
 import java.awt.*;

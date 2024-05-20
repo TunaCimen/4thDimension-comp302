@@ -4,13 +4,13 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.*;
-import org.LanceOfDestiny.ui.InitPanel;
-import org.LanceOfDestiny.ui.Window;
-import org.LanceOfDestiny.ui.*;
+import org.LanceOfDestiny.ui.UIElements.*;
+import org.LanceOfDestiny.ui.UIUtilities.Window;
+import org.LanceOfDestiny.ui.UIUtilities.WindowManager;
+import org.LanceOfDestiny.ui.UIUtilities.Windows;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.function.IntSupplier;
 
 
 public class GameView extends JFrame implements Window {
