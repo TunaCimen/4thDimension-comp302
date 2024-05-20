@@ -28,7 +28,7 @@ public class FireBall extends GameObject {
         Events.ActivateDoubleAccel.addListener(this::handleDoubleAccel);
         Events.ShootBall.addRunnableListener(this::shootBall);
         Events.LoadGame.addRunnableListener(() -> isAttached = true);
-        Events.EndGame.addRunnableListener(()->isAttached=true);
+        Events.EndGame.addRunnableListener(() -> isAttached = true);
         Events.Reset.addRunnableListener(this::resetFireballPosition);
         Events.Reset.addRunnableListener(() -> speed = Constants.FIREBALL_SPEED);
         Events.LoadGame.addRunnableListener(this::resetFireballPosition);
@@ -39,12 +39,8 @@ public class FireBall extends GameObject {
         int radius = Constants.FIREBALL_RADIUS;
         this.collider = ColliderFactory.createBallCollider(this, Vector.getZeroVector(), ColliderType.DYNAMIC, radius);
         this.sprite = new BallSprite(this, Color.black, Constants.FIREBALL_RADIUS);
-        defaultImage = ImageOperations.resizeImage(ImageLibrary.FireBall.getImage()
-                , sprite.width()*2
-                , sprite.height()*2);
-        overwelmingImage = ImageOperations.resizeImage(ImageLibrary.FireBallOverwhelmed.getImage(),
-                sprite.width()*2,
-                sprite.height()*2);
+        defaultImage = ImageOperations.resizeImage(ImageLibrary.FireBall.getImage(), sprite.width() * 2, sprite.height() * 2);
+        overwelmingImage = ImageOperations.resizeImage(ImageLibrary.FireBallOverwhelmed.getImage(), sprite.width() * 2, sprite.height() * 2);
         this.getSprite().setImage(defaultImage);
     }
 
@@ -57,21 +53,18 @@ public class FireBall extends GameObject {
     @Override
     public void update() {
         if (isAttached) {
-            var staffWidth =  (magicalStaff.isExpanded ? Constants.STAFF_WIDTH * 2 : Constants.STAFF_WIDTH);
+            var staffWidth = (magicalStaff.isExpanded ? Constants.STAFF_WIDTH * 2 : Constants.STAFF_WIDTH);
             var attachedPosition = getAttachedPosition(staffWidth);
             collider.setPosition(attachedPosition);
         } else setPosition(getPosition().add(collider.getVelocity()));
     }
 
     private Vector getAttachedPosition(int staffWidth) {
-        return new Vector(
-                magicalStaff.getPosition().getX() + staffWidth / 2f + (Constants.STAFF_WIDTH / 4f) * Math.sin(magicalStaff.getAngle()),
-                magicalStaff.getPosition().getY() + Constants.FIREBALL_RADIUS * 3.5 + (staffWidth / 4f) * Math.cos(magicalStaff.getAngle() + Math.PI)
-        );
+        return new Vector(magicalStaff.getPosition().getX() + staffWidth / 2f + (Constants.STAFF_WIDTH / 4f) * Math.sin(magicalStaff.getAngle()), magicalStaff.getPosition().getY() + Constants.FIREBALL_RADIUS * 3.5 + (staffWidth / 4f) * Math.cos(magicalStaff.getAngle() + Math.PI));
     }
 
     private void shootBall() {
-        if(!isAttached) return;
+        if (!isAttached) return;
         isAttached = false;
         Vector velocity = Vector.getVelocityByAngleAndMagnitude(speed, magicalStaff.getAngle());
         collider.setVelocity(velocity);
@@ -95,21 +88,20 @@ public class FireBall extends GameObject {
     }
 
     private void handleDoubleAccel(Object object) {
-        if((boolean) object) activateDoubleAccel();
+        if ((boolean) object) activateDoubleAccel();
         else deactivateDoubleAccel();
     }
 
     private void activateDoubleAccel() {
         System.out.println("Activating Double Accel");
         speed = Constants.FIREBALL_SPEED / 2;
-        if(!isAttached)
-            this.collider.setVelocity(getCollider().getVelocity().scale(0.5));
+        if (!isAttached) this.collider.setVelocity(getCollider().getVelocity().scale(0.5));
     }
+
     private void deactivateDoubleAccel() {
         System.out.println("Deactivating Double Accel");
         speed = Constants.FIREBALL_SPEED;
-        if(!isAttached)
-            this.collider.setVelocity(getCollider().getVelocity().scale(2));
+        if (!isAttached) this.collider.setVelocity(getCollider().getVelocity().scale(2));
     }
 
     public void fireBallDropped() {
@@ -127,16 +119,15 @@ public class FireBall extends GameObject {
             return;
         }
 
-        if (other instanceof Barrier) {
-            if (((Barrier) other).isFrozen()) {
-                if(isOverwhelming) {
-                    ((Barrier) other).reduceLife();
-                    PhysicsManager.getInstance().handleFireballBounce(collision);
-                }
-                else return;
-            }
-            if(isOverwhelming) ((Barrier) other).kill();
-            else ((Barrier) other).reduceLife();
+        if (!(other instanceof Barrier barrier)) return;
+
+        if (barrier.isFrozen()) {
+            if (!isOverwhelming) return;
+            barrier.reduceLife();
+            PhysicsManager.getInstance().handleFireballBounce(collision);
+        } else {
+            if (isOverwhelming) barrier.kill();
+            else barrier.reduceLife();
         }
 
     }

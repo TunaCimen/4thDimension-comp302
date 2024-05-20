@@ -7,7 +7,6 @@ import org.LanceOfDestiny.domain.looper.LoopExecutor;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 
 import java.util.HashMap;
-
 /**
  * Spells gained by the Player will be held here.
  **/
@@ -16,7 +15,6 @@ public class SpellContainer extends MonoBehaviour {
     private final LoopExecutor loopExecutor = SessionManager.getInstance().getLoopExecutor();
     private boolean isSpellActive = false;
     private int spellEndSecond;
-    private final int spellDurationSecond = Constants.SPELL_DURATION;
     private SpellType activeSpellType;
 
     public SpellContainer() {
@@ -59,7 +57,7 @@ public class SpellContainer extends MonoBehaviour {
         activeSpellType = spellType;
         spellType.activate();
         removeSpell(spellType);
-        spellEndSecond = loopExecutor.getSecondsPassed() + spellDurationSecond;
+        spellEndSecond = loopExecutor.getSecondsPassed() + Constants.SPELL_DURATION;
         Events.ActivateSpellUI.invoke(spellType);
     }
 

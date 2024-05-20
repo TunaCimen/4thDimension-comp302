@@ -13,18 +13,19 @@ import java.util.Random;
 public class Ymir extends MonoBehaviour {
 
     private final LoopExecutor loopExecutor;
-    private static final int COIN_FLIP_INTERVAL = 20;
-    private static final double COIN_FLIP_PROBABILITY = 1;
+    private static final int COIN_FLIP_INTERVAL = 30;
+    private static final double COIN_FLIP_PROBABILITY = 0.5;
     private int nextCoinFlipSeconds = 0;
     private final Random RANDOM = new Random();
     private SpellType[] lastTwoAbilities = new SpellType[2];
 
      public Ymir() {
         super();
-        lastTwoAbilities[0] = getRandomCurse();
-        lastTwoAbilities[1] = getRandomCurse();
+        lastTwoAbilities[0] = SpellType.DOUBLE_ACCEL;
+        lastTwoAbilities[1] = SpellType.HOLLOW_PURPLE;
         this.loopExecutor = SessionManager.getInstance().getLoopExecutor();
         Events.Reset.addRunnableListener(() -> nextCoinFlipSeconds = 0);
+        Events.LoadGame.addRunnableListener(() -> nextCoinFlipSeconds = 0);
     }
 
     @Override

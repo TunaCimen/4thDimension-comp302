@@ -9,19 +9,15 @@ import org.LanceOfDestiny.domain.looper.LoopExecutor;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Curse Manager for singleplayer mode.
- * **/
 public class CurseManager extends MonoBehaviour {
     private static CurseManager instance;
     private boolean isCurseActive;
     private SpellType activeCurse;
     private int curseEndSecond;
     private List<Barrier> barriersToFreeze;
-    private LoopExecutor loopExecutor;
+    private final LoopExecutor loopExecutor;
 
     private CurseManager() {
         this.loopExecutor = SessionManager.getInstance().getLoopExecutor();
@@ -96,9 +92,8 @@ public class CurseManager extends MonoBehaviour {
     public void deactivateInfiniteVoid() {
         System.out.println("Deactivating Infinite Void");
         isCurseActive = false;
-        var n = barriersToFreeze.size();
-        for (int i = 0; i < n; i++) {
-            barriersToFreeze.get(i).deactivateFrozen();
+        for (Barrier barrier : barriersToFreeze) {
+            barrier.deactivateFrozen();
         }
         barriersToFreeze.clear();
         barriersToFreeze = null;
