@@ -11,9 +11,6 @@ import org.LanceOfDestiny.domain.managers.SessionManager;
 
 import java.util.List;
 
-/**
- * Curse Manager for singleplayer mode.
- * **/
 public class CurseManager extends MonoBehaviour {
     private static CurseManager instance;
     private boolean isCurseActive;

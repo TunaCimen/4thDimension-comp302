@@ -53,15 +53,21 @@ public class Hex extends GameObject {
     public void onTriggerEnter(Collision collision) {
         super.onTriggerEnter(collision);
         var other = collision.getOther(this);
+
+        if( other == null) {
+            disable();
+        }
+
         if(other instanceof FireBall) return;
         if(other instanceof ExplosiveBarrier explosiveBarrier && explosiveBarrier.isFalling()) return;
 
-        if (other instanceof Barrier || other == null) {
+        if (other instanceof Barrier) {
             disable();
-            if (other != null) {
+            if (!((Barrier) other).isFrozen())
                 ((Barrier) other).reduceLife();
-            }
         }
+
+
     }
 
     public void shoot() {

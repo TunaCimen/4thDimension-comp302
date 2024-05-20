@@ -1,6 +1,5 @@
 package org.LanceOfDestiny;
 
-
 import org.LanceOfDestiny.ui.UIUtilities.WindowManager;
 import org.LanceOfDestiny.ui.UIUtilities.Windows;
 
