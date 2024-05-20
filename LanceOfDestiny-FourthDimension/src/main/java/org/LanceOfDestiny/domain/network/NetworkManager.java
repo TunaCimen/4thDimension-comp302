@@ -4,8 +4,9 @@ import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.ScoreManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
-import org.LanceOfDestiny.ui.WindowManager;
-import org.LanceOfDestiny.ui.Windows;
+import org.LanceOfDestiny.ui.UIUtilities.WindowManager;
+import org.LanceOfDestiny.ui.UIUtilities.Windows;
+
 
 import java.io.*;
 import java.net.Socket;
@@ -78,6 +79,3 @@ public class NetworkManager {
         if (serverSocket != null) serverSocket.close();
     }
 }
-
-
-

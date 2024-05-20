@@ -26,8 +26,12 @@ public enum ImageLibrary {
     DoubleAccelSpell("Image/snow_flake.png"),
     HollowSpell("Image/hourglass.png"),
 
+    InfVoidSpell("Image/inf_void.png"),
+
     Canon("Image/Canon.png"),
     Background("Image/Background.png"),
+
+    Ymir("Image/Ymir.png"),
     HollowBarrier("Image/HollowBarrier.png"),
     FrozenBarrierCircle("Image/FrozenExplosive.png"),
     FrozenBarrierRectangle("Image/FrozenBarrier.png");

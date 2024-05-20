@@ -1,4 +1,4 @@
-package org.LanceOfDestiny.ui;
+package org.LanceOfDestiny.ui.UIElements;
 
 import org.LanceOfDestiny.domain.behaviours.TimedAction;
 import org.LanceOfDestiny.domain.Constants;

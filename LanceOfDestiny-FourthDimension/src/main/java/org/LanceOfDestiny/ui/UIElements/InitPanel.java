@@ -1,12 +1,11 @@
-package org.LanceOfDestiny.ui;
+package org.LanceOfDestiny.ui.UIElements;
 
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.ui.UIElements.UILibrary;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class InitPanel extends JPanel {
 

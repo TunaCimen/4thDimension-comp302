@@ -1,4 +1,4 @@
-package org.LanceOfDestiny.ui;
+package org.LanceOfDestiny.ui.UIElements;
 
 import org.LanceOfDestiny.domain.events.Events;
 
@@ -27,4 +27,5 @@ public class UILibrary {
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
         return label;
     }
+
 }

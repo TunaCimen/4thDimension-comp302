@@ -7,8 +7,8 @@ import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.barriers.BarrierFactory;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
 import org.LanceOfDestiny.domain.physics.Vector;
-import org.LanceOfDestiny.ui.Window;
-import org.LanceOfDestiny.ui.WindowManager;
+import org.LanceOfDestiny.ui.UIUtilities.Window;
+import org.LanceOfDestiny.ui.UIUtilities.WindowManager;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
