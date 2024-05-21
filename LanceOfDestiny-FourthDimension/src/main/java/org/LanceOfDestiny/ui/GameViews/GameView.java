@@ -99,6 +99,7 @@ public class GameView extends JFrame implements Window {
 
         Events.JoinedTheHost.addRunnableListener(()->{
             this.setEnabled(true);
+            buttonPlay.setEnabled(false);
             this.requestFocusInWindow(true);
             ((JFrame)Windows.BuildViewMini.getWindow()).dispose();
         });
