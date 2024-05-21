@@ -102,6 +102,7 @@ public class GameView extends JFrame implements Window {
             buttonPlay.setEnabled(false);
             this.requestFocusInWindow(true);
             ((JFrame)Windows.BuildViewMini.getWindow()).dispose();
+            createControlPanel().remove(hostButton);
         });
 
 
@@ -114,6 +115,7 @@ public class GameView extends JFrame implements Window {
         });
         Events.SingleplayerSelected.addRunnableListener(()->showPanel(STATUS_START));
         Events.MultiplayerSelected.addRunnableListener(()->showPanel(STATUS_MULTI));
+
 
 
     }
@@ -170,11 +172,14 @@ public class GameView extends JFrame implements Window {
         controlPanel.add(spellInventory);
         controlPanel.add(scoreBar);
         controlPanel.add(scoreBarOther);
+        JLabel ipLabel = new JLabel();
+        Events.SendIPAdress.addListener((e)->ipLabel.setText((String)e));
         hostButton  = new JButton("Host");
         hostButton.addActionListener(e->{
             Events.TryHostingSession.invoke();
         });
         controlPanel.add(hostButton);
+        controlPanel.add(ipLabel);
         controlPanel.add(Box.createRigidArea(new Dimension(25,10)));
         return controlPanel;
     }
