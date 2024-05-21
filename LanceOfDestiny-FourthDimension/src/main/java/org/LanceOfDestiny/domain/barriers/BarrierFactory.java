@@ -36,4 +36,29 @@ public class BarrierFactory {
             return 5;
         }
     }
+
+    public static Barrier createBarrier(Vector position, String barrierType, int hitsLeft, boolean moving) {
+        Barrier barrier;
+        switch (barrierType) {
+            case "SIMPLE":
+                barrier = new SimpleBarrier(position);
+                break;
+            case "EXPLOSIVE":
+                barrier = new ExplosiveBarrier(position);
+                break;
+            case "REINFORCED":
+                barrier = new ReinforcedBarrier(position, hitsLeft);
+                break;
+            case "REWARDING":
+                barrier = new RewardingBarrier(position);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown barrier type: " + barrierType);
+        }
+        barrier.setMoving(moving);
+        barrier.initDirection();
+        barrier.start();
+        BarrierManager.getInstance().addBarrier(barrier);
+        return barrier;
+    }
 }

@@ -9,14 +9,20 @@ import java.awt.event.MouseEvent;
 
 public abstract class MouseHandler {
     protected JPanel parentPanel;
+    private MouseAdapter mouseHandler;
 
     public MouseHandler(JPanel panel) {
         this.parentPanel = panel;
         setupMouseListener();
     }
 
+
+    public void removeMouseListener(){
+        parentPanel.removeMouseListener(mouseHandler);
+    }
+
     private void setupMouseListener() {
-        MouseAdapter mouseHandler = new MouseAdapter() {
+        mouseHandler = new MouseAdapter() {
 
             @Override
             public void mousePressed(MouseEvent e) {

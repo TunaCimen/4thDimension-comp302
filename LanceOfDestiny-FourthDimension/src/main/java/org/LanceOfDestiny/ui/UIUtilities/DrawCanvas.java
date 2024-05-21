@@ -10,10 +10,11 @@ import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.sprite.*;
 import org.LanceOfDestiny.ui.UIElements.YmirUI;
-import org.LanceOfDestiny.ui.UIUtilities.BuildModeMouseHandler;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Custom drawing JPanel for graphics drawings.
@@ -24,16 +25,24 @@ public class DrawCanvas extends JPanel {
     private final int ymirWidth = 250;
     private final int ymirHeight = 250;
     YmirUI ymirUI;
+    MouseHandler mouseHandler;
+
+    public List<JComponent> foregroundList;
     public DrawCanvas() {
+        foregroundList = new ArrayList<>();
         Events.CanvasUpdateEvent.addRunnableListener(this::repaint);
         Events.Reset.addRunnableListener(Events.CanvasUpdateEvent::invoke);
-        new BuildModeMouseHandler(this);
+        mouseHandler = new BuildModeMouseHandler(this);
         var width = Constants.SCREEN_WIDTH;
         var height = Constants.SCREEN_HEIGHT;
         this.backgroundImage = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.Background.getImage(), width, height)).getImage();
         ymirUI = new YmirUI(Constants.SCREEN_WIDTH /2 - 125, Constants.SCREEN_HEIGHT / 2 -125);
         setVisible(true);
 
+    }
+
+    public synchronized void removeMouseListener() {
+        mouseHandler.removeMouseListener();
     }
 
     @Override
@@ -49,6 +58,15 @@ public class DrawCanvas extends JPanel {
                 gameObjectSprite.drawShape(g);
                 }
             }
+        g.setColor(Color.BLACK);  // Set the color for the text
+        Font originalFont = g.getFont();
+        Font largeFont = originalFont.deriveFont(50f); // Set the font size to 50
+        g.setFont(largeFont);
+        g.drawString("FOREGROUNDTEST", 100, 250);
+
+        // Optionally reset the font back to the original if needed
+        g.setFont(originalFont);
+
         }
 
 

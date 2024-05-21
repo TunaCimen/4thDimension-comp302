@@ -1,6 +1,7 @@
 package org.LanceOfDestiny.domain.network;
 
 import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.ui.UIUtilities.WindowManager;
 import org.LanceOfDestiny.ui.UIUtilities.Windows;
 
@@ -8,6 +9,7 @@ import org.LanceOfDestiny.ui.UIUtilities.Windows;
 import java.io.*;
 import java.net.*;
 import java.util.Enumeration;
+import java.util.Objects;
 
 public class NetworkManager {
     private Socket socket;
@@ -22,6 +24,9 @@ public class NetworkManager {
         this.eventHandler = new NetworkEventHandler();
         Events.TryJoiningSession.addListener(this::joinGame);
         Events.TryHostingSession.addRunnableListener(this::hostGame);
+        Events.SendGameStarted.addRunnableListener(()->{
+            out.println("STARTED");
+        });
     }
 
     public static NetworkManager getInstance() {
@@ -38,6 +43,7 @@ public class NetworkManager {
                 socket = serverSocket.accept();
                 setupStreams();
                 Events.OtherPlayerJoined.invoke();
+                out.println(BarrierManager.getInstance().serializeAllBarriers());
                 System.out.println("Connected the other Player succesfulyl.");
             }catch(Exception e){
                 throw new RuntimeException(e);
@@ -53,6 +59,7 @@ public class NetworkManager {
         try {
             InetAddress ipAddress = getIPAddress();
             if (ipAddress != null) {
+                Events.SendIPAdress.invoke(ipAddress.getHostAddress());
                 System.out.println("IP Address: " + ipAddress.getHostAddress());
             } else {
                 System.out.println("No IP address found.");
@@ -100,11 +107,26 @@ public class NetworkManager {
         setupStreams();
         Events.Reset.invoke();
         Events.JoinedTheHost.invoke();
+        BarrierManager.getInstance().loadBarriersFromString(in.readLine());
+        new Thread(()->{
+            while(true){
+                try {
+                    if(Objects.equals(in.readLine(), "STARTED")){
+                        Events.StartGame.invoke();
+
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }).start();
+
     }
 
     private void setupStreams() throws IOException {
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new PrintWriter(socket.getOutputStream(), true);
+
     }
 
     public void sendGameState(String gameState) {

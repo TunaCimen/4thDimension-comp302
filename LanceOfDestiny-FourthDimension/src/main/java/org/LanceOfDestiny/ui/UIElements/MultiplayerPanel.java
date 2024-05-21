@@ -46,7 +46,6 @@ public class MultiplayerPanel extends JPanel {
         add(hostButton);
         hostButton.removeActionListener(joinButton.getActionListeners()[0]);
         hostButton.addActionListener(e->{
-            Events.TryHostingSession.invoke();
             Events.Reset.invoke();
             System.out.println("Host Clickeeeeeeeed");
         });

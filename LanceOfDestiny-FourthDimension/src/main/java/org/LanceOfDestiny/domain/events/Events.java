@@ -32,14 +32,20 @@ public enum Events {
     //FIREBALL EVENTS
     ShootBall(Object.class),
     ResetFireBall(Object.class),
-    // Events after opponent is notified
+    // NETWORK: Events after opponent is notified
     ReceiveChanceUpdate(Integer.class),
     ReceiveScoreUpdate(Integer.class),
     ReceiveBarrierCountUpdate(Integer.class),
-    // Events to notify the opponent
+    ReceiveGameDataToLoad(String.class),
+    // NETWORK: Events to notify the opponent
     SendChanceUpdate(Object.class),
     SendScoreUpdate(Object.class),
     SendBarrierCountUpdate(Object.class),
+    SendGameDataToLoad(Object.class),
+
+    SendPauseUpdate(Object.class),
+
+    SendResumeUpdate(Object.class),
     // GAME STAT. EVENTS
     // The second args are events that are invoked after all the listeners of the actual event are invoked
     UpdateChance(Integer.class, SendChanceUpdate),
@@ -60,8 +66,8 @@ public enum Events {
     ActivateInfiniteVoid(Boolean.class),
     ActivateDoubleAccel(Boolean.class),
     // EVENTS RELATED TO OTHER GAME FEATURES
-    PauseGame(Object.class),
-    ResumeGame(Object.class),
+    PauseGame(Object.class, SendPauseUpdate),
+    ResumeGame(Object.class, SendResumeUpdate),
     StartGame(Object.class),
     SaveGame(Object.class),
     LoadGame(Object.class),
@@ -70,6 +76,9 @@ public enum Events {
     TimedTestEvent(Color.class, ResetColorEvent),
     CanvasUpdateEvent(Object.class),
     BuildDoneEvent(Object.class),
+
+    ShowEditMode(Object.class),
+
     Reset(Object.class),
     Load(Object.class),
     ResetSpells(Object.class),
@@ -81,7 +90,9 @@ public enum Events {
     TryJoiningSession(String.class),
     TryHostingSession(Object.class),
     OtherPlayerJoined(Object.class),
-    JoinedTheHost(Object.class);
+    JoinedTheHost(Object.class),
+    SendGameStarted(Object.class),
+    SendIPAdress(String.class);
 
     //It is the Class that the particular event wants the invocation.
     final Class<?> paramType;

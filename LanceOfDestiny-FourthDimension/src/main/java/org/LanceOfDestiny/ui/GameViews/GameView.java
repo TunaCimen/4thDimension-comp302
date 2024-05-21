@@ -6,6 +6,7 @@ import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.*;
 import org.LanceOfDestiny.ui.CustomViews.CustomDialog;
 import org.LanceOfDestiny.ui.UIElements.*;
+import org.LanceOfDestiny.ui.UIUtilities.DrawCanvas;
 import org.LanceOfDestiny.ui.UIUtilities.Window;
 import org.LanceOfDestiny.ui.UIUtilities.WindowManager;
 import org.LanceOfDestiny.ui.UIUtilities.Windows;
@@ -25,6 +26,8 @@ public class GameView extends JFrame implements Window {
     final Dimension maximumSizeButton = new Dimension(150, 45);
     JButton buttonPlay;
     JButton buttonPause;
+
+    JButton hostButton;
     HealthBar healthBarDisplay;
     SpellInventory spellInventory;
     JPanel cardPanel;
@@ -81,6 +84,8 @@ public class GameView extends JFrame implements Window {
         Events.BuildDoneEvent.addRunnableListener(() -> {
             if(sessionManager.getGameMode() == SessionManager.GameMode.MULTIPLAYER){
                 System.out.println("Waiting For other player to connect!!!");
+                this.setEnabled(true);
+                this.startButton().setFocusable(false);
                 return;
             }
             this.setEnabled(true);
@@ -89,12 +94,17 @@ public class GameView extends JFrame implements Window {
         });
         Events.OtherPlayerJoined.addRunnableListener(()->{
             this.setEnabled(true);
+            startButton().setEnabled(true);
             this.requestFocusInWindow(true);
         });
 
         Events.JoinedTheHost.addRunnableListener(()->{
             this.setEnabled(true);
+            buttonPlay.setEnabled(false);
             this.requestFocusInWindow(true);
+            ((JFrame)Windows.BuildViewMini.getWindow()).dispose();
+            hostButton.setVisible(false);
+            hostButton.getParent().remove(hostButton);
         });
 
 
@@ -107,6 +117,7 @@ public class GameView extends JFrame implements Window {
         });
         Events.SingleplayerSelected.addRunnableListener(()->showPanel(STATUS_START));
         Events.MultiplayerSelected.addRunnableListener(()->showPanel(STATUS_MULTI));
+
 
 
     }
@@ -136,14 +147,17 @@ public class GameView extends JFrame implements Window {
     }
 
     private void handleNewGame() {
+        cardLayout.show(cardPanel, STATUS_GAME);
         buttonPause.setEnabled(true);
         buttonPlay.setEnabled(true);
+        this.setEnabled(false);
         comboBoxAddBarrierType.setVisible(true);
         sessionManager.setStatus(Status.EditMode);
         cardLayout.show(cardPanel, STATUS_GAME);
         WindowManager.getInstance().showWindow(Windows.BuildViewMini);
-        this.setEnabled(false);
+
     }
+
 
     private JPanel createControlPanel() {
         initComboBox();
@@ -160,6 +174,20 @@ public class GameView extends JFrame implements Window {
         controlPanel.add(spellInventory);
         controlPanel.add(scoreBar);
         controlPanel.add(scoreBarOther);
+        JLabel ipLabel = new JLabel();
+        Events.SendIPAdress.addListener((e)->ipLabel.setText((String)e));
+        hostButton  = new JButton("Host");
+        hostButton.addActionListener(e->{
+            Events.TryHostingSession.invoke();
+            comboBoxAddBarrierType.setVisible(false);
+            SessionManager.getInstance().getDrawCanvas().removeMouseListener();
+            JLabel label = new JLabel("WAITING OTHER PLAYERS");
+            label.setPreferredSize(new Dimension(300,300));
+            SessionManager.getInstance().getDrawCanvas().foregroundList.add(label);
+            Events.CanvasUpdateEvent.invoke();
+        });
+        controlPanel.add(hostButton);
+        controlPanel.add(ipLabel);
         controlPanel.add(Box.createRigidArea(new Dimension(25,10)));
         return controlPanel;
     }
@@ -169,7 +197,11 @@ public class GameView extends JFrame implements Window {
         buttonPlay.setFocusable(false);
         buttonPlay.setFont(new Font("Monospaced", Font.BOLD, 16));
         buttonPlay.addActionListener(e -> {
-            Events.StartGame.invoke();
+            if(SessionManager.getInstance().getGameMode() == SessionManager.GameMode.MULTIPLAYER){
+                Events.StartGame.invoke();
+                Events.SendGameStarted.invoke();
+            }
+
         });
         return buttonPlay;
     }
