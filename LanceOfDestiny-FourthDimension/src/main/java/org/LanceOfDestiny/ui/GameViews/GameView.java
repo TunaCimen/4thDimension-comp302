@@ -102,7 +102,8 @@ public class GameView extends JFrame implements Window {
             buttonPlay.setEnabled(false);
             this.requestFocusInWindow(true);
             ((JFrame)Windows.BuildViewMini.getWindow()).dispose();
-            createControlPanel().remove(hostButton);
+            hostButton.setVisible(false);
+            hostButton.getParent().remove(hostButton);
         });
 
 
