@@ -82,6 +82,7 @@ public class SessionManager {
         magicalStaff = new MagicalStaff();
         initializePlayer();
         initializeCurseManager();
+        initializeYmir();
         //builder.initializeBarriers();
 
     }

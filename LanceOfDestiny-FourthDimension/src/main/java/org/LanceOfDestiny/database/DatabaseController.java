@@ -5,6 +5,7 @@ import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.physics.Vector;
+import org.LanceOfDestiny.domain.ymir.Ymir;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -63,13 +64,14 @@ public class DatabaseController {
                 }
             }
         }
-        try (PreparedStatement pstmt2 = connection.prepareStatement("INSERT INTO UserInfoSaved (savedByUser, score, chances, numberOfSpells, saveName, time) VALUES (?, ?, ?, ?, ?, ?)")) {
+        try (PreparedStatement pstmt2 = connection.prepareStatement("INSERT INTO UserInfoSaved (savedByUser, score, chances, numberOfSpells, saveName, time, ymirSpells) VALUES (?, ?, ?, ?, ?, ?, ?)")) {
             pstmt2.setString(1, username);
             pstmt2.setInt(2, score);
             pstmt2.setInt(3, chances);
             pstmt2.setString(4, numberOfSpells);
             pstmt2.setString(5, saveName);
             pstmt2.setInt(6, SessionManager.getInstance().getLoopExecutor().getSecondsPassed());
+            pstmt2.setString(7, SessionManager.getInstance().getYmir().retTwoSpellNames());
             pstmt2.executeUpdate();
         }
         return true;
@@ -113,6 +115,8 @@ public class DatabaseController {
                 int time = resultSet.getInt("time");
                 String numberofspells = resultSet.getString("numberOfSpells");
                 String[] parts = numberofspells.split(", ");
+                String ymirSpells = resultSet.getString("ymirSpells");
+                String[] ymirParts = ymirSpells.split(" ,");
                 rt.add(String.valueOf(score));
                 rt.add(String.valueOf(chances));
                 rt.add(parts[0]);
@@ -120,6 +124,12 @@ public class DatabaseController {
                 rt.add(parts[2]);
                 rt.add(parts[3]);
                 rt.add(String.valueOf(time));
+                if(ymirParts.length == 2){
+                    rt.add(ymirParts[0]);
+                    rt.add(ymirParts[1]);
+                }else{
+                    rt.add(ymirParts[0]);
+                }
             }
         }
         return rt;

@@ -57,6 +57,11 @@ public class Ymir extends MonoBehaviour {
         lastTwoAbilities[0] = lastTwoAbilities[1];
         lastTwoAbilities[1] = newAbility;
     }
+    public void updateLastTwoAbilitiesFromLoad(String s1, String s2){
+         System.out.println(SpellType.valueOf(s1));
+         lastTwoAbilities[0] = SpellType.valueOf(s1);
+         lastTwoAbilities[1] = SpellType.valueOf(s2);
+    }
 
     private void coinFlip() {
          nextCoinFlipSeconds = COIN_FLIP_INTERVAL + loopExecutor.getSecondsPassed();
@@ -67,6 +72,9 @@ public class Ymir extends MonoBehaviour {
 
     private boolean validateCurse(SpellType curse) {
         return !curse.equals(lastTwoAbilities[0]) || !curse.equals(lastTwoAbilities[1]);
+    }
+    public String retTwoSpellNames(){
+         return lastTwoAbilities[0].toString() + " ," + lastTwoAbilities[1].toString();
     }
 
 
