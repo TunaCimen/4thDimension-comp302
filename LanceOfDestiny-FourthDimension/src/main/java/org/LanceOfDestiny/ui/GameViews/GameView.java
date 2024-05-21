@@ -6,6 +6,7 @@ import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.*;
 import org.LanceOfDestiny.ui.CustomViews.CustomDialog;
 import org.LanceOfDestiny.ui.UIElements.*;
+import org.LanceOfDestiny.ui.UIUtilities.DrawCanvas;
 import org.LanceOfDestiny.ui.UIUtilities.Window;
 import org.LanceOfDestiny.ui.UIUtilities.WindowManager;
 import org.LanceOfDestiny.ui.UIUtilities.Windows;
@@ -178,6 +179,12 @@ public class GameView extends JFrame implements Window {
         hostButton  = new JButton("Host");
         hostButton.addActionListener(e->{
             Events.TryHostingSession.invoke();
+            comboBoxAddBarrierType.setVisible(false);
+            SessionManager.getInstance().getDrawCanvas().removeMouseListener();
+            JLabel label = new JLabel("WAITING OTHER PLAYERS");
+            label.setPreferredSize(new Dimension(300,300));
+            SessionManager.getInstance().getDrawCanvas().foregroundList.add(label);
+            Events.CanvasUpdateEvent.invoke();
         });
         controlPanel.add(hostButton);
         controlPanel.add(ipLabel);
