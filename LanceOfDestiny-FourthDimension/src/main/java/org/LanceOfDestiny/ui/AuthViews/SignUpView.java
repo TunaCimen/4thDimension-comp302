@@ -187,6 +187,8 @@ public class SignUpView extends javax.swing.JFrame implements Window {
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+        LogInView l = new LogInView(LogInController.getInstance());
+        l.createAndShowUI();
         this.dispose();
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {

@@ -193,7 +193,9 @@ public class LogInView extends javax.swing.JFrame implements Window {
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-        wm.showWindow(Windows.Signup);
+        SignUpView s = new SignUpView(LogInController.getInstance());
+        s.createAndShowUI();
+        this.dispose();
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         String enteredUsername = jTextField1.getText();
