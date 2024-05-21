@@ -42,6 +42,10 @@ public enum Events {
     SendScoreUpdate(Object.class),
     SendBarrierCountUpdate(Object.class),
     SendGameDataToLoad(Object.class),
+
+    SendPauseUpdate(Object.class),
+
+    SendResumeUpdate(Object.class),
     // GAME STAT. EVENTS
     // The second args are events that are invoked after all the listeners of the actual event are invoked
     UpdateChance(Integer.class, SendChanceUpdate),
@@ -62,8 +66,8 @@ public enum Events {
     ActivateInfiniteVoid(Boolean.class),
     ActivateDoubleAccel(Boolean.class),
     // EVENTS RELATED TO OTHER GAME FEATURES
-    PauseGame(Object.class),
-    ResumeGame(Object.class),
+    PauseGame(Object.class, SendPauseUpdate),
+    ResumeGame(Object.class, SendResumeUpdate),
     StartGame(Object.class),
     SaveGame(Object.class),
     LoadGame(Object.class),

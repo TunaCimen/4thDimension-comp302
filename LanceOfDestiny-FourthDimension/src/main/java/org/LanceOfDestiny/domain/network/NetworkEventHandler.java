@@ -12,6 +12,8 @@ public class NetworkEventHandler {
         Events.SendScoreUpdate.addRunnableListener(() -> sendGameState("Score: " + ScoreManager.getInstance().getScore()));
         Events.SendBarrierCountUpdate.addRunnableListener(() -> sendGameState("Barrier Count: " + BarrierManager.barriers.size()));
         Events.SendGameDataToLoad.addRunnableListener(() -> sendGameState("Game Data: " + BarrierManager.getInstance().serializeAllBarriers()));
+        Events.SendPauseUpdate.addRunnableListener(() -> sendGameState("Pause Game: true"));
+        Events.SendResumeUpdate.addRunnableListener(() -> sendGameState("Resume Game: true"));
     }
 
     public void sendGameState(String gameState) {
@@ -41,6 +43,13 @@ public class NetworkEventHandler {
                 break;
             case "Game Data":
                 Events.ReceiveGameDataToLoad.invoke(eventData);
+                break;
+            case "Pause Game":
+                Events.PauseGame.invoke();
+                break;
+            case "Resume Game":
+                Events.ResumeGame.invoke();
+                break;
             default:
                 System.out.println("Unknown event type: " + eventType);
                 break;
