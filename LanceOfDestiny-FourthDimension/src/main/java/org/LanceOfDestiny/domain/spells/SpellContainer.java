@@ -1,7 +1,6 @@
 package org.LanceOfDestiny.domain.spells;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.behaviours.TimedAction;
 import org.LanceOfDestiny.domain.events.Events;
 
 import java.util.HashMap;
@@ -14,7 +13,7 @@ public class SpellContainer {
     public SpellContainer() {
         for (SpellType spellType : SpellType.values()) {
             if (spellType.equals(SpellType.CHANCE)) continue;
-            spellMap.put(spellType, true);
+            spellMap.put(spellType, false);
         }
         Events.GainSpell.addListener(this::addSpell);
     }
@@ -33,8 +32,6 @@ public class SpellContainer {
 
     public void activateSpell(SpellType spellType) {
         if (!spellExists(spellType)) return;
-
-        spellType.activate();
 
         new SpellActivation(spellType, Constants.SPELL_DURATION).activate();
 
