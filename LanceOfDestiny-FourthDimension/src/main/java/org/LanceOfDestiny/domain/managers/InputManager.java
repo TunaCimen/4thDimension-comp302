@@ -4,6 +4,7 @@ import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.spells.SpellType;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashMap;
 
 public class InputManager implements KeyListener {
 
@@ -14,6 +15,8 @@ public class InputManager implements KeyListener {
     public int activateCurseKey;
 
     public boolean isShootFlag;
+    private HashMap<SpellType, Long> lastSpellActivationTime = new HashMap<>();
+    private static final long DEBOUNCE_DELAY = 2000;
 
     private InputManager() {
         reset();
@@ -35,12 +38,8 @@ public class InputManager implements KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_SPACE) isShootFlag = true;
         if (e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_D) rotateKey = e.getKeyCode();
         if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT) moveKey = e.getKeyCode();
-        if (e.getKeyCode() == KeyEvent.VK_O || e.getKeyCode() == KeyEvent.VK_E || e.getKeyCode() == KeyEvent.VK_C) {
-            activateSpellKey = e.getKeyCode();
-        }
-        if (e.getKeyCode() == KeyEvent.VK_1 || e.getKeyCode() == KeyEvent.VK_2 || e.getKeyCode() == KeyEvent.VK_3) {
-            activateCurseKey = e.getKeyCode();
-        }
+        handleSpellActivation(e);
+        handleCurseActivation(e);
     }
 
     @Override
@@ -73,7 +72,6 @@ public class InputManager implements KeyListener {
     public void updateActions() {
         updateRotation();
         updateMovement();
-        updateSpellActivation();
     }
 
     private void updateRotation() {
@@ -88,21 +86,43 @@ public class InputManager implements KeyListener {
         if (isShootFlag) Events.ShootBall.invoke();
     }
 
-    private void updateSpellActivation() {
-        if (activateSpellKey == -1 && activateCurseKey == -1) return;
-        if (activateSpellKey == KeyEvent.VK_E) Events.TryUsingSpell.invoke(SpellType.EXPANSION);
-        if (activateSpellKey == KeyEvent.VK_C) Events.TryUsingSpell.invoke(SpellType.CANON);
-        if (activateSpellKey == KeyEvent.VK_O) Events.TryUsingSpell.invoke(SpellType.OVERWHELMING);
-        if (activateCurseKey == KeyEvent.VK_1) Events.TryUsingCurse.invoke(SpellType.INFINITE_VOID);
-        if (activateCurseKey == KeyEvent.VK_2) Events.TryUsingCurse.invoke(SpellType.DOUBLE_ACCEL);
-        if (activateCurseKey == KeyEvent.VK_3) Events.TryUsingCurse.invoke(SpellType.HOLLOW_PURPLE);
-    }
-
     public void reset() {
         moveKey = -1;
         rotateKey = -1;
         activateSpellKey = -1;
         activateCurseKey = -1;
         isShootFlag = false;
+    }
+
+    private void handleSpellActivation(KeyEvent e) {
+        SpellType spellType = switch (e.getKeyCode()) {
+            case KeyEvent.VK_E -> SpellType.EXPANSION;
+            case KeyEvent.VK_C -> SpellType.CANON;
+            case KeyEvent.VK_O -> SpellType.OVERWHELMING;
+            default -> null;
+        };
+
+        if (spellType != null && canActivateSpell(spellType)) {
+            Events.TryUsingSpell.invoke(spellType);
+            lastSpellActivationTime.put(spellType, System.currentTimeMillis());
+        }
+    }
+
+    private void handleCurseActivation(KeyEvent e) {
+        SpellType curseType = switch (e.getKeyCode()) {
+            case KeyEvent.VK_1 -> SpellType.INFINITE_VOID;
+            case KeyEvent.VK_2 -> SpellType.DOUBLE_ACCEL;
+            case KeyEvent.VK_3 -> SpellType.HOLLOW_PURPLE;
+            default -> null;
+        };
+        // will later add a delay like good spells
+        if(curseType != null)
+            Events.TryUsingSpell.invoke(curseType);
+    }
+
+    private boolean canActivateSpell(SpellType spellType) {
+        Long lastActivation = lastSpellActivationTime.get(spellType);
+        long currentTime = System.currentTimeMillis();
+        return (lastActivation == null || (currentTime - lastActivation >= DEBOUNCE_DELAY));
     }
 }

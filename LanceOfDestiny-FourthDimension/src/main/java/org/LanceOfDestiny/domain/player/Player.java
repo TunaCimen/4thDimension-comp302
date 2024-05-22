@@ -3,7 +3,6 @@ package org.LanceOfDestiny.domain.player;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.behaviours.MonoBehaviour;
-import org.LanceOfDestiny.domain.spells.CurseManager;
 import org.LanceOfDestiny.domain.spells.SpellContainer;
 import org.LanceOfDestiny.domain.spells.SpellType;
 

@@ -21,6 +21,8 @@ public class MagicalStaff extends GameObject {
     private final Canon canonLeft;
     private final Canon canonRight;
     protected boolean isExpanded = false;
+    protected boolean isCanonEnabled = false;
+    protected boolean isCanonRightShifted = false;
     private RectangleSprite defaultSprite;
     private RectangleSprite expandedSprite;
     private RectangleCollider expandedCollider;
@@ -119,6 +121,10 @@ public class MagicalStaff extends GameObject {
         setCollider(expandedCollider);
         defaultCollider.setEnabled(false);
         expandedCollider.setEnabled(true);
+        if(isCanonEnabled && !isCanonRightShifted) {
+            canonRight.setPosition(canonRight.getPosition().add(new Vector(Constants.STAFF_WIDTH,0)));
+            isCanonRightShifted = true;
+        }
     }
 
     public void disableExpansion() {
@@ -126,6 +132,10 @@ public class MagicalStaff extends GameObject {
         setCollider(defaultCollider);
         expandedCollider.setEnabled(false);
         defaultCollider.setEnabled(true);
+        if(isCanonEnabled && isCanonRightShifted) {
+            canonRight.setPosition(canonRight.getPosition().subtract(new Vector(Constants.STAFF_WIDTH, 0)));
+            isCanonRightShifted = false;
+        }
     }
 
     private void handleCanons(Object object) {
@@ -135,13 +145,23 @@ public class MagicalStaff extends GameObject {
     }
 
     public void enableCanons() {
+        isCanonEnabled = true;
         canonLeft.activateCanon();
         canonRight.activateCanon();
+        if(isExpanded && !isCanonRightShifted) {
+            canonRight.setPosition(canonRight.getPosition().add(new Vector(Constants.STAFF_WIDTH, 0)));
+            isCanonRightShifted = true;
+        }
     }
 
     public void disableCanons() {
+        isCanonEnabled = false;
         canonLeft.deactivateCanon();
         canonRight.deactivateCanon();
+        if(isExpanded && isCanonRightShifted) {
+            canonRight.setPosition(canonRight.getPosition().subtract(new Vector(Constants.STAFF_WIDTH, 0)));
+            isCanonRightShifted = false;
+        }
     }
 
     public void resetStaffPosition() {
