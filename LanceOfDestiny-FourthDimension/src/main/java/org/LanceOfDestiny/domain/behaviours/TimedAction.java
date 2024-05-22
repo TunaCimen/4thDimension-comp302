@@ -18,6 +18,8 @@ public abstract class TimedAction extends MonoBehaviour {
         timePassed = 0;
     }
 
+
+
     public abstract void onUpdate();
 
     @Override
@@ -25,9 +27,16 @@ public abstract class TimedAction extends MonoBehaviour {
         if(isStarted && timePassed<duration){
             onUpdate();
             timePassed = SessionManager.getInstance().getLoopExecutor().getSecondsPassed()- startTime;;
-            System.out.println(timePassed);
+        }
+        if(isStarted && timePassed>duration){
+            onFinish();
+            System.out.println("Timed Action finished!");
         }
     }
+
+    public void onFinish(){
+
+    };
 
     public void start() {
         isStarted = true;

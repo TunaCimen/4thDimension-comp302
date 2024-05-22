@@ -58,30 +58,30 @@ public class InputManagerTest {
     void testUpdateActionsWithSpellActivation() {
         inputManager.activateSpellKey = KeyEvent.VK_E;
         inputManager.updateActions();
-        assertTrue(Events.TryUsingSpell.eventsFired());
+        assertTrue(Events.ActivateSpell.eventsFired());
 
         inputManager.activateSpellKey = KeyEvent.VK_C;
         inputManager.updateActions();
-        assertTrue(Events.TryUsingSpell.eventsFired());
+        assertTrue(Events.ActivateSpell.eventsFired());
 
         inputManager.activateSpellKey = KeyEvent.VK_O;
         inputManager.updateActions();
-        assertTrue(Events.TryUsingSpell.eventsFired());
+        assertTrue(Events.ActivateSpell.eventsFired());
     }
 
     @Test
     void testUpdateActionsWithCurseActivation() {
         inputManager.activateCurseKey = KeyEvent.VK_1;
         inputManager.updateActions();
-        assertTrue(Events.TryUsingCurse.eventsFired());
+        assertTrue(Events.ActivateCurse.eventsFired());
 
         inputManager.activateCurseKey = KeyEvent.VK_2;
         inputManager.updateActions();
-        assertTrue(Events.TryUsingCurse.eventsFired());
+        assertTrue(Events.ActivateCurse.eventsFired());
 
         inputManager.activateCurseKey = KeyEvent.VK_3;
         inputManager.updateActions();
-        assertTrue(Events.TryUsingCurse.eventsFired());
+        assertTrue(Events.ActivateCurse.eventsFired());
     }
 
     private void resetAllEventsFired() {

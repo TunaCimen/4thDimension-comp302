@@ -3,7 +3,6 @@ package org.LanceOfDestiny.domain.player;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.behaviours.MonoBehaviour;
-import org.LanceOfDestiny.domain.spells.CurseManager;
 import org.LanceOfDestiny.domain.spells.SpellContainer;
 import org.LanceOfDestiny.domain.spells.SpellType;
 
@@ -16,7 +15,7 @@ public class Player extends MonoBehaviour {
         this.spellContainer = new SpellContainer();
         this.chancesLeft = Constants.DEFAULT_CHANCES;
         Events.UpdateChance.addListener(this::updateChances);
-        Events.TryUsingSpell.addListener(this::tryUsingSpell);
+        Events.ActivateSpell.addListener(this::activateSpell);
         Events.Reset.addRunnableListener(this::resetSpells);
     }
 
@@ -30,9 +29,9 @@ public class Player extends MonoBehaviour {
         super.update();
     }
 
-    private void tryUsingSpell(Object objectSpellType) {
+    private void activateSpell(Object objectSpellType) {
         SpellType spellType = (SpellType) objectSpellType;
-        if(spellType.isGood()) spellContainer.activateSpell(spellType);
+        spellContainer.activateSpell(spellType);
     }
 
     public void updateChances(Object change){

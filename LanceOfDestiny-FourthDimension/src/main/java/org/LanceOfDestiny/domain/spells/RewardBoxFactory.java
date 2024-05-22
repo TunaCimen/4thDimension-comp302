@@ -5,7 +5,6 @@ import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -42,9 +41,7 @@ public class RewardBoxFactory {
             return SpellType.values()[RANDOM.nextInt(SpellType.values().length)];
         } else {
             // Only good spells in single-player mode
-            List<SpellType> goodSpells = Arrays.stream(SpellType.values())
-                    .filter(SpellType::isGood)
-                    .toList();
+            List<SpellType> goodSpells = SpellType.getGoodSpells();
             return goodSpells.get(RANDOM.nextInt(goodSpells.size()));
         }
     }

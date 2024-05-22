@@ -44,7 +44,6 @@ public enum Events {
     SendGameDataToLoad(Object.class),
 
     SendPauseUpdate(Object.class),
-
     SendResumeUpdate(Object.class),
     SendInfiniteVoidUpdate(Object.class),
     SendHollowPurpleUpdate(Object.class),
@@ -57,14 +56,14 @@ public enum Events {
     EndGame(String.class),
     //SPELL EVENTS
     GainSpell(SpellType.class),
-    TryUsingSpell(SpellType.class),
+    ActivateSpell(SpellType.class),
     ActivateSpellUI(SpellType.class),
     //GOOD SPELLS
     ActivateCanons(Boolean.class),
     ActivateOverwhelming(Boolean.class),
     ActivateExpansion(Boolean.class),
     //BAD SPELLS
-    TryUsingCurse(SpellType.class),
+    ActivateCurse(SpellType.class),
     ActivateHollowPurple(Object.class),
     ActivateInfiniteVoid(Boolean.class),
     ActivateDoubleAccel(Boolean.class),
@@ -98,9 +97,12 @@ public enum Events {
     SendGameStarted(Object.class),
     SendIPAdress(String.class),
     ShowInitGame(Object.class),
-    ResetGameMode(Object.class);
+    ResetGameMode(Object.class),
+    StartCounting(Object.class),
+    StartCountDown(Object.class, StartCounting),
+   ;
 
-    //It is the Class that the particular event wants the invocation.
+    //It is the Class that thnew CountdownAnimationBehaviour(count, setter);e particular event wants the invocation.
     final Class<?> paramType;
     Timer timer = null;
     boolean isActive = false;
