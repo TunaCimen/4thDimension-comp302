@@ -105,13 +105,14 @@ public class GameView extends JFrame implements Window {
         Events.OtherPlayerJoined.addRunnableListener(()->{
             this.setEnabled(true);
             this.buttonPlay.setEnabled(true);
+            this.hostButton.setVisible(false);
             this.requestFocusInWindow(true);
             SessionManager.getInstance().getDrawCanvas().foregroundList.clear();
         });
 
         Events.JoinedTheHost.addRunnableListener(()->{
             this.setEnabled(true);
-            buttonPlay.setEnabled(false);
+            this.buttonPlay.setEnabled(false);
             this.requestFocusInWindow(true);
             ((JFrame)Windows.BuildViewMini.getWindow()).dispose();
             hostButton.setVisible(false);
@@ -130,6 +131,7 @@ public class GameView extends JFrame implements Window {
         Events.StartCountDown.addRunnableListener(()->{
             SessionManager.getInstance().getDrawCanvas().foregroundList.add(countdown);
         });
+        /**
         countdown.setAnimationBehaviourOnEvent(new CountdownAnimation(5,countdown::setText,()->{
             Events.StartGame.invoke();
             if(SessionManager.getInstance().getGameMode() == SessionManager.GameMode.MULTIPLAYER) {
@@ -137,6 +139,9 @@ public class GameView extends JFrame implements Window {
             }
             SessionManager.getInstance().getDrawCanvas().foregroundList.remove(countdown);
         }),Events.StartCounting);
+         */
+
+        Events.ReceiveScoreUpdate.addRunnableListener(System.out::println);
     }
 
 
@@ -156,7 +161,7 @@ public class GameView extends JFrame implements Window {
         buttonPlay.setEnabled(false);
         buttonPause.setEnabled(true);
         comboBoxAddBarrierType.setVisible(false);
-        System.out.println(SessionManager.getInstance().getYmir().retTwoSpellNames());
+        //System.out.println(SessionManager.getInstance().getYmir().retTwoSpellNames());
     }
 
     public void showPanel(String cardName) {
@@ -191,7 +196,6 @@ public class GameView extends JFrame implements Window {
         controlPanel.add(healthBarDisplay);
         controlPanel.add(spellInventory);
         controlPanel.add(scoreBar);
-
         ipLabel = new JLabel();
         Events.SendIPAdress.addListener((e)->ipLabel.setText((String)e));
         hostButton  = new JButton("Host");
@@ -224,7 +228,11 @@ public class GameView extends JFrame implements Window {
             if (!BuildViewMiniPanel.validateAndShowError(BarrierManager.getInstance().getBarrierCounts())) {
                 return;
             }
-            Events.StartCountDown.invoke();
+            Events.StartGame.invoke();
+            if(SessionManager.getInstance().getGameMode() == SessionManager.GameMode.MULTIPLAYER) {
+                Events.SendGameStarted.invoke();
+            }
+            //Events.StartCountDown.invoke();
         });
         return buttonPlay;
     }

@@ -58,6 +58,7 @@ public class MultiplayerPanel extends JPanel {
         joinButton.removeActionListener(joinButton.getActionListeners()[0]);
         joinButton.addActionListener(e->{
             Events.TryJoiningSession.invoke(ipField.getText());
+            showMainPrompt();
         });
         revalidate();
         repaint();
