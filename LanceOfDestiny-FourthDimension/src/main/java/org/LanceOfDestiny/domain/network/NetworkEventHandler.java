@@ -1,9 +1,12 @@
 package org.LanceOfDestiny.domain.network;
 
+import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.ScoreManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
+import org.LanceOfDestiny.domain.spells.SpellActivation;
+import org.LanceOfDestiny.domain.spells.SpellType;
 
 public class NetworkEventHandler {
 
@@ -54,13 +57,13 @@ public class NetworkEventHandler {
                 Events.ResumeGame.invoke();
                 break;
             case "Double Accel":
-                Events.ActivateDoubleAccel.invoke();
+                new SpellActivation(SpellType.DOUBLE_ACCEL, Constants.SPELL_DURATION).activate();
                 break;
             case "Hollow Purple":
-                Events.ActivateHollowPurple.invoke();
+                new SpellActivation(SpellType.HOLLOW_PURPLE, Constants.SPELL_DURATION).activate();
                 break;
             case "Infinite Void":
-                Events.ActivateInfiniteVoid.invoke();
+                new SpellActivation(SpellType.INFINITE_VOID, Constants.SPELL_DURATION).activate();
                 break;
             default:
                 System.out.println("Unknown event type: " + eventType);
