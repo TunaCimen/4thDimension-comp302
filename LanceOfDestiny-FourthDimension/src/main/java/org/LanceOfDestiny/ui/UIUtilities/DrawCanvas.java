@@ -58,7 +58,6 @@ public class DrawCanvas extends JPanel {
                 gameObjectSprite.drawShape(g);
                 }
             }
-
         for(Drawable d : foregroundList){
             d.drawShape(g);
         }

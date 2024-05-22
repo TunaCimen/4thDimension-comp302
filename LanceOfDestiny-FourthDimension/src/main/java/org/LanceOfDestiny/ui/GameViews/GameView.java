@@ -223,10 +223,22 @@ public class GameView extends JFrame implements Window {
         buttonPlay.setFocusable(false);
         buttonPlay.setFont(new Font("Monospaced", Font.BOLD, 16));
         buttonPlay.addActionListener(e -> {
+
+            if (!BuildViewMiniPanel.validateAndShowError(BarrierManager.getInstance().getBarrierCounts())) {
+                return;
+            }
+        Events.StartGame.invoke();
+
+        if(SessionManager.getInstance().getGameMode() == SessionManager.GameMode.MULTIPLAYER){
+              Events.SendGameStarted.invoke();
+        }
+
+
             Events.StartCountDown.invoke();
             if(SessionManager.getInstance().getGameMode() == SessionManager.GameMode.MULTIPLAYER) {
                 Events.SendGameStarted.invoke();
             }
+
         });
         return buttonPlay;
     }

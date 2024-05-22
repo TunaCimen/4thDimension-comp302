@@ -45,6 +45,9 @@ public enum Events {
 
     SendPauseUpdate(Object.class),
     SendResumeUpdate(Object.class),
+    SendInfiniteVoidUpdate(Object.class),
+    SendHollowPurpleUpdate(Object.class),
+    SendDoubleAccelUpdate(Object.class),
     // GAME STAT. EVENTS
     // The second args are events that are invoked after all the listeners of the actual event are invoked
     UpdateChance(Integer.class, SendChanceUpdate),
@@ -66,6 +69,7 @@ public enum Events {
     ActivateDoubleAccel(Boolean.class),
     // EVENTS RELATED TO OTHER GAME FEATURES
     PauseGame(Object.class, SendPauseUpdate),
+    // TODO: Resume update might not be received by the opp because they might not be listening here -> fix
     ResumeGame(Object.class, SendResumeUpdate),
     StartGame(Object.class),
     SaveGame(Object.class),
