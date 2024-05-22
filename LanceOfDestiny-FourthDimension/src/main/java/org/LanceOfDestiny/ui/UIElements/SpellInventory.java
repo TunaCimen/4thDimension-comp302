@@ -43,50 +43,31 @@ public class SpellInventory extends JPanel {
         hollowSpell = new SpellUIElement(hollowSpellIcon, new Dimension(50,50));
 
         canonSpell.addClickEvent(e -> {
-            if (canonSpell.isAvailable) {
-                new SpellActivation(SpellType.CANON, Constants.SPELL_DURATION);
-                loseSpell(SpellType.CANON);
-            }
+            Events.ActivateSpell.invoke(SpellType.CANON);
         });
 
         overwhelmingSpell.addClickEvent(e -> {
-            if (overwhelmingSpell.isAvailable) {
-                new SpellActivation(SpellType.OVERWHELMING, Constants.SPELL_DURATION);
-                loseSpell(SpellType.OVERWHELMING);
-            }
+            Events.ActivateSpell.invoke(SpellType.OVERWHELMING);
         });
 
         expansionSpell.addClickEvent(e -> {
-            if (expansionSpell.isAvailable) {
-                new SpellActivation(SpellType.EXPANSION, Constants.SPELL_DURATION);
-                loseSpell(SpellType.EXPANSION);
-            }
+            Events.ActivateSpell.invoke(SpellType.EXPANSION);
         });
 
         hollowSpell.addClickEvent(e -> {
-            if (hollowSpell.isAvailable) {
-                Events.SendHollowPurpleUpdate.invoke(SpellType.HOLLOW_PURPLE);
-            }
+            Events.ActivateSpell.invoke(SpellType.HOLLOW_PURPLE);
         });
 
         doubleAccelSpell.addClickEvent(e -> {
-            if (doubleAccelSpell.isAvailable) {
-                Events.SendDoubleAccelUpdate.invoke(SpellType.DOUBLE_ACCEL);
-            }
+            Events.ActivateSpell.invoke(SpellType.DOUBLE_ACCEL);
         });
 
         infiniteVoidSpell.addClickEvent(e -> {
-            if (infiniteVoidSpell.isAvailable) {
-                Events.SendInfiniteVoidUpdate.invoke(SpellType.INFINITE_VOID);
-            }
+            Events.ActivateSpell.invoke(SpellType.INFINITE_VOID);
         });
 
-
-
         Events.GainSpell.addListener(e->gainSpell((SpellType) e));
-        Events.SendDoubleAccelUpdate.addListener(e->loseSpell(SpellType.DOUBLE_ACCEL));
-        Events.SendHollowPurpleUpdate.addListener(e->loseSpell(SpellType.HOLLOW_PURPLE));
-        Events.SendInfiniteVoidUpdate.addListener(e->loseSpell(SpellType.INFINITE_VOID));
+        Events.ActivateSpell.addListener(e->loseSpell((SpellType) e));
         Events.ResetSpells.addListener(e->resetSpellUI());
 
         add(canonSpell);
