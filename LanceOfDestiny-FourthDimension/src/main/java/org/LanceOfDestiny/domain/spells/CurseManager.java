@@ -39,7 +39,6 @@ public class CurseManager {
         for (var location : locations) {
             BarrierFactory.createHollowBarrier(location);
         }
-        Events.ActivateSpellUI.invoke(SpellType.HOLLOW_PURPLE);
     }
 
     public void handleInfiniteVoid(Object object) {
@@ -53,7 +52,6 @@ public class CurseManager {
         for (Barrier barrier : barriersToFreeze) {
             barrier.activateFrozen();
         }
-        Events.ActivateSpellUI.invoke(SpellType.INFINITE_VOID);
     }
 
     public void deactivateInfiniteVoid() {

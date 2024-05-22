@@ -36,9 +36,9 @@ public class SpellInventory extends JPanel {
         canonSpell = new SpellUIElement(canonIcon, new Dimension(50,50));
         overwhelmingSpell = new SpellUIElement(overwhelmingIcon, new Dimension(50,50));
         expansionSpell = new SpellUIElement(expansionIcon, new Dimension(50,50));
-        hollowSpell = new SpellUIElement(hollowSpellIcon, new Dimension(50,50));
-        doubleAccelSpell = new SpellUIElement(doubleAccelIcon, new Dimension(50,50));
         infiniteVoidSpell = new SpellUIElement(infVoidIcon, new Dimension(50,50));
+        doubleAccelSpell = new SpellUIElement(doubleAccelIcon, new Dimension(50,50));
+        hollowSpell = new SpellUIElement(hollowSpellIcon, new Dimension(50,50));
 
         canonSpell.addClickEvent(e->Events.ActivateSpell.invoke(SpellType.CANON));
         overwhelmingSpell.addClickEvent(e->Events.ActivateSpell.invoke(SpellType.OVERWHELMING));
@@ -49,15 +49,20 @@ public class SpellInventory extends JPanel {
 
 
         Events.GainSpell.addListener(e->gainSpell((SpellType) e));
-        Events.ActivateSpellUI.addListener(e-> loseSpell((SpellType) e));
+        Events.ActivateDoubleAccel.addListener(e->loseSpell(SpellType.DOUBLE_ACCEL));
+        Events.ActivateHollowPurple.addListener(e->loseSpell(SpellType.HOLLOW_PURPLE));
+        Events.ActivateInfiniteVoid.addListener(e->loseSpell(SpellType.INFINITE_VOID));
+        Events.ActivateCanons.addListener(e->loseSpell(SpellType.CANON));
+        Events.ActivateExpansion.addListener(e->loseSpell(SpellType.EXPANSION));
+        Events.ActivateOverwhelming.addListener(e->loseSpell(SpellType.OVERWHELMING));
         Events.ResetSpells.addListener(e->resetSpellUI());
 
         add(canonSpell);
         add(overwhelmingSpell);
         add(expansionSpell);
-        add(hollowSpell);
-        add(doubleAccelSpell);
         add(infiniteVoidSpell);
+        add(doubleAccelSpell);
+        add(hollowSpell);
         setVisible(true);
 
     }

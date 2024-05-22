@@ -57,7 +57,6 @@ public enum Events {
     //SPELL EVENTS
     GainSpell(SpellType.class),
     ActivateSpell(SpellType.class),
-    ActivateSpellUI(SpellType.class),
     //GOOD SPELLS
     ActivateCanons(Boolean.class),
     ActivateOverwhelming(Boolean.class),
