@@ -14,6 +14,9 @@ public class NetworkEventHandler {
         Events.SendGameDataToLoad.addRunnableListener(() -> sendGameState("Game Data: " + BarrierManager.getInstance().serializeAllBarriers()));
         Events.SendPauseUpdate.addRunnableListener(() -> sendGameState("Pause Game: true"));
         Events.SendResumeUpdate.addRunnableListener(() -> sendGameState("Resume Game: true"));
+        Events.SendDoubleAccelUpdate.addRunnableListener(()->sendGameState("Double Accel: true"));
+        Events.SendHollowPurpleUpdate.addRunnableListener(()->sendGameState("Hollow Purple: true"));
+        Events.SendInfiniteVoidUpdate.addRunnableListener(()->sendGameState("Infinite Void: true"));
     }
 
     public void sendGameState(String gameState) {
@@ -49,6 +52,15 @@ public class NetworkEventHandler {
                 break;
             case "Resume Game":
                 Events.ResumeGame.invoke();
+                break;
+            case "Double Accel":
+                Events.ActivateDoubleAccel.invoke();
+                break;
+            case "Hollow Purple":
+                Events.ActivateHollowPurple.invoke();
+                break;
+            case "Infinite Void":
+                Events.ActivateInfiniteVoid.invoke();
                 break;
             default:
                 System.out.println("Unknown event type: " + eventType);

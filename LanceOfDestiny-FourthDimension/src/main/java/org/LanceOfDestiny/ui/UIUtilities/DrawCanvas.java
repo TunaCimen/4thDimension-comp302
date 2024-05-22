@@ -62,7 +62,7 @@ public class DrawCanvas extends JPanel {
         Font originalFont = g.getFont();
         Font largeFont = originalFont.deriveFont(50f); // Set the font size to 50
         g.setFont(largeFont);
-        g.drawString("FOREGROUNDTEST", 100, 250);
+        //g.drawString("FOREGROUNDTEST", 100, 250);
 
         // Optionally reset the font back to the original if needed
         g.setFont(originalFont);

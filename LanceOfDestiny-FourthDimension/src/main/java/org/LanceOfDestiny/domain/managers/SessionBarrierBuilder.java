@@ -13,13 +13,7 @@ public class SessionBarrierBuilder {
     private Integer numOfReinforced;
     private Integer numOfExplosive;
     private Integer numOfRewarding;
-
-    public SessionBarrierBuilder() {
-        this.numOfSimple = 0;
-        this.numOfReinforced = 0;
-        this.numOfExplosive = 0;
-        this.numOfRewarding = 0;
-    }
+    public SessionBarrierBuilder() {}
 
     public void initializeBarriers() {
         //BarrierManager.getInstance().deleteAllBarriers();
@@ -59,6 +53,12 @@ public class SessionBarrierBuilder {
         }
     }
 
+    public void setBarrierCounts(int numOfSimple, int numOfReinforced, int numOfExplosive, int numOfRewarding) {
+        setNumOfSimple(numOfSimple);
+        setNumOfReinforced(numOfReinforced);
+        setNumOfExplosive(numOfExplosive);
+        setNumOfRewarding(numOfRewarding);
+    }
     public Integer getNumOfSimple() {
         return numOfSimple;
     }
