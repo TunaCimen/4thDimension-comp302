@@ -59,19 +59,19 @@ public class SpellInventory extends JPanel {
 
         hollowSpell.addClickEvent(e -> {
             if (hollowSpell.isAvailable) {
-                Events.ActivateCurse.invoke(SpellType.HOLLOW_PURPLE);
+                Events.SendHollowPurpleUpdate.invoke(SpellType.HOLLOW_PURPLE);
             }
         });
 
         doubleAccelSpell.addClickEvent(e -> {
             if (doubleAccelSpell.isAvailable) {
-                Events.ActivateCurse.invoke(SpellType.DOUBLE_ACCEL);
+                Events.SendDoubleAccelUpdate.invoke(SpellType.DOUBLE_ACCEL);
             }
         });
 
         infiniteVoidSpell.addClickEvent(e -> {
             if (infiniteVoidSpell.isAvailable) {
-                Events.ActivateCurse.invoke(SpellType.INFINITE_VOID);
+                Events.SendInfiniteVoidUpdate.invoke(SpellType.INFINITE_VOID);
             }
         });
 
