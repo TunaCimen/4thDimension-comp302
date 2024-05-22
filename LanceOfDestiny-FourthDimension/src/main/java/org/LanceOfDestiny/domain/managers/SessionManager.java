@@ -31,7 +31,6 @@ public class SessionManager {
         this.drawCanvas = new DrawCanvas();
         this.gameLooper = new GameLooper(drawCanvas);
         this.loopExecutor = new LoopExecutor();
-        // todo delete/replace later with a proper initialization
         this.barrierBuilder = new SessionBarrierBuilder();
         currentMode = Status.EditMode;
         loopExecutor.setLooper(gameLooper);
@@ -55,7 +54,7 @@ public class SessionManager {
             if (!getLoopExecutor().isStarted()) {
                 getLoopExecutor().start();
             } else {
-                getLoopExecutor().resume();
+                getLoopExecutor().restart();
             }
             setStatus(Status.RunningMode);
         });
@@ -64,6 +63,7 @@ public class SessionManager {
         });
         Events.SingleplayerSelected.addRunnableListener(()->{
             gameMode = GameMode.SINGLEPLAYER;
+            initializeYmir();
         });
         Events.MultiplayerSelected.addRunnableListener(NetworkBehavior::new);
 
@@ -82,8 +82,6 @@ public class SessionManager {
         magicalStaff = new MagicalStaff();
         initializePlayer();
         initializeCurseManager();
-        //builder.initializeBarriers();
-
     }
 
     private void initializeCurseManager() {
@@ -96,6 +94,7 @@ public class SessionManager {
     }
 
     public void initializeYmir() {
+        System.out.println("Ymir initialized");
         if (!(ymir == null)) return;
         ymir = new Ymir();
     }

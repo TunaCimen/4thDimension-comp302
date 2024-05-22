@@ -8,6 +8,7 @@ import org.LanceOfDestiny.domain.physics.Vector;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.LanceOfDestiny.domain.Constants.*;
 
@@ -23,6 +24,7 @@ public class BarrierManager {
         barriers = new ArrayList<>();
         selectedBarrierType = BarrierTypes.SIMPLE;
         Events.EndGame.addRunnableListener(this::deleteAllBarriers);
+        Events.Reset.addRunnableListener(this::deleteAllBarriers);
     }
 
     public static BarrierManager getInstance() {
@@ -184,9 +186,7 @@ public class BarrierManager {
 
     public static void displayBarrierInfo() {
         System.out.println("Barrier Manager Info");
-        System.out.println("Explosive Barrier Count: " + barriers.stream().filter(e -> {
-            return e instanceof ExplosiveBarrier;
-        }).toList().size());
+        System.out.println("Explosive Barrier Count: " + barriers.stream().filter(e -> e instanceof ExplosiveBarrier).toList().size());
         System.out.println("Reinforced Barrier Count: " + barriers.stream().filter(e -> {
             return e instanceof ReinforcedBarrier;
         }).toList().size());
@@ -196,6 +196,8 @@ public class BarrierManager {
         System.out.println("Rewarding Barrier Count: " + barriers.stream().filter(e -> {
             return e instanceof RewardingBarrier;
         }).toList().size());
+
+        System.out.println("IsMovingBarrierCount: " + barriers.stream().filter(Barrier::isMoving).toList().size());
     }
 
     /**

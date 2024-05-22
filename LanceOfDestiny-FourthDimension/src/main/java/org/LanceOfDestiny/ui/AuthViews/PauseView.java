@@ -1,6 +1,7 @@
 package org.LanceOfDestiny.ui.AuthViews;
 
 import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.ui.UIUtilities.Window;
 import org.LanceOfDestiny.ui.UIUtilities.WindowManager;
 import org.LanceOfDestiny.ui.UIUtilities.Windows;
@@ -48,8 +49,11 @@ public class PauseView extends JFrame implements Window {
         panel.add(createButton("Resume", e -> handleResume()));
         panel.add(createButton("Save", e -> windowManager.showWindow(Windows.SaveView)));
         panel.add(createButton("Load", e -> windowManager.showWindow(Windows.LoadView)));
+        panel.add(createButton("MainScreen", e -> {
+            Events.ShowInitGame.invoke();
+            dispose();
+        }));
         panel.add(createButton("Help", e -> {})); // Assuming a method 'showHelp()' to be implemented.
-
         return panel;
     }
 

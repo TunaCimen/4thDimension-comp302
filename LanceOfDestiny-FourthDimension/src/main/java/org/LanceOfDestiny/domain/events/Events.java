@@ -92,7 +92,9 @@ public enum Events {
     OtherPlayerJoined(Object.class),
     JoinedTheHost(Object.class),
     SendGameStarted(Object.class),
-    SendIPAdress(String.class);
+    SendIPAdress(String.class),
+    ShowInitGame(Object.class),
+    ResetGameMode(Object.class);
 
     //It is the Class that the particular event wants the invocation.
     final Class<?> paramType;

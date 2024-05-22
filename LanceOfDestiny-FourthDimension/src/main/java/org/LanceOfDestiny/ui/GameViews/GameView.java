@@ -21,7 +21,7 @@ public class GameView extends JFrame implements Window {
     private static final String STATUS_GAME = "GAME";
     private static final String STATUS_END = "END";
     private static final String STATUS_INIT = "INIT";
-    private static final String STATUS_MULTI = "INIT";
+    private static final String STATUS_MULTI = "MULTI";
 
     final Dimension maximumSizeButton = new Dimension(150, 45);
     JButton buttonPlay;
@@ -117,6 +117,8 @@ public class GameView extends JFrame implements Window {
         });
         Events.SingleplayerSelected.addRunnableListener(()->showPanel(STATUS_START));
         Events.MultiplayerSelected.addRunnableListener(()->showPanel(STATUS_MULTI));
+        Events.ShowInitGame.addRunnableListener(()->showPanel(STATUS_INIT));
+
 
 
 
@@ -153,7 +155,6 @@ public class GameView extends JFrame implements Window {
         this.setEnabled(false);
         comboBoxAddBarrierType.setVisible(true);
         sessionManager.setStatus(Status.EditMode);
-        cardLayout.show(cardPanel, STATUS_GAME);
         WindowManager.getInstance().showWindow(Windows.BuildViewMini);
 
     }
@@ -197,8 +198,9 @@ public class GameView extends JFrame implements Window {
         buttonPlay.setFocusable(false);
         buttonPlay.setFont(new Font("Monospaced", Font.BOLD, 16));
         buttonPlay.addActionListener(e -> {
+            Events.StartGame.invoke();
+            BarrierManager.displayBarrierInfo();
             if(SessionManager.getInstance().getGameMode() == SessionManager.GameMode.MULTIPLAYER){
-                Events.StartGame.invoke();
                 Events.SendGameStarted.invoke();
             }
 
