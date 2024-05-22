@@ -45,18 +45,21 @@ public class SpellInventory extends JPanel {
         canonSpell.addClickEvent(e -> {
             if (canonSpell.isAvailable) {
                 new SpellActivation(SpellType.CANON, Constants.SPELL_DURATION);
+                loseSpell(SpellType.CANON);
             }
         });
 
         overwhelmingSpell.addClickEvent(e -> {
             if (overwhelmingSpell.isAvailable) {
                 new SpellActivation(SpellType.OVERWHELMING, Constants.SPELL_DURATION);
+                loseSpell(SpellType.OVERWHELMING);
             }
         });
 
         expansionSpell.addClickEvent(e -> {
             if (expansionSpell.isAvailable) {
                 new SpellActivation(SpellType.EXPANSION, Constants.SPELL_DURATION);
+                loseSpell(SpellType.EXPANSION);
             }
         });
 
@@ -84,9 +87,6 @@ public class SpellInventory extends JPanel {
         Events.SendDoubleAccelUpdate.addListener(e->loseSpell(SpellType.DOUBLE_ACCEL));
         Events.SendHollowPurpleUpdate.addListener(e->loseSpell(SpellType.HOLLOW_PURPLE));
         Events.SendInfiniteVoidUpdate.addListener(e->loseSpell(SpellType.INFINITE_VOID));
-        Events.ActivateCanons.addListener(e->loseSpell(SpellType.CANON));
-        Events.ActivateExpansion.addListener(e->loseSpell(SpellType.EXPANSION));
-        Events.ActivateOverwhelming.addListener(e->loseSpell(SpellType.OVERWHELMING));
         Events.ResetSpells.addListener(e->resetSpellUI());
 
         add(canonSpell);
