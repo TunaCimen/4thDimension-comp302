@@ -3,6 +3,7 @@ package org.LanceOfDestiny.ui.GameViews;
 import com.mysql.cj.xdevapi.SessionImpl;
 import org.LanceOfDestiny.Animation.CountdownAnimation;
 import org.LanceOfDestiny.Animation.CountdownAnimationBehaviour;
+import org.LanceOfDestiny.Animation.LinearInterpolation;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
 import org.LanceOfDestiny.domain.behaviours.TimedAction;
@@ -53,7 +54,7 @@ public class GameView extends JFrame implements Window {
         this.cardPanel = new JPanel(cardLayout);
         this.countdown = new TextUI("5"
                 ,Color.orange,new Font("IMPACT", Font.PLAIN, 20)
-                , 75f,Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT/2);
+                , 75f,Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT/2,1);
         add(cardPanel, BorderLayout.CENTER);
         setLayout(cardLayout);
         initializeComponents();
@@ -204,11 +205,14 @@ public class GameView extends JFrame implements Window {
             comboBoxAddBarrierType.setVisible(false);
             SessionManager.getInstance().getDrawCanvas().removeMouseListener();
             System.out.println("Added the foreground item");
+
+            TextUI fading = new TextUI("WAITING FOR OTHER PLAYER"
+                    ,Color.orange,new Font("IMPACT", Font.PLAIN, 20)
+                    , 50f,Constants.SCREEN_WIDTH/2-200,Constants.SCREEN_HEIGHT/2,1);
+            fading.setAnimationBehaviour(new LinearInterpolation(48,50, fading::getOpacity,fading::setOpacity));
             SessionManager.getInstance()
                     .getDrawCanvas()
-                    .foregroundList.add(new TextUI("WAITING FOR OTHER PLAYER"
-                            ,Color.orange,new Font("IMPACT", Font.PLAIN, 20)
-                            , 50f,Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT/2));
+                    .foregroundList.add(fading);
             Events.CanvasUpdateEvent.invoke();
         });
         controlPanel.add(scoreBarOther);
