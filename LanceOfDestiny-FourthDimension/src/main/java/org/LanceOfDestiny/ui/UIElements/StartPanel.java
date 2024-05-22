@@ -2,6 +2,7 @@ package org.LanceOfDestiny.ui.UIElements;
 
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.ui.UIUtilities.WindowManager;
 import org.LanceOfDestiny.ui.UIUtilities.Windows;
 
@@ -21,6 +22,10 @@ public class StartPanel extends JPanel {
         add(UILibrary.createButton("LOAD", ()->{
             Events.Load.invoke();
             WindowManager.getInstance().showWindow(Windows.LoadView);
+        }));
+        add(UILibrary.createButton("Back",()->{
+            Events.ShowInitGame.invoke();
+            Events.ResetGameMode.invoke();
         }));
     }
 

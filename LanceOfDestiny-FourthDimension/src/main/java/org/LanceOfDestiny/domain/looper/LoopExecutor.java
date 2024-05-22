@@ -19,6 +19,7 @@ public class LoopExecutor {
         return isStarted;
     }
 
+
     public void stop() {
         if (mLoop != null) {
             mLoop.stop();
@@ -29,7 +30,12 @@ public class LoopExecutor {
         if (mLoop != null) {
             mLoop.resume();
         }
-       // mThread = null;
+    }
+
+    public void restart(){
+        if(mLoop != null){
+            mLoop.restart();
+        }
     }
 
     public void setLooper(Looper newLooper) {
@@ -51,7 +57,6 @@ public class LoopExecutor {
     public void setLoadedTime(int loadedTime){
         mLoop.loadedTime = loadedTime;
     }
-
 
     public Looper getLoop() {
         return mLoop;

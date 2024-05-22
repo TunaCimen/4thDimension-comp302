@@ -11,8 +11,9 @@ public class MultiplayerPanel extends JPanel {
 
     private JButton hostButton;
     private JButton joinButton;
-
     private JTextField ipField;
+
+    private JButton backButton;
 
     public MultiplayerPanel(){
         ipField = new JTextField();
@@ -21,9 +22,11 @@ public class MultiplayerPanel extends JPanel {
         setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         hostButton = UILibrary.createButton("Host Game",this::showHostPrompt);
         joinButton = UILibrary.createButton("Join Game", this::showJoinPrompt);
+        backButton = UILibrary.createButton("Back",Events.ShowInitGame::invoke);
         add(Box.createRigidArea(new Dimension(Constants.SCREEN_WIDTH,Constants.SCREEN_HEIGHT/2-100)));
         add(hostButton);
         add(joinButton);
+        add(backButton);
     }
 
     public void showJoinPrompt(){

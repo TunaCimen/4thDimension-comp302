@@ -7,6 +7,9 @@ import javax.swing.*;
 
 public abstract class Looper {
     protected boolean active = false;
+    private boolean isRunning;
+    boolean restartFlag = true;
+
     protected abstract void routine() throws LoopEndedException;
     long timePassed;
     long startTime;
@@ -25,6 +28,7 @@ public abstract class Looper {
     }
 
     public void done() {
+
         System.out.println("done");
     }
 
@@ -37,30 +41,45 @@ public abstract class Looper {
         active = true;
     }
 
+    public void restart(){
+        active = true;
+        restartFlag = true;
+    }
+
+    public void setIsRunning(boolean bool){
+        isRunning = bool;
+    }
+
     public boolean isActive() {
         return active;
     }
 
-    public boolean isActiveWithThrow() throws LoopEndedException {
-        if (!isActive()) throw new LoopEndedException();
-        return isActive();
-    }
+
 
     public void execute(Behaviour action) throws LoopEndedException {
-        action.start();
+        System.out.println("Here executing the loop");
         Timer timer = new Timer((int) (1000 * Constants.UPDATE_RATE), e -> {
-            if(isActive()){
-                timePassed += System.nanoTime() - startTime;
-                startTime = System.nanoTime();
-                action.update();
-                //System.out.println(getSecondsPassed());
+            if(restartFlag){
+                action.start();
+                restartFlag =false;
             }
-            else{
-                startTime = System.nanoTime();
-            }
-        });
-            timer.start();
+                if(isActive()){
+                    timePassed += System.nanoTime() - startTime;
+                    startTime = System.nanoTime();
+                    action.update();
+                    System.out.println(getSecondsPassed());
+                }
+                else{
+                    startTime = System.nanoTime();
+                }
 
+        });
+        timer.start();
+    }
+
+
+    private boolean isRunning() {
+        return isRunning;
     }
 
     public int getSecondsPassed(){

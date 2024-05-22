@@ -22,7 +22,7 @@ public class SessionBarrierBuilder {
     }
 
     public void initializeBarriers() {
-        BarrierManager.getInstance().deleteAllBarriers();
+        //BarrierManager.getInstance().deleteAllBarriers();
 
         // Add barrier types to the list based on the counts
         int i;

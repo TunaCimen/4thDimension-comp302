@@ -54,7 +54,7 @@ public class SessionManager {
             if (!getLoopExecutor().isStarted()) {
                 getLoopExecutor().start();
             } else {
-                getLoopExecutor().resume();
+                getLoopExecutor().restart();
             }
             setStatus(Status.RunningMode);
         });
