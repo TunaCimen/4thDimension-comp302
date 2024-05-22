@@ -51,6 +51,7 @@ public class LogInController {
     }
 
     public List<String> loadSavedNames(){
+        System.out.println(username);
         return dbController.loadSavedNames(this.username);
     }
 

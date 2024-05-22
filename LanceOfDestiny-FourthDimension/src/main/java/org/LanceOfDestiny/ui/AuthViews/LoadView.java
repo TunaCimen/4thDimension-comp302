@@ -15,6 +15,7 @@ import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class LoadView extends JFrame implements Window {
     private List<String> savedNames;
@@ -61,6 +62,7 @@ public class LoadView extends JFrame implements Window {
                     ScoreManager.getInstance().setScore(Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(0)));
                     SessionManager.getInstance().getPlayer().setChancesLeft(Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(1)));
                     SessionManager.getInstance().setTimePassed(Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(6)));
+                    System.out.println(LoadView.this.userManager.loadUserInfo(name).get(6));
                     SessionManager.getInstance().getPlayer().resetSpells();
                     for(int i=0;i<Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(3));i++){
                         Events.GainSpell.invoke(SpellType.EXPANSION);
@@ -70,6 +72,9 @@ public class LoadView extends JFrame implements Window {
                     }
                     for(int i=0;i<Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(5));i++){
                         Events.GainSpell.invoke(SpellType.CANON);
+                    }
+                    if(!Objects.equals(LoadView.this.userManager.loadUserInfo(name).get(7), "def")){
+                        SessionManager.getInstance().getYmir().updateLastTwoAbilitiesFromLoad(LoadView.this.userManager.loadUserInfo(name).get(7),LoadView.this.userManager.loadUserInfo(name).get(8));
                     }
                     System.out.println(SessionManager.getInstance().getPlayer().getSpellContainer().getSpellMap());
                     JOptionPane.showMessageDialog(null, "Game loaded successfully!");

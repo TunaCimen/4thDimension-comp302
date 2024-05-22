@@ -141,6 +141,7 @@ public class GameView extends JFrame implements Window {
         buttonPlay.setEnabled(false);
         buttonPause.setEnabled(true);
         comboBoxAddBarrierType.setVisible(false);
+        System.out.println(SessionManager.getInstance().getYmir().retTwoSpellNames());
 
     }
 
@@ -198,11 +199,11 @@ public class GameView extends JFrame implements Window {
         buttonPlay.setFocusable(false);
         buttonPlay.setFont(new Font("Monospaced", Font.BOLD, 16));
         buttonPlay.addActionListener(e -> {
-            Events.StartGame.invoke();
-            BarrierManager.displayBarrierInfo();
-            if(SessionManager.getInstance().getGameMode() == SessionManager.GameMode.MULTIPLAYER){
-                Events.SendGameStarted.invoke();
-            }
+        Events.StartGame.invoke();
+
+        if(SessionManager.getInstance().getGameMode() == SessionManager.GameMode.MULTIPLAYER){
+              Events.SendGameStarted.invoke();
+        }
 
         });
         return buttonPlay;
