@@ -43,7 +43,6 @@ public class SpellContainer {
             }
         }
         removeSpell(spellType);
-        Events.ActivateSpellUI.invoke(spellType);
     }
 
     public void removeSpell(SpellType spellType) {
