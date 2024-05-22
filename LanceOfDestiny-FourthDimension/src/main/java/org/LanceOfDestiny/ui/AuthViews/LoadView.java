@@ -48,6 +48,7 @@ public class LoadView extends JFrame implements Window {
             button.setMinimumSize(buttonSize);
             button.addActionListener(e -> {
                 try {
+                    //TODO: reset needed
                     System.out.println("Before clearing");
                     BarrierManager.displayBarrierInfo();
                     GameObject.displayGameObjects();

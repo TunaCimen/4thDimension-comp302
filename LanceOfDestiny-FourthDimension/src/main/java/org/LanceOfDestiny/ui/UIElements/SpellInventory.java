@@ -13,7 +13,6 @@ public class SpellInventory extends JPanel {
     SpellUIElement canonSpell;
     SpellUIElement overwhelmingSpell;
     SpellUIElement expansionSpell;
-
     SpellUIElement hollowSpell;
     SpellUIElement infiniteVoidSpell;
     SpellUIElement doubleAccelSpell;
@@ -40,12 +39,42 @@ public class SpellInventory extends JPanel {
         doubleAccelSpell = new SpellUIElement(doubleAccelIcon, new Dimension(50,50));
         hollowSpell = new SpellUIElement(hollowSpellIcon, new Dimension(50,50));
 
-        canonSpell.addClickEvent(e->Events.ActivateSpell.invoke(SpellType.CANON));
-        overwhelmingSpell.addClickEvent(e->Events.ActivateSpell.invoke(SpellType.OVERWHELMING));
-        expansionSpell.addClickEvent(e->Events.ActivateSpell.invoke(SpellType.EXPANSION));
-        hollowSpell.addClickEvent(e->Events.ActivateCurse.invoke(SpellType.HOLLOW_PURPLE));
-        doubleAccelSpell.addClickEvent(e->Events.ActivateCurse.invoke(SpellType.DOUBLE_ACCEL));
-        infiniteVoidSpell.addClickEvent(e->Events.ActivateCurse.invoke(SpellType.INFINITE_VOID));
+        canonSpell.addClickEvent(e -> {
+            if (canonSpell.isAvailable) {
+                Events.ActivateSpell.invoke(SpellType.CANON);
+            }
+        });
+
+        overwhelmingSpell.addClickEvent(e -> {
+            if (overwhelmingSpell.isAvailable) {
+                Events.ActivateSpell.invoke(SpellType.OVERWHELMING);
+            }
+        });
+
+        expansionSpell.addClickEvent(e -> {
+            if (expansionSpell.isAvailable) {
+                Events.ActivateSpell.invoke(SpellType.EXPANSION);
+            }
+        });
+
+        hollowSpell.addClickEvent(e -> {
+            if (hollowSpell.isAvailable) {
+                Events.ActivateCurse.invoke(SpellType.HOLLOW_PURPLE);
+            }
+        });
+
+        doubleAccelSpell.addClickEvent(e -> {
+            if (doubleAccelSpell.isAvailable) {
+                Events.ActivateCurse.invoke(SpellType.DOUBLE_ACCEL);
+            }
+        });
+
+        infiniteVoidSpell.addClickEvent(e -> {
+            if (infiniteVoidSpell.isAvailable) {
+                Events.ActivateCurse.invoke(SpellType.INFINITE_VOID);
+            }
+        });
+
 
 
         Events.GainSpell.addListener(e->gainSpell((SpellType) e));

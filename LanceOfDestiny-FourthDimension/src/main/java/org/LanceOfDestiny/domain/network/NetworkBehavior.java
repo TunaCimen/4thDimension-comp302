@@ -15,8 +15,10 @@ public class NetworkBehavior extends MonoBehaviour {
             while(true){
                 try {
                     String gameState = networkManager.receiveGameState();
+                    System.out.println("Recieved state");
                     if (gameState != null && !gameState.isEmpty()) {
                         networkManager.getEventHandler().handleReceivedGameState(gameState);
+                        System.out.println("Handled State");
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
