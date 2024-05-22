@@ -25,7 +25,6 @@ public abstract class TimedAction extends MonoBehaviour {
         if(isStarted && timePassed<duration){
             onUpdate();
             timePassed = SessionManager.getInstance().getLoopExecutor().getSecondsPassed()- startTime;;
-            System.out.println(timePassed);
         }
     }
 

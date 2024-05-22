@@ -44,7 +44,6 @@ public enum Events {
     SendGameDataToLoad(Object.class),
 
     SendPauseUpdate(Object.class),
-
     SendResumeUpdate(Object.class),
     // GAME STAT. EVENTS
     // The second args are events that are invoked after all the listeners of the actual event are invoked
@@ -54,14 +53,14 @@ public enum Events {
     EndGame(String.class),
     //SPELL EVENTS
     GainSpell(SpellType.class),
-    TryUsingSpell(SpellType.class),
+    ActivateSpell(SpellType.class),
     ActivateSpellUI(SpellType.class),
     //GOOD SPELLS
     ActivateCanons(Boolean.class),
     ActivateOverwhelming(Boolean.class),
     ActivateExpansion(Boolean.class),
     //BAD SPELLS
-    TryUsingCurse(SpellType.class),
+    ActivateCurse(SpellType.class),
     ActivateHollowPurple(Object.class),
     ActivateInfiniteVoid(Boolean.class),
     ActivateDoubleAccel(Boolean.class),

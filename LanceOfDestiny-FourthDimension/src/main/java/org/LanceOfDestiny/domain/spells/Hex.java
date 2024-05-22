@@ -66,8 +66,6 @@ public class Hex extends GameObject {
             if (!((Barrier) other).isFrozen())
                 ((Barrier) other).reduceLife();
         }
-
-
     }
 
     public void shoot() {

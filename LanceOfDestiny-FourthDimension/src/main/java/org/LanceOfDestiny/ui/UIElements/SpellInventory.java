@@ -4,7 +4,6 @@ import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.spells.SpellType;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.domain.sprite.ImageOperations;
-import org.LanceOfDestiny.ui.UIElements.SpellUIElement;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,12 +40,12 @@ public class SpellInventory extends JPanel {
         doubleAccelSpell = new SpellUIElement(doubleAccelIcon, new Dimension(50,50));
         infiniteVoidSpell = new SpellUIElement(infVoidIcon, new Dimension(50,50));
 
-        canonSpell.addClickEvent(e->Events.TryUsingSpell.invoke(SpellType.CANON));
-        overwhelmingSpell.addClickEvent(e->Events.TryUsingSpell.invoke(SpellType.OVERWHELMING));
-        expansionSpell.addClickEvent(e->Events.TryUsingSpell.invoke(SpellType.EXPANSION));
-        hollowSpell.addClickEvent(e->Events.TryUsingCurse.invoke(SpellType.HOLLOW_PURPLE));
-        doubleAccelSpell.addClickEvent(e->Events.TryUsingCurse.invoke(SpellType.DOUBLE_ACCEL));
-        infiniteVoidSpell.addClickEvent(e->Events.TryUsingCurse.invoke(SpellType.INFINITE_VOID));
+        canonSpell.addClickEvent(e->Events.ActivateSpell.invoke(SpellType.CANON));
+        overwhelmingSpell.addClickEvent(e->Events.ActivateSpell.invoke(SpellType.OVERWHELMING));
+        expansionSpell.addClickEvent(e->Events.ActivateSpell.invoke(SpellType.EXPANSION));
+        hollowSpell.addClickEvent(e->Events.ActivateCurse.invoke(SpellType.HOLLOW_PURPLE));
+        doubleAccelSpell.addClickEvent(e->Events.ActivateCurse.invoke(SpellType.DOUBLE_ACCEL));
+        infiniteVoidSpell.addClickEvent(e->Events.ActivateCurse.invoke(SpellType.INFINITE_VOID));
 
 
         Events.GainSpell.addListener(e->gainSpell((SpellType) e));
