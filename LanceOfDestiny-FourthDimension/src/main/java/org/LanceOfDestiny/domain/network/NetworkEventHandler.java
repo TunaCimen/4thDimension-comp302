@@ -5,12 +5,15 @@ import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.ScoreManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
+import org.LanceOfDestiny.domain.managers.Status;
 import org.LanceOfDestiny.domain.spells.SpellActivation;
 import org.LanceOfDestiny.domain.spells.SpellType;
 
 public class NetworkEventHandler {
 
+    private SessionManager sessionManager;
     public NetworkEventHandler() {
+        sessionManager = SessionManager.getInstance();
         Events.SendChanceUpdate.addRunnableListener(() -> sendGameState("Chances: " + SessionManager.getInstance().getPlayer().getChancesLeft()));
         Events.SendScoreUpdate.addRunnableListener(() -> {
             sendGameState("Score: " + ScoreManager.getInstance().getScore());
@@ -23,7 +26,6 @@ public class NetworkEventHandler {
         Events.SendDoubleAccelUpdate.addRunnableListener(()->sendGameState("Double Accel: true"));
         Events.SendHollowPurpleUpdate.addRunnableListener(()->sendGameState("Hollow Purple: true"));
         Events.SendInfiniteVoidUpdate.addRunnableListener(()->sendGameState("Infinite Void: true"));
-
     }
 
     public void sendGameState(String gameState) {
@@ -58,9 +60,15 @@ public class NetworkEventHandler {
                 Events.ReceiveGameDataToLoad.invoke(eventData);
                 break;
             case "Pause Game":
+                if (sessionManager.getStatus() == Status.PausedMode) {
+                    return;
+                }
                 Events.PauseGame.invoke();
                 break;
             case "Resume Game":
+                if (sessionManager.getStatus() == Status.RunningMode) {
+                    return;
+                }
                 Events.ResumeGame.invoke();
                 break;
             case "Double Accel":
