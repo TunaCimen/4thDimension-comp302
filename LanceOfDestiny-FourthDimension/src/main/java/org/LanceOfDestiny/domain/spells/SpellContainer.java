@@ -32,9 +32,12 @@ public class SpellContainer {
 
     public void activateSpell(SpellType spellType) {
         if (!spellExists(spellType)) return;
-
-        new SpellActivation(spellType, Constants.SPELL_DURATION).activate();
-
+        if (spellType.isGood())
+            new SpellActivation(spellType, Constants.SPELL_DURATION).activate();
+        else {
+            //Events.ActivateCurse.invoke(spellType);
+            // todo: ege bad spell karşı tarafa gönderme
+        }
         removeSpell(spellType);
         Events.ActivateSpellUI.invoke(spellType);
     }

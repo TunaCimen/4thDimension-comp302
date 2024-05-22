@@ -6,7 +6,6 @@ import org.LanceOfDestiny.domain.looper.LoopExecutor;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.spells.SpellType;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -41,8 +40,7 @@ public class Ymir extends MonoBehaviour {
          while (!validateCurse(randomCurse)) {
              randomCurse = getRandomCurse();
          }
-
-         Events.TryUsingCurse.invoke(randomCurse);
+         Events.ActivateCurse.invoke(randomCurse);
          updateLastTwoAbilities(randomCurse);
     }
 
