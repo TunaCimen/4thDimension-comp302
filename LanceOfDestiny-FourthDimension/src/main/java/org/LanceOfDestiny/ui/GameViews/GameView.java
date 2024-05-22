@@ -131,7 +131,7 @@ public class GameView extends JFrame implements Window {
         Events.StartCountDown.addRunnableListener(()->{
             SessionManager.getInstance().getDrawCanvas().foregroundList.add(countdown);
         });
-        /**
+
         countdown.setAnimationBehaviourOnEvent(new CountdownAnimation(5,countdown::setText,()->{
             Events.StartGame.invoke();
             if(SessionManager.getInstance().getGameMode() == SessionManager.GameMode.MULTIPLAYER) {
@@ -139,7 +139,7 @@ public class GameView extends JFrame implements Window {
             }
             SessionManager.getInstance().getDrawCanvas().foregroundList.remove(countdown);
         }),Events.StartCounting);
-         */
+
 
         Events.ReceiveScoreUpdate.addRunnableListener(System.out::println);
     }
@@ -228,11 +228,8 @@ public class GameView extends JFrame implements Window {
             if (!BuildViewMiniPanel.validateAndShowError(BarrierManager.getInstance().getBarrierCounts())) {
                 return;
             }
-            Events.StartGame.invoke();
-            if(SessionManager.getInstance().getGameMode() == SessionManager.GameMode.MULTIPLAYER) {
-                Events.SendGameStarted.invoke();
-            }
-            //Events.StartCountDown.invoke();
+
+            Events.StartCountDown.invoke();
         });
         return buttonPlay;
     }

@@ -19,7 +19,6 @@ public class  ScoreBar extends JLabel {
         setFont(new Font("Impact", Font.BOLD, 24));
         setPreferredSize(new Dimension(150,30));
         Events.UpdateScore.addRunnableListener(this::updateScore);
-
         Events.Reset.addRunnableListener(this::resetScore);
         this.text = isMine ? "MyScore: " : "EnemyScore: ";
         updateScore();

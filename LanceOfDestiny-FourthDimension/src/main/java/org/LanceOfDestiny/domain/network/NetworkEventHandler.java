@@ -12,14 +12,18 @@ public class NetworkEventHandler {
 
     public NetworkEventHandler() {
         Events.SendChanceUpdate.addRunnableListener(() -> sendGameState("Chances: " + SessionManager.getInstance().getPlayer().getChancesLeft()));
-        Events.SendScoreUpdate.addRunnableListener(() -> sendGameState("Score: " + ScoreManager.getInstance().getScore()));
+        Events.SendScoreUpdate.addRunnableListener(() -> {
+            sendGameState("Score: " + ScoreManager.getInstance().getScore());
+            System.out.println("Send score update");
+        });
         Events.SendBarrierCountUpdate.addRunnableListener(() -> sendGameState("Barrier Count: " + BarrierManager.barriers.size()));
         Events.SendGameDataToLoad.addRunnableListener(() -> sendGameState("Game Data: " + BarrierManager.getInstance().serializeAllBarriers()));
         Events.SendPauseUpdate.addRunnableListener(() -> sendGameState("Pause Game: true"));
         Events.SendResumeUpdate.addRunnableListener(() -> sendGameState("Resume Game: true"));
-        Events.SendDoubleAccelUpdate.addRunnableListener(()->sendGameState("Double Accel: true"));
+        /**Events.SendDoubleAccelUpdate.addRunnableListener(()->sendGameState("Double Accel: true"));
         Events.SendHollowPurpleUpdate.addRunnableListener(()->sendGameState("Hollow Purple: true"));
         Events.SendInfiniteVoidUpdate.addRunnableListener(()->sendGameState("Infinite Void: true"));
+         */
     }
 
     public void sendGameState(String gameState) {
@@ -27,6 +31,7 @@ public class NetworkEventHandler {
     }
 
     public void handleReceivedGameState(String gameState) {
+        System.out.println("HANDLİNG RECEİVED GAME STATE");
         if (gameState == null || gameState.isEmpty()) {
             return;
         }
@@ -37,11 +42,13 @@ public class NetworkEventHandler {
         }
         String eventType = parts[0].trim();
         String eventData = parts[1].trim();
+        System.out.println("Event type: " + eventType);
         switch (eventType) {
             case "Chances":
                 Events.ReceiveChanceUpdate.invoke(Integer.parseInt(eventData));
                 break;
             case "Score":
+                System.out.println("SCORE NEEDS TO BE UPDATED ENEMY");
                 Events.ReceiveScoreUpdate.invoke(Integer.parseInt(eventData));
                 break;
             case "Barrier Count":

@@ -113,7 +113,7 @@ public class NetworkManager {
                 try {
                     if(Objects.equals(in.readLine(), "STARTED")){
                         Events.StartGame.invoke();
-
+                        break;
                     }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
