@@ -95,7 +95,7 @@ public class GameView extends JFrame implements Window {
             if(sessionManager.getGameMode() == SessionManager.GameMode.MULTIPLAYER){
                 System.out.println("Waiting For other player to connect!!!");
                 this.setEnabled(true);
-                this.startButton().setFocusable(false);
+                this.buttonPlay.setFocusable(false);
                 return;
             }
             this.setEnabled(true);
@@ -104,8 +104,9 @@ public class GameView extends JFrame implements Window {
         });
         Events.OtherPlayerJoined.addRunnableListener(()->{
             this.setEnabled(true);
-            startButton().setEnabled(true);
+            this.buttonPlay.setEnabled(true);
             this.requestFocusInWindow(true);
+            SessionManager.getInstance().getDrawCanvas().foregroundList.clear();
         });
 
         Events.JoinedTheHost.addRunnableListener(()->{
@@ -174,8 +175,6 @@ public class GameView extends JFrame implements Window {
             buttonPlay.setEnabled(false);
         }
     }
-
-
     private JPanel createControlPanel() {
         initComboBox();
         healthBarDisplay = new HealthBar(Constants.DEFAULT_CHANCES);
