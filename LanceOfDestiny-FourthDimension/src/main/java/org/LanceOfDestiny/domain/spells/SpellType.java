@@ -2,6 +2,8 @@ package org.LanceOfDestiny.domain.spells;
 
 import org.LanceOfDestiny.domain.events.Events;
 
+import java.util.ArrayList;
+
 public enum SpellType {
     CANON {
         @Override
@@ -120,4 +122,24 @@ public enum SpellType {
     public abstract void activate();
     public abstract void deactivate();
     public abstract boolean isGood();
+
+    public static ArrayList<SpellType> getGoodSpells() {
+        ArrayList<SpellType> goodSpells = new ArrayList<>();
+        for (SpellType spell : SpellType.values()) {
+            if (spell.isGood()) {
+                goodSpells.add(spell);
+            }
+        }
+        return goodSpells;
+    }
+
+    public static ArrayList<SpellType> getBadSpells() {
+        ArrayList<SpellType> badSpells = new ArrayList<>();
+        for (SpellType spell : SpellType.values()) {
+            if (!spell.isGood()) {
+                badSpells.add(spell);
+            }
+        }
+        return badSpells;
+    }
 }

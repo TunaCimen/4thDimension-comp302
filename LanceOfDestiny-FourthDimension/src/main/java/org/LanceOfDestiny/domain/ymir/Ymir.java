@@ -47,9 +47,7 @@ public class Ymir extends MonoBehaviour {
     }
 
     private SpellType getRandomCurse() {
-        List<SpellType> badSpells = Arrays.stream(SpellType.values())
-                .filter(spellType -> !spellType.isGood())
-                .toList();
+        List<SpellType> badSpells = SpellType.getBadSpells();
         return badSpells.get(RANDOM.nextInt(badSpells.size()));
     }
 
