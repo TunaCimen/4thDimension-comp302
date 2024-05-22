@@ -1,6 +1,9 @@
 package org.LanceOfDestiny.ui.UIElements;
 
+import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.spells.Canon;
+import org.LanceOfDestiny.domain.spells.SpellActivation;
 import org.LanceOfDestiny.domain.spells.SpellType;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.domain.sprite.ImageOperations;
@@ -41,19 +44,19 @@ public class SpellInventory extends JPanel {
 
         canonSpell.addClickEvent(e -> {
             if (canonSpell.isAvailable) {
-                Events.ActivateSpell.invoke(SpellType.CANON);
+                new SpellActivation(SpellType.CANON, Constants.SPELL_DURATION);
             }
         });
 
         overwhelmingSpell.addClickEvent(e -> {
             if (overwhelmingSpell.isAvailable) {
-                Events.ActivateSpell.invoke(SpellType.OVERWHELMING);
+                new SpellActivation(SpellType.OVERWHELMING, Constants.SPELL_DURATION);
             }
         });
 
         expansionSpell.addClickEvent(e -> {
             if (expansionSpell.isAvailable) {
-                Events.ActivateSpell.invoke(SpellType.EXPANSION);
+                new SpellActivation(SpellType.EXPANSION, Constants.SPELL_DURATION);
             }
         });
 
@@ -78,9 +81,9 @@ public class SpellInventory extends JPanel {
 
 
         Events.GainSpell.addListener(e->gainSpell((SpellType) e));
-        Events.ActivateDoubleAccel.addListener(e->loseSpell(SpellType.DOUBLE_ACCEL));
-        Events.ActivateHollowPurple.addListener(e->loseSpell(SpellType.HOLLOW_PURPLE));
-        Events.ActivateInfiniteVoid.addListener(e->loseSpell(SpellType.INFINITE_VOID));
+        Events.SendDoubleAccelUpdate.addListener(e->loseSpell(SpellType.DOUBLE_ACCEL));
+        Events.SendHollowPurpleUpdate.addListener(e->loseSpell(SpellType.HOLLOW_PURPLE));
+        Events.SendInfiniteVoidUpdate.addListener(e->loseSpell(SpellType.INFINITE_VOID));
         Events.ActivateCanons.addListener(e->loseSpell(SpellType.CANON));
         Events.ActivateExpansion.addListener(e->loseSpell(SpellType.EXPANSION));
         Events.ActivateOverwhelming.addListener(e->loseSpell(SpellType.OVERWHELMING));
