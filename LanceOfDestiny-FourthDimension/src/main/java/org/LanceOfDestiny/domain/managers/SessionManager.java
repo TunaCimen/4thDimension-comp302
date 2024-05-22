@@ -4,6 +4,7 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.looper.GameLooper;
 import org.LanceOfDestiny.domain.looper.LoopExecutor;
+import org.LanceOfDestiny.domain.looper.UILooper;
 import org.LanceOfDestiny.domain.network.NetworkBehavior;
 import org.LanceOfDestiny.domain.player.FireBall;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
@@ -16,13 +17,15 @@ public class SessionManager {
 
     private static SessionManager instance;
     GameLooper gameLooper;
+    UILooper uiLooper;
     Status currentMode;
     private MagicalStaff magicalStaff;
     private FireBall fireBall;
     private Player player;
     private Ymir ymir;
     private CurseManager curseManager;
-    private LoopExecutor loopExecutor = new LoopExecutor();
+    private LoopExecutor loopExecutor;
+    public LoopExecutor UILoopExecutor;
     private DrawCanvas drawCanvas;
     private SessionBarrierBuilder barrierBuilder;
     private GameMode gameMode;
@@ -30,7 +33,11 @@ public class SessionManager {
     private SessionManager() {
         this.drawCanvas = new DrawCanvas();
         this.gameLooper = new GameLooper(drawCanvas);
+        this.uiLooper = new UILooper(drawCanvas);
         this.loopExecutor = new LoopExecutor();
+        this.UILoopExecutor = new LoopExecutor();
+        UILoopExecutor.setLooper(uiLooper);
+        UILoopExecutor.start();
         this.barrierBuilder = new SessionBarrierBuilder();
         currentMode = Status.EditMode;
         loopExecutor.setLooper(gameLooper);

@@ -1,7 +1,7 @@
 package org.LanceOfDestiny.ui.UIElements;
 
-import org.LanceOfDestiny.domain.behaviours.AnimationBehaviour;
-import org.LanceOfDestiny.domain.behaviours.LinearInterpolationBehaviour;
+import org.LanceOfDestiny.Animation.Animation;
+import org.LanceOfDestiny.Animation.LinearInterpolation;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.domain.sprite.ImageOperations;
 import org.LanceOfDestiny.ui.UIUtilities.Animatable;
@@ -24,7 +24,7 @@ public class YmirUI implements Animatable {
         this.locY = locY;
         this.initLocX = locX;
         this.initLocY = locY;
-        new LinearInterpolationBehaviour(this::getY, this::setY,50,initLocY);
+        setAnimationBehaviour(new LinearInterpolation(50,250,this::getY,this::setY));
         this.ymirImage = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.Ymir.getImage(),ymirWidth,ymirHeight)).getImage();
 
     }
@@ -41,15 +41,20 @@ public class YmirUI implements Animatable {
         return ymirWidth;
     }
 
-    public int getX(){
+
+    public int getX() {
         return locX;
     }
 
-    public int getY(){
+    public int getY() {
         return locY;
     }
-    public void setY(int y){
-        locY = y;
+
+    public void setX(int x) {
+        this.locX = x;
     }
 
+    public void setY(int y) {
+        this.locY = y;
+    }
 }

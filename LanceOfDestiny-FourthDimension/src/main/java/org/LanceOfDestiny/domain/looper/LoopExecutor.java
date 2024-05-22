@@ -3,7 +3,8 @@ package org.LanceOfDestiny.domain.looper;
 public class LoopExecutor {
 
     private Looper mLoop;
-    private Thread mThread = null;
+
+    private Thread mThread= null;
 
     private boolean isStarted = false;
 
@@ -24,12 +25,14 @@ public class LoopExecutor {
         if (mLoop != null) {
             mLoop.stop();
         }
+
         //mThread = null;
     }
     public void resume() {
         if (mLoop != null) {
             mLoop.resume();
         }
+
     }
 
     public void restart(){
@@ -46,6 +49,10 @@ public class LoopExecutor {
             }
         });
     }
+
+
+
+
 
     public int getSecondsPassed() {
         return mLoop.getSecondsPassed();
