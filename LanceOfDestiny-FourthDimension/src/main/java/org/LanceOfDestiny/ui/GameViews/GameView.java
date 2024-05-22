@@ -1,7 +1,11 @@
 package org.LanceOfDestiny.ui.GameViews;
 
+import com.mysql.cj.xdevapi.SessionImpl;
+import org.LanceOfDestiny.Animation.CountdownAnimation;
+import org.LanceOfDestiny.Animation.CountdownAnimationBehaviour;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
+import org.LanceOfDestiny.domain.behaviours.TimedAction;
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.*;
 import org.LanceOfDestiny.ui.CustomViews.CustomDialog;
@@ -27,8 +31,11 @@ public class GameView extends JFrame implements Window {
     JButton buttonPlay;
     JButton buttonPause;
 
+    JLabel ipLabel;
     JButton hostButton;
     HealthBar healthBarDisplay;
+
+    TextUI countdown;
     SpellInventory spellInventory;
     JPanel cardPanel;
     ScoreBar scoreBar, scoreBarOther;
@@ -39,8 +46,8 @@ public class GameView extends JFrame implements Window {
     public GameView() {
         ScoreManager scoreManager = ScoreManager.getInstance();
         this.sessionManager = SessionManager.getInstance();
-        this.scoreBar = new ScoreBar(scoreManager::getScore);
-        this.scoreBarOther = new ScoreBar(Events.ReceiveScoreUpdate);
+        this.scoreBar = new ScoreBar(scoreManager::getScore, true);
+        this.scoreBarOther = new ScoreBar(Events.ReceiveScoreUpdate, false);
         this.sessionManager.initializeSession();
         this.cardLayout = new CardLayout();
         this.cardPanel = new JPanel(cardLayout);
@@ -106,9 +113,6 @@ public class GameView extends JFrame implements Window {
             hostButton.setVisible(false);
             hostButton.getParent().remove(hostButton);
         });
-
-
-
         Events.PauseGame.addRunnableListener(() -> {
             buttonPlay.setEnabled(true);
         });
@@ -118,10 +122,19 @@ public class GameView extends JFrame implements Window {
         Events.SingleplayerSelected.addRunnableListener(()->showPanel(STATUS_START));
         Events.MultiplayerSelected.addRunnableListener(()->showPanel(STATUS_MULTI));
         Events.ShowInitGame.addRunnableListener(()->showPanel(STATUS_INIT));
-
-
-
-
+        TextUI countdown = new TextUI("5"
+                ,Color.orange,new Font("IMPACT", Font.PLAIN, 20)
+                , 75f,Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT/2);
+        Events.StartCountDown.addRunnableListener(()->{
+            this.countdown = new TextUI("5"
+                    ,Color.orange,new Font("IMPACT", Font.PLAIN, 20)
+                    , 75f,Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT/2);
+            SessionManager.getInstance().getDrawCanvas().foregroundList.add(countdown);
+        });
+        countdown.setAnimationBehaviourOnEvent(new CountdownAnimation(5,countdown::setText,()->{
+            Events.StartGame.invoke();
+            SessionManager.getInstance().getDrawCanvas().foregroundList.remove(countdown);
+        }),Events.StartCounting);
     }
 
 
@@ -157,7 +170,10 @@ public class GameView extends JFrame implements Window {
         comboBoxAddBarrierType.setVisible(true);
         sessionManager.setStatus(Status.EditMode);
         WindowManager.getInstance().showWindow(Windows.BuildViewMini);
-
+        if(SessionManager.getInstance().getGameMode().equals(SessionManager.GameMode.MULTIPLAYER)){
+            hostButton.setVisible(true);
+            buttonPlay.setEnabled(false);
+        }
     }
 
 
@@ -175,21 +191,29 @@ public class GameView extends JFrame implements Window {
         controlPanel.add(healthBarDisplay);
         controlPanel.add(spellInventory);
         controlPanel.add(scoreBar);
-        controlPanel.add(scoreBarOther);
-        JLabel ipLabel = new JLabel();
+
+        ipLabel = new JLabel();
         Events.SendIPAdress.addListener((e)->ipLabel.setText((String)e));
         hostButton  = new JButton("Host");
         hostButton.addActionListener(e->{
             Events.TryHostingSession.invoke();
             comboBoxAddBarrierType.setVisible(false);
             SessionManager.getInstance().getDrawCanvas().removeMouseListener();
-            JLabel label = new JLabel("WAITING OTHER PLAYERS");
-            label.setPreferredSize(new Dimension(300,300));
-            SessionManager.getInstance().getDrawCanvas().foregroundList.add(label);
+            System.out.println("Added the foreground item");
+            SessionManager.getInstance()
+                    .getDrawCanvas()
+                    .foregroundList.add(new TextUI("WAITING FOR OTHER PLAYER"
+                            ,Color.orange,new Font("IMPACT", Font.PLAIN, 20)
+                            , 50f,Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT/2));
             Events.CanvasUpdateEvent.invoke();
         });
+        System.out.println(SessionManager.getInstance().getGameMode());
+        System.out.print("Multiplayer mode need to show hostButton");
+        controlPanel.add(scoreBarOther);
         controlPanel.add(hostButton);
         controlPanel.add(ipLabel);
+        hostButton.setVisible(false);
+        ipLabel.setVisible(false);
         controlPanel.add(Box.createRigidArea(new Dimension(25,10)));
         return controlPanel;
     }
@@ -199,12 +223,10 @@ public class GameView extends JFrame implements Window {
         buttonPlay.setFocusable(false);
         buttonPlay.setFont(new Font("Monospaced", Font.BOLD, 16));
         buttonPlay.addActionListener(e -> {
-        Events.StartGame.invoke();
-
-        if(SessionManager.getInstance().getGameMode() == SessionManager.GameMode.MULTIPLAYER){
-              Events.SendGameStarted.invoke();
-        }
-
+            Events.StartCountDown.invoke();
+            if(SessionManager.getInstance().getGameMode() == SessionManager.GameMode.MULTIPLAYER) {
+                Events.SendGameStarted.invoke();
+            }
         });
         return buttonPlay;
     }

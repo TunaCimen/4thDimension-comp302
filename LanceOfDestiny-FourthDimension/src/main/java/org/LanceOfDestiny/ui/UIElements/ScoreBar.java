@@ -10,9 +10,9 @@ import java.util.function.IntSupplier;
 public class ScoreBar extends JLabel {
 
 
-    private final String text = "SCORE: ";
+    private String text;
     private IntSupplier scoreSupplier;
-    public ScoreBar(IntSupplier scoreSupplier){
+    public ScoreBar(IntSupplier scoreSupplier, boolean isMine){
         setMaximumSize(new Dimension(150,50));
         setAlignmentX(EAST);
         this.scoreSupplier = scoreSupplier;
@@ -20,6 +20,7 @@ public class ScoreBar extends JLabel {
         setPreferredSize(new Dimension(150,30));
         Events.UpdateScore.addRunnableListener(this::updateScore);
         Events.Reset.addRunnableListener(this::resetScore);
+        this.text = isMine ? "MyScore: " : "EnemyScore: ";
         updateScore();
     }
 
@@ -27,13 +28,14 @@ public class ScoreBar extends JLabel {
      * Constructor for non-updated event based score bar.
      * @param updateEvent Event that the update info will be fetched from.
      */
-    public ScoreBar(Events updateEvent){
+    public ScoreBar(Events updateEvent, boolean isMine){
         updateEvent.addListener(this::setScore);
         setMaximumSize(new Dimension(300,50));
         setAlignmentX(EAST);
         setFont(new Font("Impact", Font.BOLD, 24));
         setPreferredSize(new Dimension(300,30));
         Events.Reset.addRunnableListener(this::resetScore);
+        this.text = isMine ? "MyScore: " : "EnemyScore: ";
     }
     public void updateScore(){
         setText(text + scoreSupplier.getAsInt());
@@ -41,7 +43,6 @@ public class ScoreBar extends JLabel {
         repaint();
     }
     public void setScore(Object o){
-        System.out.println("Hello there I am here but your score bar is very gay");
         setText(text + (int) o);
         revalidate();
         repaint();

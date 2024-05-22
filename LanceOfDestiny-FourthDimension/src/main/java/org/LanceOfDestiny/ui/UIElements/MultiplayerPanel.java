@@ -22,18 +22,39 @@ public class MultiplayerPanel extends JPanel {
         setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         hostButton = UILibrary.createButton("Host Game",this::showHostPrompt);
         joinButton = UILibrary.createButton("Join Game", this::showJoinPrompt);
-        backButton = UILibrary.createButton("Back",Events.ShowInitGame::invoke);
+        backButton = UILibrary.createButton("Back",()->{
+            Events.MultiplayerSelected.invoke();
+            showMainPrompt();
+        });
+
+        showMainPrompt();
+    }
+
+    public void showMainPrompt(){
+        removeAll();
         add(Box.createRigidArea(new Dimension(Constants.SCREEN_WIDTH,Constants.SCREEN_HEIGHT/2-100)));
         add(hostButton);
         add(joinButton);
         add(backButton);
+        backButton.removeActionListener(backButton.getActionListeners()[0]);
+        backButton.addActionListener(Events.ShowInitGame::invoke);
+        revalidate();
+        repaint();
     }
 
     public void showJoinPrompt(){
+        removeAll();
+        add(Box.createRigidArea(new Dimension(Constants.SCREEN_WIDTH,Constants.SCREEN_HEIGHT/2-100)));
         remove(hostButton);
         remove(joinButton);
         add(ipField);
         add(joinButton);
+        add(backButton);
+        backButton.removeActionListener(backButton.getActionListeners()[0]);
+        backButton.addActionListener((e)->{
+            Events.MultiplayerSelected.invoke();
+            showMainPrompt();
+        });
         joinButton.removeActionListener(joinButton.getActionListeners()[0]);
         joinButton.addActionListener(e->{
             Events.TryJoiningSession.invoke(ipField.getText());
@@ -43,10 +64,16 @@ public class MultiplayerPanel extends JPanel {
     }
 
     public void showHostPrompt(){
+        removeAll();
         System.out.println("Shown host prompt");
-        remove(hostButton);
-        remove(joinButton);
+        add(Box.createRigidArea(new Dimension(Constants.SCREEN_WIDTH,Constants.SCREEN_HEIGHT/2-100)));
         add(hostButton);
+        add(backButton);
+        backButton.removeActionListener(backButton.getActionListeners()[0]);
+        backButton.addActionListener((e)->{
+            Events.MultiplayerSelected.invoke();
+            showMainPrompt();
+        });
         hostButton.removeActionListener(joinButton.getActionListeners()[0]);
         hostButton.addActionListener(e->{
             Events.Reset.invoke();

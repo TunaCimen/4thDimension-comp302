@@ -30,7 +30,7 @@ public class GameExec extends Behaviour {
     public void update() {
         InputManager.getInstance().updateActions();
         PhysicsManager.getInstance().updateCollisions();
-        AnimationBehaviour.getAnimationBehaviourList().forEach(AnimationBehaviour::onAnimate);
+        //AnimationBehaviour.getAnimationBehaviourList().forEach(AnimationBehaviour::onAnimate);
         for (int i = 0; i < getBehaviours().size(); i++) {
             var behaviour = getBehaviours().get(i);
             behaviour.update();

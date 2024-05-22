@@ -25,7 +25,6 @@ public class StartPanel extends JPanel {
         }));
         add(UILibrary.createButton("Back",()->{
             Events.ShowInitGame.invoke();
-            Events.ResetGameMode.invoke();
         }));
     }
 

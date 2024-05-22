@@ -27,7 +27,7 @@ public class DrawCanvas extends JPanel {
     YmirUI ymirUI;
     MouseHandler mouseHandler;
 
-    public List<JComponent> foregroundList;
+    public List<Drawable> foregroundList;
     public DrawCanvas() {
         foregroundList = new ArrayList<>();
         Events.CanvasUpdateEvent.addRunnableListener(this::repaint);
@@ -58,15 +58,10 @@ public class DrawCanvas extends JPanel {
                 gameObjectSprite.drawShape(g);
                 }
             }
-        g.setColor(Color.BLACK);  // Set the color for the text
-        Font originalFont = g.getFont();
-        Font largeFont = originalFont.deriveFont(50f); // Set the font size to 50
-        g.setFont(largeFont);
-        g.drawString("FOREGROUNDTEST", 100, 250);
 
-        // Optionally reset the font back to the original if needed
-        g.setFont(originalFont);
-
+        for(Drawable d : foregroundList){
+            d.drawShape(g);
+        }
         }
 
 

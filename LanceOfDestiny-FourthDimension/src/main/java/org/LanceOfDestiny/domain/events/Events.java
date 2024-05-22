@@ -94,9 +94,12 @@ public enum Events {
     SendGameStarted(Object.class),
     SendIPAdress(String.class),
     ShowInitGame(Object.class),
-    ResetGameMode(Object.class);
+    ResetGameMode(Object.class),
+    StartCounting(Object.class),
+    StartCountDown(Object.class, StartCounting),
+   ;
 
-    //It is the Class that the particular event wants the invocation.
+    //It is the Class that thnew CountdownAnimationBehaviour(count, setter);e particular event wants the invocation.
     final Class<?> paramType;
     Timer timer = null;
     boolean isActive = false;
