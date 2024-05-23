@@ -35,22 +35,22 @@ public class BarrierBar extends JLabel {
         setFont(new Font("Impact", Font.BOLD, 24));
         setPreferredSize(new Dimension(300, 30));
         Event.Reset.addRunnableListener(this::resetBarrierCount);
-        this.labelText = isMine ? "Player Barriers: " : "Opponent Barriers: ";
+        this.labelText = isMine ? "My Barriers: " : "Enemy Barriers: ";
     }
 
-    private void updateBarrierCount() {
+    public void updateBarrierCount() {
         setText(labelText + barrierCountSupplier.getAsInt());
         revalidate();
         repaint();
     }
 
-    private void setBarrierCount(Object count) {
+    public void setBarrierCount(Object count) {
         setText(labelText + (int) count);
         revalidate();
         repaint();
     }
 
-    private void resetBarrierCount() {
+    public void resetBarrierCount() {
         setText(labelText + 0);
         revalidate();
         repaint();

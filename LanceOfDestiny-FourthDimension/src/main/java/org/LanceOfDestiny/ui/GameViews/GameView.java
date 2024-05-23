@@ -155,6 +155,7 @@ public class GameView extends JFrame implements Window {
 
     public void startGame() {
         scoreBar.updateScore();
+        barrierBarOther.updateBarrierCount();
         healthBarDisplay.setHealth(SessionManager.getInstance().getPlayer().getChancesLeft());
         comboBoxAddBarrierType.setVisible(false);
         buttonPlay.setEnabled(false);
