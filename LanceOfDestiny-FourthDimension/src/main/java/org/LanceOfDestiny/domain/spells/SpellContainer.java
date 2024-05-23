@@ -35,11 +35,14 @@ public class SpellContainer {
         if (spellType.isGood())
             new SpellActivation(spellType, Constants.SPELL_DURATION).activate();
         else {
-            //Events.ActivateCurse.invoke(spellType);
-            // todo: ege bad spell karşı tarafa gönderme
+            // This will only work if it is multiplayer, no need for a check
+            switch (spellType) {
+                case HOLLOW_PURPLE -> Events.SendHollowPurpleUpdate.invoke();
+                case INFINITE_VOID -> Events.SendInfiniteVoidUpdate.invoke();
+                case DOUBLE_ACCEL -> Events.SendDoubleAccelUpdate.invoke();
+            }
         }
         removeSpell(spellType);
-        Events.ActivateSpellUI.invoke(spellType);
     }
 
     public void removeSpell(SpellType spellType) {

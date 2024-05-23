@@ -38,6 +38,7 @@ public class SpellUIElement extends JLayeredPane {
     }
 
     public void enableSpell(){
+
         spellButton.setIcon(imageIcon);
     }
 
@@ -46,6 +47,7 @@ public class SpellUIElement extends JLayeredPane {
     }
 
     public void activateSpell(){
+
         new TimedAction(Constants.SPELL_DURATION) {
             @Override
             public void onUpdate() {

@@ -57,7 +57,6 @@ public enum Events {
     //SPELL EVENTS
     GainSpell(SpellType.class),
     ActivateSpell(SpellType.class),
-    ActivateSpellUI(SpellType.class),
     //GOOD SPELLS
     ActivateCanons(Boolean.class),
     ActivateOverwhelming(Boolean.class),
@@ -69,7 +68,6 @@ public enum Events {
     ActivateDoubleAccel(Boolean.class),
     // EVENTS RELATED TO OTHER GAME FEATURES
     PauseGame(Object.class, SendPauseUpdate),
-    // TODO: Resume update might not be received by the opp because they might not be listening here -> fix
     ResumeGame(Object.class, SendResumeUpdate),
     StartGame(Object.class),
     SaveGame(Object.class),

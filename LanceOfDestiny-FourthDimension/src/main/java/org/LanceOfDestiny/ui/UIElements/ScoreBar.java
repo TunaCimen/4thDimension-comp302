@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.function.IntSupplier;
 
-public class ScoreBar extends JLabel {
+public class  ScoreBar extends JLabel {
 
 
     private String text;

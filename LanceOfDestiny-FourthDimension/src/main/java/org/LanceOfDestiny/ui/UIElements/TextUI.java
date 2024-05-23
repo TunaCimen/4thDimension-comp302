@@ -14,19 +14,26 @@ public class TextUI implements Animatable, Drawable {
     private Font font;
     private Color color;
     private String text;
-    public TextUI(String text, Color color, Font font, float size, int locX, int locY){
+
+    private int opacity;
+    public TextUI(String text, Color color, Font font, float size, int locX, int locY, int opacity){
         this.locX = locX;
         this.locY = locY;
         this.color = color;
         this.text = text;
         this.font = font.deriveFont(size);
+        this.opacity = Math.max(Math.min(opacity,100),0);
         //setAnimationBehaviour(new LinearInterpolation(15, locX, this::getLocX, this::setLocX));
     }
     @Override
     public void drawShape(Graphics g) {
-        g.setColor(color);
-        g.setFont(font);
-        g.drawString(text, locX- font.getSize(), locY);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setColor(color);
+        g2d.setFont(font);
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity /100f));
+        System.out.println("OPacity: " + opacity);
+        g2d.drawString(text, locX- font.getSize(), locY);
+
     }
 
     @Override
@@ -52,5 +59,11 @@ public class TextUI implements Animatable, Drawable {
         this.text = text;
     }
 
+    public int getOpacity() {
+        return opacity;
+    }
 
+    public void setOpacity(int opacity) {
+        this.opacity = Math.max(Math.min(opacity,100),0);
+    }
 }

@@ -3,6 +3,7 @@ package org.LanceOfDestiny.ui.GameViews;
 import com.mysql.cj.xdevapi.SessionImpl;
 import org.LanceOfDestiny.Animation.CountdownAnimation;
 import org.LanceOfDestiny.Animation.CountdownAnimationBehaviour;
+import org.LanceOfDestiny.Animation.LinearInterpolation;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
 import org.LanceOfDestiny.domain.behaviours.TimedAction;
@@ -51,6 +52,9 @@ public class GameView extends JFrame implements Window {
         this.sessionManager.initializeSession();
         this.cardLayout = new CardLayout();
         this.cardPanel = new JPanel(cardLayout);
+        this.countdown = new TextUI("5"
+                ,Color.orange,new Font("IMPACT", Font.PLAIN, 20)
+                , 75f,Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT/2,1);
         add(cardPanel, BorderLayout.CENTER);
         setLayout(cardLayout);
         initializeComponents();
@@ -92,7 +96,7 @@ public class GameView extends JFrame implements Window {
             if(sessionManager.getGameMode() == SessionManager.GameMode.MULTIPLAYER){
                 System.out.println("Waiting For other player to connect!!!");
                 this.setEnabled(true);
-                this.startButton().setFocusable(false);
+                this.buttonPlay.setFocusable(false);
                 return;
             }
             this.setEnabled(true);
@@ -101,13 +105,15 @@ public class GameView extends JFrame implements Window {
         });
         Events.OtherPlayerJoined.addRunnableListener(()->{
             this.setEnabled(true);
-            startButton().setEnabled(true);
+            this.buttonPlay.setEnabled(true);
+            this.hostButton.setVisible(false);
             this.requestFocusInWindow(true);
+            SessionManager.getInstance().getDrawCanvas().foregroundList.clear();
         });
 
         Events.JoinedTheHost.addRunnableListener(()->{
             this.setEnabled(true);
-            buttonPlay.setEnabled(false);
+            this.buttonPlay.setEnabled(false);
             this.requestFocusInWindow(true);
             ((JFrame)Windows.BuildViewMini.getWindow()).dispose();
             hostButton.setVisible(false);
@@ -122,19 +128,21 @@ public class GameView extends JFrame implements Window {
         Events.SingleplayerSelected.addRunnableListener(()->showPanel(STATUS_START));
         Events.MultiplayerSelected.addRunnableListener(()->showPanel(STATUS_MULTI));
         Events.ShowInitGame.addRunnableListener(()->showPanel(STATUS_INIT));
-        TextUI countdown = new TextUI("5"
-                ,Color.orange,new Font("IMPACT", Font.PLAIN, 20)
-                , 75f,Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT/2);
+
         Events.StartCountDown.addRunnableListener(()->{
-            this.countdown = new TextUI("5"
-                    ,Color.orange,new Font("IMPACT", Font.PLAIN, 20)
-                    , 75f,Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT/2);
             SessionManager.getInstance().getDrawCanvas().foregroundList.add(countdown);
         });
+
         countdown.setAnimationBehaviourOnEvent(new CountdownAnimation(5,countdown::setText,()->{
             Events.StartGame.invoke();
+            if(SessionManager.getInstance().getGameMode() == SessionManager.GameMode.MULTIPLAYER) {
+                Events.SendGameStarted.invoke();
+            }
             SessionManager.getInstance().getDrawCanvas().foregroundList.remove(countdown);
         }),Events.StartCounting);
+
+
+        Events.ReceiveScoreUpdate.addRunnableListener(System.out::println);
     }
 
 
@@ -154,8 +162,7 @@ public class GameView extends JFrame implements Window {
         buttonPlay.setEnabled(false);
         buttonPause.setEnabled(true);
         comboBoxAddBarrierType.setVisible(false);
-        System.out.println(SessionManager.getInstance().getYmir().retTwoSpellNames());
-
+        //System.out.println(SessionManager.getInstance().getYmir().retTwoSpellNames());
     }
 
     public void showPanel(String cardName) {
@@ -172,11 +179,10 @@ public class GameView extends JFrame implements Window {
         WindowManager.getInstance().showWindow(Windows.BuildViewMini);
         if(SessionManager.getInstance().getGameMode().equals(SessionManager.GameMode.MULTIPLAYER)){
             hostButton.setVisible(true);
+            ipLabel.setVisible(true);
             buttonPlay.setEnabled(false);
         }
     }
-
-
     private JPanel createControlPanel() {
         initComboBox();
         healthBarDisplay = new HealthBar(Constants.DEFAULT_CHANCES);
@@ -191,7 +197,6 @@ public class GameView extends JFrame implements Window {
         controlPanel.add(healthBarDisplay);
         controlPanel.add(spellInventory);
         controlPanel.add(scoreBar);
-
         ipLabel = new JLabel();
         Events.SendIPAdress.addListener((e)->ipLabel.setText((String)e));
         hostButton  = new JButton("Host");
@@ -200,15 +205,16 @@ public class GameView extends JFrame implements Window {
             comboBoxAddBarrierType.setVisible(false);
             SessionManager.getInstance().getDrawCanvas().removeMouseListener();
             System.out.println("Added the foreground item");
+
+            TextUI fading = new TextUI("WAITING FOR OTHER PLAYER"
+                    ,Color.orange,new Font("IMPACT", Font.PLAIN, 20)
+                    , 50f,Constants.SCREEN_WIDTH/2-200,Constants.SCREEN_HEIGHT/2,1);
+            fading.setAnimationBehaviour(new LinearInterpolation(48,50, fading::getOpacity,fading::setOpacity));
             SessionManager.getInstance()
                     .getDrawCanvas()
-                    .foregroundList.add(new TextUI("WAITING FOR OTHER PLAYER"
-                            ,Color.orange,new Font("IMPACT", Font.PLAIN, 20)
-                            , 50f,Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT/2));
+                    .foregroundList.add(fading);
             Events.CanvasUpdateEvent.invoke();
         });
-        System.out.println(SessionManager.getInstance().getGameMode());
-        System.out.print("Multiplayer mode need to show hostButton");
         controlPanel.add(scoreBarOther);
         controlPanel.add(hostButton);
         controlPanel.add(ipLabel);
@@ -223,22 +229,11 @@ public class GameView extends JFrame implements Window {
         buttonPlay.setFocusable(false);
         buttonPlay.setFont(new Font("Monospaced", Font.BOLD, 16));
         buttonPlay.addActionListener(e -> {
-
             if (!BuildViewMiniPanel.validateAndShowError(BarrierManager.getInstance().getBarrierCounts())) {
                 return;
             }
-        Events.StartGame.invoke();
-
-        if(SessionManager.getInstance().getGameMode() == SessionManager.GameMode.MULTIPLAYER){
-              Events.SendGameStarted.invoke();
-        }
-
 
             Events.StartCountDown.invoke();
-            if(SessionManager.getInstance().getGameMode() == SessionManager.GameMode.MULTIPLAYER) {
-                Events.SendGameStarted.invoke();
-            }
-
         });
         return buttonPlay;
     }
