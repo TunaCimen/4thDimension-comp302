@@ -83,6 +83,14 @@ public class SessionManager {
         return instance;
     }
 
+    /**
+     * Initializes the session by setting up key game elements.
+     *
+     * Requires: None
+     * Modifies: this.fireBall, this.magicalStaff, this.player, this.ymir
+     * Effects: Initializes the fireBall, magicalStaff, player, and ymir objects.
+     *          Calls initializePlayer and initializeYmir to ensure player and ymir are set up.
+     */
     public void initializeSession() {
         System.out.println("Session initialized");
         fireBall = new FireBall();
