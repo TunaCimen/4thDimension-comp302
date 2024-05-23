@@ -2,7 +2,7 @@ package org.LanceOfDestiny.ui.AuthViews;
 
 import org.LanceOfDestiny.domain.behaviours.Behaviour;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.ScoreManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
@@ -66,13 +66,13 @@ public class LoadView extends JFrame implements Window {
                     System.out.println(LoadView.this.userManager.loadUserInfo(name).get(6));
                     SessionManager.getInstance().getPlayer().resetSpells();
                     for(int i=0;i<Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(3));i++){
-                        Events.GainSpell.invoke(SpellType.EXPANSION);
+                        Event.GainSpell.invoke(SpellType.EXPANSION);
                     }
                     for(int i=0;i<Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(4));i++){
-                        Events.GainSpell.invoke(SpellType.OVERWHELMING);
+                        Event.GainSpell.invoke(SpellType.OVERWHELMING);
                     }
                     for(int i=0;i<Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(5));i++){
-                        Events.GainSpell.invoke(SpellType.CANON);
+                        Event.GainSpell.invoke(SpellType.CANON);
                     }
                     if(!Objects.equals(LoadView.this.userManager.loadUserInfo(name).get(7), "def")){
                         SessionManager.getInstance().getYmir().updateLastTwoAbilitiesFromLoad(LoadView.this.userManager.loadUserInfo(name).get(7),LoadView.this.userManager.loadUserInfo(name).get(8));
@@ -82,7 +82,7 @@ public class LoadView extends JFrame implements Window {
                     System.out.println("After loading");
                     BarrierManager.displayBarrierInfo();
                     GameObject.displayGameObjects();
-                    Events.LoadGame.invoke();
+                    Event.LoadGame.invoke();
                     this.dispose();
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);

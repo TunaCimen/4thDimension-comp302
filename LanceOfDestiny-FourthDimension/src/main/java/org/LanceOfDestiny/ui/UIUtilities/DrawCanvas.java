@@ -7,7 +7,7 @@ import org.LanceOfDestiny.domain.behaviours.Behaviour;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
 
 
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.sprite.*;
 import org.LanceOfDestiny.ui.UIElements.YmirUI;
 
@@ -30,8 +30,8 @@ public class DrawCanvas extends JPanel {
     public List<Drawable> foregroundList;
     public DrawCanvas() {
         foregroundList = new ArrayList<>();
-        Events.CanvasUpdateEvent.addRunnableListener(this::repaint);
-        Events.Reset.addRunnableListener(Events.CanvasUpdateEvent::invoke);
+        Event.CanvasUpdateEvent.addRunnableListener(this::repaint);
+        Event.Reset.addRunnableListener(Event.CanvasUpdateEvent::invoke);
         mouseHandler = new BuildModeMouseHandler(this);
         var width = Constants.SCREEN_WIDTH;
         var height = Constants.SCREEN_HEIGHT;

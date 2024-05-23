@@ -3,7 +3,7 @@ package org.LanceOfDestiny.domain.player;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.physics.*;
 import org.LanceOfDestiny.domain.sprite.BallSprite;
@@ -24,14 +24,14 @@ public class FireBall extends GameObject {
         super();
         this.position = Constants.FIREBALL_POSITION;
         createColliderAndSprite();
-        Events.ActivateOverwhelming.addListener(this::handleOverwhelming);
-        Events.ActivateDoubleAccel.addListener(this::handleDoubleAccel);
-        Events.ShootBall.addRunnableListener(this::shootBall);
-        Events.LoadGame.addRunnableListener(() -> isAttached = true);
-        Events.EndGame.addRunnableListener(() -> isAttached = true);
-        Events.Reset.addRunnableListener(this::resetFireballPosition);
-        Events.Reset.addRunnableListener(() -> speed = Constants.FIREBALL_SPEED);
-        Events.LoadGame.addRunnableListener(this::resetFireballPosition);
+        Event.ActivateOverwhelming.addListener(this::handleOverwhelming);
+        Event.ActivateDoubleAccel.addListener(this::handleDoubleAccel);
+        Event.ShootBall.addRunnableListener(this::shootBall);
+        Event.LoadGame.addRunnableListener(() -> isAttached = true);
+        Event.EndGame.addRunnableListener(() -> isAttached = true);
+        Event.Reset.addRunnableListener(this::resetFireballPosition);
+        Event.Reset.addRunnableListener(() -> speed = Constants.FIREBALL_SPEED);
+        Event.LoadGame.addRunnableListener(this::resetFireballPosition);
     }
 
 
@@ -105,7 +105,7 @@ public class FireBall extends GameObject {
     }
 
     public void fireBallDropped() {
-        Events.UpdateChance.invoke(-1);
+        Event.UpdateChance.invoke(-1);
         isAttached = true;
     }
 

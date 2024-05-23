@@ -2,7 +2,7 @@ package org.LanceOfDestiny.domain.player;
 
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.physics.ColliderFactory;
 import org.LanceOfDestiny.domain.physics.ColliderType;
 import org.LanceOfDestiny.domain.physics.RectangleCollider;
@@ -37,13 +37,13 @@ public class MagicalStaff extends GameObject {
         this.canonRight = new Canon(this.position.add(new Vector(WIDTH-Constants.CANON_WIDTH, -HEIGHT)), false);
         ((RectangleSprite)canonLeft.getSprite()).parentObject = this;
         ((RectangleSprite)canonRight.getSprite()).parentObject = this;
-        Events.MoveStaff.addListener(this::moveRight);
-        Events.RotateStaff.addListener(this::rotate);
-        Events.ResetStaff.addRunnableListener(this::resetStaff);
-        Events.ActivateCanons.addListener(this::handleCanons);
-        Events.ActivateExpansion.addListener(this::handleExpansion);
-        Events.Reset.addRunnableListener(this::resetStaffPosition);
-        Events.LoadGame.addRunnableListener(this::resetStaffPosition);
+        Event.MoveStaff.addListener(this::moveRight);
+        Event.RotateStaff.addListener(this::rotate);
+        Event.ResetStaff.addRunnableListener(this::resetStaff);
+        Event.ActivateCanons.addListener(this::handleCanons);
+        Event.ActivateExpansion.addListener(this::handleExpansion);
+        Event.Reset.addRunnableListener(this::resetStaffPosition);
+        Event.LoadGame.addRunnableListener(this::resetStaffPosition);
     }
 
     public void initializeCollidersAndSprites() {

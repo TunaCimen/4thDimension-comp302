@@ -2,14 +2,13 @@ package org.LanceOfDestiny.domain.managers;
 
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.*;
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import static org.LanceOfDestiny.domain.Constants.*;
 
@@ -24,8 +23,8 @@ public class BarrierManager {
     private BarrierManager() {
         barriers = new ArrayList<>();
         selectedBarrierType = BarrierTypes.SIMPLE;
-        Events.EndGame.addRunnableListener(this::deleteAllBarriers);
-        Events.Reset.addRunnableListener(this::deleteAllBarriers);
+        Event.EndGame.addRunnableListener(this::deleteAllBarriers);
+        Event.Reset.addRunnableListener(this::deleteAllBarriers);
     }
 
     public static BarrierManager getInstance() {

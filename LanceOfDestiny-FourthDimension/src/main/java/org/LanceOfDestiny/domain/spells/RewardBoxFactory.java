@@ -1,6 +1,6 @@
 package org.LanceOfDestiny.domain.spells;
 
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.physics.Vector;
 
@@ -15,7 +15,7 @@ public class RewardBoxFactory {
     private static final Random RANDOM = new Random();
 
     private RewardBoxFactory() {
-        Events.Reset.addRunnableListener(this::removeRewardBoxes);
+        Event.Reset.addRunnableListener(this::removeRewardBoxes);
     }
 
     public static RewardBoxFactory getInstance() {

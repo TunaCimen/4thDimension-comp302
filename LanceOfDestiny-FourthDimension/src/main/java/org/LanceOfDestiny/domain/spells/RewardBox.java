@@ -1,7 +1,7 @@
 package org.LanceOfDestiny.domain.spells;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.physics.ColliderFactory;
@@ -50,7 +50,7 @@ public class RewardBox extends GameObject {
 
         if (other instanceof MagicalStaff) {
             destroy();
-            Events.GainSpell.invoke(getSpellType());
+            Event.GainSpell.invoke(getSpellType());
         }
 
         if (other == null) {
