@@ -66,6 +66,7 @@ public abstract class Barrier extends GameObject {
     public void destroy() {
         super.destroy();
         BarrierManager.getInstance().removeBarrier(this);
+        Event.UpdateBarrierCount.invoke();
     }
 
     public void kill() {

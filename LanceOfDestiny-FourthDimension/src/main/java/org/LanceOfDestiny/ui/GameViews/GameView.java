@@ -35,6 +35,7 @@ public class GameView extends JFrame implements Window {
     SpellInventory spellInventory;
     JPanel cardPanel;
     ScoreBar scoreBar, scoreBarOther;
+    BarrierBar barrierBarOther;
     private SessionManager sessionManager;
     private JComboBox<String> comboBoxAddBarrierType;
     private CardLayout cardLayout;
@@ -44,6 +45,7 @@ public class GameView extends JFrame implements Window {
         this.sessionManager = SessionManager.getInstance();
         this.scoreBar = new ScoreBar(scoreManager::getScore, true);
         this.scoreBarOther = new ScoreBar(Event.ReceiveScoreUpdate, false);
+        this.barrierBarOther = new BarrierBar(Event.ReceiveBarrierCountUpdate, false);
         this.sessionManager.initializeSession();
         this.cardLayout = new CardLayout();
         this.cardPanel = new JPanel(cardLayout);
@@ -138,6 +140,7 @@ public class GameView extends JFrame implements Window {
 
 
         Event.ReceiveScoreUpdate.addRunnableListener(System.out::println);
+        Event.ReceiveBarrierCountUpdate.addRunnableListener(System.out::println);
     }
 
 
@@ -211,6 +214,7 @@ public class GameView extends JFrame implements Window {
             Event.CanvasUpdateEvent.invoke();
         });
         controlPanel.add(scoreBarOther);
+        controlPanel.add(barrierBarOther);
         controlPanel.add(hostButton);
         controlPanel.add(ipLabel);
         hostButton.setVisible(false);
