@@ -19,7 +19,7 @@ public class NetworkEventHandler {
             sendGameState("Score: " + ScoreManager.getInstance().getScore());
             System.out.println("Send score update");
         });
-        Event.SendBarrierCountUpdate.addRunnableListener(() -> sendGameState("Barrier Count: " + BarrierManager.barriers.size()));
+        Event.SendBarrierCountUpdate.addRunnableListener(() -> sendGameState("Barrier Count: " + BarrierManager.getInstance().barriers.size()));
         Event.SendGameDataToLoad.addRunnableListener(() -> sendGameState("Game Data: " + BarrierManager.getInstance().serializeAllBarriers()));
         Event.SendPauseUpdate.addRunnableListener(() -> sendGameState("Pause Game: true"));
         Event.SendResumeUpdate.addRunnableListener(() -> sendGameState("Resume Game: true"));
@@ -33,7 +33,6 @@ public class NetworkEventHandler {
     }
 
     public void handleReceivedGameState(String gameState) {
-        System.out.println("HANDLİNG RECEİVED GAME STATE");
         if (gameState == null || gameState.isEmpty()) {
             return;
         }
@@ -50,7 +49,6 @@ public class NetworkEventHandler {
                 Event.ReceiveChanceUpdate.invoke(Integer.parseInt(eventData));
                 break;
             case "Score":
-                System.out.println("SCORE NEEDS TO BE UPDATED ENEMY");
                 Event.ReceiveScoreUpdate.invoke(Integer.parseInt(eventData));
                 break;
             case "Barrier Count":

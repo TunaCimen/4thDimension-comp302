@@ -50,14 +50,14 @@ public class LoadView extends JFrame implements Window {
                 try {
                     //TODO: reset needed
                     System.out.println("Before clearing");
-                    BarrierManager.displayBarrierInfo();
+                    BarrierManager.getInstance().displayBarrierInfo();
                     GameObject.displayGameObjects();
                     BarrierManager.getInstance().deleteAllBarriers();
                     RewardBoxFactory.getInstance().removeRewardBoxes();
                     List<Behaviour> list = GameObject.getGameObjects();
                     System.out.println("After clearing");
 
-                    BarrierManager.displayBarrierInfo();
+                    BarrierManager.getInstance().displayBarrierInfo();
                     GameObject.displayGameObjects();
                     LoadView.this.userManager.loadBarriers(name);
                     ScoreManager.getInstance().setScore(Integer.parseInt(LoadView.this.userManager.loadUserInfo(name).get(0)));
@@ -80,7 +80,7 @@ public class LoadView extends JFrame implements Window {
                     System.out.println(SessionManager.getInstance().getPlayer().getSpellContainer().getSpellMap());
                     JOptionPane.showMessageDialog(null, "Game loaded successfully!");
                     System.out.println("After loading");
-                    BarrierManager.displayBarrierInfo();
+                    BarrierManager.getInstance().displayBarrierInfo();
                     GameObject.displayGameObjects();
                     Event.LoadGame.invoke();
                     this.dispose();

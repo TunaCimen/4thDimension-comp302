@@ -108,7 +108,7 @@ public abstract class GameObject extends Behaviour {
 
     public static void displayGameObjects() {
         System.out.println("Game Objects Info");
-        BarrierManager.displayBarrierInfo();
+        BarrierManager.getInstance().displayBarrierInfo();
         System.out.println("Hex Count: " + gameObjects.stream().filter(e -> {
             return e instanceof Hex;
         }).toList().size());

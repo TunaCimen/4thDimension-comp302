@@ -15,7 +15,7 @@ import static org.LanceOfDestiny.domain.Constants.*;
 public class BarrierManager {
 
     private static BarrierManager instance;
-    public static ArrayList<Barrier> barriers;
+    public ArrayList<Barrier> barriers;
     private BarrierTypes selectedBarrierType;
     private Barrier clickedBarrier;
     private Vector oldLocationOfBarrier;
@@ -184,7 +184,7 @@ public class BarrierManager {
         return allPossibleBarrierLocations.subList(0,amount);
     }
 
-    public static void displayBarrierInfo() {
+    public void displayBarrierInfo() {
         System.out.println("Barrier Manager Info");
         System.out.println("Explosive Barrier Count: " + barriers.stream().filter(e -> e instanceof ExplosiveBarrier).toList().size());
         System.out.println("Reinforced Barrier Count: " + barriers.stream().filter(e -> {
