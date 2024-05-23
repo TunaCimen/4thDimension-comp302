@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.domain.barriers;
 
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.physics.Vector;
 
@@ -15,6 +16,7 @@ public class BarrierFactory {
             case REWARDING -> new RewardingBarrier(position);
         };
         BarrierManager.getInstance().addBarrier(createdBarrier);
+        Event.UpdateBarrierCount.invoke();
         return createdBarrier;
     }
 

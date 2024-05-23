@@ -34,8 +34,7 @@ public class GameView extends JFrame implements Window {
     TextUI countdown;
     SpellInventory spellInventory;
     JPanel cardPanel;
-    ScoreBar scoreBar, scoreBarOther;
-    BarrierBar barrierBarOther;
+    AbstractBar scoreBar, scoreBarOther, barrierBarOther, chanceBarOther;
     private SessionManager sessionManager;
     private JComboBox<String> comboBoxAddBarrierType;
     private CardLayout cardLayout;
@@ -46,6 +45,7 @@ public class GameView extends JFrame implements Window {
         this.scoreBar = new ScoreBar(scoreManager::getScore, true);
         this.scoreBarOther = new ScoreBar(Event.ReceiveScoreUpdate, false);
         this.barrierBarOther = new BarrierBar(Event.ReceiveBarrierCountUpdate, false);
+        this.chanceBarOther = new ChanceBar(Event.ReceiveChanceUpdate, false);
         this.sessionManager.initializeSession();
         this.cardLayout = new CardLayout();
         this.cardPanel = new JPanel(cardLayout);
@@ -84,7 +84,7 @@ public class GameView extends JFrame implements Window {
         //Events.Load.addRunnableListener(()->showPanel(STATUS_GAME));
         Event.LoadGame.addRunnableListener(() -> {
             showPanel(STATUS_GAME);
-            scoreBar.updateScore();
+            scoreBar.updateValue();
         });
         Event.EndGame.addRunnableListener(() -> {
             showPanel(STATUS_END);
@@ -154,8 +154,7 @@ public class GameView extends JFrame implements Window {
     }
 
     public void startGame() {
-        scoreBar.updateScore();
-        barrierBarOther.updateBarrierCount();
+        scoreBar.updateValue();
         healthBarDisplay.setHealth(SessionManager.getInstance().getPlayer().getChancesLeft());
         comboBoxAddBarrierType.setVisible(false);
         buttonPlay.setEnabled(false);
@@ -214,8 +213,15 @@ public class GameView extends JFrame implements Window {
                     .foregroundList.add(fading);
             Event.CanvasUpdateEvent.invoke();
         });
+
+        //display these only in the multiplayer game
+        JLabel enemyLabel = new JLabel("Enemy--> ");
+        enemyLabel.setFont(new Font("IMPACT", Font.BOLD, 20));
+        controlPanel.add(enemyLabel);
         controlPanel.add(scoreBarOther);
         controlPanel.add(barrierBarOther);
+        controlPanel.add(chanceBarOther);
+
         controlPanel.add(hostButton);
         controlPanel.add(ipLabel);
         hostButton.setVisible(false);
