@@ -66,22 +66,21 @@ public class MagicalStaff extends GameObject {
     }
     /**
      * Moves the magical staff horizontally within the game boundaries.
-     *
-     * @param integer an Object that should be an Integer representing the direction and magnitude of movement.
-     *                A positive value moves the staff to the right, and a negative value moves it to the left.
-     * Requires:
-     *                - 'integer' must be an Integer instance
-     *                - 'position' of the staff must be initialized within the game boundaries.
-     *                - 'Constants.SCREEN_WIDTH', 'Constants.STAFF_SPEED', 'WIDTH', and, 'HEIGHT' must be defined beforehand.
-     * Modifies:
-     *                - 'position' of the MagicalStaff
-     *                - 'position' of the 'canonRight' and 'canonLeft'
-     * Effects:
-     *                - Moves the staff to the right if `integer` is positive, and to the left if `integer` is negative.
-     *                - Ensures the staff does not move outside the horizontal boundaries of the game screen.
-     *                - If the staff is expanded, it adjusts the maximum boundary accordingly.
-     *                - Updates the positions of `canonLeft` and `canonRight` according to staff's new position.
-     * **/
+     * @param integer an Object that should be an Integer representing the direction and magnitude of movement. <p>
+     *                A positive value moves the staff to the right, and a negative value moves it to the left. <p>
+     * Requires: <p>
+     *                - 'integer' must be an Integer instance <p>
+     *                - 'position' of the staff must be initialized within the game boundaries. <p>
+     *                - 'Constants.SCREEN_WIDTH', 'Constants.STAFF_SPEED', 'WIDTH', and, 'HEIGHT' must be defined beforehand. <p>
+     * Modifies: <p>
+     *                - 'position' of the MagicalStaff <p>
+     *                - 'position' of the 'canonRight' and 'canonLeft' <p>
+     * Effects: <p>
+     *                - Moves the staff to the right if `integer` is positive, and to the left if `integer` is negative. <p>
+     *                - Ensures the staff does not move outside the horizontal boundaries of the game screen. <p>
+     *                - If the staff is expanded, it adjusts the maximum boundary accordingly. <p>
+     *                - Updates the positions of `canonLeft` and `canonRight` according to staff's new position. <p>
+     */
     public void moveRight(Object integer) {
         int sign = ((Integer) integer) > 0 ? 1 : -1;
         var minX = 0;

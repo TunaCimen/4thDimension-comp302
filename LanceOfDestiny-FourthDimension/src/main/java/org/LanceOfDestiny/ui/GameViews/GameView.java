@@ -35,7 +35,7 @@ public class GameView extends JFrame implements Window {
     SpellInventory spellInventory;
     JPanel cardPanel;
     ScoreBar scoreBar, scoreBarOther;
-    private SessionManager sessionManager;
+    private final SessionManager sessionManager;
     private JComboBox<String> comboBoxAddBarrierType;
     private CardLayout cardLayout;
 
@@ -193,7 +193,7 @@ public class GameView extends JFrame implements Window {
         controlPanel.add(spellInventory);
         controlPanel.add(scoreBar);
         ipLabel = new JLabel();
-        Event.SendIPAdress.addListener((e)->ipLabel.setText((String)e));
+        Event.SendIPAddress.addListener((e)->ipLabel.setText((String)e));
         hostButton  = new JButton("Host");
         hostButton.addActionListener(e->{
             Event.TryHostingSession.invoke();

@@ -57,7 +57,7 @@ public class NetworkManager {
         try {
             InetAddress ipAddress = getIPAddress();
             if (ipAddress != null) {
-                Event.SendIPAdress.invoke(ipAddress.getHostAddress());
+                Event.SendIPAddress.invoke(ipAddress.getHostAddress());
                 System.out.println("IP Address: " + ipAddress.getHostAddress());
             } else {
                 System.out.println("No IP address found.");
