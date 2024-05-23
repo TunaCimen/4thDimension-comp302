@@ -1,9 +1,5 @@
 package org.LanceOfDestiny.domain.behaviours;
 
-import org.LanceOfDestiny.domain.barriers.ExplosiveBarrier;
-import org.LanceOfDestiny.domain.barriers.ReinforcedBarrier;
-import org.LanceOfDestiny.domain.barriers.RewardingBarrier;
-import org.LanceOfDestiny.domain.barriers.SimpleBarrier;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.physics.Collider;
 import org.LanceOfDestiny.domain.physics.Collision;

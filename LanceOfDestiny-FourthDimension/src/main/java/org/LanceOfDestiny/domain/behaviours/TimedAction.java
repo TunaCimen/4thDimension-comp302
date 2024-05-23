@@ -18,8 +18,6 @@ public abstract class TimedAction extends MonoBehaviour {
         timePassed = 0;
     }
 
-
-
     public abstract void onUpdate();
 
     @Override
