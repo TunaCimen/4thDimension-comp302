@@ -17,6 +17,7 @@ public class PauseView extends JFrame implements Window {
         windowManager = WindowManager.getInstance();
         configureWindow();
         addComponents();
+        Events.ResumeGame.addRunnableListener(this::dispose);
     }
 
     private void configureWindow() {
@@ -65,7 +66,6 @@ public class PauseView extends JFrame implements Window {
     }
 
     private void handleResume() {
-        dispose();
         Events.ResumeGame.invoke();
     }
 }
