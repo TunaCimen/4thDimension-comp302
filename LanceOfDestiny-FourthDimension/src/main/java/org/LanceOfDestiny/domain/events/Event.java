@@ -21,7 +21,7 @@ import java.util.function.Consumer;
  * @Param -> Duration of the event.
  * @Param -> Follow-up event you want to invoke.//TODO:It can be optional(?).
  */
-public enum Events {
+public enum Event {
     LogEvent(String.class),
     LogIntegerEvent(Integer.class),
     CollisionEvent(Collision.class),
@@ -45,6 +45,7 @@ public enum Events {
 
     SendPauseUpdate(Object.class),
     SendResumeUpdate(Object.class),
+    SendCurseUpdate(SpellType.class),
     SendInfiniteVoidUpdate(Object.class),
     SendHollowPurpleUpdate(Object.class),
     SendDoubleAccelUpdate(Object.class),
@@ -106,20 +107,20 @@ public enum Events {
     boolean isActive = false;
     //List that listeners subscribe to.
     private List<Consumer<Object>> listeners = new ArrayList<>();
-    Events onFinishEvent;
+    Event onFinishEvent;
     private boolean eventFired;
 
-    Events(Class<?> stringClass) {
+    Event(Class<?> stringClass) {
         paramType = stringClass;
     }
 
-    Events(Class<?> stringClass, Events onFinish) {
+    Event(Class<?> stringClass, Event onFinish) {
         paramType = stringClass;
         onFinishEvent = onFinish;
     }
 
     public static void clearAllListeners() {
-        for (Events e : values()) {
+        for (Event e : values()) {
             e.clearListeners();
         }
     }

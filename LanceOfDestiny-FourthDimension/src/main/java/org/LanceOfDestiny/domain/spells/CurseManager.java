@@ -3,7 +3,7 @@ package org.LanceOfDestiny.domain.spells;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.barriers.BarrierFactory;
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 
 import java.util.List;
@@ -14,10 +14,10 @@ public class CurseManager {
 
 
     private CurseManager() {
-        Events.ActivateCurse.addListener(this::activateCurse);
-        Events.ActivateHollowPurple.addListener(this::handleHollowPurple);
-        Events.ActivateInfiniteVoid.addListener(this::handleInfiniteVoid);
-        Events.Reset.addRunnableListener(this::resetCurseManager);
+        Event.ActivateCurse.addListener(this::activateCurse);
+        Event.ActivateHollowPurple.addListener(this::handleHollowPurple);
+        Event.ActivateInfiniteVoid.addListener(this::handleInfiniteVoid);
+        Event.Reset.addRunnableListener(this::resetCurseManager);
     }
 
     public static CurseManager getInstance() {

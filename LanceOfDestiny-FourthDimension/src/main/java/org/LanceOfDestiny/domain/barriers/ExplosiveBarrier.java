@@ -1,14 +1,13 @@
 package org.LanceOfDestiny.domain.barriers;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.physics.Collision;
 import org.LanceOfDestiny.domain.physics.Vector;
 import org.LanceOfDestiny.domain.player.MagicalStaff;
 import org.LanceOfDestiny.domain.sprite.BallSprite;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.domain.sprite.ImageOperations;
-import org.LanceOfDestiny.domain.sprite.Sprite;
 
 import java.awt.*;
 import java.util.Random;
@@ -65,7 +64,7 @@ public class ExplosiveBarrier extends Barrier {
         var other = collision.getOther(this);
 
         if (other instanceof MagicalStaff) {
-            Events.UpdateChance.invoke(-1);
+            Event.UpdateChance.invoke(-1);
             destroy();
         }
 
@@ -84,7 +83,7 @@ public class ExplosiveBarrier extends Barrier {
     }
 
     private void addScore() {
-        Events.UpdateScore.invoke();
+        Event.UpdateScore.invoke();
     }
 
     @Override

@@ -1,7 +1,7 @@
 package org.LanceOfDestiny.ui.AuthViews;
 
 import org.LanceOfDestiny.domain.AuthModels.LogInController;
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.ScoreManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
@@ -106,7 +106,7 @@ public class SaveView extends JFrame implements Window {
         cancelButton.setAlignmentX(Component.CENTER_ALIGNMENT); // Center horizontally
         cancelButton.addActionListener(e -> {
             SaveView.this.dispose();
-            Events.ResumeGame.invoke();
+            Event.ResumeGame.invoke();
         });
         inputPanel.add(cancelButton); // Add Cancel button to input panel
 

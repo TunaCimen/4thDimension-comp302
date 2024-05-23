@@ -1,9 +1,8 @@
 package org.LanceOfDestiny.ui.UIElements;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.ScoreManager;
-import org.LanceOfDestiny.ui.UIElements.UILibrary;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,12 +19,12 @@ public class EndGamePanel extends JPanel {
     public EndGamePanel(){
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         JLabel endLabel = UILibrary.createLabel("");
-        Events.EndGame.addListener(e -> endLabel.setText((String) e));
-        JButton newGameButton = UILibrary.createButton("NEW GAME", Events.Reset::invoke);
+        Event.EndGame.addListener(e -> endLabel.setText((String) e));
+        JButton newGameButton = UILibrary.createButton("NEW GAME", Event.Reset::invoke);
         JLabel scoreLabel = new JLabel();
         scoreLabel.setFont(new Font("Impact", Font.BOLD, 24));
         newGameButton.addActionListener(e -> {
-            Events.ReturnStartScreen.invoke();
+            Event.ReturnStartScreen.invoke();
         });
         endLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         endLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -35,7 +34,7 @@ public class EndGamePanel extends JPanel {
         add(endLabel);
         add(scoreLabel);
         add(newGameButton);
-        Events.EndGame.addRunnableListener(()->scoreLabel.setText("Score: " + ScoreManager.getInstance().getScore()));
+        Event.EndGame.addRunnableListener(()->scoreLabel.setText("Score: " + ScoreManager.getInstance().getScore()));
     }
 
 

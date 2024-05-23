@@ -1,7 +1,7 @@
 package org.LanceOfDestiny.domain.managers;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.looper.GameLooper;
 import org.LanceOfDestiny.domain.looper.LoopExecutor;
 import org.LanceOfDestiny.domain.looper.UILooper;
@@ -45,19 +45,19 @@ public class SessionManager {
     }
 
     private void subscribeEvents() {
-        Events.BuildDoneEvent.addRunnableListener(this::initializeBarriers);
+        Event.BuildDoneEvent.addRunnableListener(this::initializeBarriers);
 
-        Events.Reset.addRunnableListener(()->getPlayer().setChancesLeft(Constants.DEFAULT_CHANCES));
-        Events.Reset.addRunnableListener(()->getLoopExecutor().setLoadedTime(0));
-        Events.Reset.addRunnableListener(()->getLoopExecutor().setTimePassed(0));
-        Events.LoadGame.addRunnableListener(()->getLoopExecutor().setTimePassed(0));
-        Events.EndGame.addRunnableListener(()->getLoopExecutor().stop());
-        Events.ResumeGame.addRunnableListener(()->getLoopExecutor().resume());
-        Events.PauseGame.addRunnableListener(()->{
+        Event.Reset.addRunnableListener(()->getPlayer().setChancesLeft(Constants.DEFAULT_CHANCES));
+        Event.Reset.addRunnableListener(()->getLoopExecutor().setLoadedTime(0));
+        Event.Reset.addRunnableListener(()->getLoopExecutor().setTimePassed(0));
+        Event.LoadGame.addRunnableListener(()->getLoopExecutor().setTimePassed(0));
+        Event.EndGame.addRunnableListener(()->getLoopExecutor().stop());
+        Event.ResumeGame.addRunnableListener(()->getLoopExecutor().resume());
+        Event.PauseGame.addRunnableListener(()->{
             getLoopExecutor().stop();
             setStatus(Status.PausedMode);
         });
-        Events.StartGame.addRunnableListener(()->{
+        Event.StartGame.addRunnableListener(()->{
             if (!getLoopExecutor().isStarted()) {
                 getLoopExecutor().start();
             } else {
@@ -65,14 +65,14 @@ public class SessionManager {
             }
             setStatus(Status.RunningMode);
         });
-        Events.MultiplayerSelected.addRunnableListener(()->{
+        Event.MultiplayerSelected.addRunnableListener(()->{
             gameMode = GameMode.MULTIPLAYER;
         });
-        Events.SingleplayerSelected.addRunnableListener(()->{
+        Event.SingleplayerSelected.addRunnableListener(()->{
             gameMode = GameMode.SINGLEPLAYER;
             initializeYmir();
         });
-        Events.MultiplayerSelected.addRunnableListener(NetworkBehavior::new);
+        Event.MultiplayerSelected.addRunnableListener(NetworkBehavior::new);
 
     }
 

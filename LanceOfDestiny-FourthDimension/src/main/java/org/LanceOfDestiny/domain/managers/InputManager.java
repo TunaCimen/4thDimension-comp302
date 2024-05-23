@@ -1,6 +1,6 @@
 package org.LanceOfDestiny.domain.managers;
 
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.spells.SpellType;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -74,15 +74,15 @@ public class InputManager implements KeyListener {
     }
 
     private void updateRotation() {
-        if (rotateKey == KeyEvent.VK_A) Events.RotateStaff.invoke(-1d);
-        if (rotateKey == KeyEvent.VK_D) Events.RotateStaff.invoke(1d);
-        if (rotateKey == -1) Events.ResetStaff.invoke();
+        if (rotateKey == KeyEvent.VK_A) Event.RotateStaff.invoke(-1d);
+        if (rotateKey == KeyEvent.VK_D) Event.RotateStaff.invoke(1d);
+        if (rotateKey == -1) Event.ResetStaff.invoke();
     }
 
     private void updateMovement() {
-        if (moveKey == KeyEvent.VK_LEFT) Events.MoveStaff.invoke(-1);
-        if (moveKey == KeyEvent.VK_RIGHT) Events.MoveStaff.invoke(1);
-        if (isShootFlag) Events.ShootBall.invoke();
+        if (moveKey == KeyEvent.VK_LEFT) Event.MoveStaff.invoke(-1);
+        if (moveKey == KeyEvent.VK_RIGHT) Event.MoveStaff.invoke(1);
+        if (isShootFlag) Event.ShootBall.invoke();
     }
 
     public void reset() {
@@ -105,7 +105,7 @@ public class InputManager implements KeyListener {
         };
 
         if (spellType != null && canActivateSpell(spellType)) {
-            Events.ActivateSpell.invoke(spellType);
+            Event.ActivateSpell.invoke(spellType);
             lastSpellActivationTime.put(spellType, System.currentTimeMillis());
         }
     }

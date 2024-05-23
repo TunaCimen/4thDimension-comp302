@@ -1,6 +1,6 @@
 package org.LanceOfDestiny;
 
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.events.IllegalEventInvocationException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +25,7 @@ public class EventSystemTest {
     @BeforeEach
     public void setupStreams(){
 
-        Events.clearAllListeners();
+        Event.clearAllListeners();
         System.setOut(new PrintStream(outContent));
     }
     @AfterEach
@@ -37,9 +37,9 @@ public class EventSystemTest {
     @Test
     void invoke_test_singular(){
         Consumer<Object> print1 = System.out::println;
-        Events.LogEvent.addListener(print1);
+        Event.LogEvent.addListener(print1);
         //System.out.println(param);
-        Events.LogEvent.invoke(param);
+        Event.LogEvent.invoke(param);
         assertEquals(param + System.lineSeparator(),outContent.toString());
         System.out.println("Test1 Passed");
     }
@@ -59,9 +59,9 @@ public class EventSystemTest {
     @Test
     void invoke_test_multiple(){
 
-        Events.LogEvent.addListener(System.out::println);
-        Events.LogEvent.addListener(s->print10FirstLetter((String) s));
-        Events.LogEvent.invoke(param);
+        Event.LogEvent.addListener(System.out::println);
+        Event.LogEvent.addListener(s->print10FirstLetter((String) s));
+        Event.LogEvent.invoke(param);
         String wantedOutput = param + System.lineSeparator() + "HHHHHHHHHH" + System.lineSeparator();
         assertEquals(wantedOutput,outContent.toString());
         System.out.println("Test2 Passed");
@@ -71,23 +71,23 @@ public class EventSystemTest {
     void invoke_test_event(){
         Consumer<Object> print1 = System.out::println;
         Consumer<Object> print2 = System.out::println;
-        Events.LogEvent.addListener(print1);
-        Events.LogIntegerEvent.addListener(print2);
-        Events.LogEvent.invoke("LogEvent");
+        Event.LogEvent.addListener(print1);
+        Event.LogIntegerEvent.addListener(print2);
+        Event.LogEvent.invoke("LogEvent");
         assertEquals("LogEvent" + System.lineSeparator(),outContent.toString());
     }
 
     @Test
     void invoke_test_no_param(){
         Runnable printNull = this::printHello;
-        Events.LogEvent.addRunnableListener(printNull);
-        Events.LogEvent.invoke("");
+        Event.LogEvent.addRunnableListener(printNull);
+        Event.LogEvent.invoke("");
         assertEquals("Hello" + System.lineSeparator(),outContent.toString());
     }
 
     @Test
     void wrong_type_invocation_test(){
-        Events.LogEvent.addListener(System.out::println);
-        assertThrows(IllegalEventInvocationException.class, ()->Events.LogEvent.invoke(5));
+        Event.LogEvent.addListener(System.out::println);
+        assertThrows(IllegalEventInvocationException.class, ()-> Event.LogEvent.invoke(5));
     }
 }

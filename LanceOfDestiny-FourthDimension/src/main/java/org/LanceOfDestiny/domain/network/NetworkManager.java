@@ -1,9 +1,7 @@
 package org.LanceOfDestiny.domain.network;
 
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
-import org.LanceOfDestiny.ui.UIUtilities.WindowManager;
-import org.LanceOfDestiny.ui.UIUtilities.Windows;
 
 
 import java.io.*;
@@ -22,9 +20,9 @@ public class NetworkManager {
     private NetworkManager() {
 
         this.eventHandler = new NetworkEventHandler();
-        Events.TryJoiningSession.addListener(this::joinGame);
-        Events.TryHostingSession.addRunnableListener(this::hostGame);
-        Events.SendGameStarted.addRunnableListener(()->{
+        Event.TryJoiningSession.addListener(this::joinGame);
+        Event.TryHostingSession.addRunnableListener(this::hostGame);
+        Event.SendGameStarted.addRunnableListener(()->{
             out.println("STARTED");
         });
     }
@@ -42,7 +40,7 @@ public class NetworkManager {
                 serverSocket = new ServerSocket(port);
                 socket = serverSocket.accept();
                 setupStreams();
-                Events.OtherPlayerJoined.invoke();
+                Event.OtherPlayerJoined.invoke();
                 out.println(BarrierManager.getInstance().serializeAllBarriers());
                 System.out.println("Connected the other Player succesfulyl.");
             }catch(Exception e){
@@ -59,7 +57,7 @@ public class NetworkManager {
         try {
             InetAddress ipAddress = getIPAddress();
             if (ipAddress != null) {
-                Events.SendIPAdress.invoke(ipAddress.getHostAddress());
+                Event.SendIPAdress.invoke(ipAddress.getHostAddress());
                 System.out.println("IP Address: " + ipAddress.getHostAddress());
             } else {
                 System.out.println("No IP address found.");
@@ -105,14 +103,14 @@ public class NetworkManager {
     public void joinGame(String ip, int port) throws IOException {
         socket = new Socket(ip, port);
         setupStreams();
-        Events.Reset.invoke();
-        Events.JoinedTheHost.invoke();
+        Event.Reset.invoke();
+        Event.JoinedTheHost.invoke();
         BarrierManager.getInstance().loadBarriersFromString(in.readLine());
         new Thread(()->{
             while(true){
                 try {
                     if(Objects.equals(in.readLine(), "STARTED")){
-                        Events.StartGame.invoke();
+                        Event.StartGame.invoke();
                         break;
                     }
                 } catch (IOException e) {

@@ -1,9 +1,6 @@
 package org.LanceOfDestiny.ui.UIElements;
 
-import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.events.Events;
-import org.LanceOfDestiny.domain.spells.Canon;
-import org.LanceOfDestiny.domain.spells.SpellActivation;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.spells.SpellType;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.domain.sprite.ImageOperations;
@@ -43,32 +40,32 @@ public class SpellInventory extends JPanel {
         hollowSpell = new SpellUIElement(hollowSpellIcon, new Dimension(50,50));
 
         canonSpell.addClickEvent(e -> {
-            Events.ActivateSpell.invoke(SpellType.CANON);
+            Event.ActivateSpell.invoke(SpellType.CANON);
         });
 
         overwhelmingSpell.addClickEvent(e -> {
-            Events.ActivateSpell.invoke(SpellType.OVERWHELMING);
+            Event.ActivateSpell.invoke(SpellType.OVERWHELMING);
         });
 
         expansionSpell.addClickEvent(e -> {
-            Events.ActivateSpell.invoke(SpellType.EXPANSION);
+            Event.ActivateSpell.invoke(SpellType.EXPANSION);
         });
 
         hollowSpell.addClickEvent(e -> {
-            Events.ActivateSpell.invoke(SpellType.HOLLOW_PURPLE);
+            Event.ActivateSpell.invoke(SpellType.HOLLOW_PURPLE);
         });
 
         doubleAccelSpell.addClickEvent(e -> {
-            Events.ActivateSpell.invoke(SpellType.DOUBLE_ACCEL);
+            Event.ActivateSpell.invoke(SpellType.DOUBLE_ACCEL);
         });
 
         infiniteVoidSpell.addClickEvent(e -> {
-            Events.ActivateSpell.invoke(SpellType.INFINITE_VOID);
+            Event.ActivateSpell.invoke(SpellType.INFINITE_VOID);
         });
 
-        Events.GainSpell.addListener(e->gainSpell((SpellType) e));
-        Events.ActivateSpell.addListener(e->loseSpell((SpellType) e));
-        Events.ResetSpells.addListener(e->resetSpellUI());
+        Event.GainSpell.addListener(e->gainSpell((SpellType) e));
+        Event.ActivateSpell.addListener(e->loseSpell((SpellType) e));
+        Event.ResetSpells.addListener(e->resetSpellUI());
 
         add(canonSpell);
         add(overwhelmingSpell);
