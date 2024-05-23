@@ -1,17 +1,16 @@
 package org.LanceOfDestiny.domain.network;
 
-import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.ScoreManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.managers.Status;
-import org.LanceOfDestiny.domain.spells.SpellActivation;
 import org.LanceOfDestiny.domain.spells.SpellType;
 
 public class NetworkEventHandler {
 
-    private SessionManager sessionManager;
+    private final SessionManager sessionManager;
+
     public NetworkEventHandler() {
         sessionManager = SessionManager.getInstance();
         Event.SendChanceUpdate.addRunnableListener(() -> sendGameState("Chances: " + SessionManager.getInstance().getPlayer().getChancesLeft()));
@@ -70,13 +69,13 @@ public class NetworkEventHandler {
                 Event.ResumeGame.invoke();
                 break;
             case "Double Accel":
-                new SpellActivation(SpellType.DOUBLE_ACCEL, Constants.SPELL_DURATION).activate();
+                Event.ActivateCurse.invoke(SpellType.DOUBLE_ACCEL);
                 break;
             case "Hollow Purple":
-                new SpellActivation(SpellType.HOLLOW_PURPLE, Constants.SPELL_DURATION).activate();
+                Event.ActivateCurse.invoke(SpellType.HOLLOW_PURPLE);
                 break;
             case "Infinite Void":
-                new SpellActivation(SpellType.INFINITE_VOID, Constants.SPELL_DURATION).activate();
+                Event.ActivateCurse.invoke(SpellType.INFINITE_VOID);
                 break;
             default:
                 System.out.println("Unknown event type: " + eventType);
