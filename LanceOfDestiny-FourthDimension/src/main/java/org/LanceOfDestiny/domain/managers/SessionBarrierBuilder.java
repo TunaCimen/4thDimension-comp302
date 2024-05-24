@@ -13,16 +13,10 @@ public class SessionBarrierBuilder {
     private Integer numOfReinforced;
     private Integer numOfExplosive;
     private Integer numOfRewarding;
-
-    public SessionBarrierBuilder() {
-        this.numOfSimple = 0;
-        this.numOfReinforced = 0;
-        this.numOfExplosive = 0;
-        this.numOfRewarding = 0;
-    }
+    public SessionBarrierBuilder() {}
 
     public void initializeBarriers() {
-        BarrierManager.getInstance().deleteAllBarriers();
+        //BarrierManager.getInstance().deleteAllBarriers();
 
         // Add barrier types to the list based on the counts
         int i;
@@ -40,12 +34,12 @@ public class SessionBarrierBuilder {
         }
 
         // Shuffling for randomization
-        Collections.shuffle(BarrierManager.barriers);
+        Collections.shuffle(BarrierManager.getInstance().getBarriers());
 
         int x = 40;
         int y = 40;
 
-        for (Barrier barrier : BarrierManager.barriers) {
+        for (Barrier barrier : BarrierManager.getInstance().getBarriers()) {
             barrier.setPosition(new Vector(x, y));
             if (barrier.getType() == BarrierTypes.EXPLOSIVE) {
                 barrier.shiftPosition(new Vector(x, y));
@@ -59,6 +53,12 @@ public class SessionBarrierBuilder {
         }
     }
 
+    public void setBarrierCounts(int numOfSimple, int numOfReinforced, int numOfExplosive, int numOfRewarding) {
+        setNumOfSimple(numOfSimple);
+        setNumOfReinforced(numOfReinforced);
+        setNumOfExplosive(numOfExplosive);
+        setNumOfRewarding(numOfRewarding);
+    }
     public Integer getNumOfSimple() {
         return numOfSimple;
     }

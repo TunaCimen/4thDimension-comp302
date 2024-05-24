@@ -2,7 +2,7 @@ package org.LanceOfDestiny.ui.GameViews;
 
 //This panel will be displayed on gameview screen to build game in a more aesthetic way
 
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.ui.CustomViews.CustomDialog;
@@ -15,8 +15,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class BuildViewMiniPanel extends JFrame implements Window {
-    private final SessionManager sessionManager;
-
     private JTextField textFieldBarrierSimple;
     private JTextField textFieldBarrierReinforced;
     private JTextField textFieldBarrierExplosive;
@@ -24,8 +22,8 @@ public class BuildViewMiniPanel extends JFrame implements Window {
     private Color buildButtonColor = Color.decode("#90caf9");
     private Color testButtonColor = Color.decode("#ffa726");
 
-    public BuildViewMiniPanel(SessionManager instance) {
-        this.sessionManager = instance;
+    public BuildViewMiniPanel() {
+
     }
 
     @Override
@@ -108,38 +106,11 @@ public class BuildViewMiniPanel extends JFrame implements Window {
         buttonBuild.setBorder(roundedBorder);
         userInputPanel.add(buttonBuild);
         buttonBuild.addActionListener(e -> {
-
             int numOfSimple = Integer.parseInt(textFieldBarrierSimple.getText());
             int numOfReinforced = Integer.parseInt(textFieldBarrierReinforced.getText());
             int numOfExplosive = Integer.parseInt(textFieldBarrierExplosive.getText());
             int numOfRewarding = Integer.parseInt(textFieldBarrierRewarding.getText());
-
-            // debug the numbers with system.out.println
-            System.out.println("Simple: " + numOfSimple);
-            System.out.println("Reinforced: " + numOfReinforced);
-            System.out.println("Explosive: " + numOfExplosive);
-            System.out.println("Rewarding: " + numOfRewarding);
-
-            String validationError = BarrierManager.getInstance().validateBarrierCounts(numOfSimple, numOfReinforced, numOfExplosive, numOfRewarding);
-
-            if (validationError != null) {
-                CustomDialog.showErrorDialog(validationError);
-                return;  // Exit if validation fails
-            }
-
-
-            // Set barrier numbers in session manager's builder
-            this.sessionManager.getBarrierBuilder().setNumOfSimple(numOfSimple);
-            this.sessionManager.getBarrierBuilder().setNumOfReinforced(numOfReinforced);
-            this.sessionManager.getBarrierBuilder().setNumOfExplosive(numOfExplosive);
-            this.sessionManager.getBarrierBuilder().setNumOfRewarding(numOfRewarding);
-
-            // Hide the build panel and close it
-            userInputPanel.setVisible(false);
-            this.dispose();
-
-            // Ensure the game canvas is visible and properly updated
-            Events.BuildDoneEvent.invoke();
+            buildBarriers(numOfSimple, numOfReinforced, numOfExplosive, numOfRewarding, userInputPanel);
         });
         buttonBuild.addMouseListener(new MouseAdapter() {
             @Override
@@ -155,7 +126,7 @@ public class BuildViewMiniPanel extends JFrame implements Window {
 
 
         // Test Game Button
-        JButton buttonTest = new JButton("Test");
+        JButton buttonTest = new JButton("Generate Random");
         buttonTest.setFont(new Font("Monospaced", Font.BOLD, 14));
         buttonTest.setForeground(Color.BLACK);
         buttonTest.setBackground(testButtonColor);
@@ -178,6 +149,15 @@ public class BuildViewMiniPanel extends JFrame implements Window {
             }
         });
 
+        buttonTest.addActionListener(e -> {
+            int[] randomCounts = BarrierManager.getInstance().generateRandomValidBarrierCounts();
+            textFieldBarrierSimple.setText(String.valueOf(randomCounts[0]));
+            textFieldBarrierReinforced.setText(String.valueOf(randomCounts[1]));
+            textFieldBarrierExplosive.setText(String.valueOf(randomCounts[2]));
+            textFieldBarrierRewarding.setText(String.valueOf(randomCounts[3]));
+            buildBarriers(randomCounts[0], randomCounts[1], randomCounts[2], randomCounts[3], userInputPanel);
+        });
+
 
         // Add button panel to the frame
         add(userInputPanel, BorderLayout.CENTER); // Centered in the layout
@@ -189,7 +169,31 @@ public class BuildViewMiniPanel extends JFrame implements Window {
         setVisible(true);
     }
 
+    private void buildBarriers(int numOfSimple, int numOfReinforced, int numOfExplosive, int numOfRewarding, JPanel userInputPanel) {
+        // debug the numbers with system.out.println
+        System.out.println("Simple: " + numOfSimple);
+        System.out.println("Reinforced: " + numOfReinforced);
+        System.out.println("Explosive: " + numOfExplosive);
+        System.out.println("Rewarding: " + numOfRewarding);
 
+        if (!validateAndShowError(new int[]{numOfSimple, numOfReinforced, numOfExplosive, numOfRewarding})) return;
+
+        // Set barrier numbers in session manager's builder
+        SessionManager.getInstance().getBarrierBuilder().setBarrierCounts(numOfSimple, numOfReinforced, numOfExplosive, numOfRewarding);
+        Event.BuildDoneEvent.invoke();
+        userInputPanel.setVisible(false);
+        this.dispose();
+    }
+
+    public static boolean validateAndShowError(int[] barrierCounts) {
+        String validationError = BarrierManager.getInstance().validateBarrierCounts(barrierCounts[0], barrierCounts[1], barrierCounts[2], barrierCounts[3]);
+
+        if (validationError != null) {
+            CustomDialog.showErrorDialog(validationError);
+            return false;
+        }
+        return true;
+    }
 
 
 }

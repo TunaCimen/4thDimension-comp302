@@ -1,6 +1,6 @@
 package org.LanceOfDestiny.domain.managers;
 
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.looper.LoopExecutor;
 
 public class ScoreManager {
@@ -12,8 +12,8 @@ public class ScoreManager {
     private ScoreManager() {
         this.score = 0;
         loopExecutor = SessionManager.getInstance().getLoopExecutor();
-        Events.UpdateScore.addRunnableListener(this::updateScore);
-        Events.Reset.addRunnableListener(()->setScore(0));
+        Event.UpdateScore.addRunnableListener(this::updateScore);
+        Event.Reset.addRunnableListener(()->setScore(0));
     }
 
     public static ScoreManager getInstance() {
@@ -21,9 +21,10 @@ public class ScoreManager {
         return instance;
     }
 
-    // newScore = oldScore + 300 / (currentTime - gameStartingTime)
     private void updateScore() {
-        setScore(getScore() + 300 / (loopExecutor.getSecondsPassed()));
+        var seconds = loopExecutor.getSecondsPassed();
+        if(seconds == 0) seconds = 1;
+        setScore(getScore() + 300 / (seconds));
     }
 
     public int getScore() {

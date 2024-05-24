@@ -1,6 +1,6 @@
 package org.LanceOfDestiny.ui.UIElements;
 
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.domain.sprite.ImageOperations;
 
@@ -18,8 +18,8 @@ public class HealthBar extends JPanel {
         healths = new Stack<>();
         this.setVisible(true);
         initializePanel();
-        Events.UpdateChance.addListener(e->updateHealth((int)e) );
-        Events.Reset.addRunnableListener(()->setHealth(init_health));
+        Event.UpdateChance.addListener(e->updateHealth((int)e) );
+        Event.Reset.addRunnableListener(()->setHealth(init_health));
     }
 
     public void initializePanel(){

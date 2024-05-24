@@ -1,6 +1,6 @@
 package org.LanceOfDestiny;
 
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.InputManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ public class InputManagerTest {
     void setUp() {
         inputManager = InputManager.getInstance();
         inputManager.reset();
-        Events.clearAllListeners(); // Clear all listeners before each test
+        Event.clearAllListeners(); // Clear all listeners before each test
         resetAllEventsFired(); // Reset all event fired flags before each test
     }
 
@@ -25,67 +25,67 @@ public class InputManagerTest {
     void testUpdateActionsWithRotateKey() {
         inputManager.rotateKey = KeyEvent.VK_A;
         inputManager.updateActions();
-        assertTrue(Events.RotateStaff.eventsFired());
+        assertTrue(Event.RotateStaff.eventsFired());
 
         inputManager.rotateKey = KeyEvent.VK_D;
         inputManager.updateActions();
-        assertTrue(Events.RotateStaff.eventsFired());
+        assertTrue(Event.RotateStaff.eventsFired());
 
         inputManager.rotateKey = -1;
         inputManager.updateActions();
-        assertTrue(Events.ResetStaff.eventsFired());
+        assertTrue(Event.ResetStaff.eventsFired());
     }
 
     @Test
     void testUpdateActionsWithMoveKey() {
         inputManager.moveKey = KeyEvent.VK_LEFT;
         inputManager.updateActions();
-        assertTrue(Events.MoveStaff.eventsFired());
+        assertTrue(Event.MoveStaff.eventsFired());
 
         inputManager.moveKey = KeyEvent.VK_RIGHT;
         inputManager.updateActions();
-        assertTrue(Events.MoveStaff.eventsFired());
+        assertTrue(Event.MoveStaff.eventsFired());
     }
 
     @Test
     void testUpdateActionsWithShootFlag() {
         inputManager.isShootFlag = true;
         inputManager.updateActions();
-        assertTrue(Events.ShootBall.eventsFired());
+        assertTrue(Event.ShootBall.eventsFired());
     }
 
     @Test
     void testUpdateActionsWithSpellActivation() {
         inputManager.activateSpellKey = KeyEvent.VK_E;
         inputManager.updateActions();
-        assertTrue(Events.TryUsingSpell.eventsFired());
+        assertTrue(Event.ActivateSpell.eventsFired());
 
         inputManager.activateSpellKey = KeyEvent.VK_C;
         inputManager.updateActions();
-        assertTrue(Events.TryUsingSpell.eventsFired());
+        assertTrue(Event.ActivateSpell.eventsFired());
 
         inputManager.activateSpellKey = KeyEvent.VK_O;
         inputManager.updateActions();
-        assertTrue(Events.TryUsingSpell.eventsFired());
+        assertTrue(Event.ActivateSpell.eventsFired());
     }
 
     @Test
     void testUpdateActionsWithCurseActivation() {
         inputManager.activateCurseKey = KeyEvent.VK_1;
         inputManager.updateActions();
-        assertTrue(Events.TryUsingCurse.eventsFired());
+        assertTrue(Event.ActivateCurse.eventsFired());
 
         inputManager.activateCurseKey = KeyEvent.VK_2;
         inputManager.updateActions();
-        assertTrue(Events.TryUsingCurse.eventsFired());
+        assertTrue(Event.ActivateCurse.eventsFired());
 
         inputManager.activateCurseKey = KeyEvent.VK_3;
         inputManager.updateActions();
-        assertTrue(Events.TryUsingCurse.eventsFired());
+        assertTrue(Event.ActivateCurse.eventsFired());
     }
 
     private void resetAllEventsFired() {
-        for (Events event : Events.values()) {
+        for (Event event : Event.values()) {
             event.resetEventFired();
         }
     }

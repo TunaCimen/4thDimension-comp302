@@ -3,29 +3,21 @@ package org.LanceOfDestiny.domain.spells;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.barriers.BarrierFactory;
-import org.LanceOfDestiny.domain.behaviours.MonoBehaviour;
-import org.LanceOfDestiny.domain.events.Events;
-import org.LanceOfDestiny.domain.looper.LoopExecutor;
+import org.LanceOfDestiny.domain.barriers.BarrierTypes;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
-import org.LanceOfDestiny.domain.managers.SessionManager;
 
 import java.util.List;
 
-public class CurseManager extends MonoBehaviour {
+public class CurseManager {
     private static CurseManager instance;
-    private boolean isCurseActive;
-    private SpellType activeCurse;
-    private int curseEndSecond;
     private List<Barrier> barriersToFreeze;
-    private final LoopExecutor loopExecutor;
+
 
     private CurseManager() {
-        this.loopExecutor = SessionManager.getInstance().getLoopExecutor();
-        Events.TryUsingCurse.addListener(this::tryUsingCurse);
-        Events.ActivateHollowPurple.addListener(this::handleHollowPurple);
-        Events.ActivateInfiniteVoid.addListener(this::handleInfiniteVoid);
-        Events.Reset.addRunnableListener(this::resetCurseManager);
-        this.isCurseActive = false;
+        Event.ActivateCurse.addListener(this::activateCurse);
+        Event.ActivateHollowPurple.addListener(this::handleHollowPurple);
+        Event.ActivateInfiniteVoid.addListener(this::handleInfiniteVoid);
     }
 
     public static CurseManager getInstance() {
@@ -33,47 +25,20 @@ public class CurseManager extends MonoBehaviour {
         return instance;
     }
 
-    @Override
-    public void update() {
-        super.update();
-        if (isCurseActive) {
-
-            if (loopExecutor.getSecondsPassed() >= curseEndSecond) {
-                deactivateActiveCurse();
-            }
-        }
-    }
-
-    private void tryUsingCurse(Object object) {
-        if(isCurseActive) return;
-        isCurseActive = true;
-        activeCurse = (SpellType) object;
-        curseEndSecond = loopExecutor.getSecondsPassed() + Constants.CURSE_DURATION;
-        activeCurse.activate();
-    }
-
-    private void deactivateActiveCurse() {
-        isCurseActive = false;
-        activeCurse.deactivate();
+    public void activateCurse(Object objectSpelltype) {
+        System.out.println("Activating Curse: " + objectSpelltype);
+        new SpellActivation(((SpellType) objectSpelltype), Constants.CURSE_DURATION).activate();
     }
 
     public void handleHollowPurple(Object isActivate) {
         if ((boolean) isActivate) activateHollowPurple();
-        else deactivateHollowPurple();
     }
 
     public void activateHollowPurple() {
-        System.out.println("Activating Hollow Purple");
         var locations = BarrierManager.getInstance().getPossibleHollowBarrierLocations(8);
         for (var location : locations) {
-            BarrierFactory.createHollowBarrier(location);
+            BarrierFactory.createBarrier(location, BarrierTypes.HOLLOW);
         }
-        Events.ActivateSpellUI.invoke(SpellType.HOLLOW_PURPLE);
-    }
-
-    public void deactivateHollowPurple() {
-        System.out.println("Deactivating Hollow Purple");
-        isCurseActive = false;
     }
 
     public void handleInfiniteVoid(Object object) {
@@ -83,28 +48,18 @@ public class CurseManager extends MonoBehaviour {
     }
 
     public void activateInfiniteVoid() {
-        System.out.println("Activating Infinite Void");
         this.barriersToFreeze = BarrierManager.getInstance().getRandomBarriersWithAmount(8);
         for (Barrier barrier : barriersToFreeze) {
             barrier.activateFrozen();
         }
-        Events.ActivateSpellUI.invoke(SpellType.INFINITE_VOID);
     }
 
     public void deactivateInfiniteVoid() {
-        System.out.println("Deactivating Infinite Void");
-        isCurseActive = false;
+        if (this.barriersToFreeze == null) return;
         for (Barrier barrier : barriersToFreeze) {
             barrier.deactivateFrozen();
         }
         barriersToFreeze.clear();
-        barriersToFreeze = null;
-    }
-
-    private void resetCurseManager() {
-        isCurseActive = false;
-        activeCurse = null;
-        curseEndSecond = 0;
         barriersToFreeze = null;
     }
 }

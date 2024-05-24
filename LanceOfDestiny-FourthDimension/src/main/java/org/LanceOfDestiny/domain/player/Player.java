@@ -1,9 +1,8 @@
 package org.LanceOfDestiny.domain.player;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.behaviours.MonoBehaviour;
-import org.LanceOfDestiny.domain.spells.CurseManager;
 import org.LanceOfDestiny.domain.spells.SpellContainer;
 import org.LanceOfDestiny.domain.spells.SpellType;
 
@@ -15,9 +14,9 @@ public class Player extends MonoBehaviour {
         super();
         this.spellContainer = new SpellContainer();
         this.chancesLeft = Constants.DEFAULT_CHANCES;
-        Events.UpdateChance.addListener(this::updateChances);
-        Events.TryUsingSpell.addListener(this::tryUsingSpell);
-        Events.Reset.addRunnableListener(this::resetSpells);
+        Event.UpdateChance.addListener(this::updateChances);
+        Event.ActivateSpell.addListener(this::activateSpell);
+        Event.Reset.addRunnableListener(this::resetSpells);
     }
 
     @Override
@@ -30,9 +29,9 @@ public class Player extends MonoBehaviour {
         super.update();
     }
 
-    private void tryUsingSpell(Object objectSpellType) {
+    private void activateSpell(Object objectSpellType) {
         SpellType spellType = (SpellType) objectSpellType;
-        if(spellType.isGood()) spellContainer.activateSpell(spellType);
+        spellContainer.activateSpell(spellType);
     }
 
     public void updateChances(Object change){
@@ -44,7 +43,7 @@ public class Player extends MonoBehaviour {
         this.chancesLeft = chance;
         this.chancesLeft = Math.max(chancesLeft, MIN_CHANCES);
         if(this.chancesLeft == MIN_CHANCES) {
-            Events.EndGame.invoke("You Lost");
+            Event.EndGame.invoke("You Lost");
         }
     }
 
@@ -55,7 +54,7 @@ public class Player extends MonoBehaviour {
     public void resetSpells(){
         this.spellContainer.getSpellMap().forEach((a,b)-> b = false);
         for(SpellType spellType : SpellType.values()){
-            Events.ResetSpells.invoke(spellType);
+            Event.ResetSpells.invoke(spellType);
         }
     }
 

@@ -1,19 +1,30 @@
 package org.LanceOfDestiny.domain.network;
 
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.ScoreManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
+import org.LanceOfDestiny.domain.managers.Status;
+import org.LanceOfDestiny.domain.spells.SpellType;
 
 public class NetworkEventHandler {
 
+    private final SessionManager sessionManager;
+
     public NetworkEventHandler() {
-        Events.SendChanceUpdate.addRunnableListener(() -> sendGameState("Chances: " + SessionManager.getInstance().getPlayer().getChancesLeft()));
-        Events.SendScoreUpdate.addRunnableListener(() -> sendGameState("Score: " + ScoreManager.getInstance().getScore()));
-        Events.SendBarrierCountUpdate.addRunnableListener(() -> sendGameState("Barrier Count: " + BarrierManager.barriers.size()));
-        Events.SendGameDataToLoad.addRunnableListener(() -> sendGameState("Game Data: " + BarrierManager.getInstance().serializeAllBarriers()));
-        Events.SendPauseUpdate.addRunnableListener(() -> sendGameState("Pause Game: true"));
-        Events.SendResumeUpdate.addRunnableListener(() -> sendGameState("Resume Game: true"));
+        sessionManager = SessionManager.getInstance();
+        Event.SendChanceUpdate.addRunnableListener(() -> sendGameState("Chances: " + SessionManager.getInstance().getPlayer().getChancesLeft()));
+        Event.SendScoreUpdate.addRunnableListener(() -> {
+            sendGameState("Score: " + ScoreManager.getInstance().getScore());
+            System.out.println("Send score update");
+        });
+        Event.SendBarrierCountUpdate.addRunnableListener(() -> sendGameState("Barrier Count: " + BarrierManager.getInstance().barriers.size()));
+        Event.SendGameDataToLoad.addRunnableListener(() -> sendGameState("Game Data: " + BarrierManager.getInstance().serializeAllBarriers()));
+        Event.SendPauseUpdate.addRunnableListener(() -> sendGameState("Pause Game: true"));
+        Event.SendResumeUpdate.addRunnableListener(() -> sendGameState("Resume Game: true"));
+        Event.SendDoubleAccelUpdate.addRunnableListener(()->sendGameState("Double Accel: true"));
+        Event.SendHollowPurpleUpdate.addRunnableListener(()->sendGameState("Hollow Purple: true"));
+        Event.SendInfiniteVoidUpdate.addRunnableListener(()->sendGameState("Infinite Void: true"));
     }
 
     public void sendGameState(String gameState) {
@@ -31,24 +42,40 @@ public class NetworkEventHandler {
         }
         String eventType = parts[0].trim();
         String eventData = parts[1].trim();
+        System.out.println("Event type: " + eventType);
         switch (eventType) {
             case "Chances":
-                Events.ReceiveChanceUpdate.invoke(Integer.parseInt(eventData));
+                Event.ReceiveChanceUpdate.invoke(Integer.parseInt(eventData));
                 break;
             case "Score":
-                Events.ReceiveScoreUpdate.invoke(Integer.parseInt(eventData));
+                Event.ReceiveScoreUpdate.invoke(Integer.parseInt(eventData));
                 break;
             case "Barrier Count":
-                Events.ReceiveBarrierCountUpdate.invoke(Integer.parseInt(eventData));
+                Event.ReceiveBarrierCountUpdate.invoke(Integer.parseInt(eventData));
                 break;
             case "Game Data":
-                Events.ReceiveGameDataToLoad.invoke(eventData);
+                Event.ReceiveGameDataToLoad.invoke(eventData);
                 break;
             case "Pause Game":
-                Events.PauseGame.invoke();
+                if (sessionManager.getStatus() == Status.PausedMode) {
+                    return;
+                }
+                Event.PauseGame.invoke();
                 break;
             case "Resume Game":
-                Events.ResumeGame.invoke();
+                if (sessionManager.getStatus() == Status.RunningMode) {
+                    return;
+                }
+                Event.ResumeGame.invoke();
+                break;
+            case "Double Accel":
+                Event.ActivateCurse.invoke(SpellType.DOUBLE_ACCEL);
+                break;
+            case "Hollow Purple":
+                Event.ActivateCurse.invoke(SpellType.HOLLOW_PURPLE);
+                break;
+            case "Infinite Void":
+                Event.ActivateCurse.invoke(SpellType.INFINITE_VOID);
                 break;
             default:
                 System.out.println("Unknown event type: " + eventType);

@@ -4,7 +4,7 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.barriers.ExplosiveBarrier;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.physics.ColliderFactory;
 import org.LanceOfDestiny.domain.physics.ColliderType;
@@ -29,8 +29,8 @@ public class Hex extends GameObject {
         this.position = canon.getPosition().add(new Vector(Constants.CANON_WIDTH, -HEX_RADIUS * 2));
         this.isLeft = canon.isLeft;
         createColliderAndSprite();
-        Events.Reset.addRunnableListener(this::disable);
-        Events.LoadGame.addRunnableListener(this::disable);
+        Event.Reset.addRunnableListener(this::disable);
+        Event.LoadGame.addRunnableListener(this::disable);
     }
 
     private void createColliderAndSprite() {
@@ -66,8 +66,6 @@ public class Hex extends GameObject {
             if (!((Barrier) other).isFrozen())
                 ((Barrier) other).reduceLife();
         }
-
-
     }
 
     public void shoot() {

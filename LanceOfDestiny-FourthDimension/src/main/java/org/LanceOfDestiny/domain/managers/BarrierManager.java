@@ -2,19 +2,20 @@ package org.LanceOfDestiny.domain.managers;
 
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.*;
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import static org.LanceOfDestiny.domain.Constants.*;
 
 public class BarrierManager {
 
     private static BarrierManager instance;
-    public static ArrayList<Barrier> barriers;
+    public ArrayList<Barrier> barriers;
     private BarrierTypes selectedBarrierType;
     private Barrier clickedBarrier;
     private Vector oldLocationOfBarrier;
@@ -22,7 +23,8 @@ public class BarrierManager {
     private BarrierManager() {
         barriers = new ArrayList<>();
         selectedBarrierType = BarrierTypes.SIMPLE;
-        Events.EndGame.addRunnableListener(this::deleteAllBarriers);
+        Event.EndGame.addRunnableListener(this::deleteAllBarriers);
+        Event.Reset.addRunnableListener(this::deleteAllBarriers);
     }
 
     public static BarrierManager getInstance() {
@@ -182,11 +184,9 @@ public class BarrierManager {
         return allPossibleBarrierLocations.subList(0,amount);
     }
 
-    public static void displayBarrierInfo() {
+    public void displayBarrierInfo() {
         System.out.println("Barrier Manager Info");
-        System.out.println("Explosive Barrier Count: " + barriers.stream().filter(e -> {
-            return e instanceof ExplosiveBarrier;
-        }).toList().size());
+        System.out.println("Explosive Barrier Count: " + barriers.stream().filter(e -> e instanceof ExplosiveBarrier).toList().size());
         System.out.println("Reinforced Barrier Count: " + barriers.stream().filter(e -> {
             return e instanceof ReinforcedBarrier;
         }).toList().size());
@@ -196,6 +196,8 @@ public class BarrierManager {
         System.out.println("Rewarding Barrier Count: " + barriers.stream().filter(e -> {
             return e instanceof RewardingBarrier;
         }).toList().size());
+
+        System.out.println("IsMovingBarrierCount: " + barriers.stream().filter(Barrier::isMoving).toList().size());
     }
 
     /**
@@ -264,4 +266,26 @@ public class BarrierManager {
             }
         }
     }
+
+    public int[] generateRandomValidBarrierCounts() {
+        Random random = new Random();
+        int numOfSimple = random.nextInt(MAX_SIMPLE - MIN_SIMPLE + 1) + MIN_SIMPLE;
+        int numOfReinforced = random.nextInt(MAX_REINFORCED - MIN_REINFORCED + 1) + MIN_REINFORCED;
+        int numOfExplosive = random.nextInt(MAX_EXPLOSIVE - MIN_EXPLOSIVE + 1) + MIN_EXPLOSIVE;
+        int numOfRewarding = random.nextInt(MAX_REWARDING - MIN_REWARDING + 1) + MIN_REWARDING;
+        String validationError = validateBarrierCounts(numOfSimple, numOfReinforced, numOfExplosive, numOfRewarding);
+        if (validationError != null) {
+            return generateRandomValidBarrierCounts();
+        }
+        return new int[]{numOfSimple, numOfReinforced, numOfExplosive, numOfRewarding};
+    }
+
+    public int[] getBarrierCounts() {
+        int numOfSimple = (int) barriers.stream().filter(barrier -> barrier instanceof SimpleBarrier).count();
+        int numOfReinforced = (int) barriers.stream().filter(barrier -> barrier instanceof ReinforcedBarrier).count();
+        int numOfExplosive = (int) barriers.stream().filter(barrier -> barrier instanceof ExplosiveBarrier).count();
+        int numOfRewarding = (int) barriers.stream().filter(barrier -> barrier instanceof RewardingBarrier).count();
+        return new int[]{numOfSimple, numOfReinforced, numOfExplosive, numOfRewarding};
+    }
+
 }

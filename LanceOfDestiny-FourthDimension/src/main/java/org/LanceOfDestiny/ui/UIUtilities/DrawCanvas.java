@@ -7,7 +7,7 @@ import org.LanceOfDestiny.domain.behaviours.Behaviour;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
 
 
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.sprite.*;
 import org.LanceOfDestiny.ui.UIElements.YmirUI;
 
@@ -27,11 +27,11 @@ public class DrawCanvas extends JPanel {
     YmirUI ymirUI;
     MouseHandler mouseHandler;
 
-    public List<JComponent> foregroundList;
+    public List<Drawable> foregroundList;
     public DrawCanvas() {
         foregroundList = new ArrayList<>();
-        Events.CanvasUpdateEvent.addRunnableListener(this::repaint);
-        Events.Reset.addRunnableListener(Events.CanvasUpdateEvent::invoke);
+        Event.CanvasUpdateEvent.addRunnableListener(this::repaint);
+        Event.Reset.addRunnableListener(Event.CanvasUpdateEvent::invoke);
         mouseHandler = new BuildModeMouseHandler(this);
         var width = Constants.SCREEN_WIDTH;
         var height = Constants.SCREEN_HEIGHT;
@@ -58,15 +58,9 @@ public class DrawCanvas extends JPanel {
                 gameObjectSprite.drawShape(g);
                 }
             }
-        g.setColor(Color.BLACK);  // Set the color for the text
-        Font originalFont = g.getFont();
-        Font largeFont = originalFont.deriveFont(50f); // Set the font size to 50
-        g.setFont(largeFont);
-        g.drawString("FOREGROUNDTEST", 100, 250);
-
-        // Optionally reset the font back to the original if needed
-        g.setFont(originalFont);
-
+        for(Drawable d : foregroundList){
+            d.drawShape(g);
+        }
         }
 
 

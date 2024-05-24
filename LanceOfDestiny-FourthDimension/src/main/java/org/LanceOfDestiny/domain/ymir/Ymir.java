@@ -1,12 +1,11 @@
 package org.LanceOfDestiny.domain.ymir;
 
 import org.LanceOfDestiny.domain.behaviours.MonoBehaviour;
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.looper.LoopExecutor;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.spells.SpellType;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -24,8 +23,8 @@ public class Ymir extends MonoBehaviour {
         lastTwoAbilities[0] = SpellType.DOUBLE_ACCEL;
         lastTwoAbilities[1] = SpellType.HOLLOW_PURPLE;
         this.loopExecutor = SessionManager.getInstance().getLoopExecutor();
-        Events.Reset.addRunnableListener(() -> nextCoinFlipSeconds = 0);
-        Events.LoadGame.addRunnableListener(() -> nextCoinFlipSeconds = 0);
+        Event.Reset.addRunnableListener(() -> nextCoinFlipSeconds = 0);
+        Event.LoadGame.addRunnableListener(() -> nextCoinFlipSeconds = 0);
     }
 
     @Override
@@ -41,15 +40,12 @@ public class Ymir extends MonoBehaviour {
          while (!validateCurse(randomCurse)) {
              randomCurse = getRandomCurse();
          }
-
-         Events.TryUsingCurse.invoke(randomCurse);
+         Event.ActivateCurse.invoke(randomCurse);
          updateLastTwoAbilities(randomCurse);
     }
 
     private SpellType getRandomCurse() {
-        List<SpellType> badSpells = Arrays.stream(SpellType.values())
-                .filter(spellType -> !spellType.isGood())
-                .toList();
+        List<SpellType> badSpells = SpellType.getBadSpells();
         return badSpells.get(RANDOM.nextInt(badSpells.size()));
     }
 

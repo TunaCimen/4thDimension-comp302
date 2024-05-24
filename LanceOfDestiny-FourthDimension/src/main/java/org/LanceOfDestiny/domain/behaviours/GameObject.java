@@ -1,9 +1,5 @@
 package org.LanceOfDestiny.domain.behaviours;
 
-import org.LanceOfDestiny.domain.barriers.ExplosiveBarrier;
-import org.LanceOfDestiny.domain.barriers.ReinforcedBarrier;
-import org.LanceOfDestiny.domain.barriers.RewardingBarrier;
-import org.LanceOfDestiny.domain.barriers.SimpleBarrier;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.physics.Collider;
 import org.LanceOfDestiny.domain.physics.Collision;
@@ -108,7 +104,7 @@ public abstract class GameObject extends Behaviour {
 
     public static void displayGameObjects() {
         System.out.println("Game Objects Info");
-        BarrierManager.displayBarrierInfo();
+        BarrierManager.getInstance().displayBarrierInfo();
         System.out.println("Hex Count: " + gameObjects.stream().filter(e -> {
             return e instanceof Hex;
         }).toList().size());

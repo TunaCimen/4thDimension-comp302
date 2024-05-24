@@ -1,11 +1,8 @@
 package org.LanceOfDestiny.database;
 
 import org.LanceOfDestiny.domain.barriers.*;
-import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
-import org.LanceOfDestiny.domain.physics.Vector;
-import org.LanceOfDestiny.domain.ymir.Ymir;
 
 import java.sql.*;
 import java.util.ArrayList;

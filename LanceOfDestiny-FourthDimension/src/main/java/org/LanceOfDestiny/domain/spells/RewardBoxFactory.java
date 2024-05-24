@@ -1,11 +1,10 @@
 package org.LanceOfDestiny.domain.spells;
 
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.physics.Vector;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -16,7 +15,7 @@ public class RewardBoxFactory {
     private static final Random RANDOM = new Random();
 
     private RewardBoxFactory() {
-        Events.Reset.addRunnableListener(this::removeRewardBoxes);
+        Event.Reset.addRunnableListener(this::removeRewardBoxes);
     }
 
     public static RewardBoxFactory getInstance() {
@@ -42,9 +41,7 @@ public class RewardBoxFactory {
             return SpellType.values()[RANDOM.nextInt(SpellType.values().length)];
         } else {
             // Only good spells in single-player mode
-            List<SpellType> goodSpells = Arrays.stream(SpellType.values())
-                    .filter(SpellType::isGood)
-                    .toList();
+            List<SpellType> goodSpells = SpellType.getGoodSpells();
             return goodSpells.get(RANDOM.nextInt(goodSpells.size()));
         }
     }

@@ -1,17 +1,19 @@
 package org.LanceOfDestiny.domain.spells;
 
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
+
+import java.util.ArrayList;
 
 public enum SpellType {
     CANON {
         @Override
         public void activate() {
-            Events.ActivateCanons.invoke(true);
+            Event.ActivateCanons.invoke(true);
         }
 
         @Override
         public void deactivate() {
-            Events.ActivateCanons.invoke(false);
+            Event.ActivateCanons.invoke(false);
         }
 
         @Override
@@ -22,12 +24,12 @@ public enum SpellType {
     EXPANSION {
         @Override
         public void activate() {
-            Events.ActivateExpansion.invoke(true);
+            Event.ActivateExpansion.invoke(true);
         }
 
         @Override
         public void deactivate() {
-            Events.ActivateExpansion.invoke(false);
+            Event.ActivateExpansion.invoke(false);
         }
 
         @Override
@@ -38,12 +40,12 @@ public enum SpellType {
     OVERWHELMING {
         @Override
         public void activate() {
-            Events.ActivateOverwhelming.invoke(true);
+            Event.ActivateOverwhelming.invoke(true);
         }
 
         @Override
         public void deactivate() {
-            Events.ActivateOverwhelming.invoke(false);
+            Event.ActivateOverwhelming.invoke(false);
         }
 
         @Override
@@ -71,12 +73,12 @@ public enum SpellType {
     INFINITE_VOID {
         @Override
         public void activate() {
-            Events.ActivateInfiniteVoid.invoke(true);
+            Event.ActivateInfiniteVoid.invoke(true);
         }
 
         @Override
         public void deactivate() {
-            Events.ActivateInfiniteVoid.invoke(false);
+            Event.ActivateInfiniteVoid.invoke(false);
         }
 
         @Override
@@ -87,12 +89,12 @@ public enum SpellType {
     DOUBLE_ACCEL {
         @Override
         public void activate() {
-            Events.ActivateDoubleAccel.invoke(true);
+            Event.ActivateDoubleAccel.invoke(true);
         }
 
         @Override
         public void deactivate() {
-            Events.ActivateDoubleAccel.invoke(false);
+            Event.ActivateDoubleAccel.invoke(false);
         }
 
         @Override
@@ -103,12 +105,12 @@ public enum SpellType {
     HOLLOW_PURPLE {
         @Override
         public void activate() {
-            Events.ActivateHollowPurple.invoke(true);
+            Event.ActivateHollowPurple.invoke(true);
         }
 
         @Override
         public void deactivate() {
-            Events.ActivateHollowPurple.invoke(false);
+            Event.ActivateHollowPurple.invoke(false);
         }
 
         @Override
@@ -120,4 +122,24 @@ public enum SpellType {
     public abstract void activate();
     public abstract void deactivate();
     public abstract boolean isGood();
+
+    public static ArrayList<SpellType> getGoodSpells() {
+        ArrayList<SpellType> goodSpells = new ArrayList<>();
+        for (SpellType spell : SpellType.values()) {
+            if (spell.isGood()) {
+                goodSpells.add(spell);
+            }
+        }
+        return goodSpells;
+    }
+
+    public static ArrayList<SpellType> getBadSpells() {
+        ArrayList<SpellType> badSpells = new ArrayList<>();
+        for (SpellType spell : SpellType.values()) {
+            if (!spell.isGood()) {
+                badSpells.add(spell);
+            }
+        }
+        return badSpells;
+    }
 }

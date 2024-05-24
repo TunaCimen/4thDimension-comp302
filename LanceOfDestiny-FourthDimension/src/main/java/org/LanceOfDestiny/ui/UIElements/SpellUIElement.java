@@ -15,6 +15,7 @@ public class SpellUIElement extends JLayeredPane {
     private JProgressBar progressBar;
 
     private Dimension preferredDimension;
+
     public SpellUIElement(ImageIcon imageIcon, Dimension size){
         this.imageIcon = imageIcon;
         reducedImageIcon = ImageOperations.reducedTransparencyImageIcon(imageIcon);
@@ -46,12 +47,11 @@ public class SpellUIElement extends JLayeredPane {
     }
 
     public void activateSpell(){
-        System.out.println("Here activated 1");
+
         new TimedAction(Constants.SPELL_DURATION) {
             @Override
             public void onUpdate() {
-                System.out.println("Here changing the value on update");
-                progressBar.setValue(Constants.SPELL_DURATION - getTimePassed());
+                setProgressBarValue(Constants.SPELL_DURATION - getTimePassed());
             }
         }.start();
 
