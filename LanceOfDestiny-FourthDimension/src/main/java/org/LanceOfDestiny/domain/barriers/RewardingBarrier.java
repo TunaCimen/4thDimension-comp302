@@ -3,6 +3,7 @@ package org.LanceOfDestiny.domain.barriers;
 import org.LanceOfDestiny.domain.spells.RewardBox;
 import org.LanceOfDestiny.domain.spells.RewardBoxFactory;
 import org.LanceOfDestiny.domain.physics.Vector;
+import org.LanceOfDestiny.domain.spells.SpellType;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.domain.sprite.ImageOperations;
 
@@ -20,6 +21,11 @@ public class RewardingBarrier extends Barrier{
                 ,this.getSprite().width(),this.getSprite().height()));
         this.defaultSprite = sprite;
         adjustFrozenSprite();
+    }
+
+    public void setReward(SpellType spellType) {
+        RewardBoxFactory.getInstance().removeRewardBox(this.rewardBox);
+        this.rewardBox = RewardBoxFactory.createRewardBox(position, spellType);
     }
 
     @Override

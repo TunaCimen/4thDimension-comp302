@@ -2,6 +2,7 @@ package org.LanceOfDestiny.domain.barriers;
 
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.physics.Vector;
+import org.LanceOfDestiny.domain.spells.SpellType;
 
 import java.util.Random;
 
@@ -32,6 +33,14 @@ public class BarrierFactory {
         }
     }
 
+    /**
+     * Factory method for loading barriers. Used for save/load and multiplayer map sharing.
+     * @param position
+     * @param barrierType
+     * @param hitsLeft
+     * @param moving
+     * @return the created barrier
+     */
     public static Barrier createBarrier(Vector position, String barrierType, int hitsLeft, boolean moving) {
         Barrier barrier;
         switch (barrierType) {
@@ -57,6 +66,14 @@ public class BarrierFactory {
         barrier.initDirection();
         barrier.start();
         BarrierManager.getInstance().addBarrier(barrier);
+        return barrier;
+    }
+
+    public static Barrier createBarrier(Vector position, String barrierType, int hitsLeft, boolean isMoving, SpellType spellType) {
+        var barrier = createBarrier(position, barrierType, hitsLeft, isMoving);
+        if ((barrier instanceof RewardingBarrier rewarding) && spellType != null) {
+            rewarding.setReward(spellType);
+        }
         return barrier;
     }
 }
