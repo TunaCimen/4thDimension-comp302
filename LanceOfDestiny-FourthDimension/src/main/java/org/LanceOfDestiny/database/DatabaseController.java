@@ -98,6 +98,7 @@ public class DatabaseController {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        System.out.println(barriers.size());
         return barriers;
     }
 
