@@ -124,8 +124,4 @@ public class SpellInventory extends JPanel {
         doubleAccelSpell.resetSpellUI();
         infiniteVoidSpell.resetSpellUI();
     }
-
-
-
-
 }
