@@ -124,7 +124,6 @@ public class NetworkManager {
     private void setupStreams() throws IOException {
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new PrintWriter(socket.getOutputStream(), true);
-
     }
 
     public void sendGameState(String gameState) {
