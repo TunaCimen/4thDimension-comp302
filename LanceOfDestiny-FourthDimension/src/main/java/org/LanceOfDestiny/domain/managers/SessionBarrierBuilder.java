@@ -34,12 +34,12 @@ public class SessionBarrierBuilder {
         }
 
         // Shuffling for randomization
-        Collections.shuffle(BarrierManager.barriers);
+        Collections.shuffle(BarrierManager.getInstance().getBarriers());
 
         int x = 40;
         int y = 40;
 
-        for (Barrier barrier : BarrierManager.barriers) {
+        for (Barrier barrier : BarrierManager.getInstance().getBarriers()) {
             barrier.setPosition(new Vector(x, y));
             if (barrier.getType() == BarrierTypes.EXPLOSIVE) {
                 barrier.shiftPosition(new Vector(x, y));

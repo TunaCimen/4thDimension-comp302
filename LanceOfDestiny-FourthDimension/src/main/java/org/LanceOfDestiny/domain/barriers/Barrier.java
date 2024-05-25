@@ -1,7 +1,7 @@
 package org.LanceOfDestiny.domain.barriers;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.physics.ColliderFactory;
@@ -66,11 +66,12 @@ public abstract class Barrier extends GameObject {
     public void destroy() {
         super.destroy();
         BarrierManager.getInstance().removeBarrier(this);
+        Event.SendBarrierCountUpdate.invoke();
     }
 
     public void kill() {
         destroy();
-        Events.UpdateScore.invoke();
+        Event.UpdateScore.invoke();
     }
 
     public void reduceLife() {

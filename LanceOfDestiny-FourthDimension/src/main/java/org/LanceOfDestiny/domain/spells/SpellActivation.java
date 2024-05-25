@@ -1,7 +1,7 @@
 package org.LanceOfDestiny.domain.spells;
 
 import org.LanceOfDestiny.domain.behaviours.MonoBehaviour;
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 
 public class SpellActivation extends MonoBehaviour {
@@ -16,8 +16,8 @@ public class SpellActivation extends MonoBehaviour {
     public SpellActivation(SpellType spellType, int duration) {
         this.spellType = spellType;
         this.duration = duration;
-        Events.LoadGame.addRunnableListener(this::deactivate);
-        Events.Reset.addRunnableListener(this::deactivate);
+        Event.LoadGame.addRunnableListener(this::deactivate);
+        Event.Reset.addRunnableListener(this::deactivate);
     }
 
     @Override

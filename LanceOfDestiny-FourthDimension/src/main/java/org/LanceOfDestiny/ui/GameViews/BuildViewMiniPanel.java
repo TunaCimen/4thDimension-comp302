@@ -2,7 +2,7 @@ package org.LanceOfDestiny.ui.GameViews;
 
 //This panel will be displayed on gameview screen to build game in a more aesthetic way
 
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.ui.CustomViews.CustomDialog;
@@ -180,7 +180,7 @@ public class BuildViewMiniPanel extends JFrame implements Window {
 
         // Set barrier numbers in session manager's builder
         SessionManager.getInstance().getBarrierBuilder().setBarrierCounts(numOfSimple, numOfReinforced, numOfExplosive, numOfRewarding);
-        Events.BuildDoneEvent.invoke();
+        Event.BuildDoneEvent.invoke();
         userInputPanel.setVisible(false);
         this.dispose();
     }

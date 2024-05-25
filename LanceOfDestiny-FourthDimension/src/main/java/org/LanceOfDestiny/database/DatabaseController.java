@@ -1,11 +1,8 @@
 package org.LanceOfDestiny.database;
 
 import org.LanceOfDestiny.domain.barriers.*;
-import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
-import org.LanceOfDestiny.domain.physics.Vector;
-import org.LanceOfDestiny.domain.ymir.Ymir;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -77,8 +74,7 @@ public class DatabaseController {
         return true;
     }
 
-    public List<Barrier> loadBarriers(String username, String saveName) {
-        List<Barrier> barriers = new ArrayList<>();
+    public void loadBarriers(String username, String saveName) {
         try (PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM savedBarrier WHERE savedByuser = ? AND saveName = ?")) {
             pstmt.setString(1, username);
             pstmt.setString(2, saveName);
@@ -89,16 +85,11 @@ public class DatabaseController {
                         + resultSet.getInt("hitsLeft") + ","
                         + resultSet.getString("coordinate") + ","
                         + resultSet.getBoolean("moving");
-                Barrier barrier = BarrierManager.getInstance().loadBarrierFromString(barrierInfo);
-                if (barrier != null) {
-                    barriers.add(barrier);
-                    BarrierManager.getInstance().addBarrier(barrier);
-                }
+                BarrierManager.getInstance().loadBarrierFromString(barrierInfo);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return barriers;
     }
 
 

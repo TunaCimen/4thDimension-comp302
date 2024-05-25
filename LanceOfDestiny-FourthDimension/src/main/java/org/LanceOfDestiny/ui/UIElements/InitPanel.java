@@ -1,10 +1,12 @@
 package org.LanceOfDestiny.ui.UIElements;
 
 import org.LanceOfDestiny.domain.Constants;
+
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.ui.UIElements.UILibrary;
 import org.LanceOfDestiny.ui.UIUtilities.BackgroundJPanel;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,11 +33,11 @@ public class InitPanel extends BackgroundJPanel {
         add(multiplayerButton);
 
         multiplayerButton.addActionListener(e -> {
-            Events.MultiplayerSelected.invoke();
+            Event.MultiplayerSelected.invoke();
         });
 
         singlePlayerButton.addActionListener(e -> {
-            Events.SingleplayerSelected.invoke();
+            Event.SingleplayerSelected.invoke();
         });
     }
 

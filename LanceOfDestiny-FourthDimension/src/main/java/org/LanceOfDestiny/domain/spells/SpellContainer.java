@@ -1,7 +1,7 @@
 package org.LanceOfDestiny.domain.spells;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 
 import java.util.HashMap;
 /**
@@ -15,13 +15,13 @@ public class SpellContainer {
             if (spellType.equals(SpellType.CHANCE)) continue;
             spellMap.put(spellType, false);
         }
-        Events.GainSpell.addListener(this::addSpell);
+        Event.GainSpell.addListener(this::addSpell);
     }
 
     public void addSpell(Object spellObject) {
         var spellType = (SpellType) spellObject;
         if (spellType.equals(SpellType.CHANCE)) {
-            Events.UpdateChance.invoke(1);
+            Event.UpdateChance.invoke(1);
             return;
         }
         if (spellExists(spellType)) {
@@ -37,9 +37,9 @@ public class SpellContainer {
         else {
             // This will only work if it is multiplayer, no need for a check
             switch (spellType) {
-                case HOLLOW_PURPLE -> Events.SendHollowPurpleUpdate.invoke();
-                case INFINITE_VOID -> Events.SendInfiniteVoidUpdate.invoke();
-                case DOUBLE_ACCEL -> Events.SendDoubleAccelUpdate.invoke();
+                case HOLLOW_PURPLE -> Event.SendHollowPurpleUpdate.invoke();
+                case INFINITE_VOID -> Event.SendInfiniteVoidUpdate.invoke();
+                case DOUBLE_ACCEL -> Event.SendDoubleAccelUpdate.invoke();
             }
         }
         removeSpell(spellType);

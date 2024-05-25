@@ -1,8 +1,7 @@
 package org.LanceOfDestiny.domain.looper;
 
-import org.LanceOfDestiny.domain.behaviours.AnimationBehaviour;
 import org.LanceOfDestiny.domain.behaviours.Behaviour;
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.InputManager;
 import org.LanceOfDestiny.domain.physics.PhysicsManager;
 
@@ -14,10 +13,10 @@ public class GameExec extends Behaviour {
     private boolean isPaused = false;
     public GameExec(JPanel drawCanvas) {
         this.drawCanvas = drawCanvas;
-        Events.PauseGame.addRunnableListener(this::pauseGame);
-        Events.ResumeGame.addRunnableListener(this::resumeGame);
-        Events.Reset.addRunnableListener(this::pauseGame);
-        Events.LoadGame.addRunnableListener(this::start);
+        Event.PauseGame.addRunnableListener(this::pauseGame);
+        Event.ResumeGame.addRunnableListener(this::resumeGame);
+        Event.Reset.addRunnableListener(this::pauseGame);
+        Event.LoadGame.addRunnableListener(this::start);
     }
 
     @Override

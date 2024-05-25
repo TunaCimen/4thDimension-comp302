@@ -1,10 +1,12 @@
 package org.LanceOfDestiny.ui.UIElements;
 
 import org.LanceOfDestiny.domain.Constants;
+
 import org.LanceOfDestiny.domain.events.Events;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.ui.UIElements.UILibrary;
 import org.LanceOfDestiny.ui.UIUtilities.BackgroundJPanel;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +28,7 @@ public class MultiplayerPanel extends BackgroundJPanel {
         hostButton = UILibrary.createButton("Host Game",this::showHostPrompt);
         joinButton = UILibrary.createButton("Join Game", this::showJoinPrompt);
         backButton = UILibrary.createButton("Back",()->{
-            Events.MultiplayerSelected.invoke();
+            Event.MultiplayerSelected.invoke();
             showMainPrompt();
         });
 
@@ -40,7 +42,7 @@ public class MultiplayerPanel extends BackgroundJPanel {
         add(joinButton);
         add(backButton);
         backButton.removeActionListener(backButton.getActionListeners()[0]);
-        backButton.addActionListener(Events.ShowInitGame::invoke);
+        backButton.addActionListener(Event.ShowInitGame::invoke);
         revalidate();
         repaint();
     }
@@ -55,12 +57,12 @@ public class MultiplayerPanel extends BackgroundJPanel {
         add(backButton);
         backButton.removeActionListener(backButton.getActionListeners()[0]);
         backButton.addActionListener((e)->{
-            Events.MultiplayerSelected.invoke();
+            Event.MultiplayerSelected.invoke();
             showMainPrompt();
         });
         joinButton.removeActionListener(joinButton.getActionListeners()[0]);
         joinButton.addActionListener(e->{
-            Events.TryJoiningSession.invoke(ipField.getText());
+            Event.TryJoiningSession.invoke(ipField.getText());
             showMainPrompt();
         });
         revalidate();
@@ -75,12 +77,12 @@ public class MultiplayerPanel extends BackgroundJPanel {
         add(backButton);
         backButton.removeActionListener(backButton.getActionListeners()[0]);
         backButton.addActionListener((e)->{
-            Events.MultiplayerSelected.invoke();
+            Event.MultiplayerSelected.invoke();
             showMainPrompt();
         });
         hostButton.removeActionListener(joinButton.getActionListeners()[0]);
         hostButton.addActionListener(e->{
-            Events.Reset.invoke();
+            Event.Reset.invoke();
             System.out.println("Host Clickeeeeeeeed");
         });
 
