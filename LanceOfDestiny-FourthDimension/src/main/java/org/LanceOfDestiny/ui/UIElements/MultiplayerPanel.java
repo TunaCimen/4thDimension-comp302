@@ -2,12 +2,14 @@ package org.LanceOfDestiny.ui.UIElements;
 
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.ui.UIElements.UILibrary;
+import org.LanceOfDestiny.ui.UIUtilities.BackgroundJPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MultiplayerPanel extends JPanel {
+public class MultiplayerPanel extends BackgroundJPanel {
 
     private JButton hostButton;
     private JButton joinButton;
@@ -16,6 +18,7 @@ public class MultiplayerPanel extends JPanel {
     private JButton backButton;
 
     public MultiplayerPanel(){
+        setBackground(ImageLibrary.Background.getImage());
         ipField = new JTextField();
         ipField.setAlignmentX(Component.CENTER_ALIGNMENT);
         ipField.setMaximumSize(new Dimension(150,45));
