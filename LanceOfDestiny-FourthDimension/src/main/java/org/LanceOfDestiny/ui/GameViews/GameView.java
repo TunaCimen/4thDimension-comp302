@@ -49,7 +49,7 @@ public class GameView extends JFrame implements Window {
         this.cardPanel = new JPanel(cardLayout);
         this.countdown = new TextUI("5"
                 ,Color.orange,new Font("IMPACT", Font.PLAIN, 20)
-                , 75f,Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT/2,1);
+                , 100f,Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT/2,100);
         add(cardPanel, BorderLayout.CENTER);
         setLayout(cardLayout);
         initializeComponents();
@@ -203,7 +203,7 @@ public class GameView extends JFrame implements Window {
 
             TextUI fading = new TextUI("WAITING FOR OTHER PLAYER"
                     ,Color.orange,new Font("IMPACT", Font.PLAIN, 20)
-                    , 50f,Constants.SCREEN_WIDTH/2-200,Constants.SCREEN_HEIGHT/2,1);
+                    , 50f,Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT/2,1);
             fading.setAnimationBehaviour(new LinearInterpolation(48,50, fading::getOpacity,fading::setOpacity));
             SessionManager.getInstance()
                     .getDrawCanvas()

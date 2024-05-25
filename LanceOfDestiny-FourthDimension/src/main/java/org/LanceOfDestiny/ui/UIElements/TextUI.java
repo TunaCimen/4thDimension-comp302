@@ -27,13 +27,15 @@ public class TextUI implements Animatable, Drawable {
     }
     @Override
     public void drawShape(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setColor(color);
-        g2d.setFont(font);
-        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity /100f));
-        System.out.println("OPacity: " + opacity);
-        g2d.drawString(text, locX- font.getSize(), locY);
+            Graphics2D g2d = (Graphics2D) g;
+            g2d.setFont(font);
+            FontMetrics metrics = g2d.getFontMetrics(font);
+            int textWidth = metrics.stringWidth(text);
 
+            g2d.setColor(color);
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity / 100f));
+            System.out.println("Opacity: " + opacity);
+            g2d.drawString(text, locX - textWidth/2, locY);
     }
 
     @Override

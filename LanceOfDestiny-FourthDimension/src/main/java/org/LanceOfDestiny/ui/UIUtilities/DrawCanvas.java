@@ -59,6 +59,7 @@ public class DrawCanvas extends JPanel {
                 }
             }
         for(Drawable d : foregroundList){
+            System.out.println("Drawing the foreground");
             d.drawShape(g);
         }
         }
