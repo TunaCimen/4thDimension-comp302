@@ -3,6 +3,7 @@ package org.LanceOfDestiny.domain.barriers;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
+import org.LanceOfDestiny.domain.managers.AudioManager;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.physics.ColliderFactory;
 import org.LanceOfDestiny.domain.physics.ColliderType;
@@ -80,6 +81,7 @@ public abstract class Barrier extends GameObject {
 
     public void reduceLife() {
         hitsLeft--;
+        AudioManager.getInstance().playSoundEffect();
         if (isDestroyed()) {
             kill();
         }

@@ -6,14 +6,14 @@ public class Constants {
     // GENERAL
     public static final float UPDATE_RATE = 0.016f;
     public static final int SCREEN_WIDTH = 1400;
-    public static final int SCREEN_HEIGHT = 720;
+    public static final int SCREEN_HEIGHT = 800;
     public static final int L = SCREEN_WIDTH / 10;
     public static final int T = 20;
     // MAGICAL STAFF
     public static final int STAFF_WIDTH = L;
     public static final int STAFF_HEIGHT = T;
     public static final float STAFF_SPEED = L * UPDATE_RATE * 3;
-    public static final Vector STAFF_POSITION = new Vector((double) SCREEN_WIDTH / 2 - ((double) STAFF_WIDTH / 2), SCREEN_HEIGHT-120);
+    public static final Vector STAFF_POSITION = new Vector((double) SCREEN_WIDTH / 2 - ((double) STAFF_WIDTH / 2), SCREEN_HEIGHT-180);
     public static final double STAFF_ANGULAR_SPEED = UPDATE_RATE * 50 * Math.PI / 180;
     // FIREBALL
     public static final Vector FIREBALL_POSITION = new Vector((double) SCREEN_WIDTH / 2, SCREEN_HEIGHT - 120);
@@ -46,5 +46,5 @@ public class Constants {
     public static final int BARRIER_X_OFFSET = 60;
     public static final int BARRIER_Y_OFFSET = 50;
 
-    public static final int DEFAULT_CHANCES = 3;
+    public static final int DEFAULT_CHANCES = 10;
 }

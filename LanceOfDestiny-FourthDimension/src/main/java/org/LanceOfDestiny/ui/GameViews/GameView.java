@@ -82,7 +82,10 @@ public class GameView extends JFrame implements Window {
     private void subscribeMethods() {
         Event.StartGame.addRunnableListener(this::startGame);
         Event.Reset.addRunnableListener(this::handleNewGame);
-        Event.ResumeGame.addRunnableListener(this::requestFocusInWindow);
+        Event.ResumeGame.addRunnableListener(()->{
+            this.requestFocusInWindow();
+            AudioManager.getInstance().startBackgroundMusic();
+        });
         Event.LoadGame.addRunnableListener(Event.CanvasUpdateEvent::invoke);
         Event.LoadGame.addRunnableListener(() -> {
             healthBarDisplay.setHealth(
@@ -93,6 +96,7 @@ public class GameView extends JFrame implements Window {
             scoreBar.updateValue();
         });
         Event.EndGame.addRunnableListener(() -> {
+            AudioManager.getInstance().stopBackgroundMusic();
             showPanel(STATUS_END);
         });
         Event.BuildDoneEvent.addRunnableListener(() -> {
@@ -123,6 +127,7 @@ public class GameView extends JFrame implements Window {
             hostButton.getParent().remove(hostButton);
         });
         Event.PauseGame.addRunnableListener(() -> {
+            AudioManager.getInstance().stopBackgroundMusic();
             buttonPlay.setEnabled(true);
         });
         Event.PauseGame.addRunnableListener(() -> {
@@ -137,6 +142,7 @@ public class GameView extends JFrame implements Window {
         });
 
         countdown.setAnimationBehaviourOnEvent(new CountdownAnimation(5,countdown::setText,()->{
+            AudioManager.getInstance().startBackgroundMusic();
             Event.StartGame.invoke();
             if(SessionManager.getInstance().getGameMode() == SessionManager.GameMode.MULTIPLAYER) {
                 Event.SendGameStarted.invoke();
@@ -165,6 +171,7 @@ public class GameView extends JFrame implements Window {
         // Initialize enemy status panel
         enemyStatusPanel = createEnemyStatusPanel();
         enemyStatusPanel.setVisible(false);
+
     }
 
     public void startGame() {
@@ -201,10 +208,24 @@ public class GameView extends JFrame implements Window {
 
     }
 
+    private JPanel createBottomControlPanel() {
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new BoxLayout(bottomPanel,BoxLayout.X_AXIS));
+        bottomPanel.setFocusable(false);
+        bottomPanel.setPreferredSize(new Dimension(Constants.SCREEN_WIDTH, 50));
+        Component leftGlue = Box.createHorizontalGlue();
+        Component rightGlue = Box.createHorizontalGlue();
+        bottomPanel.add(leftGlue);
+        bottomPanel.add(enemyStatusPanel);
+        bottomPanel.add(createMyStatusPanel());
+        bottomPanel.add(rightGlue);
+        return bottomPanel;
+    }
+
     private JPanel createControlPanel() {
         initComboBox();
         healthBarDisplay = new HealthBar(Constants.DEFAULT_CHANCES);
-        spellInventory = new SpellInventory();
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new BoxLayout(controlPanel,BoxLayout.X_AXIS));
         controlPanel.setFocusable(false);
@@ -212,9 +233,9 @@ public class GameView extends JFrame implements Window {
         controlPanel.add(startButton());
         controlPanel.add(pauseButton());
         controlPanel.add(comboBoxAddBarrierType);
-        controlPanel.add(healthBarDisplay);
-        controlPanel.add(spellInventory);
-        controlPanel.add(scoreBar);
+        controlPanel.add(Box.createRigidArea(new Dimension(25,10)));
+        //controlPanel.add(healthBarDisplay);
+        //controlPanel.add(scoreBar);
         ipLabel = new JLabel();
         Event.SendIPAddress.addListener((e)->ipLabel.setText((String)e));
         hostButton  = new JButton("Host");
@@ -236,15 +257,20 @@ public class GameView extends JFrame implements Window {
                     .foregroundList.remove(fading));
             Event.CanvasUpdateEvent.invoke();
         });
-        controlPanel.add(scoreBarOther);
+        //controlPanel.add(scoreBarOther);
+
+        controlPanel.add(Box.createRigidArea(new Dimension(25,10)));
+
+        spellInventory = new SpellInventory();
+        spellInventory.setAlignmentX(Component.CENTER_ALIGNMENT);
+        controlPanel.add(spellInventory);
+        // Add enemy status panel to the control panel
+
+        controlPanel.add(Box.createHorizontalGlue());
         controlPanel.add(hostButton);
         controlPanel.add(ipLabel);
         hostButton.setVisible(false);
         ipLabel.setVisible(false);
-        controlPanel.add(Box.createRigidArea(new Dimension(25,10)));
-
-        // Add enemy status panel to the control panel
-        controlPanel.add(enemyStatusPanel);
 
         return controlPanel;
     }
@@ -274,8 +300,11 @@ public class GameView extends JFrame implements Window {
         JPanel parentPanel = new JPanel(new BorderLayout());
         parentPanel.add(sessionManager.getDrawCanvas(), BorderLayout.CENTER);
         parentPanel.add(createControlPanel(), BorderLayout.NORTH);
+        parentPanel.add(createBottomControlPanel(), BorderLayout.SOUTH);
         return parentPanel;
     }
+
+
 
     private void initComboBox() {
         comboBoxAddBarrierType = new JComboBox<>(new String[]{
@@ -286,7 +315,7 @@ public class GameView extends JFrame implements Window {
         });
         comboBoxAddBarrierType.setFont(new Font("Monospaced", Font.BOLD, 12));
         BarrierTypes currentType = BarrierManager.getInstance().getSelectedBarrierType();
-        comboBoxAddBarrierType.setMaximumSize(new Dimension(75,50));
+        comboBoxAddBarrierType.setMaximumSize(new Dimension(100,50));
         if (currentType == null) currentType = BarrierTypes.SIMPLE;
         comboBoxAddBarrierType.setSelectedItem(currentType.toString());
         comboBoxAddBarrierType.addActionListener(e -> {
@@ -301,8 +330,34 @@ public class GameView extends JFrame implements Window {
         System.out.println("Selected Barrier is: " + selectedType);
     }
 
+    private JPanel createMyStatusPanel() {
+        JPanel panel = new JPanel();
+        panel.setMaximumSize(new Dimension(400,50));
+        panel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel.setLayout(new BorderLayout(200,50));
+        panel.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(Color.BLACK, 2),
+                "ME",
+                TitledBorder.CENTER,
+                TitledBorder.TOP,
+                new Font("Monospaced", Font.BOLD, 16),
+                Color.RED
+        ));
+        JPanel statusPanel = new JPanel();
+        statusPanel.setLayout(new BoxLayout(statusPanel,BoxLayout.X_AXIS));
+        statusPanel.setBackground(Color.LIGHT_GRAY);
+        scoreBar.setBackground(Color.LIGHT_GRAY);
+        scoreBar.setForeground(Color.BLACK);
+        statusPanel.add(scoreBar);
+        healthBarDisplay.setAlignmentY(Component.CENTER_ALIGNMENT);
+        statusPanel.add(healthBarDisplay);
+        panel.add(statusPanel, BorderLayout.CENTER);
+        return panel;
+    }
+
     private JPanel createEnemyStatusPanel() {
         JPanel panel = new JPanel();
+        panel.setMaximumSize(new Dimension(400,50));
         panel.setLayout(new BorderLayout());
         panel.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(Color.BLACK, 2),
@@ -316,20 +371,15 @@ public class GameView extends JFrame implements Window {
         JPanel statusPanel = new JPanel();
         statusPanel.setLayout(new GridLayout(1, 3, 10, 0)); // 1 row, 3 columns, with a 10-pixel gap between components
         statusPanel.setBackground(Color.LIGHT_GRAY);
-
         scoreBarOther.setBackground(Color.LIGHT_GRAY);
         scoreBarOther.setForeground(Color.BLACK);
-
         barrierBarOther.setBackground(Color.LIGHT_GRAY);
         barrierBarOther.setForeground(Color.BLACK);
-
         chanceBarOther.setBackground(Color.LIGHT_GRAY);
         chanceBarOther.setForeground(Color.BLACK);
-
         statusPanel.add(scoreBarOther);
         statusPanel.add(barrierBarOther);
         statusPanel.add(chanceBarOther);
-
         panel.add(statusPanel, BorderLayout.CENTER);
 
         return panel;

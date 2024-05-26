@@ -47,6 +47,7 @@ public enum Event {
     SendDoubleAccelUpdate(Object.class),
     // GAME STAT. EVENTS
     // The second args are events that are invoked after all the listeners of the actual event are invoked.
+    UpdateBarrierCount(Integer.class, SendBarrierCountUpdate),
     UpdateChance(Integer.class, SendChanceUpdate),
     UpdateScore(Object.class, SendScoreUpdate),
     EndGame(String.class),
@@ -93,7 +94,8 @@ public enum Event {
     ShowInitGame(Object.class),
     ResetGameMode(Object.class), // todo: delete it, no usage
     StartCounting(Object.class),
-    StartCountDown(Object.class, StartCounting);
+    StartCountDown(Object.class, StartCounting)
+   ;
 
     //It is the Class that the particular event wants the invocation. new CountdownAnimationBehaviour(count, setter);
     final Class<?> paramType;

@@ -3,7 +3,7 @@ package org.LanceOfDestiny;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.LanceOfDestiny.domain.Constants;
-import org.LanceOfDestiny.domain.events.Events;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.looper.LoopExecutor;
 import org.LanceOfDestiny.domain.managers.Status;
 import org.junit.jupiter.api.BeforeEach;
@@ -91,11 +91,11 @@ class SessionManagerTest {
 
         // Step 6: Simulate the game start and check LoopExecutor response
         sessionManager.setStatus(Status.RunningMode);
-        Events.StartGame.invoke();
+        Event.StartGame.invoke();
         assertTrue(loopExecutor.isStarted(), "LoopExecutor should be active after starting the game.");
 
         // Step 7: Simulate a reset and verify all state resets correctly
-        Events.Reset.invoke();
+        Event.Reset.invoke();
         assertEquals(Constants.DEFAULT_CHANCES, player.getChancesLeft(), "Player's chances should be reset to default.");
         assertEquals(0, loopExecutor.getSecondsPassed(), "LoopExecutor's timePassed should be reset to 0.");
     }
