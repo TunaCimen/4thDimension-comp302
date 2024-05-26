@@ -136,7 +136,10 @@ public class GameView extends JFrame implements Window {
             SessionManager.getInstance().getDrawCanvas().foregroundList.remove(countdown);
         }), Event.StartCounting);
 
-
+        Event.SingleplayerSelected.addRunnableListener(()->{
+            hostButton.setVisible(false);
+            scoreBarOther.setVisible(false);
+        });
         Event.ReceiveScoreUpdate.addRunnableListener(System.out::println);
     }
 
@@ -175,8 +178,11 @@ public class GameView extends JFrame implements Window {
         if(SessionManager.getInstance().getGameMode().equals(SessionManager.GameMode.MULTIPLAYER)){
             hostButton.setVisible(true);
             ipLabel.setVisible(true);
+            ipLabel.setText("");
             buttonPlay.setEnabled(false);
+            scoreBarOther.setVisible(true);
         }
+
     }
     private JPanel createControlPanel() {
         initComboBox();
@@ -208,8 +214,12 @@ public class GameView extends JFrame implements Window {
             SessionManager.getInstance()
                     .getDrawCanvas()
                     .foregroundList.add(fading);
+            Event.Reset.addRunnableListener(()-> SessionManager.getInstance()
+                    .getDrawCanvas()
+                    .foregroundList.remove(fading));
             Event.CanvasUpdateEvent.invoke();
         });
+
         controlPanel.add(scoreBarOther);
         controlPanel.add(hostButton);
         controlPanel.add(ipLabel);

@@ -1,5 +1,7 @@
 package org.LanceOfDestiny.domain.network;
 import org.LanceOfDestiny.domain.behaviours.MonoBehaviour;
+import org.LanceOfDestiny.domain.managers.SessionManager;
+
 import java.io.IOException;
 
 public class NetworkBehavior extends MonoBehaviour {
@@ -14,6 +16,7 @@ public class NetworkBehavior extends MonoBehaviour {
         updateThread = new Thread(()->{
             while(true){
                 try {
+                    if(SessionManager.getInstance().getGameMode() == SessionManager.GameMode.SINGLEPLAYER)continue;
                     String gameState = networkManager.receiveGameState();
                     System.out.println("Recieved state");
                     if (gameState != null && !gameState.isEmpty()) {
