@@ -12,6 +12,7 @@ public class ChanceBar extends AbstractBar {
 
     public ChanceBar(Event updateEvent, boolean isMine) {
         super(null, isMine, "Chance: ", updateEvent);
+        updateEvent.invoke(0);
     }
 
     @Override
