@@ -47,6 +47,7 @@ public enum Event {
     SendDoubleAccelUpdate(Object.class),
     // GAME STAT. EVENTS
     // The second args are events that are invoked after all the listeners of the actual event are invoked.
+    UpdateBarrierCount(Integer.class, SendBarrierCountUpdate),
     UpdateChance(Integer.class, SendChanceUpdate),
     UpdateScore(Object.class, SendScoreUpdate),
     EndGame(String.class),
