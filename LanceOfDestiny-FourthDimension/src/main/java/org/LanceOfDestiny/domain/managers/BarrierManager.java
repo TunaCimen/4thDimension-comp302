@@ -263,6 +263,7 @@ public class BarrierManager {
             Barrier barrier = loadBarrierFromString(barrierInfo);
             if (barrier != null) {
                 BarrierManager.getInstance().addBarrier(barrier);
+                Event.UpdateBarrierCount.invoke();
             }
         }
     }

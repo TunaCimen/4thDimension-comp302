@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.domain.barriers;
 
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.spells.RewardBox;
 import org.LanceOfDestiny.domain.spells.RewardBoxFactory;
 import org.LanceOfDestiny.domain.physics.Vector;
@@ -32,6 +33,7 @@ public class RewardingBarrier extends Barrier{
     @Override
     public void destroy() {
         super.destroy();
+        Event.UpdateBarrierCount.invoke();
     }
 
     @Override
