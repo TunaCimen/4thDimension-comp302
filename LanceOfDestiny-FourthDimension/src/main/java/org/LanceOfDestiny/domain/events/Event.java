@@ -94,7 +94,8 @@ public enum Event {
     ShowInitGame(Object.class),
     ResetGameMode(Object.class), // todo: delete it, no usage
     StartCounting(Object.class),
-    StartCountDown(Object.class, StartCounting);
+    StartCountDown(Object.class, StartCounting)
+   ;
 
     //It is the Class that the particular event wants the invocation. new CountdownAnimationBehaviour(count, setter);
     final Class<?> paramType;

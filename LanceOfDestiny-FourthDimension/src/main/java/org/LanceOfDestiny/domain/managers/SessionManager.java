@@ -46,7 +46,6 @@ public class SessionManager {
 
     private void subscribeEvents() {
         Event.BuildDoneEvent.addRunnableListener(this::initializeBarriers);
-
         Event.Reset.addRunnableListener(()->getPlayer().setChancesLeft(Constants.DEFAULT_CHANCES));
         Event.Reset.addRunnableListener(()->getLoopExecutor().setLoadedTime(0));
         Event.Reset.addRunnableListener(()->getLoopExecutor().setTimePassed(0));
@@ -76,6 +75,7 @@ public class SessionManager {
         Event.ResetGameMode.addRunnableListener(()->{
             gameMode = GameMode.SINGLEPLAYER;
         });
+
 
     }
 
