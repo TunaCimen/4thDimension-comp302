@@ -3,6 +3,7 @@ package org.LanceOfDestiny.ui.UIElements;
 import org.LanceOfDestiny.domain.Constants;
 
 import org.LanceOfDestiny.domain.events.Event;
+import org.LanceOfDestiny.domain.network.NetworkManager;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.ui.UIElements.UILibrary;
 import org.LanceOfDestiny.ui.UIUtilities.BackgroundJPanel;
@@ -42,7 +43,10 @@ public class MultiplayerPanel extends BackgroundJPanel {
         add(joinButton);
         add(backButton);
         backButton.removeActionListener(backButton.getActionListeners()[0]);
-        backButton.addActionListener(Event.ShowInitGame::invoke);
+        backButton.addActionListener(e->{
+            Event.ShowInitGame.invoke();
+            NetworkManager.getInstance().closeConnection();
+        });
         revalidate();
         repaint();
     }

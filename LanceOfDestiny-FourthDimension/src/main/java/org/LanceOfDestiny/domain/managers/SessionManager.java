@@ -73,6 +73,9 @@ public class SessionManager {
             initializeYmir();
         });
         Event.MultiplayerSelected.addRunnableListener(NetworkBehavior::new);
+        Event.ResetGameMode.addRunnableListener(()->{
+            gameMode = GameMode.SINGLEPLAYER;
+        });
 
     }
 

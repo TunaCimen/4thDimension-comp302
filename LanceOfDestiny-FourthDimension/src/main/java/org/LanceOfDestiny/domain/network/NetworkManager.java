@@ -25,6 +25,8 @@ public class NetworkManager {
         Event.SendGameStarted.addRunnableListener(()->{
             out.println("STARTED");
         });
+        Event.SingleplayerSelected.addRunnableListener(this::closeConnection);
+
     }
 
     public static NetworkManager getInstance() {
@@ -139,10 +141,17 @@ public class NetworkManager {
 
     }
 
-    public void closeConnection() throws IOException {
-        if (in != null) in.close();
-        if (out != null) out.close();
-        if (socket != null) socket.close();
-        if (serverSocket != null) serverSocket.close();
+    public void closeConnection() {
+        if (in != null) {
+            try {
+                in.close();
+                if (out != null) out.close();
+                if (socket != null) socket.close();
+                if (serverSocket != null) serverSocket.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
     }
 }
