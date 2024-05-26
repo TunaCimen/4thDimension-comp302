@@ -16,7 +16,6 @@ public class BarrierFactory {
             case REWARDING -> new RewardingBarrier(position);
         };
         BarrierManager.getInstance().addBarrier(createdBarrier);
-        Event.UpdateBarrierCount.invoke();
         return createdBarrier;
     }
 
