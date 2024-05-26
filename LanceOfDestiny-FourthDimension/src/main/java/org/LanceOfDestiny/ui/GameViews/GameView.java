@@ -12,8 +12,8 @@ import org.LanceOfDestiny.ui.UIUtilities.WindowManager;
 import org.LanceOfDestiny.ui.UIUtilities.Windows;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
-
 
 public class GameView extends JFrame implements Window {
 
@@ -38,6 +38,9 @@ public class GameView extends JFrame implements Window {
     private SessionManager sessionManager;
     private JComboBox<String> comboBoxAddBarrierType;
     private CardLayout cardLayout;
+
+    // New panel for enemy status
+    private JPanel enemyStatusPanel;
 
     public GameView() {
         ScoreManager scoreManager = ScoreManager.getInstance();
@@ -81,7 +84,6 @@ public class GameView extends JFrame implements Window {
             healthBarDisplay.setHealth(
                     SessionManager.getInstance().getPlayer().getChancesLeft());
         });
-        //Events.Load.addRunnableListener(()->showPanel(STATUS_GAME));
         Event.LoadGame.addRunnableListener(() -> {
             showPanel(STATUS_GAME);
             scoreBar.updateValue();
@@ -138,11 +140,9 @@ public class GameView extends JFrame implements Window {
             SessionManager.getInstance().getDrawCanvas().foregroundList.remove(countdown);
         }), Event.StartCounting);
 
-
         Event.ReceiveScoreUpdate.addRunnableListener(System.out::println);
         Event.ReceiveBarrierCountUpdate.addRunnableListener(System.out::println);
     }
-
 
     private void initializeComponents() {
         setFocusable(true);
@@ -151,6 +151,10 @@ public class GameView extends JFrame implements Window {
         setDefaultLookAndFeelDecorated(true);
         addKeyListener(InputManager.getInstance());
         setResizable(false);
+
+        // Initialize enemy status panel
+        enemyStatusPanel = createEnemyStatusPanel();
+        enemyStatusPanel.setVisible(false);
     }
 
     public void startGame() {
@@ -160,7 +164,6 @@ public class GameView extends JFrame implements Window {
         buttonPlay.setEnabled(false);
         buttonPause.setEnabled(true);
         comboBoxAddBarrierType.setVisible(false);
-        //System.out.println(SessionManager.getInstance().getYmir().retTwoSpellNames());
     }
 
     public void showPanel(String cardName) {
@@ -179,8 +182,12 @@ public class GameView extends JFrame implements Window {
             hostButton.setVisible(true);
             ipLabel.setVisible(true);
             buttonPlay.setEnabled(false);
+            enemyStatusPanel.setVisible(true);
+        } else {
+            enemyStatusPanel.setVisible(false);
         }
     }
+
     private JPanel createControlPanel() {
         initComboBox();
         healthBarDisplay = new HealthBar(Constants.DEFAULT_CHANCES);
@@ -214,19 +221,15 @@ public class GameView extends JFrame implements Window {
             Event.CanvasUpdateEvent.invoke();
         });
 
-        //display these only in the multiplayer game
-        JLabel enemyLabel = new JLabel("Enemy--> ");
-        enemyLabel.setFont(new Font("IMPACT", Font.BOLD, 20));
-        controlPanel.add(enemyLabel);
-        controlPanel.add(scoreBarOther);
-        controlPanel.add(barrierBarOther);
-        controlPanel.add(chanceBarOther);
-
         controlPanel.add(hostButton);
         controlPanel.add(ipLabel);
         hostButton.setVisible(false);
         ipLabel.setVisible(false);
         controlPanel.add(Box.createRigidArea(new Dimension(25,10)));
+
+        // Add enemy status panel to the control panel
+        controlPanel.add(enemyStatusPanel);
+
         return controlPanel;
     }
 
@@ -243,7 +246,6 @@ public class GameView extends JFrame implements Window {
         });
         return buttonPlay;
     }
-
 
     private JButton pauseButton() {
         buttonPause = new JButton("Pause Game");
@@ -286,6 +288,42 @@ public class GameView extends JFrame implements Window {
         //Debugging
         System.out.println("Selected Barrier is: " + selectedType);
     }
+
+    private JPanel createEnemyStatusPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(Color.BLACK, 2),
+                "Enemy",
+                TitledBorder.CENTER,
+                TitledBorder.TOP,
+                new Font("Monospaced", Font.BOLD, 16),
+                Color.RED
+        ));
+
+        JPanel statusPanel = new JPanel();
+        statusPanel.setLayout(new GridLayout(1, 3, 10, 0)); // 1 row, 3 columns, with a 10-pixel gap between components
+        statusPanel.setBackground(Color.LIGHT_GRAY);
+
+        scoreBarOther.setBackground(Color.LIGHT_GRAY);
+        scoreBarOther.setForeground(Color.BLACK);
+
+        barrierBarOther.setBackground(Color.LIGHT_GRAY);
+        barrierBarOther.setForeground(Color.BLACK);
+
+        chanceBarOther.setBackground(Color.LIGHT_GRAY);
+        chanceBarOther.setForeground(Color.BLACK);
+
+        statusPanel.add(scoreBarOther);
+        statusPanel.add(barrierBarOther);
+        statusPanel.add(chanceBarOther);
+
+        panel.add(statusPanel, BorderLayout.CENTER);
+
+        return panel;
+    }
+
+
 
     @Override
     public void createAndShowUI() {
