@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.domain.barriers;
 
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.physics.Vector;
 
