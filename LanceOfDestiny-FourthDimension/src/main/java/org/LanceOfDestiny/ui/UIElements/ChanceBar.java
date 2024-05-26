@@ -1,6 +1,5 @@
 package org.LanceOfDestiny.ui.UIElements;
 
-import javax.swing.*;
 import java.util.function.IntSupplier;
 import org.LanceOfDestiny.domain.events.Event;
 
@@ -12,7 +11,8 @@ public class ChanceBar extends AbstractBar {
 
     public ChanceBar(Event updateEvent, boolean isMine) {
         super(null, isMine, "Chance: ", updateEvent);
-        updateEvent.invoke(0);
+        // invoke the event to send the initial chance value to the opponent
+        Event.UpdateChance.invoke(0);
     }
 
     @Override
