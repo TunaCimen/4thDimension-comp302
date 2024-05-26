@@ -34,8 +34,12 @@ public class GameView extends JFrame implements Window {
     TextUI countdown;
     SpellInventory spellInventory;
     JPanel cardPanel;
+
     AbstractBar scoreBar, scoreBarOther, barrierBarOther, chanceBarOther;
     private SessionManager sessionManager;
+
+    //ScoreBar scoreBar, scoreBarOther; //Uncomment if there is fault with abstract bar.
+
     private JComboBox<String> comboBoxAddBarrierType;
     private CardLayout cardLayout;
 
@@ -54,7 +58,7 @@ public class GameView extends JFrame implements Window {
         this.cardPanel = new JPanel(cardLayout);
         this.countdown = new TextUI("5"
                 ,Color.orange,new Font("IMPACT", Font.PLAIN, 20)
-                , 75f,Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT/2,1);
+                , 100f,Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT/2,100);
         add(cardPanel, BorderLayout.CENTER);
         setLayout(cardLayout);
         initializeComponents();
@@ -203,7 +207,7 @@ public class GameView extends JFrame implements Window {
         controlPanel.add(spellInventory);
         controlPanel.add(scoreBar);
         ipLabel = new JLabel();
-        Event.SendIPAdress.addListener((e)->ipLabel.setText((String)e));
+        Event.SendIPAddress.addListener((e)->ipLabel.setText((String)e));
         hostButton  = new JButton("Host");
         hostButton.addActionListener(e->{
             Event.TryHostingSession.invoke();
@@ -213,7 +217,7 @@ public class GameView extends JFrame implements Window {
 
             TextUI fading = new TextUI("WAITING FOR OTHER PLAYER"
                     ,Color.orange,new Font("IMPACT", Font.PLAIN, 20)
-                    , 50f,Constants.SCREEN_WIDTH/2-200,Constants.SCREEN_HEIGHT/2,1);
+                    , 50f,Constants.SCREEN_WIDTH/2,Constants.SCREEN_HEIGHT/2,1);
             fading.setAnimationBehaviour(new LinearInterpolation(48,50, fading::getOpacity,fading::setOpacity));
             SessionManager.getInstance()
                     .getDrawCanvas()
@@ -238,10 +242,6 @@ public class GameView extends JFrame implements Window {
         buttonPlay.setFocusable(false);
         buttonPlay.setFont(new Font("Monospaced", Font.BOLD, 16));
         buttonPlay.addActionListener(e -> {
-            if (!BuildViewMiniPanel.validateAndShowError(BarrierManager.getInstance().getBarrierCounts())) {
-                return;
-            }
-
             Event.StartCountDown.invoke();
         });
         return buttonPlay;

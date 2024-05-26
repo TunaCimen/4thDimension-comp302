@@ -23,7 +23,6 @@ public class SpellInventory extends JPanel {
 
 
     public SpellInventory(){
-
         //Progress Bars
         canonIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.CannonSpell.getImage(), 40,40));
         overwhelmingIcon = new ImageIcon(ImageOperations.resizeImage(ImageLibrary.OverWhelmingSpell.getImage(), 40,40));
@@ -39,6 +38,22 @@ public class SpellInventory extends JPanel {
         doubleAccelSpell = new SpellUIElement(doubleAccelIcon, new Dimension(50,50));
         hollowSpell = new SpellUIElement(hollowSpellIcon, new Dimension(50,50));
 
+        Event.GainSpell.addListener(e->gainSpell((SpellType) e));
+        Event.ResetSpells.addListener(e->resetSpellUI());
+        activateSpellByClickEvents();
+        loseSpellEvents();
+
+        add(canonSpell);
+        add(overwhelmingSpell);
+        add(expansionSpell);
+        add(infiniteVoidSpell);
+        add(doubleAccelSpell);
+        add(hollowSpell);
+        setVisible(true);
+
+    }
+
+    private void activateSpellByClickEvents() {
         canonSpell.addClickEvent(e -> {
             Event.ActivateSpell.invoke(SpellType.CANON);
         });
@@ -62,30 +77,32 @@ public class SpellInventory extends JPanel {
         infiniteVoidSpell.addClickEvent(e -> {
             Event.ActivateSpell.invoke(SpellType.INFINITE_VOID);
         });
-
-        Event.GainSpell.addListener(e->gainSpell((SpellType) e));
-        Event.ActivateSpell.addListener(e->loseSpell((SpellType) e));
-        Event.ResetSpells.addListener(e->resetSpellUI());
-
-        add(canonSpell);
-        add(overwhelmingSpell);
-        add(expansionSpell);
-        add(infiniteVoidSpell);
-        add(doubleAccelSpell);
-        add(hollowSpell);
-        setVisible(true);
-
     }
 
-    private void loseSpell(SpellType spellType) {
-        switch ((spellType)) {
-            case CANON -> canonSpell.disableSpell();
-            case EXPANSION -> expansionSpell.disableSpell();
-            case OVERWHELMING -> overwhelmingSpell.disableSpell();
-            case INFINITE_VOID -> infiniteVoidSpell.disableSpell();
-            case HOLLOW_PURPLE -> hollowSpell.disableSpell();
-            case DOUBLE_ACCEL -> doubleAccelSpell.disableSpell();
-        }
+    private void loseSpellEvents() {
+        Event.ActivateCanons.addListener(e -> {
+            if ((boolean) e) canonSpell.disableSpell();
+        } );
+
+        Event.ActivateExpansion.addListener(e -> {
+            if ((boolean) e) expansionSpell.disableSpell();
+        });
+
+        Event.ActivateOverwhelming.addListener(e -> {
+            if ((boolean) e) overwhelmingSpell.disableSpell();
+        });
+
+        Event.ActivateDoubleAccel.addListener(e -> {
+            if ((boolean) e) doubleAccelSpell.disableSpell();
+        });
+
+        Event.ActivateHollowPurple.addListener(e -> {
+            if ((boolean) e) hollowSpell.disableSpell();
+        });
+
+        Event.ActivateInfiniteVoid.addListener(e -> {
+            if ((boolean) e) infiniteVoidSpell.disableSpell();
+        });
     }
 
     private void gainSpell(SpellType spellType) {
@@ -107,8 +124,4 @@ public class SpellInventory extends JPanel {
         doubleAccelSpell.resetSpellUI();
         infiniteVoidSpell.resetSpellUI();
     }
-
-
-
-
 }

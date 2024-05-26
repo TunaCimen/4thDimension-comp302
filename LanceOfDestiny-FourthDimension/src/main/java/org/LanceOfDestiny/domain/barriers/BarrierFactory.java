@@ -14,15 +14,10 @@ public class BarrierFactory {
             case REINFORCED -> new ReinforcedBarrier(position, calculateHitsRequired());
             case EXPLOSIVE -> new ExplosiveBarrier(position);
             case REWARDING -> new RewardingBarrier(position);
+            case HOLLOW -> new HollowBarrier(position);
         };
         BarrierManager.getInstance().addBarrier(createdBarrier);
         return createdBarrier;
-    }
-
-    public static HollowBarrier createHollowBarrier(Vector position) {
-        var hollowBarrier = new HollowBarrier(position);
-        BarrierManager.getInstance().addBarrier(hollowBarrier);
-        return hollowBarrier;
     }
 
     private static int calculateHitsRequired() {
@@ -52,6 +47,9 @@ public class BarrierFactory {
                 break;
             case "REWARDING":
                 barrier = new RewardingBarrier(position);
+                break;
+            case "HOLLOW":
+                barrier = new HollowBarrier(position);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown barrier type: " + barrierType);

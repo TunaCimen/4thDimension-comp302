@@ -42,8 +42,8 @@ public class LogInController {
         return dbController.saveGame(this.username,saveName, blist,score,chances,numberofSpells);
     }
 
-    public List<Barrier> loadBarriers(String saveName){
-        return dbController.loadBarriers(this.username,saveName);
+    public void loadBarriers(String saveName){
+        dbController.loadBarriers(this.username,saveName);
     }
 
     public List<String> loadUserInfo(String saveName) throws SQLException {

@@ -15,6 +15,7 @@ public class SpellUIElement extends JLayeredPane {
     private JProgressBar progressBar;
 
     private Dimension preferredDimension;
+
     public SpellUIElement(ImageIcon imageIcon, Dimension size){
         this.imageIcon = imageIcon;
         reducedImageIcon = ImageOperations.reducedTransparencyImageIcon(imageIcon);
@@ -38,7 +39,6 @@ public class SpellUIElement extends JLayeredPane {
     }
 
     public void enableSpell(){
-
         spellButton.setIcon(imageIcon);
     }
 

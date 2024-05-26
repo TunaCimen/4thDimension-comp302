@@ -21,9 +21,10 @@ public class ScoreManager {
         return instance;
     }
 
-    // newScore = oldScore + 300 / (currentTime - gameStartingTime)
     private void updateScore() {
-        setScore(getScore() + 300 / (loopExecutor.getSecondsPassed()));
+        var seconds = loopExecutor.getSecondsPassed();
+        if(seconds == 0) seconds = 1;
+        setScore(getScore() + 300 / (seconds));
     }
 
     public int getScore() {

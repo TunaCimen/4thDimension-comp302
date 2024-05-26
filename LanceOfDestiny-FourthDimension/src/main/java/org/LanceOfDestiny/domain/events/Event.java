@@ -1,6 +1,5 @@
 package org.LanceOfDestiny.domain.events;
 
-import org.LanceOfDestiny.domain.physics.Collision;
 import org.LanceOfDestiny.domain.spells.SpellType;
 
 import javax.swing.*;
@@ -14,7 +13,7 @@ import java.util.function.Consumer;
  * Events is an enum that contains all the EventTypes
  * Events are defined in the enum structure as follows-->EventName(InvocationType) bkz. types
  * Listeners can be added via addListener(parameter listeners) or addRunnable(no parameter listeners)
- *
+ * <p>
  * Timed Events:
  * You can define a timed event by specifying an Events enum with the parameters:
  * @Param -> Class with which the event will be invoked.
@@ -24,14 +23,12 @@ import java.util.function.Consumer;
 public enum Event {
     LogEvent(String.class),
     LogIntegerEvent(Integer.class),
-    CollisionEvent(Collision.class),
     //MAGICAL STAFF EVENTS
     MoveStaff(Integer.class),
     RotateStaff(Double.class),
     ResetStaff(Object.class),
     //FIREBALL EVENTS
     ShootBall(Object.class),
-    ResetFireBall(Object.class),
     // NETWORK: Events after opponent is notified
     ReceiveChanceUpdate(Integer.class),
     ReceiveScoreUpdate(Integer.class),
@@ -42,7 +39,6 @@ public enum Event {
     SendScoreUpdate(Object.class),
     SendBarrierCountUpdate(Object.class),
     SendGameDataToLoad(Object.class),
-
     SendPauseUpdate(Object.class),
     SendResumeUpdate(Object.class),
     SendCurseUpdate(SpellType.class),
@@ -50,15 +46,14 @@ public enum Event {
     SendHollowPurpleUpdate(Object.class),
     SendDoubleAccelUpdate(Object.class),
     // GAME STAT. EVENTS
-    // The second args are events that are invoked after all the listeners of the actual event are invoked
+    // The second args are events that are invoked after all the listeners of the actual event are invoked.
     UpdateChance(Integer.class, SendChanceUpdate),
-    UpdateBarrierCount(Object.class, SendBarrierCountUpdate),
     UpdateScore(Object.class, SendScoreUpdate),
     EndGame(String.class),
     //SPELL EVENTS
     GainSpell(SpellType.class),
-    ActivateSpell(SpellType.class),
     //GOOD SPELLS
+    ActivateSpell(SpellType.class),
     ActivateCanons(Boolean.class),
     ActivateOverwhelming(Boolean.class),
     ActivateExpansion(Boolean.class),
@@ -71,15 +66,15 @@ public enum Event {
     PauseGame(Object.class, SendPauseUpdate),
     ResumeGame(Object.class, SendResumeUpdate),
     StartGame(Object.class),
-    SaveGame(Object.class),
+    SaveGame(Object.class), // todo: delete it, no usage
     LoadGame(Object.class),
-    WaitEvent(Object.class),
+    WaitEvent(Object.class), // todo: delete it, no usage
     ResetColorEvent(Object.class),
-    TimedTestEvent(Color.class, ResetColorEvent),
+    TimedTestEvent(Color.class, ResetColorEvent), // todo: delete it, no usage
     CanvasUpdateEvent(Object.class),
     BuildDoneEvent(Object.class),
 
-    ShowEditMode(Object.class),
+    ShowEditMode(Object.class), // todo: delete it, no usage
 
     Reset(Object.class),
     Load(Object.class),
@@ -87,21 +82,20 @@ public enum Event {
     ReturnStartScreen(Object.class),
     SingleplayerSelected(Object.class),
     MultiplayerSelected(Object.class),
-    HostPanel(Object.class),
-    JoinPanel(Object.class),
+    HostPanel(Object.class), // todo: delete it, no usage
+    JoinPanel(Object.class), // todo: delete it, no usage
     TryJoiningSession(String.class),
     TryHostingSession(Object.class),
     OtherPlayerJoined(Object.class),
     JoinedTheHost(Object.class),
     SendGameStarted(Object.class),
-    SendIPAdress(String.class),
+    SendIPAddress(String.class),
     ShowInitGame(Object.class),
-    ResetGameMode(Object.class),
+    ResetGameMode(Object.class), // todo: delete it, no usage
     StartCounting(Object.class),
-    StartCountDown(Object.class, StartCounting),
-   ;
+    StartCountDown(Object.class, StartCounting);
 
-    //It is the Class that thnew CountdownAnimationBehaviour(count, setter);e particular event wants the invocation.
+    //It is the Class that the particular event wants the invocation. new CountdownAnimationBehaviour(count, setter);
     final Class<?> paramType;
     Timer timer = null;
     boolean isActive = false;

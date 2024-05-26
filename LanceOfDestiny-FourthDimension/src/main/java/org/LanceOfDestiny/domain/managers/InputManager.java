@@ -52,20 +52,20 @@ public class InputManager implements KeyListener {
 
     /**
      * Updates the actions based on the current state of inputs.
-     *
-     * Requires:
-     * - `moveKey`, `rotateKey`, `activateSpellKey`, `activateCurseKey` to be integer key codes.
-     * - `isShootFlag` to be a boolean indicating if the shoot action is triggered.
-     *
-     * Modifies:
+     * <p>
+     * Requires: <p>
+     * - `moveKey`, `rotateKey`, `activateSpellKey`, `activateCurseKey` to be integer key codes. <p>
+     * - `isShootFlag` to be a boolean indicating if the shoot action is triggered. <p>
+     * <p>
+     * Modifies: <p>
      * - Triggers events corresponding to the current state of inputs.
-     *
-     * Effects:
-     * - For each key pressed, triggers the corresponding event.
-     * - For rotation keys (`A` and `D`), triggers `RotateStaff` event.
-     * - For movement keys (`LEFT` and `RIGHT`), triggers `MoveStaff` event.
-     * - For the shoot key (`SPACE`), triggers `ShootBall` event.
-     * - For spell activation keys (`O`, `E`, `C`), triggers `TryUsingSpell` event.
+     * <p>
+     * Effects: <p>
+     * - For each key pressed, triggers the corresponding event. <p>
+     * - For rotation keys (`A` and `D`), triggers `RotateStaff` event. <p>
+     * - For movement keys (`LEFT` and `RIGHT`), triggers `MoveStaff` event. <p>
+     * - For the shoot key (`SPACE`), triggers `ShootBall` event. <p>
+     * - For spell activation keys (`O`, `E`, `C`), triggers `TryUsingSpell` event. <p>
      * - For curse activation keys (`1`, `2`, `3`), triggers `TryUsingCurse` event.
      */
     public void updateActions() {
