@@ -112,7 +112,7 @@ public class NetworkManager {
             while(true){
                 try {
                     if(Objects.equals(in.readLine(), "STARTED")){
-                        Event.StartGame.invoke();
+                        Event.StartCountDown.invoke();
                         break;
                     }
                 } catch (IOException e) {

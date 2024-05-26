@@ -100,6 +100,8 @@ public class GameView extends JFrame implements Window {
             showPanel(STATUS_END);
         });
         Event.BuildDoneEvent.addRunnableListener(() -> {
+            chanceBarOther.setValue(Constants.DEFAULT_CHANCES);
+            barrierBarOther.setValue(BarrierManager.getInstance().getBarriers().size());
             if(sessionManager.getGameMode() == SessionManager.GameMode.MULTIPLAYER){
                 System.out.println("Waiting For other player to connect!!!");
                 this.setEnabled(true);

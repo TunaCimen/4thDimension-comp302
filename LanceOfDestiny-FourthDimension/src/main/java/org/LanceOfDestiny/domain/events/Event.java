@@ -93,7 +93,7 @@ public enum Event {
     SendIPAddress(String.class),
     ShowInitGame(Object.class),
     ResetGameMode(Object.class), // todo: delete it, no usage
-    StartCounting(Object.class),
+    StartCounting(Object.class,SendGameStarted),
     StartCountDown(Object.class, StartCounting)
    ;
 
