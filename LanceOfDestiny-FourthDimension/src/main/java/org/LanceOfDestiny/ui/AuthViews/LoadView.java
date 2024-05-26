@@ -7,6 +7,7 @@ import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.ScoreManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.spells.*;
+import org.LanceOfDestiny.ui.UIUtilities.BackgroundPanel;
 import org.LanceOfDestiny.ui.UIUtilities.Window;
 
 import javax.swing.*;
@@ -34,33 +35,21 @@ public class LoadView extends JFrame implements Window {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        setTitle("Load View");
+        setTitle("My Loads");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(450, 380); // Set initial window size
         setResizable(false); // Make the frame not resizable
         setLocationRelativeTo(null); // Center the frame on the screen
 
-        // Set a custom content pane to draw the gradient background
-        JPanel contentPane = new JPanel(new BorderLayout()) {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2d = (Graphics2D) g;
-                int width = getWidth();
-                int height = getHeight();
-                Color color1 = Color.decode("#00008B"); // Dark Green
-                Color color2 = Color.decode("#800080"); // Dark Red
-                GradientPaint gp = new GradientPaint(0, 0, color1, width, height, color2);
-                g2d.setPaint(gp);
-                g2d.fillRect(0, 0, width, height);
-            }
-        };
+        // Set a custom content pane to draw the background image
+        BackgroundPanel contentPane = new BackgroundPanel("LanceOfDestiny-FourthDimension/Image/Background.png");
+        contentPane.setLayout(new BorderLayout());
         setContentPane(contentPane);
 
         // Create the button panel to display saved game buttons
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS)); // Vertical box layout
-        buttonPanel.setOpaque(false); // Make panel transparent to show gradient background
+        buttonPanel.setOpaque(false); // Make panel transparent to show background image
 
         // Set a fixed size for the buttons
         Dimension buttonSize = new Dimension(200, 40);
