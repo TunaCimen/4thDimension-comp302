@@ -42,9 +42,6 @@ public class Player extends MonoBehaviour {
         var MIN_CHANCES = 0;
         this.chancesLeft = chance;
         this.chancesLeft = Math.max(chancesLeft, MIN_CHANCES);
-        if(this.chancesLeft == MIN_CHANCES) {
-            Event.EndGame.invoke("You Lost");
-        }
     }
 
     public int getChancesLeft() {
