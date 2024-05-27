@@ -16,7 +16,6 @@ public class NetworkEventHandler {
         Event.SendChanceUpdate.addRunnableListener(() -> sendGameState("Chances: " + SessionManager.getInstance().getPlayer().getChancesLeft()));
         Event.SendScoreUpdate.addRunnableListener(() -> {
             sendGameState("Score: " + ScoreManager.getInstance().getScore());
-            System.out.println("Send score update");
         });
         Event.SendBarrierCountUpdate.addRunnableListener(() -> sendGameState("Barrier Count: " + BarrierManager.getInstance().barriers.size()));
         Event.SendGameDataToLoad.addRunnableListener(() -> sendGameState("Game Data: " + BarrierManager.getInstance().serializeAllBarriers()));
@@ -25,6 +24,7 @@ public class NetworkEventHandler {
         Event.SendDoubleAccelUpdate.addRunnableListener(()->sendGameState("Double Accel: true"));
         Event.SendHollowPurpleUpdate.addRunnableListener(()->sendGameState("Hollow Purple: true"));
         Event.SendInfiniteVoidUpdate.addRunnableListener(()->sendGameState("Infinite Void: true"));
+        Event.EndGame.addListener(c -> sendGameState("Game Ended: " + c));
     }
 
     public void sendGameState(String gameState) {
@@ -77,6 +77,15 @@ public class NetworkEventHandler {
             case "Infinite Void":
                 Event.ActivateCurse.invoke(SpellType.INFINITE_VOID);
                 break;
+            case "Game Ended":
+                //TODO: Might be nice to display your score + opponent score
+                // likewise, in single player
+                switch (eventData) {
+                    case "You Won":
+                        Event.EndGame.invoke("You Lost");
+                    case "You Lost":
+                        Event.EndGame.invoke("You Won");
+                }
             default:
                 System.out.println("Unknown event type: " + eventType);
                 break;
