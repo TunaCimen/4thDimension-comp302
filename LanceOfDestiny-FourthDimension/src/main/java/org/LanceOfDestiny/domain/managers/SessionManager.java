@@ -100,6 +100,7 @@ public class SessionManager {
         magicalStaff = new MagicalStaff();
         initializePlayer();
         initializeCurseManager();
+        new GameStateHandler();
     }
 
     private void initializeCurseManager() {
