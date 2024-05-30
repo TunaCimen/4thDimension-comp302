@@ -22,7 +22,7 @@ public abstract class TimedAction extends MonoBehaviour {
 
     @Override
     public void update() {
-        if(isStarted && timePassed<duration){
+        if(isStarted && timePassed<=duration){
             onUpdate();
             timePassed = SessionManager.getInstance().getLoopExecutor().getSecondsPassed()- startTime;;
         }

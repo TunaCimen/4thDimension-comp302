@@ -143,6 +143,7 @@ public class GameView extends JFrame implements Window {
         countdown.setAnimationBehaviourOnEvent(new CountdownAnimation(5, countdown::setText, () -> {
             AudioManager.getInstance().startBackgroundMusic();
             Event.StartGame.invoke();
+            buttonPause.setEnabled(true);
             if (SessionManager.getInstance().getGameMode() == SessionManager.GameMode.MULTIPLAYER) {
                 Event.SendGameStarted.invoke();
             }
@@ -188,6 +189,7 @@ public class GameView extends JFrame implements Window {
 
     private void handleNewGame() {
         cardLayout.show(cardPanel, STATUS_GAME);
+        buttonPlay.setVisible(true);
         buttonPause.setEnabled(true);
         buttonPlay.setEnabled(true);
         this.setEnabled(false);
@@ -203,6 +205,7 @@ public class GameView extends JFrame implements Window {
             enemyStatusPanel.setVisible(true);
         } else {
             enemyStatusPanel.setVisible(false);
+            ipLabel.setVisible(false);
         }
 
     }
@@ -243,7 +246,6 @@ public class GameView extends JFrame implements Window {
             comboBoxAddBarrierType.setVisible(false);
             SessionManager.getInstance().getDrawCanvas().removeMouseListener();
             System.out.println("Added the foreground item");
-
             TextUI fading = new TextUI("WAITING FOR OTHER PLAYER", Color.orange, new Font("IMPACT", Font.PLAIN, 20), 50f, Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2, 1);
             fading.setAnimationBehaviour(new LinearInterpolation(48, 50, fading::getOpacity, fading::setOpacity));
             SessionManager.getInstance().getDrawCanvas().foregroundList.add(fading);
@@ -274,12 +276,9 @@ public class GameView extends JFrame implements Window {
         buttonPlay.setFont(new Font("Monospaced", Font.BOLD, 16));
         buttonPlay.addActionListener(e -> {
             Event.StartCountDown.invoke();
-            buttonPlay.removeActionListener(buttonPlay.getActionListeners()[0]);
-            buttonPlay.addActionListener(Event.StartGame::invoke);
-            buttonPlay.setText("RESUME");
-            buttonPlay.setEnabled(false);
+            buttonPlay.setVisible(false);
+            buttonPause.setEnabled(false);
         });
-        Event.ShowInitGame.addRunnableListener(() -> buttonPlay.setText("START"));
         return buttonPlay;
     }
 
