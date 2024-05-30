@@ -3,6 +3,7 @@ package org.LanceOfDestiny.domain.ymir;
 import org.LanceOfDestiny.domain.behaviours.MonoBehaviour;
 import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.looper.LoopExecutor;
+import org.LanceOfDestiny.domain.managers.AudioManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.spells.SpellType;
 
@@ -42,6 +43,7 @@ public class Ymir extends MonoBehaviour {
          }
          Event.ActivateCurse.invoke(randomCurse);
          updateLastTwoAbilities(randomCurse);
+        AudioManager.getInstance().playYmirEffect();
     }
 
     private SpellType getRandomCurse() {
