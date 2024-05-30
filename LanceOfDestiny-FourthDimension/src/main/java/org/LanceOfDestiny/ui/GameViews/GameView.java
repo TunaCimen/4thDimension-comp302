@@ -288,6 +288,7 @@ public class GameView extends JFrame implements Window {
             buttonPlay.setText("RESUME");
             buttonPlay.setEnabled(false);
         });
+        Event.ShowInitGame.addRunnableListener(() -> buttonPlay.setText("START"));
         return buttonPlay;
     }
 
