@@ -82,5 +82,6 @@ public class PauseView extends JFrame implements Window {
 
     private void handleResume() {
         Event.ResumeGame.invoke();
+        Event.SendResumeUpdate.invoke();
     }
 }

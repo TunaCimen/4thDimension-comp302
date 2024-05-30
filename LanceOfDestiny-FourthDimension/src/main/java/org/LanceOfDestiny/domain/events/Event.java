@@ -66,8 +66,8 @@ public enum Event {
     ActivateInfiniteVoid(Boolean.class),
     ActivateDoubleAccel(Boolean.class),
     // EVENTS RELATED TO OTHER GAME FEATURES
-    PauseGame(Object.class, SendPauseUpdate),
-    ResumeGame(Object.class, SendResumeUpdate),
+    PauseGame(Object.class),
+    ResumeGame(Object.class),
     StartGame(Object.class),
     SaveGame(Object.class), // todo: delete it, no usage
     LoadGame(Object.class),
