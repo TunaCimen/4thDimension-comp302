@@ -77,13 +77,15 @@ public class FireBall extends GameObject {
 
     public void enableOverwhelming() {
         isOverwhelming = true;
-        sprite.color = Color.ORANGE;
+        //sprite.color = Color.ORANGE; NO NEED SINCE NOW WE MAKE IT A COMMET
+        ((BallSprite)this.sprite).setComet(true);
         sprite.setImage(overwelmingImage);
     }
 
     public void disableOverwhelming() {
         isOverwhelming = false;
-        sprite.color = Color.BLACK;
+        //sprite.color = Color.BLACK; NO NEED SINCE NOW WE MAKE IT A COMMET
+        ((BallSprite)this.sprite).setComet(false);
         sprite.setImage(defaultImage);
     }
 

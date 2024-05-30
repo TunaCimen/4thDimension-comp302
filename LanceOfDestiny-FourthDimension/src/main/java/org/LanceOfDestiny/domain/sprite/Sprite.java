@@ -1,11 +1,12 @@
 package org.LanceOfDestiny.domain.sprite;
 
 import org.LanceOfDestiny.domain.behaviours.GameObject;
+import org.LanceOfDestiny.ui.UIUtilities.Animatable;
 
 import java.awt.*;
 
 
-public abstract class Sprite implements Drawable {
+public abstract class Sprite implements Drawable, Animatable {
     public GameObject attachedGameObject;
     public Color color;
     public String number;
