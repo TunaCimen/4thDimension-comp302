@@ -1,7 +1,7 @@
 package org.LanceOfDestiny.ui.UIElements;
 
-import org.LanceOfDestiny.domain.behaviours.TimedAction;
 import org.LanceOfDestiny.domain.Constants;
+import org.LanceOfDestiny.domain.behaviours.TimedAction;
 import org.LanceOfDestiny.domain.sprite.ImageOperations;
 
 import javax.swing.*;
@@ -14,10 +14,7 @@ public class SpellUIElement extends JLayeredPane {
     private JButton spellButton;
     private JProgressBar progressBar;
 
-    private Dimension preferredDimension;
-
-
-    public SpellUIElement(ImageIcon imageIcon, Dimension size){
+    public SpellUIElement(ImageIcon imageIcon, Dimension size) {
         this.imageIcon = imageIcon;
         reducedImageIcon = ImageOperations.reducedTransparencyImageIcon(imageIcon);
         this.setPreferredSize(size);
@@ -26,33 +23,33 @@ public class SpellUIElement extends JLayeredPane {
         spellButton.setBorder(BorderFactory.createEmptyBorder());
         spellButton.setContentAreaFilled(false);
         spellButton.setFocusable(false);
-        spellButton.setBounds(0,0,size.width,size.height);
-        progressBar.setBounds(5,0,size.width -10, 10);
+        spellButton.setBounds(0, 0, size.width, size.height);
+        progressBar.setBounds(5, 0, size.width - 10, 10);
         progressBar.setOpaque(false);
-        add(spellButton,Integer.valueOf(1));
+        add(spellButton, Integer.valueOf(1));
         add(progressBar, Integer.valueOf(2));
         spellButton.setIcon(reducedImageIcon);
     }
 
-    public SpellUIElement(ImageIcon imageIcon, Dimension size, int duration){
-        this(imageIcon,size);
+    public SpellUIElement(ImageIcon imageIcon, Dimension size, int duration) {
+        this(imageIcon, size);
         this.progressBar.setMaximum(duration);
     }
 
-    public void disableSpell(){
+    public void disableSpell() {
         spellButton.setIcon(reducedImageIcon);
         activateSpell();
     }
 
-    public void enableSpell(){
+    public void enableSpell() {
         spellButton.setIcon(imageIcon);
     }
 
-    public void setProgressBarValue(int i){
+    public void setProgressBarValue(int i) {
         progressBar.setValue(i);
     }
 
-    public void activateSpell(){
+    public void activateSpell() {
 
         new TimedAction(progressBar.getMaximum()) {
             @Override
@@ -63,11 +60,12 @@ public class SpellUIElement extends JLayeredPane {
 
     }
 
-    public void resetSpellUI(){
+    public void resetSpellUI() {
         spellButton.setIcon(reducedImageIcon);
         progressBar.setValue(0);
     }
-    public void addClickEvent(ActionListener l){
+
+    public void addClickEvent(ActionListener l) {
         spellButton.addActionListener(l);
     }
 }

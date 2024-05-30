@@ -17,6 +17,7 @@ public class Player extends MonoBehaviour {
         Event.UpdateChance.addListener(this::updateChances);
         Event.ActivateSpell.addListener(this::activateSpell);
         Event.Reset.addRunnableListener(this::resetSpells);
+        Event.ShowInitGame.addRunnableListener(this::resetSpells);
     }
 
     @Override
