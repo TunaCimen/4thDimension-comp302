@@ -45,7 +45,6 @@ public class MultiplayerPanel extends BackgroundJPanel {
         backButton.removeActionListener(backButton.getActionListeners()[0]);
         backButton.addActionListener(e->{
             Event.ShowInitGame.invoke();
-            NetworkManager.getInstance().closeConnection();
         });
         revalidate();
         repaint();
