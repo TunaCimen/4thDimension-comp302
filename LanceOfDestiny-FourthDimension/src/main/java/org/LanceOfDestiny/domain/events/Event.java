@@ -51,6 +51,8 @@ public enum Event {
     UpdateChance(Integer.class, SendChanceUpdate),
     UpdateScore(Object.class, SendScoreUpdate),
     EndGame(String.class),
+    SendGameWon(Object.class),
+    SendGameLost(Object.class),
     //SPELL EVENTS
     GainSpell(SpellType.class),
     //GOOD SPELLS

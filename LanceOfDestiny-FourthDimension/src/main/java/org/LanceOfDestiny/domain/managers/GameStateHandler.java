@@ -9,10 +9,12 @@ public class GameStateHandler extends MonoBehaviour {
        var barriersLeft = BarrierManager.getInstance().getBarriers().size();
        if (barriersLeft == 0) {
            Event.EndGame.invoke("You Won");
+           Event.SendGameLost.invoke();
        }
        var chancesLeft = SessionManager.getInstance().getPlayer().getChancesLeft();
        if (chancesLeft == 0) {
            Event.EndGame.invoke("You Lost");
+           Event.SendGameWon.invoke();
        }
     }
 }
