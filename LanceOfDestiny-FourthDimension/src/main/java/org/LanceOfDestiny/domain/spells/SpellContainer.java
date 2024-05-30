@@ -31,7 +31,8 @@ public class SpellContainer {
     }
 
     public void activateSpell(SpellType spellType) {
-        if (!spellExists(spellType)) return;
+        if (!spellExists(spellType) || spellType.isActive) return;
+
         if (spellType.isGood())
             new SpellActivation(spellType, Constants.SPELL_DURATION).activate();
         else {
