@@ -1,7 +1,6 @@
 package org.LanceOfDestiny.ui.UIElements;
 
-import org.LanceOfDestiny.Animation.Animation;
-import org.LanceOfDestiny.Animation.LinearInterpolation;
+import org.LanceOfDestiny.ui.Animation.LinearInterpolation;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.domain.sprite.ImageOperations;
 import org.LanceOfDestiny.ui.UIUtilities.Animatable;

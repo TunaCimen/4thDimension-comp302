@@ -1,4 +1,4 @@
-package org.LanceOfDestiny.Animation;
+package org.LanceOfDestiny.ui.Animation;
 
 import org.LanceOfDestiny.domain.behaviours.AnimationBehaviour;
 import org.LanceOfDestiny.domain.managers.SessionManager;
