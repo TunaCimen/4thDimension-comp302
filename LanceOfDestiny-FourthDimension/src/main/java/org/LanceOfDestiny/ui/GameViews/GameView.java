@@ -95,7 +95,11 @@ public class GameView extends JFrame implements Window {
             showPanel(STATUS_GAME);
             scoreBar.updateValue();
         });
-        Event.EndGame.addRunnableListener(() -> {
+        Event.GameWon.addRunnableListener(() -> {
+            AudioManager.getInstance().stopBackgroundMusic();
+            showPanel(STATUS_END);
+        });
+        Event.GameLost.addRunnableListener(() -> {
             AudioManager.getInstance().stopBackgroundMusic();
             showPanel(STATUS_END);
         });

@@ -23,7 +23,8 @@ public class BarrierManager {
     private BarrierManager() {
         barriers = new ArrayList<>();
         selectedBarrierType = BarrierTypes.SIMPLE;
-        Event.EndGame.addRunnableListener(this::deleteAllBarriers);
+        Event.GameWon.addRunnableListener(this::deleteAllBarriers);
+        Event.GameLost.addRunnableListener(this::deleteAllBarriers);
         Event.Reset.addRunnableListener(this::deleteAllBarriers);
     }
 

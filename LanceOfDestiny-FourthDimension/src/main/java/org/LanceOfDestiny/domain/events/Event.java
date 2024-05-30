@@ -50,7 +50,10 @@ public enum Event {
     UpdateBarrierCount(Integer.class, SendBarrierCountUpdate),
     UpdateChance(Integer.class, SendChanceUpdate),
     UpdateScore(Object.class, SendScoreUpdate),
-    EndGame(String.class),
+    SendGameWon(Object.class),
+    SendGameLost(Object.class),
+    GameWon(Object.class, SendGameWon),
+    GameLost(Object.class, SendGameLost),
     //SPELL EVENTS
     GainSpell(SpellType.class),
     //GOOD SPELLS

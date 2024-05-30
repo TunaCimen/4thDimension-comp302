@@ -50,7 +50,8 @@ public class SessionManager {
         Event.Reset.addRunnableListener(()->getLoopExecutor().setLoadedTime(0));
         Event.Reset.addRunnableListener(()->getLoopExecutor().setTimePassed(0));
         Event.LoadGame.addRunnableListener(()->getLoopExecutor().setTimePassed(0));
-        Event.EndGame.addRunnableListener(()->getLoopExecutor().stop());
+        Event.GameWon.addRunnableListener(()->getLoopExecutor().stop());
+        Event.GameLost.addRunnableListener(() -> getLoopExecutor().stop());
         Event.ResumeGame.addRunnableListener(()->getLoopExecutor().resume());
         Event.PauseGame.addRunnableListener(()->{
             getLoopExecutor().stop();

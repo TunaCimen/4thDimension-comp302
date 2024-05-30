@@ -28,7 +28,8 @@ public class FireBall extends GameObject {
         Event.ActivateDoubleAccel.addListener(this::handleDoubleAccel);
         Event.ShootBall.addRunnableListener(this::shootBall);
         Event.LoadGame.addRunnableListener(() -> isAttached = true);
-        Event.EndGame.addRunnableListener(() -> isAttached = true);
+        Event.GameWon.addRunnableListener(() -> isAttached = true);
+        Event.GameLost.addRunnableListener(() -> isAttached = true);
         Event.Reset.addRunnableListener(this::resetFireballPosition);
         Event.Reset.addRunnableListener(() -> speed = Constants.FIREBALL_SPEED);
         Event.LoadGame.addRunnableListener(this::resetFireballPosition);

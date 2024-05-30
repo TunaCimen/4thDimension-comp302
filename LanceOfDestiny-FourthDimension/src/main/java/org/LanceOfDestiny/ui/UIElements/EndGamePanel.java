@@ -19,7 +19,8 @@ public class EndGamePanel extends JPanel {
     public EndGamePanel(){
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         JLabel endLabel = UILibrary.createLabel("");
-        Event.EndGame.addListener(e -> endLabel.setText((String) e));
+        Event.GameWon.addRunnableListener(() -> endLabel.setText("You Won"));
+        Event.GameLost.addRunnableListener(() -> endLabel.setText("You Lost"));
         JButton newGameButton = UILibrary.createButton("NEW GAME", Event.Reset::invoke);
         JLabel scoreLabel = new JLabel();
         scoreLabel.setFont(new Font("Impact", Font.BOLD, 24));
@@ -34,7 +35,8 @@ public class EndGamePanel extends JPanel {
         add(endLabel);
         add(scoreLabel);
         add(newGameButton);
-        Event.EndGame.addRunnableListener(()->scoreLabel.setText("Score: " + ScoreManager.getInstance().getScore()));
+        Event.GameWon.addRunnableListener(()->scoreLabel.setText("Score: " + ScoreManager.getInstance().getScore()));
+        Event.GameLost.addRunnableListener(()->scoreLabel.setText("Score: " + ScoreManager.getInstance().getScore()));
     }
 
 

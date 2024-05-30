@@ -8,11 +8,11 @@ public class GameStateHandler extends MonoBehaviour {
     public void update() {
        var barriersLeft = BarrierManager.getInstance().getBarriers().size();
        if (barriersLeft == 0) {
-           Event.EndGame.invoke("You Won");
+           Event.GameWon.invoke();
        }
        var chancesLeft = SessionManager.getInstance().getPlayer().getChancesLeft();
        if (chancesLeft == 0) {
-           Event.EndGame.invoke("You Lost");
+           Event.GameLost.invoke();
        }
     }
 }
