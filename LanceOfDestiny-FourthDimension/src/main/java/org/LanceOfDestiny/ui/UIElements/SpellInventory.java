@@ -2,6 +2,7 @@ package org.LanceOfDestiny.ui.UIElements;
 
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.events.Event;
+import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.spells.SpellType;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.domain.sprite.ImageOperations;
@@ -100,6 +101,21 @@ public class SpellInventory extends JPanel {
     public void loseSpellEventsSingle() {
         System.out.println("Subscribed to lose events single");
         loseGoodSpellEvents();
+
+        Event.SendDoubleAccelUpdate.addRunnableListener(() -> {
+        if (SessionManager.getInstance().getGameMode().equals(SessionManager.GameMode.MULTIPLAYER)) {
+            doubleAccelSpell.disableSpell();
+        }});
+
+        Event.SendInfiniteVoidUpdate.addRunnableListener(() -> {
+            if (SessionManager.getInstance().getGameMode().equals(SessionManager.GameMode.MULTIPLAYER)) {
+                infiniteVoidSpell.disableSpell();
+            }});
+
+        Event.SendDoubleAccelUpdate.addRunnableListener(() -> {
+            if (SessionManager.getInstance().getGameMode().equals(SessionManager.GameMode.MULTIPLAYER)) {
+                doubleAccelSpell.disableSpell();
+            }});
 
         Event.ActivateDoubleAccel.addListener(e -> {
             if ((boolean) e) doubleAccelSpell.disableSpell();
