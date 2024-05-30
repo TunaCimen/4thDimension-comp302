@@ -84,18 +84,11 @@ public class SpellInventory extends JPanel {
     private void loseSpellEventsMulti() {
         System.out.println("Subscribed to lose events multi");
         loseGoodSpellEvents();
+        Event.SendDoubleAccelUpdate.addRunnableListener(() -> doubleAccelSpell.disableSpell());
 
-        Event.SendDoubleAccelUpdate.addListener(e -> {
-            if ((boolean) e) doubleAccelSpell.disableSpell();
-        });
+        Event.SendHollowPurpleUpdate.addRunnableListener(() -> hollowSpell.disableSpell());
 
-        Event.SendHollowPurpleUpdate.addListener(e -> {
-            if ((boolean) e) hollowSpell.disableSpell();
-        });
-
-        Event.SendInfiniteVoidUpdate.addListener(e -> {
-            if ((boolean) e) infiniteVoidSpell.disableSpell();
-        });
+        Event.SendInfiniteVoidUpdate.addRunnableListener(() -> infiniteVoidSpell.disableSpell());
     }
 
     public void loseSpellEventsSingle() {
