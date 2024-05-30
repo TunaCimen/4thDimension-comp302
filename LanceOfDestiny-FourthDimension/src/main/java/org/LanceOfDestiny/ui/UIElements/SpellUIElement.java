@@ -14,15 +14,11 @@ public class SpellUIElement extends JLayeredPane {
     private JButton spellButton;
     private JProgressBar progressBar;
 
-    private Dimension preferredDimension;
-
-    private int duration;
-
     public SpellUIElement(ImageIcon imageIcon, Dimension size){
         this.imageIcon = imageIcon;
         reducedImageIcon = ImageOperations.reducedTransparencyImageIcon(imageIcon);
         this.setPreferredSize(size);
-        progressBar = new JProgressBar(0, duration);
+        progressBar = new JProgressBar(0, Constants.SPELL_DURATION);
         spellButton = new JButton();
         spellButton.setBorder(BorderFactory.createEmptyBorder());
         spellButton.setContentAreaFilled(false);
