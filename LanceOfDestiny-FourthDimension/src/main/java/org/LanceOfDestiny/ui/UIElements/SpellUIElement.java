@@ -33,6 +33,11 @@ public class SpellUIElement extends JLayeredPane {
         spellButton.setIcon(reducedImageIcon);
     }
 
+    public SpellUIElement(ImageIcon imageIcon, Dimension size, int duration){
+        this(imageIcon,size);
+        progressBar.setMaximum(duration);
+    }
+
     public void disableSpell(){
         spellButton.setIcon(reducedImageIcon);
         activateSpell();
@@ -48,10 +53,10 @@ public class SpellUIElement extends JLayeredPane {
 
     public void activateSpell(){
 
-        new TimedAction(Constants.SPELL_DURATION) {
+        new TimedAction(progressBar.getMaximum()) {
             @Override
             public void onUpdate() {
-                setProgressBarValue(Constants.SPELL_DURATION - getTimePassed());
+                setProgressBarValue(progressBar.getMaximum() - getTimePassed());
             }
         }.start();
 

@@ -1,9 +1,7 @@
 package org.LanceOfDestiny.Animation;
 
 import org.LanceOfDestiny.domain.behaviours.AnimationBehaviour;
-import org.LanceOfDestiny.domain.looper.UILooper;
 import org.LanceOfDestiny.domain.managers.SessionManager;
-import org.LanceOfDestiny.ui.UIElements.TextUI;
 
 import java.util.function.Consumer;
 
@@ -35,7 +33,6 @@ public class CountdownAnimationBehaviour extends AnimationBehaviour {
         int timePassed = SessionManager.getInstance().UILoopExecutor.getSecondsPassed() - initTime;
         if(timePassed<= count){
             setter.accept(Integer.toString(count - timePassed));
-            System.out.println("Time passed animator: " + timePassed);
         }
         else{
             cont.run();

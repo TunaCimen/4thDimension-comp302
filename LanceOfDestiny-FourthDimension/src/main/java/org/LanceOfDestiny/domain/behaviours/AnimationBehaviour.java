@@ -7,6 +7,7 @@ public abstract class AnimationBehaviour{
 
     public boolean isAnimating = true;
     private static List<AnimationBehaviour> animationBehaviourList = new ArrayList<>();
+
     public AnimationBehaviour(){
         animationBehaviourList.add(this);
     }

@@ -39,5 +39,6 @@ public class SpellActivation extends MonoBehaviour {
     public void deactivate() {
         spellType.deactivate();
         isActive = false;
+        destroy();
     }
 }

@@ -9,11 +9,13 @@ public enum SpellType {
         @Override
         public void activate() {
             Event.ActivateCanons.invoke(true);
+            isActive = true;
         }
 
         @Override
         public void deactivate() {
             Event.ActivateCanons.invoke(false);
+            isActive = false;
         }
 
         @Override
@@ -25,11 +27,13 @@ public enum SpellType {
         @Override
         public void activate() {
             Event.ActivateExpansion.invoke(true);
+            isActive = true;
         }
 
         @Override
         public void deactivate() {
             Event.ActivateExpansion.invoke(false);
+            isActive = false;
         }
 
         @Override
@@ -41,11 +45,13 @@ public enum SpellType {
         @Override
         public void activate() {
             Event.ActivateOverwhelming.invoke(true);
+            isActive = true;
         }
 
         @Override
         public void deactivate() {
             Event.ActivateOverwhelming.invoke(false);
+            isActive = false;
         }
 
         @Override
@@ -74,11 +80,13 @@ public enum SpellType {
         @Override
         public void activate() {
             Event.ActivateInfiniteVoid.invoke(true);
+            isActive = true;
         }
 
         @Override
         public void deactivate() {
             Event.ActivateInfiniteVoid.invoke(false);
+            isActive = false;
         }
 
         @Override
@@ -90,11 +98,13 @@ public enum SpellType {
         @Override
         public void activate() {
             Event.ActivateDoubleAccel.invoke(true);
+            isActive = true;
         }
 
         @Override
         public void deactivate() {
             Event.ActivateDoubleAccel.invoke(false);
+            isActive = false;
         }
 
         @Override
@@ -106,11 +116,13 @@ public enum SpellType {
         @Override
         public void activate() {
             Event.ActivateHollowPurple.invoke(true);
+            isActive = true;
         }
 
         @Override
         public void deactivate() {
             Event.ActivateHollowPurple.invoke(false);
+            isActive = false;
         }
 
         @Override
@@ -119,6 +131,7 @@ public enum SpellType {
         }
     };
 
+    public boolean isActive = false;
     public abstract void activate();
     public abstract void deactivate();
     public abstract boolean isGood();

@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.ui.UIElements;
 
+import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.spells.SpellType;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
@@ -34,9 +35,9 @@ public class SpellInventory extends JPanel {
         canonSpell = new SpellUIElement(canonIcon, new Dimension(50,50));
         overwhelmingSpell = new SpellUIElement(overwhelmingIcon, new Dimension(50,50));
         expansionSpell = new SpellUIElement(expansionIcon, new Dimension(50,50));
-        infiniteVoidSpell = new SpellUIElement(infVoidIcon, new Dimension(50,50));
-        doubleAccelSpell = new SpellUIElement(doubleAccelIcon, new Dimension(50,50));
-        hollowSpell = new SpellUIElement(hollowSpellIcon, new Dimension(50,50));
+        infiniteVoidSpell = new SpellUIElement(infVoidIcon, new Dimension(50,50), Constants.CURSE_DURATION);
+        doubleAccelSpell = new SpellUIElement(doubleAccelIcon, new Dimension(50,50), Constants.CURSE_DURATION);
+        hollowSpell = new SpellUIElement(hollowSpellIcon, new Dimension(50,50), Constants.CURSE_DURATION);
 
         Event.GainSpell.addListener(e->gainSpell((SpellType) e));
         Event.ResetSpells.addListener(e->resetSpellUI());
