@@ -81,7 +81,7 @@ public abstract class Barrier extends GameObject {
 
     public void reduceLife() {
         hitsLeft--;
-        AudioManager.getInstance().playSoundEffect();
+        AudioManager.getInstance().playBarrierHitEffect();
         if (isDestroyed()) {
             kill();
         }

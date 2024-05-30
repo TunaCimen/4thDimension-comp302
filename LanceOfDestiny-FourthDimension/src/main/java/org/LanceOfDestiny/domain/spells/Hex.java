@@ -5,6 +5,7 @@ import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.barriers.ExplosiveBarrier;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.events.Event;
+import org.LanceOfDestiny.domain.managers.AudioManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.physics.ColliderFactory;
 import org.LanceOfDestiny.domain.physics.ColliderType;
@@ -79,7 +80,7 @@ public class Hex extends GameObject {
         this.position = getShootingPosition();
         var velocity = Vector.getVelocityByAngleAndMagnitude((int) -HEX_SPEED, angle);
         collider.setVelocity(velocity);
-
+        AudioManager.getInstance().playShootHex();
     }
 
     public Vector getShootingPosition() {
