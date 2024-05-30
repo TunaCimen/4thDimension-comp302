@@ -3,7 +3,6 @@ package org.LanceOfDestiny.ui.UIElements;
 import org.LanceOfDestiny.domain.Constants;
 
 import org.LanceOfDestiny.domain.events.Event;
-import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.ui.UIUtilities.BackgroundJPanel;
 
@@ -29,9 +28,7 @@ public class StartPanel extends BackgroundJPanel {
             Event.Load.invoke();
             WindowManager.getInstance().showWindow(Windows.LoadView);
         }));
-        add(UILibrary.createButton("Back",()->{
-            Event.ShowInitGame.invoke();
-        }));
+        add(UILibrary.createButton("Back", Event.ShowInitGame::invoke));
     }
 
     }

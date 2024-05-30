@@ -10,6 +10,10 @@ public class AudioManager {
     private Clip musicClip;
     private String backgroundAudioPath = "Audio/BackgroundMusic.wav";
     private String soundEffectPath = "Audio/SoundEffect.wav";
+    private String ymirActivatedPath = "Audio/YmirActivated.wav";
+    private String spellActivatedPath = "Audio/SpellActivated.wav";
+    private String winEffectPath = "Audio/WinEffect.wav";
+    private String loseEffectPath = "Audio/LoseEffect.wav";
 
 
 

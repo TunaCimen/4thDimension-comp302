@@ -1,7 +1,6 @@
 package org.LanceOfDestiny.ui.AuthViews;
 
-import org.LanceOfDestiny.domain.AuthModels.LogInController;
-import org.LanceOfDestiny.domain.events.Event;
+import org.LanceOfDestiny.domain.authModels.LogInController;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.ScoreManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;

@@ -22,10 +22,10 @@ import java.util.Objects;
 
 public class LoadView extends JFrame implements Window {
     private List<String> savedNames;
-    private final org.LanceOfDestiny.domain.AuthModels.LogInController userManager;
+    private final org.LanceOfDestiny.domain.authModels.LogInController userManager;
 
     public LoadView() {
-        this.userManager = org.LanceOfDestiny.domain.AuthModels.LogInController.getInstance();
+        this.userManager = org.LanceOfDestiny.domain.authModels.LogInController.getInstance();
         this.savedNames = new ArrayList<>();
     }
 

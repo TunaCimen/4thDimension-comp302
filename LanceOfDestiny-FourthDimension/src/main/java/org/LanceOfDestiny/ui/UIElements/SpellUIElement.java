@@ -55,6 +55,7 @@ public class SpellUIElement extends JLayeredPane {
             @Override
             public void onUpdate() {
                 setProgressBarValue(progressBar.getMaximum() - getTimePassed());
+
             }
         }.start();
 

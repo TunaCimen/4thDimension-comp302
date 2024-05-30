@@ -1,11 +1,9 @@
 package org.LanceOfDestiny.ui.UIUtilities;
 
-import org.LanceOfDestiny.domain.AuthModels.LogInController;
-import org.LanceOfDestiny.domain.managers.SessionManager;
+import org.LanceOfDestiny.domain.authModels.LogInController;
 import org.LanceOfDestiny.ui.AuthViews.*;
 import org.LanceOfDestiny.ui.GameViews.BuildViewMiniPanel;
 import org.LanceOfDestiny.ui.GameViews.GameView;
-import org.LanceOfDestiny.ui.UIUtilities.Window;
 
 public enum Windows {
         Login(new LogInView(LogInController.getInstance())),
