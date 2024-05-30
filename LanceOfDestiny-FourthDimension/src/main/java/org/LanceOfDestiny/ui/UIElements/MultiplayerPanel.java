@@ -36,15 +36,17 @@ public class MultiplayerPanel extends BackgroundJPanel {
         showMainPrompt();
     }
 
+
     public void showMainPrompt(){
         removeAll();
+        joinButton.removeActionListener(joinButton.getActionListeners()[0]);
+        hostButton.removeActionListener(hostButton.getActionListeners()[0]);
         add(Box.createRigidArea(new Dimension(Constants.SCREEN_WIDTH,Constants.SCREEN_HEIGHT/2-100)));
         add(hostButton);
         add(joinButton);
         add(backButton);
         joinButton.addActionListener(e->showJoinPrompt());
         hostButton.addActionListener(e->showHostPrompt());
-
         backButton.removeActionListener(backButton.getActionListeners()[0]);
         backButton.addActionListener(e->{
             Event.ShowInitGame.invoke();
@@ -61,14 +63,17 @@ public class MultiplayerPanel extends BackgroundJPanel {
         add(ipField);
         add(joinButton);
         add(backButton);
+        joinButton.removeActionListener(joinButton.getActionListeners()[0]);
         backButton.removeActionListener(backButton.getActionListeners()[0]);
         backButton.addActionListener((e)->{
             showMainPrompt();
-            joinButton.removeActionListener(joinButton.getActionListeners()[0]);
+
 
         });
         joinButton.addActionListener(e->{
             Event.TryJoiningSession.invoke(ipField.getText());
+            ipField.setText("");
+            showMainPrompt();
         });
         revalidate();
         repaint();
@@ -83,12 +88,11 @@ public class MultiplayerPanel extends BackgroundJPanel {
         backButton.removeActionListener(backButton.getActionListeners()[0]);
         backButton.addActionListener((e)->{
             showMainPrompt();
-            hostButton.removeActionListener(joinButton.getActionListeners()[0]);
         });
-        hostButton.removeActionListener(joinButton.getActionListeners()[0]);
+        hostButton.removeActionListener(hostButton.getActionListeners()[0]);
         hostButton.addActionListener(e->{
             Event.Reset.invoke();
-            System.out.println("Host Clickeeeeeeeed");
+            showMainPrompt();
         });
 
         revalidate();

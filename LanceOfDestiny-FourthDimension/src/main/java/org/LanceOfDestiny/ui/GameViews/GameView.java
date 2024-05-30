@@ -120,10 +120,11 @@ public class GameView extends JFrame implements Window {
         Event.JoinedTheHost.addRunnableListener(() -> {
             this.setEnabled(true);
             this.buttonPlay.setEnabled(false);
+            this.comboBoxAddBarrierType.setVisible(false);
+            SessionManager.getInstance().setStatus(Status.PausedMode);
             this.requestFocusInWindow(true);
             ((JFrame) Windows.BuildViewMini.getWindow()).dispose();
             hostButton.setVisible(false);
-            hostButton.getParent().remove(hostButton);
         });
         Event.PauseGame.addRunnableListener(() -> {
             AudioManager.getInstance().stopBackgroundMusic();
@@ -133,7 +134,9 @@ public class GameView extends JFrame implements Window {
             WindowManager.getInstance().showWindow(Windows.PauseView);
         });
         Event.SingleplayerSelected.addRunnableListener(() -> showPanel(STATUS_START));
-        Event.MultiplayerSelected.addRunnableListener(() -> showPanel(STATUS_MULTI));
+        Event.MultiplayerSelected.addRunnableListener(() -> {
+            showPanel(STATUS_MULTI);
+        });
         Event.ShowInitGame.addRunnableListener(() -> showPanel(STATUS_INIT));
 
         Event.StartCountDown.addRunnableListener(() -> {
