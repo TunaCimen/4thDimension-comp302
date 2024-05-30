@@ -14,7 +14,7 @@ public class NetworkBehavior extends MonoBehaviour {
 
     public NetworkBehavior() {
         this.networkManager = NetworkManager.getInstance();
-        Event.ShowInitGame.addRunnableListener(()->stopUpdateThread());
+        Event.ShowInitGame.addRunnableListener(() -> stopUpdateThread());
     }
 
     @Override
@@ -32,10 +32,8 @@ public class NetworkBehavior extends MonoBehaviour {
                     if (SessionManager.getInstance().getGameMode() == SessionManager.GameMode.SINGLEPLAYER) continue;
                     String gameState = networkManager.receiveGameState();
                     System.out.println("Received state" + gameState);
-                    if (!gameState.isEmpty()) {
-                        networkManager.getEventHandler().handleReceivedGameState(gameState);
-                        System.out.println("Handled State");
-                    }
+                    networkManager.getEventHandler().handleReceivedGameState(gameState);
+                    System.out.println("Handled State");
                 } catch (IOException e) {
                     running = false;
                 }

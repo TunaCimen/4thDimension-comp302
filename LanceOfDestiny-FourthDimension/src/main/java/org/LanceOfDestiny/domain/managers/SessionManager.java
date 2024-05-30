@@ -176,8 +176,6 @@ public class SessionManager {
         return getGameMode().equals(GameMode.MULTIPLAYER);
     }
 
-
-
     public enum GameMode {
         MULTIPLAYER, SINGLEPLAYER
     }
