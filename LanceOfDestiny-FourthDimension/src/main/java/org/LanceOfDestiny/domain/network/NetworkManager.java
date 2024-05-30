@@ -2,6 +2,7 @@ package org.LanceOfDestiny.domain.network;
 
 import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
+import org.LanceOfDestiny.domain.managers.SessionManager;
 
 
 import java.io.*;
@@ -45,18 +46,13 @@ public class NetworkManager {
                 setupStreams();
                 Event.OtherPlayerJoined.invoke();
                 out.println(BarrierManager.getInstance().serializeAllBarriers());
-                System.out.println("Connected the other Player succesfulyl.");
             }catch(Exception e){
                 throw new RuntimeException(e);
             }
         }).start();
-
-        System.out.println("Hosted the game connect ");
     }
 
     public void hostGame(){
-
-        System.out.println("here hosting a session niga");
         try {
             InetAddress ipAddress = getIPAddress();
             if (ipAddress != null) {
@@ -109,6 +105,8 @@ public class NetworkManager {
         Event.Reset.invoke();
         Event.JoinedTheHost.invoke();
         BarrierManager.getInstance().loadBarriersFromString(in.readLine());
+        Event.ReceiveBarrierCountUpdate.invoke(BarrierManager.getInstance().getBarriers().size());
+        Event.ReceiveChanceUpdate.invoke(SessionManager.getInstance().getPlayer().getChancesLeft());
         new Thread(()->{
             while(true){
                 try {

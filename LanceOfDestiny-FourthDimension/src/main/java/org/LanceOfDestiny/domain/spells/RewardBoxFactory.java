@@ -16,6 +16,7 @@ public class RewardBoxFactory {
 
     private RewardBoxFactory() {
         Event.Reset.addRunnableListener(this::removeRewardBoxes);
+        Event.ShowInitGame.addRunnableListener(this::removeRewardBoxes);
     }
 
     public static RewardBoxFactory getInstance() {

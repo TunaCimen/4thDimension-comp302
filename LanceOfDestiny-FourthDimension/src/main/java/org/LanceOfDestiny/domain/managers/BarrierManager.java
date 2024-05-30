@@ -260,11 +260,7 @@ public class BarrierManager {
     public void loadBarriersFromString(String barriersData) {
         String[] barriersArray = barriersData.split(";");
         for (String barrierInfo : barriersArray) {
-            Barrier barrier = loadBarrierFromString(barrierInfo);
-            if (barrier != null) {
-                BarrierManager.getInstance().addBarrier(barrier);
-                Event.UpdateBarrierCount.invoke();
-            }
+           loadBarrierFromString(barrierInfo);
         }
     }
 
