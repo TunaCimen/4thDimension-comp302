@@ -24,7 +24,7 @@ public class NetworkBehavior extends MonoBehaviour {
                         System.out.println("Handled State");
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    updateThread.stop();
                 }
             }
 
