@@ -1,12 +1,8 @@
 package org.LanceOfDestiny.ui.UIUtilities;
 
 import org.LanceOfDestiny.domain.Constants;
-
-
 import org.LanceOfDestiny.domain.behaviours.Behaviour;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
-
-
 import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.sprite.*;
 import org.LanceOfDestiny.ui.UIElements.YmirUI;
@@ -59,7 +55,6 @@ public class DrawCanvas extends JPanel {
                 }
             }
         for(Drawable d : foregroundList){
-            System.out.println("Drawing the foreground");
             d.drawShape(g);
         }
         }

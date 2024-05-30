@@ -1,7 +1,5 @@
 package org.LanceOfDestiny.ui.UIElements;
 
-import org.LanceOfDestiny.Animation.LinearInterpolation;
-import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.sprite.Drawable;
 import org.LanceOfDestiny.ui.UIUtilities.Animatable;
 
@@ -34,7 +32,6 @@ public class TextUI implements Animatable, Drawable {
 
             g2d.setColor(color);
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity / 100f));
-            System.out.println("Opacity: " + opacity);
             g2d.drawString(text, locX - textWidth/2, locY);
     }
 
@@ -57,7 +54,6 @@ public class TextUI implements Animatable, Drawable {
     }
 
     public void setText(String text) {
-        System.out.println("Changed the daaaamn text" );
         this.text = text;
     }
 
