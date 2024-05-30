@@ -1,5 +1,7 @@
 package org.LanceOfDestiny.domain.network;
+
 import org.LanceOfDestiny.domain.behaviours.MonoBehaviour;
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 
 import java.io.IOException;
@@ -7,32 +9,49 @@ import java.io.IOException;
 public class NetworkBehavior extends MonoBehaviour {
 
     private final NetworkManager networkManager;
+    private Thread updateThread;
+    private volatile boolean running;
 
-    Thread updateThread;
-
-    public NetworkBehavior()
-    {
+    public NetworkBehavior() {
         this.networkManager = NetworkManager.getInstance();
-        updateThread = new Thread(()->{
-            while(true){
+        Event.ShowInitGame.addRunnableListener(()->stopUpdateThread());
+    }
+
+    @Override
+    public void update() {
+        if (updateThread == null || !updateThread.isAlive()) {
+            startUpdateThread();
+        }
+    }
+
+    private void startUpdateThread() {
+        running = true;
+        updateThread = new Thread(() -> {
+            while (running) {
                 try {
-                    if(SessionManager.getInstance().getGameMode() == SessionManager.GameMode.SINGLEPLAYER)continue;
+                    if (SessionManager.getInstance().getGameMode() == SessionManager.GameMode.SINGLEPLAYER) continue;
                     String gameState = networkManager.receiveGameState();
-                    System.out.println("Recieved state");
+                    System.out.println("Received state" + gameState);
                     if (gameState != null && !gameState.isEmpty()) {
                         networkManager.getEventHandler().handleReceivedGameState(gameState);
                         System.out.println("Handled State");
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    running = false;
                 }
             }
-
         });
-    }
-    @Override
-    public void update() {
-        if(updateThread.isAlive())return;
         updateThread.start();
+    }
+
+    public void stopUpdateThread() {
+        running = false;
+        if (updateThread != null) {
+            try {
+                updateThread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
