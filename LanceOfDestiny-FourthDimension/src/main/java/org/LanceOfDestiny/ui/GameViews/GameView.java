@@ -283,6 +283,10 @@ public class GameView extends JFrame implements Window {
         buttonPlay.setFont(new Font("Monospaced", Font.BOLD, 16));
         buttonPlay.addActionListener(e -> {
             Event.StartCountDown.invoke();
+            buttonPlay.removeActionListener(buttonPlay.getActionListeners()[0]);
+            buttonPlay.addActionListener(Event.StartGame::invoke);
+            buttonPlay.setText("RESUME");
+            buttonPlay.setEnabled(false);
         });
         return buttonPlay;
     }
