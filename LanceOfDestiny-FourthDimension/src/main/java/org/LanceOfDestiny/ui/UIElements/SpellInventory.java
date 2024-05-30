@@ -35,6 +35,7 @@ public class SpellInventory extends JPanel {
         activateSpellByClickEvents();
         Event.MultiplayerSelected.addRunnableListener(this::loseSpellEventsMulti);
         Event.SingleplayerSelected.addRunnableListener(this::loseSpellEventsSingle);
+        Event.Reset.addRunnableListener(this::resetSpellUI);
 
         add(canonSpell);
         add(overwhelmingSpell);
