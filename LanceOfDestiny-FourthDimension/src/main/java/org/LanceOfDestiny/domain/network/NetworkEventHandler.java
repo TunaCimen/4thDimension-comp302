@@ -34,7 +34,8 @@ public class NetworkEventHandler {
     }
 
     public void handleReceivedGameState(String gameState) {
-        if (gameState == null) {
+        System.out.println(gameState);
+        if (gameState == null && SessionManager.getInstance().getStatus().equals(Status.RunningMode)) {
             Event.EndGame.invoke("You Won (Opponent Quit)");
             NetworkManager.getInstance().closeStreams();
             return;

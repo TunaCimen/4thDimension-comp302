@@ -13,19 +13,19 @@ public class NetworkBehavior extends MonoBehaviour {
     private volatile boolean running;
 
     public NetworkBehavior() {
+        running = true;
         this.networkManager = NetworkManager.getInstance();
         Event.ShowInitGame.addRunnableListener(() -> stopUpdateThread());
     }
 
     @Override
     public void update() {
-        if (updateThread == null || !updateThread.isAlive()) {
+        if (updateThread == null) {
             startUpdateThread();
         }
     }
 
     private void startUpdateThread() {
-        running = true;
         updateThread = new Thread(() -> {
             while (running) {
                 try {
@@ -44,12 +44,5 @@ public class NetworkBehavior extends MonoBehaviour {
 
     public void stopUpdateThread() {
         running = false;
-        if (updateThread != null) {
-            try {
-                updateThread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }
