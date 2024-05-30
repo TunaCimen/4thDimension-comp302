@@ -77,14 +77,12 @@ public class FireBall extends GameObject {
 
     public void enableOverwhelming() {
         isOverwhelming = true;
-        sprite.color = Color.ORANGE;
-        sprite.setImage(overwelmingImage);
+        ((BallSprite)this.sprite).setComet(true);
     }
 
     public void disableOverwhelming() {
         isOverwhelming = false;
-        sprite.color = Color.BLACK;
-        sprite.setImage(defaultImage);
+        ((BallSprite)this.sprite).setComet(false);
     }
 
     private void handleDoubleAccel(Object object) {

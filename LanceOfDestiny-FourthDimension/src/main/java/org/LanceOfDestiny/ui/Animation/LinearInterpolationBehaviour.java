@@ -1,8 +1,6 @@
-package org.LanceOfDestiny.Animation;
+package org.LanceOfDestiny.ui.Animation;
 
-import org.LanceOfDestiny.Animation.LinearInterpolation;
 import org.LanceOfDestiny.domain.behaviours.AnimationBehaviour;
-import org.LanceOfDestiny.ui.UIUtilities.Animatable;
 
 import java.util.function.IntConsumer;
 import java.util.function.IntSupplier;

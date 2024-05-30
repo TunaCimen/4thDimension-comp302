@@ -1,7 +1,7 @@
 package org.LanceOfDestiny.ui.GameViews;
 
-import org.LanceOfDestiny.Animation.CountdownAnimation;
-import org.LanceOfDestiny.Animation.LinearInterpolation;
+import org.LanceOfDestiny.ui.Animation.CountdownAnimation;
+import org.LanceOfDestiny.ui.Animation.LinearInterpolation;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
 import org.LanceOfDestiny.domain.events.Event;

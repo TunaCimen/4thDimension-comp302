@@ -1,4 +1,4 @@
-package org.LanceOfDestiny.Animation;
+package org.LanceOfDestiny.ui.Animation;
 
 import java.util.function.Consumer;
 

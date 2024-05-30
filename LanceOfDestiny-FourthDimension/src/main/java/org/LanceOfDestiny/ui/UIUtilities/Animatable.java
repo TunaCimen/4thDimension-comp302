@@ -1,6 +1,6 @@
 package org.LanceOfDestiny.ui.UIUtilities;
 
-import org.LanceOfDestiny.Animation.Animation;
+import org.LanceOfDestiny.ui.Animation.Animation;
 import org.LanceOfDestiny.domain.events.Event;
 
 public interface Animatable {
