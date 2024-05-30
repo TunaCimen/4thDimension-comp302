@@ -31,10 +31,12 @@ public class SpellContainer {
     }
 
     public void activateSpell(SpellType spellType) {
-        if (!spellExists(spellType) || spellType.isActive) return;
+        if (!spellExists(spellType)) return;
 
-        if (spellType.isGood())
+        if (spellType.isGood()) {
+            if(spellType.isActive) return;
             new SpellActivation(spellType, Constants.SPELL_DURATION).activate();
+        }
         else {
             // This will only work if it is multiplayer, no need for a check
             switch (spellType) {
