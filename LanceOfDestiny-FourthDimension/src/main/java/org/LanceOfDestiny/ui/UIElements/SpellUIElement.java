@@ -57,6 +57,9 @@ public class SpellUIElement extends JLayeredPane {
                 setProgressBarValue(progressBar.getMaximum() - getTimePassed());
 
             }
+
+
+
         }.start();
 
     }

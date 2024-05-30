@@ -205,6 +205,7 @@ public class GameView extends JFrame implements Window {
             enemyStatusPanel.setVisible(true);
         } else {
             enemyStatusPanel.setVisible(false);
+            ipLabel.setVisible(false);
         }
 
     }
