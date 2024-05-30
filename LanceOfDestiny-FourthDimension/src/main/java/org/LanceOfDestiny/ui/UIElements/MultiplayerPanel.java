@@ -42,6 +42,9 @@ public class MultiplayerPanel extends BackgroundJPanel {
         add(hostButton);
         add(joinButton);
         add(backButton);
+        joinButton.addActionListener(e->showJoinPrompt());
+        hostButton.addActionListener(e->showHostPrompt());
+
         backButton.removeActionListener(backButton.getActionListeners()[0]);
         backButton.addActionListener(e->{
             Event.ShowInitGame.invoke();
@@ -60,13 +63,12 @@ public class MultiplayerPanel extends BackgroundJPanel {
         add(backButton);
         backButton.removeActionListener(backButton.getActionListeners()[0]);
         backButton.addActionListener((e)->{
-            Event.MultiplayerSelected.invoke();
             showMainPrompt();
+            joinButton.removeActionListener(joinButton.getActionListeners()[0]);
+
         });
-        joinButton.removeActionListener(joinButton.getActionListeners()[0]);
         joinButton.addActionListener(e->{
             Event.TryJoiningSession.invoke(ipField.getText());
-            showMainPrompt();
         });
         revalidate();
         repaint();
@@ -80,8 +82,8 @@ public class MultiplayerPanel extends BackgroundJPanel {
         add(backButton);
         backButton.removeActionListener(backButton.getActionListeners()[0]);
         backButton.addActionListener((e)->{
-            Event.MultiplayerSelected.invoke();
             showMainPrompt();
+            hostButton.removeActionListener(joinButton.getActionListeners()[0]);
         });
         hostButton.removeActionListener(joinButton.getActionListeners()[0]);
         hostButton.addActionListener(e->{
