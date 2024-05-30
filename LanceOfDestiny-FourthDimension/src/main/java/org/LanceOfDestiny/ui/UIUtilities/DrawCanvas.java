@@ -4,6 +4,7 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.behaviours.Behaviour;
 import org.LanceOfDestiny.domain.behaviours.GameObject;
 import org.LanceOfDestiny.domain.events.Event;
+import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.sprite.*;
 import org.LanceOfDestiny.ui.UIElements.YmirUI;
 
@@ -45,7 +46,9 @@ public class DrawCanvas extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
-        g.drawImage(ymirUI.getYmirImage(), ymirUI.getX(),ymirUI.getY(),this);
+        if (SessionManager.getInstance().isSinglePlayer()) {
+            g.drawImage(ymirUI.getYmirImage(), ymirUI.getX(),ymirUI.getY(),this);
+        }
         for(Behaviour behaviour : GameObject.getGameObjects()) {
             if (behaviour.gameObject != null) {
                 Sprite gameObjectSprite = behaviour.gameObject.getSprite();

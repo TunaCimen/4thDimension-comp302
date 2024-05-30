@@ -32,7 +32,7 @@ public class NetworkBehavior extends MonoBehaviour {
                     if (SessionManager.getInstance().getGameMode() == SessionManager.GameMode.SINGLEPLAYER) continue;
                     String gameState = networkManager.receiveGameState();
                     System.out.println("Received state" + gameState);
-                    if (gameState != null && !gameState.isEmpty()) {
+                    if (!gameState.isEmpty()) {
                         networkManager.getEventHandler().handleReceivedGameState(gameState);
                         System.out.println("Handled State");
                     }

@@ -34,9 +34,6 @@ public class NetworkEventHandler {
     }
 
     public void handleReceivedGameState(String gameState) {
-        if (gameState == null || gameState.isEmpty()) {
-            return;
-        }
         if (gameState.equals("SHUTDOWN")) {
             NetworkManager.getInstance().closeStreams();
             return;

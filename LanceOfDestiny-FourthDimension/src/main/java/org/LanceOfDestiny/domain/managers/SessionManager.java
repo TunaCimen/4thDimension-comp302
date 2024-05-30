@@ -168,6 +168,16 @@ public class SessionManager {
         return gameMode;
     }
 
+    public boolean isSinglePlayer() {
+        return getGameMode().equals(GameMode.SINGLEPLAYER);
+    }
+
+    public boolean isMultiPlayer() {
+        return getGameMode().equals(GameMode.MULTIPLAYER);
+    }
+
+
+
     public enum GameMode {
         MULTIPLAYER, SINGLEPLAYER
     }

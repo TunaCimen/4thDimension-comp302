@@ -31,7 +31,7 @@ public class Ymir extends MonoBehaviour {
     @Override
     public void update() {
         super.update();
-        if (loopExecutor.getSecondsPassed() >= nextCoinFlipSeconds) {
+        if (loopExecutor.getSecondsPassed() >= nextCoinFlipSeconds && SessionManager.getInstance().isSinglePlayer()) {
             coinFlip();
         }
     }
