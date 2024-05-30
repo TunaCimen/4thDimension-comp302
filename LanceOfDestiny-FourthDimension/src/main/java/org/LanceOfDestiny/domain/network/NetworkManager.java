@@ -18,17 +18,12 @@ public class NetworkManager {
     private final NetworkEventHandler eventHandler;
 
     private NetworkManager() {
-
         this.eventHandler = new NetworkEventHandler();
         Event.TryJoiningSession.addListener(this::joinGame);
         Event.TryHostingSession.addRunnableListener(this::hostGame);
-        Event.SendGameStarted.addRunnableListener(()->{
-            out.println("STARTED");
-        });
+        Event.SendGameStarted.addRunnableListener(() -> out.println("STARTED"));
         Event.SingleplayerSelected.addRunnableListener(this::closeConnection);
-        Event.SendGameWon.addRunnableListener(this::closeConnection);
-        Event.SendGameLost.addRunnableListener(this::closeConnection);
-
+        Event.ShowInitGame.addRunnableListener(this::closeConnection);
     }
 
     public static NetworkManager getInstance() {
@@ -38,21 +33,28 @@ public class NetworkManager {
         return instance;
     }
 
-    public void hostGame(int port){
+    public static void resetInstance() {
+        if (instance != null) {
+            instance.closeStreams();
+        }
+        instance = new NetworkManager();
+    }
+
+    public void hostGame(int port) {
         new Thread(() -> {
-            try{
+            try {
                 serverSocket = new ServerSocket(port);
                 socket = serverSocket.accept();
                 setupStreams();
                 Event.OtherPlayerJoined.invoke();
                 out.println(BarrierManager.getInstance().serializeAllBarriers());
-            }catch(Exception e){
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }).start();
     }
 
-    public void hostGame(){
+    public void hostGame() {
         try {
             InetAddress ipAddress = getIPAddress();
             if (ipAddress != null) {
@@ -66,7 +68,6 @@ public class NetworkManager {
             e.printStackTrace();
         }
         hostGame(12345);
-
     }
 
     private static InetAddress getIPAddress() throws SocketException {
@@ -88,15 +89,14 @@ public class NetworkManager {
         return null; // No appropriate IP address found
     }
 
-
     public void joinGame(Object ip) {
         try {
-            joinGame((String)ip, 12345);
+            joinGame((String) ip, 12345);
         } catch (IOException e) {
-            throw new RuntimeException(e);//TODO: A prompt about failed connection.
+            throw new RuntimeException(e); // TODO: A prompt about failed connection.
         }
 
-        System.out.println("Joined Successfuly ");
+        System.out.println("Joined Successfully ");
     }
 
     public void joinGame(String ip, int port) throws IOException {
@@ -107,10 +107,10 @@ public class NetworkManager {
         BarrierManager.getInstance().loadBarriersFromString(in.readLine());
         Event.ReceiveBarrierCountUpdate.invoke(BarrierManager.getInstance().getBarriers().size());
         Event.ReceiveChanceUpdate.invoke(SessionManager.getInstance().getPlayer().getChancesLeft());
-        new Thread(()->{
-            while(true){
+        new Thread(() -> {
+            while (true) {
                 try {
-                    if(Objects.equals(in.readLine(), "STARTED")){
+                    if (Objects.equals(in.readLine(), "STARTED")) {
                         Event.StartCountDown.invoke();
                         break;
                     }
@@ -119,7 +119,6 @@ public class NetworkManager {
                 }
             }
         }).start();
-
     }
 
     private void setupStreams() throws IOException {
@@ -137,7 +136,6 @@ public class NetworkManager {
 
     public NetworkEventHandler getEventHandler() {
         return eventHandler;
-
     }
 
     public void closeConnection() {
@@ -155,6 +153,11 @@ public class NetworkManager {
             if (serverSocket != null) serverSocket.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            in = null;
+            out = null;
+            socket = null;
+            serverSocket = null;
         }
     }
 }
