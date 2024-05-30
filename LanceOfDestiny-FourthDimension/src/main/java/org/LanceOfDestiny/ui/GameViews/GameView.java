@@ -294,6 +294,7 @@ public class GameView extends JFrame implements Window {
         buttonPause.setEnabled(false);
         buttonPause.addActionListener(e -> {
             Event.PauseGame.invoke();
+            Event.SendPauseUpdate.invoke();
         });
         return buttonPause;
     }

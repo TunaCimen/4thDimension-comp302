@@ -59,15 +59,9 @@ public class NetworkEventHandler {
                 Event.ReceiveGameDataToLoad.invoke(eventData);
                 break;
             case "Pause Game":
-                if (sessionManager.getStatus() == Status.PausedMode) {
-                    return;
-                }
                 Event.PauseGame.invoke();
                 break;
             case "Resume Game":
-                if (sessionManager.getStatus() == Status.RunningMode) {
-                    return;
-                }
                 Event.ResumeGame.invoke();
                 break;
             case "Double Accel":
