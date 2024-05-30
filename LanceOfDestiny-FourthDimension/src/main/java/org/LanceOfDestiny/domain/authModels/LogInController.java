@@ -1,4 +1,4 @@
-package org.LanceOfDestiny.domain.AuthModels;
+package org.LanceOfDestiny.domain.authModels;
 // Source code recreated from a .class file by IntelliJ IDEA
 // (powered by FernFlower decompiler)
 import org.LanceOfDestiny.database.DatabaseController;

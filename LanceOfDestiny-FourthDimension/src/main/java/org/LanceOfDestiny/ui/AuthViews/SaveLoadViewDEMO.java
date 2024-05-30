@@ -1,7 +1,7 @@
 package org.LanceOfDestiny.ui.AuthViews;
 
 
-import org.LanceOfDestiny.domain.AuthModels.LogInController;
+import org.LanceOfDestiny.domain.authModels.LogInController;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.Barrier;
 import org.LanceOfDestiny.domain.barriers.BarrierFactory;
