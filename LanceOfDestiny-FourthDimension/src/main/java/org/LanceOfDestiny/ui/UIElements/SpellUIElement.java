@@ -7,12 +7,15 @@ import org.LanceOfDestiny.domain.sprite.ImageOperations;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import org.LanceOfDestiny.domain.events.Event;
 
 public class SpellUIElement extends JLayeredPane {
 
     private ImageIcon imageIcon, reducedImageIcon;
     private JButton spellButton;
     private JProgressBar progressBar;
+
+    private boolean isReset =false;
 
     public SpellUIElement(ImageIcon imageIcon, Dimension size) {
         this.imageIcon = imageIcon;
@@ -50,16 +53,16 @@ public class SpellUIElement extends JLayeredPane {
     }
 
     public void activateSpell() {
-
         new TimedAction(progressBar.getMaximum()) {
             @Override
             public void onUpdate() {
+                if(isReset){
+                    onFinish();
+                    System.out.println("Here on finished the tiemed event");
+                    isReset = false;
+                }
                 setProgressBarValue(progressBar.getMaximum() - getTimePassed());
-
             }
-
-
-
         }.start();
 
     }
@@ -67,6 +70,7 @@ public class SpellUIElement extends JLayeredPane {
     public void resetSpellUI() {
         spellButton.setIcon(reducedImageIcon);
         progressBar.setValue(0);
+        isReset = true;
     }
 
     public void addClickEvent(ActionListener l) {
