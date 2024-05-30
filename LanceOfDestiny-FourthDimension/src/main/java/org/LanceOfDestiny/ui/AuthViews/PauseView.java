@@ -18,6 +18,7 @@ public class PauseView extends JFrame implements Window {
         configureWindow();
         addComponents();
         Event.ResumeGame.addRunnableListener(this::dispose);
+        Event.EndGame.addListener(c->dispose());
     }
 
     private void configureWindow() {
