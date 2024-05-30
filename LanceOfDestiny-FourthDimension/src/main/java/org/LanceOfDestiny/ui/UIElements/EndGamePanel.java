@@ -20,7 +20,7 @@ public class EndGamePanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         JLabel endLabel = UILibrary.createLabel("");
         Event.EndGame.addListener(e -> endLabel.setText((String) e));
-        JButton mainScreenButton = UILibrary.createButton("Return to Main Screen", Event.ShowInitGame::invoke);
+        JButton mainScreenButton = UILibrary.createButton("Main Menu", Event.ShowInitGame::invoke);
         JLabel scoreLabel = new JLabel();
         scoreLabel.setFont(new Font("Impact", Font.BOLD, 24));
         endLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
