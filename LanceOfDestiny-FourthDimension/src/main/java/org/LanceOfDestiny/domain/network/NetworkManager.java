@@ -143,16 +143,20 @@ public class NetworkManager {
     }
 
     public void closeConnection() {
-        if (in != null) {
-            try {
-                in.close();
-                if (out != null) out.close();
-                if (socket != null) socket.close();
-                if (serverSocket != null) serverSocket.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        if (out != null) {
+            out.println("SHUTDOWN");
         }
+        closeStreams();
+    }
 
+    public void closeStreams() {
+        try {
+            if (in != null) in.close();
+            if (out != null) out.close();
+            if (socket != null) socket.close();
+            if (serverSocket != null) serverSocket.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

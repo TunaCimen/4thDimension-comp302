@@ -32,7 +32,6 @@ public class NetworkBehavior extends MonoBehaviour {
     }
     @Override
     public void update() {
-        System.out.println("UPDATING NETWORK MANAGER");
         if(updateThread.isAlive())return;
         updateThread.start();
     }

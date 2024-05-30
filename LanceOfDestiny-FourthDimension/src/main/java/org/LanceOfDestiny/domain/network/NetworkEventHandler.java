@@ -37,6 +37,10 @@ public class NetworkEventHandler {
         if (gameState == null || gameState.isEmpty()) {
             return;
         }
+        if (gameState.equals("SHUTDOWN")) {
+            NetworkManager.getInstance().closeStreams();
+            return;
+        }
         String[] parts = gameState.split(":");
         if (parts.length != 2) {
             System.out.println("Invalid game state received: " + gameState);
