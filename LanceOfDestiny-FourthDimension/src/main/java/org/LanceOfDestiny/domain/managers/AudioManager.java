@@ -1,5 +1,8 @@
 package org.LanceOfDestiny.domain.managers;
 
+import org.LanceOfDestiny.domain.events.Event;
+import org.LanceOfDestiny.domain.spells.SpellType;
+
 import javax.sound.sampled.*;
 import java.io.File;
 import java.nio.file.InvalidPathException;
@@ -8,18 +11,45 @@ public class AudioManager {
     private static AudioManager instance;
     private Thread musicThread;
     private Clip musicClip;
-    private String backgroundAudioPath = "Audio/BackgroundMusic.wav";
-    private String soundEffectPath = "Audio/SoundEffect.wav";
-    private String ymirActivatedPath = "Audio/YmirActivated.wav";
-    private String spellActivatedPath = "Audio/SpellActivated.wav";
-    private String winEffectPath = "Audio/WinEffect.wav";
-    private String loseEffectPath = "Audio/LoseEffect.wav";
+    private boolean isMuted = false;
+
+    private final String backgroundAudioPath = "Audio/BackgroundMusic.wav";
+    private final String barrierHitPath = "Audio/BarrierHit.wav";
+
+    private final String ymirActivatedPath = "Audio/EvilLaugh.wav";
+    private final String spellGainedPath = "Audio/SpellGained.wav";
+    private final String spellActivatedPath = "Audio/SpellActivated.wav";
+
+    private final String winGamePath = "Audio/WinGame.wav";
+    private final String loseGamePath = "Audio/SadTrombone.wav";
+
+    private final String countdownPath = "Audio/Countdown.wav";
+
+    private final String loseChancePath = "Audio/LoseChance.wav";
+    private final String winChancePath = "Audio/WinChance.wav";
+
+    private final String shootHexPath = "Audio/ShootHex.wav";
 
 
+    // overwhelmingde müzik değişebilir
+
+    // oyun müziği kısmak gerekiyor
 
     private AudioManager() {
-    }
+        Event.EndGame.addListener(e -> {
+            if(((String) e).equals("You Lost")) playLoseGameEffect();
+            else playWinGameEffect();
+        });
 
+        Event.GainSpell.addListener(e-> {
+            if (!((SpellType) e).equals(SpellType.CHANCE)) playSpellGainedEffect();
+        });
+        Event.ActivateExpansion.addRunnableListener(this::playSpellActivatedEffect);
+        Event.ActivateOverwhelming.addRunnableListener(this::playSpellActivatedEffect);
+        Event.ActivateCanons.addRunnableListener(this::playSpellActivatedEffect);
+        Event.StartCounting.addRunnableListener(this::playCountdownEffect);
+        Event.UpdateChance.addListener(this::playChanceEffect);
+    }
 
     public static AudioManager getInstance() {
         if (instance == null) {
@@ -28,6 +58,15 @@ public class AudioManager {
         return instance;
     }
 
+    public void mute () {
+        isMuted = true;
+        stopBackgroundMusic();
+    }
+
+    public void unmute () {
+        isMuted = false;
+        startBackgroundMusic();
+    }
 
     public void startBackgroundMusic() {
         if (musicThread != null) {
@@ -49,7 +88,6 @@ public class AudioManager {
         musicThread.start();
     }
 
-
     public void stopBackgroundMusic() {
         if (musicClip != null) {
             musicClip.stop();
@@ -57,16 +95,12 @@ public class AudioManager {
         musicThread = null;
     }
 
-
-    public void playSoundEffect() {
-//        if (.isMuteModeActivated()) {
-//            return;
-//        }
-
+    public void playSoundEffect(String path) {
+        if (isMuted) return;
         Thread soundEffectThread = new Thread(() -> {
             try {
                 Clip soundClip = AudioSystem.getClip();
-                AudioInputStream audioStream = AudioSystem.getAudioInputStream(getFilePath(soundEffectPath));
+                AudioInputStream audioStream = AudioSystem.getAudioInputStream(getFilePath(path));
                 soundClip.open(audioStream);
                 soundClip.start();
             } catch (Exception e) {
@@ -75,6 +109,43 @@ public class AudioManager {
         });
 
         soundEffectThread.start();
+    }
+
+    public void playShootHex() {
+        playSoundEffect(shootHexPath);
+    }
+
+    private void playChanceEffect(Object change) {
+        if(((int) change) == -1) playSoundEffect(loseChancePath);
+        else playSoundEffect(winChancePath);
+    }
+
+    public void playBarrierHitEffect() {
+        playSoundEffect(barrierHitPath);
+    }
+
+    private void playWinGameEffect() {
+        playSoundEffect(winGamePath);
+    }
+
+    public void playLoseGameEffect() {
+        playSoundEffect(loseGamePath);
+    }
+
+    public void playYmirEffect() {
+        playSoundEffect(ymirActivatedPath);
+    }
+
+    public void playSpellActivatedEffect() {
+        playSoundEffect(spellActivatedPath);
+    }
+
+    public void playSpellGainedEffect() {
+        playSoundEffect(spellGainedPath);
+    }
+
+    public void playCountdownEffect() {
+        playSoundEffect(countdownPath);
     }
 
     private File getFilePath(String soundPath) {
@@ -101,4 +172,5 @@ public class AudioManager {
         }
         return audioFile;
     }
+
 }

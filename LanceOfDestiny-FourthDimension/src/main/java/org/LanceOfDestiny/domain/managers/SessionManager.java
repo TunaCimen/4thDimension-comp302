@@ -23,6 +23,7 @@ public class SessionManager {
     private FireBall fireBall;
     private Player player;
     private Ymir ymir;
+    private AudioManager audioManager;
     private CurseManager curseManager;
     private LoopExecutor loopExecutor;
     public LoopExecutor UILoopExecutor;
@@ -36,6 +37,7 @@ public class SessionManager {
         this.uiLooper = new UILooper(drawCanvas);
         this.loopExecutor = new LoopExecutor();
         this.UILoopExecutor = new LoopExecutor();
+        this.audioManager = AudioManager.getInstance();
         UILoopExecutor.setLooper(uiLooper);
         UILoopExecutor.start();
         this.barrierBuilder = new SessionBarrierBuilder();
