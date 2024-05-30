@@ -42,7 +42,8 @@ public class SpellInventory extends JPanel {
         Event.GainSpell.addListener(e->gainSpell((SpellType) e));
         Event.ResetSpells.addListener(e->resetSpellUI());
         activateSpellByClickEvents();
-        loseSpellEvents();
+        Event.MultiplayerSelected.addRunnableListener(this::loseSpellEventsMulti);
+        Event.SingleplayerSelected.addRunnableListener(this::loseSpellEventsSingle);
 
         add(canonSpell);
         add(overwhelmingSpell);
@@ -51,7 +52,6 @@ public class SpellInventory extends JPanel {
         add(doubleAccelSpell);
         add(hollowSpell);
         setVisible(true);
-
     }
 
     private void activateSpellByClickEvents() {
@@ -80,18 +80,26 @@ public class SpellInventory extends JPanel {
         });
     }
 
-    private void loseSpellEvents() {
-        Event.ActivateCanons.addListener(e -> {
-            if ((boolean) e) canonSpell.disableSpell();
-        } );
+    private void loseSpellEventsMulti() {
+        System.out.println("Subscribed to lose events multi");
+        loseGoodSpellEvents();
 
-        Event.ActivateExpansion.addListener(e -> {
-            if ((boolean) e) expansionSpell.disableSpell();
+        Event.SendDoubleAccelUpdate.addListener(e -> {
+            if ((boolean) e) doubleAccelSpell.disableSpell();
         });
 
-        Event.ActivateOverwhelming.addListener(e -> {
-            if ((boolean) e) overwhelmingSpell.disableSpell();
+        Event.SendHollowPurpleUpdate.addListener(e -> {
+            if ((boolean) e) hollowSpell.disableSpell();
         });
+
+        Event.SendInfiniteVoidUpdate.addListener(e -> {
+            if ((boolean) e) infiniteVoidSpell.disableSpell();
+        });
+    }
+
+    public void loseSpellEventsSingle() {
+        System.out.println("Subscribed to lose events single");
+        loseGoodSpellEvents();
 
         Event.ActivateDoubleAccel.addListener(e -> {
             if ((boolean) e) doubleAccelSpell.disableSpell();
@@ -103,6 +111,20 @@ public class SpellInventory extends JPanel {
 
         Event.ActivateInfiniteVoid.addListener(e -> {
             if ((boolean) e) infiniteVoidSpell.disableSpell();
+        });
+    }
+
+    private void loseGoodSpellEvents() {
+        Event.ActivateCanons.addListener(e -> {
+            if ((boolean) e) canonSpell.disableSpell();
+        } );
+
+        Event.ActivateExpansion.addListener(e -> {
+            if ((boolean) e) expansionSpell.disableSpell();
+        });
+
+        Event.ActivateOverwhelming.addListener(e -> {
+            if ((boolean) e) overwhelmingSpell.disableSpell();
         });
     }
 
@@ -126,3 +148,4 @@ public class SpellInventory extends JPanel {
         infiniteVoidSpell.resetSpellUI();
     }
 }
+

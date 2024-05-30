@@ -4,7 +4,6 @@ import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.BarrierManager;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 
-
 import java.io.*;
 import java.net.*;
 import java.util.Enumeration;
