@@ -101,22 +101,6 @@ public class SpellInventory extends JPanel {
     public void loseSpellEventsSingle() {
         System.out.println("Subscribed to lose events single");
         loseGoodSpellEvents();
-
-        Event.SendDoubleAccelUpdate.addRunnableListener(() -> {
-        if (SessionManager.getInstance().getGameMode().equals(SessionManager.GameMode.MULTIPLAYER)) {
-            doubleAccelSpell.disableSpell();
-        }});
-
-        Event.SendInfiniteVoidUpdate.addRunnableListener(() -> {
-            if (SessionManager.getInstance().getGameMode().equals(SessionManager.GameMode.MULTIPLAYER)) {
-                infiniteVoidSpell.disableSpell();
-            }});
-
-        Event.SendDoubleAccelUpdate.addRunnableListener(() -> {
-            if (SessionManager.getInstance().getGameMode().equals(SessionManager.GameMode.MULTIPLAYER)) {
-                doubleAccelSpell.disableSpell();
-            }});
-
         Event.ActivateDoubleAccel.addListener(e -> {
             if ((boolean) e) doubleAccelSpell.disableSpell();
         });
