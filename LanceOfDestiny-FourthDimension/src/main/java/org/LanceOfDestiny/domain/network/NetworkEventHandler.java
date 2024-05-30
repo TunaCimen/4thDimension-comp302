@@ -25,6 +25,8 @@ public class NetworkEventHandler {
         Event.SendDoubleAccelUpdate.addRunnableListener(()->sendGameState("Double Accel: true"));
         Event.SendHollowPurpleUpdate.addRunnableListener(()->sendGameState("Hollow Purple: true"));
         Event.SendInfiniteVoidUpdate.addRunnableListener(()->sendGameState("Infinite Void: true"));
+        Event.SendGameWon.addRunnableListener(()->sendGameState("Opponent Lost: true"));
+        Event.SendGameLost.addRunnableListener(()->sendGameState("Opponent Won: true"));
     }
 
     public void sendGameState(String gameState) {
@@ -76,6 +78,12 @@ public class NetworkEventHandler {
                 break;
             case "Infinite Void":
                 Event.ActivateCurse.invoke(SpellType.INFINITE_VOID);
+                break;
+            case "Opponent Won":
+                Event.EndGame.invoke("You Lost");
+                break;
+            case "Opponent Lost":
+                Event.EndGame.invoke("You Won");
                 break;
             default:
                 System.out.println("Unknown event type: " + eventType);
