@@ -4,8 +4,6 @@ import org.LanceOfDestiny.domain.behaviours.MonoBehaviour;
 import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 
-import java.util.HashMap;
-
 public class SpellActivation extends MonoBehaviour {
 
     SpellType spellType;
@@ -41,5 +39,6 @@ public class SpellActivation extends MonoBehaviour {
     public void deactivate() {
         spellType.deactivate();
         isActive = false;
+        destroy();
     }
 }

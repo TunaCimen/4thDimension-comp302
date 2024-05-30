@@ -28,12 +28,11 @@ public abstract class TimedAction extends MonoBehaviour {
         }
         if(isStarted && timePassed>duration){
             onFinish();
-            System.out.println("Timed Action finished!");
         }
     }
 
     public void onFinish(){
-
+        destroy();
     };
 
     public void start() {
