@@ -30,7 +30,8 @@ public class FireBall extends GameObject {
         Event.LoadGame.addRunnableListener(() -> isAttached = true);
         Event.EndGame.addRunnableListener(() -> isAttached = true);
         Event.Reset.addRunnableListener(this::resetFireballPosition);
-        Event.Reset.addRunnableListener(() -> speed = Constants.FIREBALL_SPEED);
+        Event.Reset.addRunnableListener(()-> isAttached=true);
+        Event.Reset.addRunnableListener(()->collider.setVelocity(Vector.getZeroVector()));
         Event.LoadGame.addRunnableListener(this::resetFireballPosition);
     }
 

@@ -39,11 +39,11 @@ public class MagicalStaff extends GameObject {
         ((RectangleSprite)canonRight.getSprite()).parentObject = this;
         Event.MoveStaff.addListener(this::moveRight);
         Event.RotateStaff.addListener(this::rotate);
-        Event.ResetStaff.addRunnableListener(this::resetStaff);
+        Event.ResetStaff.addRunnableListener(this::resetStaffAngle);
         Event.ActivateCanons.addListener(this::handleCanons);
         Event.ActivateExpansion.addListener(this::handleExpansion);
-        Event.Reset.addRunnableListener(this::resetStaffPosition);
-        Event.LoadGame.addRunnableListener(this::resetStaffPosition);
+        Event.Reset.addRunnableListener(this::resetStaff);
+        Event.LoadGame.addRunnableListener(this::resetStaff);
     }
 
     public void initializeCollidersAndSprites() {
@@ -103,10 +103,15 @@ public class MagicalStaff extends GameObject {
         canonRight.setAngle(newAngle);
     }
 
-    public void resetStaff() {
+    public void resetStaffAngle() {
         setAngle(0);
         canonLeft.setAngle(0);
         canonRight.setAngle(0);
+    }
+
+    public void resetStaff() {
+        resetStaffAngle();
+        resetStaffPosition();
     }
 
     private void handleExpansion(Object object) {
