@@ -34,7 +34,11 @@ public enum ImageLibrary {
     Ymir("Image/Ymir.png"),
     HollowBarrier("Image/HollowBarrier.png"),
     FrozenBarrierCircle("Image/FrozenExplosive.png"),
-    FrozenBarrierRectangle("Image/FrozenBarrier.png");
+    FrozenBarrierRectangle("Image/FrozenBarrier.png"),
+
+    HelpScreen("Image/HelpScr.png");
+
+
 
     private final BufferedImage image;
 
