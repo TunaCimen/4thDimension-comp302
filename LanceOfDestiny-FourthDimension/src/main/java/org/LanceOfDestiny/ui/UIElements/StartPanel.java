@@ -20,7 +20,7 @@ public class StartPanel extends BackgroundJPanel {
         setLayout(new BorderLayout());
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(Box.createRigidArea(new Dimension(0, Constants.SCREEN_HEIGHT / 2 - 100)));
-        add(UILibrary.createLabel("Lance Of Destiny"));
+        add(UILibrary.createLabel("LANCE OF DESTINY"));
         add(Box.createRigidArea(new Dimension(0, 15)));
         add(UILibrary.createButton("NEW_GAME", Event.Reset::invoke));
         add(Box.createRigidArea(new Dimension(0, 10)));
