@@ -33,6 +33,7 @@ public class PauseView extends JFrame implements Window {
 
         // Set the location of the frame
         setLocation(x, y);
+        this.setAlwaysOnTop(true);
     }
 
     private void configureWindow() {
