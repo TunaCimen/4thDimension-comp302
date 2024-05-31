@@ -5,6 +5,7 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.network.NetworkManager;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
+import org.LanceOfDestiny.ui.CustomViews.CustomDialog;
 import org.LanceOfDestiny.ui.UIElements.UILibrary;
 import org.LanceOfDestiny.ui.UIUtilities.BackgroundJPanel;
 
@@ -32,7 +33,7 @@ public class MultiplayerPanel extends BackgroundJPanel {
             Event.MultiplayerSelected.invoke();
             showMainPrompt();
         });
-
+        Event.ErrorOccured.addListener(c-> CustomDialog.showErrorDialog((String)c));
         showMainPrompt();
     }
 

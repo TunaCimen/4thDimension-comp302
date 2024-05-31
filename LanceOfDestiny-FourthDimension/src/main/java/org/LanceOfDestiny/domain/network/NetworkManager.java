@@ -94,7 +94,7 @@ public class NetworkManager {
         try {
             joinGame((String) ip, 12345);
         } catch (IOException e) {
-            throw new RuntimeException(e); // TODO: A prompt about failed connection.
+            Event.ErrorOccured.invoke("Failed to join session. Please check the IP address and try again."); // TODO: A prompt about failed connection.
         }
 
         System.out.println("Joined Successfully ");
