@@ -28,7 +28,10 @@ public abstract class TimedAction extends MonoBehaviour {
 
     @Override
     public void update() {
-        if(isKilled)onFinish();
+        if(isKilled){
+            onFinish();
+            return;
+        }
         if(isStarted && timePassed<=duration){
             onUpdate();
             timePassed = SessionManager.getInstance().getLoopExecutor().getSecondsPassed()- startTime;;
@@ -36,6 +39,7 @@ public abstract class TimedAction extends MonoBehaviour {
         if(isStarted && timePassed>duration){
             onFinish();
         }
+
     }
     public void onFinish(){
         destroy();
@@ -52,8 +56,8 @@ public abstract class TimedAction extends MonoBehaviour {
         startTime = SessionManager.getInstance().getLoopExecutor().getSecondsPassed();
     }
     public void kill(){
+        destroy();
         isKilled = true;
-        startTime = SessionManager.getInstance().getLoopExecutor().getSecondsPassed();
     }
 
     public int getTimePassed(){
