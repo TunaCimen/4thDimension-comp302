@@ -1,6 +1,7 @@
 package org.LanceOfDestiny.ui.AuthViews;
 
 import org.LanceOfDestiny.domain.events.Event;
+import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.ui.UIUtilities.GradientPanel;
 import org.LanceOfDestiny.ui.UIUtilities.Window;
 import org.LanceOfDestiny.ui.UIUtilities.WindowManager;
@@ -8,6 +9,7 @@ import org.LanceOfDestiny.ui.UIUtilities.Windows;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class PauseView extends JFrame implements Window {
     private final WindowManager windowManager;
@@ -67,7 +69,7 @@ public class PauseView extends JFrame implements Window {
             dispose();
         }));
         panel.add(Box.createVerticalStrut(10));
-        panel.add(createButton("Help", () -> {})); // Assuming a method 'showHelp()' to be implemented.
+        panel.add(createButton("Help", this::showHelpScreen)); // Assuming a method 'showHelp()' to be implemented.
 
         return panel;
     }
@@ -85,4 +87,27 @@ public class PauseView extends JFrame implements Window {
         Event.ResumeGame.invoke();
         Event.SendResumeUpdate.invoke();
     }
+
+    private void showHelpScreen() {
+        JDialog helpDialog = new JDialog(this, "Help Screen", true);
+        helpDialog.setSize(new Dimension(1280, 720)); // Manageable size
+        helpDialog.setResizable(false);
+        helpDialog.setLocationRelativeTo(this);
+
+        try {
+            BufferedImage helpImage = ImageLibrary.HelpScreen.getImage();
+            // Scale the image to fit the dialog
+            Image scaledImage = helpImage.getScaledInstance(helpDialog.getWidth(), helpDialog.getHeight(), Image.SCALE_SMOOTH);
+            ImageIcon helpImageIcon = new ImageIcon(scaledImage);
+            JLabel helpLabel = new JLabel(helpImageIcon);
+            helpDialog.add(helpLabel);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error loading help image.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        helpDialog.setVisible(true);
+    }
+
+
 }
