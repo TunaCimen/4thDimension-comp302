@@ -42,7 +42,7 @@ public class AudioManager {
         });
 
         Event.GainSpell.addListener(e-> {
-            if (!((SpellType) e).equals(SpellType.CHANCE)) playSpellGainedEffect();
+            if (!((SpellType) e).equals(SpellType.CHANCE) && SessionManager.getInstance().getLoopExecutor().getLoop().isActive()) playSpellGainedEffect();
         });
         Event.ActivateExpansion.addRunnableListener(this::playSpellActivatedEffect);
         Event.ActivateOverwhelming.addRunnableListener(this::playSpellActivatedEffect);
