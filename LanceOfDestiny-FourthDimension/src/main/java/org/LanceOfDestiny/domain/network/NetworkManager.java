@@ -21,7 +21,9 @@ public class NetworkManager {
         this.eventHandler = new NetworkEventHandler();
         Event.TryJoiningSession.addListener(this::joinGame);
         Event.TryHostingSession.addRunnableListener(this::hostGame);
-        Event.SendGameStarted.addRunnableListener(() -> out.println("STARTED"));
+        Event.SendGameStarted.addRunnableListener(() -> {
+            if(out!=null)out.println("STARTED");
+        });
         Event.SingleplayerSelected.addRunnableListener(this::closeConnection);
         Event.ShowInitGame.addRunnableListener(this::closeConnection);
         Event.EndGame.addRunnableListener(this::closeConnection);
@@ -93,18 +95,27 @@ public class NetworkManager {
     public void joinGame(Object ip) {
         try {
             joinGame((String) ip, 12345);
-        } catch (IOException e) {
-            Event.ErrorOccured.invoke("Failed to join session. Please check the IP address and try again."); // TODO: A prompt about failed connection.
+        } catch (Exception e) {
+           // TODO: A prompt about failed connection.
+            closeConnection();
+            Event.ShowInitGame.invoke();
+            Event.ErrorOccured.invoke("Failed to join session. Please check the IP address and try again.");
         }
 
         System.out.println("Joined Successfully ");
     }
 
-    public void joinGame(String ip, int port) throws IOException {
-        socket = new Socket(ip, port);
+   public void joinGame(String ip, int port) throws IOException {
+        socket = new Socket();
+        SocketAddress socketAddress = new InetSocketAddress(ip, port);
+        socket.connect(socketAddress, 2000);
         setupStreams();
         Event.Reset.invoke();
         Event.JoinedTheHost.invoke();
+
+        if(in.readLine() == null){
+            throw new IOException();
+        }
         BarrierManager.getInstance().loadBarriersFromString(in.readLine());
         Event.ReceiveBarrierCountUpdate.invoke(BarrierManager.getInstance().getBarriers().size());
         Event.ReceiveChanceUpdate.invoke(SessionManager.getInstance().getPlayer().getChancesLeft());
@@ -122,16 +133,20 @@ public class NetworkManager {
         }).start();
     }
 
+
+
     private void setupStreams() throws IOException {
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         out = new PrintWriter(socket.getOutputStream(), true);
     }
 
     public void sendGameState(String gameState) {
+        if(out== null)return;
         out.println(gameState);
     }
 
     public String receiveGameState() throws IOException {
+        if(in == null)return "";
         return in.readLine();
     }
 

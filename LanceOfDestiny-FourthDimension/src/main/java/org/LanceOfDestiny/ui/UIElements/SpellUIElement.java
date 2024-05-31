@@ -63,8 +63,11 @@ public class SpellUIElement extends JLayeredPane {
         System.out.println("Spell UI is reset");
         spellButton.setIcon(reducedImageIcon);
         progressBar.setValue(0);
-        if(spellAction!= null)spellAction.kill();
-
+        if(spellAction!= null){
+            System.out.println("Killed the timeeed action");
+            spellAction.kill();
+            spellAction = null;
+        }
     }
 
     public void addClickEvent(ActionListener l) {
@@ -77,7 +80,7 @@ public class SpellUIElement extends JLayeredPane {
         }
         @Override
         public void onUpdate() {
-            System.out.println("I am changing progress bar value and you can do nothing dumass");
+            //System.out.println("I am changing progress bar value and you can do nothing dumass");
             setProgressBarValue(progressBar.getMaximum() - getTimePassed());
         }
     }

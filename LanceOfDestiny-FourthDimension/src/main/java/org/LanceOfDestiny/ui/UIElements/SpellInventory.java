@@ -74,37 +74,41 @@ public class SpellInventory extends JPanel {
     private void loseSpellEventsMulti() {
         loseGoodSpellEvents();
         Event.SendDoubleAccelUpdate.addRunnableListener(() -> doubleAccelSpell.disableSpell());
-
         Event.SendHollowPurpleUpdate.addRunnableListener(() -> hollowSpell.disableSpell());
-
         Event.SendInfiniteVoidUpdate.addRunnableListener(() -> infiniteVoidSpell.disableSpell());
     }
 
     public void loseSpellEventsSingle() {
         loseGoodSpellEvents();
         Event.ActivateDoubleAccel.addListener(e -> {
+            System.out.println("activated double"+ (boolean)e);
             if ((boolean) e) doubleAccelSpell.disableSpell();
         });
 
         Event.ActivateHollowPurple.addListener(e -> {
+            System.out.println("activated hollow purple"+ (boolean)e);
             if ((boolean) e) hollowSpell.disableSpell();
         });
 
         Event.ActivateInfiniteVoid.addListener(e -> {
+            System.out.println("activated inf void"+ (boolean)e);
             if ((boolean) e) infiniteVoidSpell.disableSpell();
         });
     }
 
     private void loseGoodSpellEvents() {
         Event.ActivateCanons.addListener(e -> {
+            System.out.println("activated canons"+ (boolean)e);
             if ((boolean) e) canonSpell.disableSpell();
         });
 
         Event.ActivateExpansion.addListener(e -> {
+            System.out.println("activated expansion UI"+ (boolean)e);
             if ((boolean) e) expansionSpell.disableSpell();
         });
 
         Event.ActivateOverwhelming.addListener(e -> {
+            System.out.println("activated Overwhelming UI" + (boolean)e);
             if ((boolean) e) overwhelmingSpell.disableSpell();
         });
     }

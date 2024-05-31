@@ -1,10 +1,13 @@
 package org.LanceOfDestiny.domain.player;
 
+import com.google.protobuf.Value;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.behaviours.MonoBehaviour;
 import org.LanceOfDestiny.domain.spells.SpellContainer;
 import org.LanceOfDestiny.domain.spells.SpellType;
+
+import java.util.Map;
 
 public class Player extends MonoBehaviour {
     private SpellContainer spellContainer;
@@ -50,7 +53,9 @@ public class Player extends MonoBehaviour {
     }
 
     public void resetSpells(){
-        this.spellContainer.getSpellMap().forEach((a,b)-> b=false);
+        for (Map.Entry<SpellType, Boolean> entry : this.spellContainer.getSpellMap().entrySet()) {
+            entry.setValue(false);
+        }
         System.out.println("Spells are reset");
         System.out.println(this.spellContainer.getSpellMap().values());
         Event.ResetSpells.invoke();

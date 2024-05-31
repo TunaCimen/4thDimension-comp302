@@ -35,6 +35,7 @@ public class SpellContainer {
 
         if (spellType.isGood()) {
             if(spellType.isActive) return;
+            System.out.println("Activating Spell + "+ spellType);
             new SpellActivation(spellType, Constants.SPELL_DURATION).activate();
         }
         else {
