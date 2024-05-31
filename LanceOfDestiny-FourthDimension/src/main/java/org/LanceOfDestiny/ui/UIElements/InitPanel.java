@@ -33,7 +33,6 @@ public class InitPanel extends BackgroundJPanel {
         add(multiplayerButton);
 
         multiplayerButton.addActionListener(e -> {
-
             Event.MultiplayerSelected.invoke();
         });
 

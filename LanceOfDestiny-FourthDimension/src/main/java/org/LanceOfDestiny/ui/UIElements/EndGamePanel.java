@@ -3,11 +3,13 @@ package org.LanceOfDestiny.ui.UIElements;
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.ScoreManager;
+import org.LanceOfDestiny.domain.sprite.ImageLibrary;
+import org.LanceOfDestiny.ui.UIUtilities.BackgroundJPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class EndGamePanel extends JPanel {
+public class EndGamePanel extends BackgroundJPanel {
     /**
      * Lazy Instantiated Class for the end game
      * @param score
@@ -17,6 +19,7 @@ public class EndGamePanel extends JPanel {
 
 
     public EndGamePanel(){
+        setBackground(ImageLibrary.Background.getImage());
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         JLabel endLabel = UILibrary.createLabel("");
         Event.EndGame.addListener(e -> endLabel.setText((String) e));

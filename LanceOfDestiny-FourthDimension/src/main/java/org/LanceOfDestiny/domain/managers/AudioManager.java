@@ -23,7 +23,7 @@ public class AudioManager {
     private final String winGamePath = "Audio/WinGame.wav";
     private final String loseGamePath = "Audio/SadTrombone.wav";
 
-    private final String countdownPath = "Audio/Countdown.wav";
+    private final String countdownPath = "Audio/Count3sec.wav";
 
     private final String loseChancePath = "Audio/LoseChance.wav";
     private final String winChancePath = "Audio/WinChance.wav";
