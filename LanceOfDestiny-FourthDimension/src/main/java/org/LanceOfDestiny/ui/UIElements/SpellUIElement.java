@@ -11,15 +11,14 @@ import org.LanceOfDestiny.domain.events.Event;
 
 public class SpellUIElement extends JLayeredPane {
 
-    private ImageIcon imageIcon, reducedImageIcon;
-    private JButton spellButton;
-    private JProgressBar progressBar;
+    private final ImageIcon imageIcon;
+    private final ImageIcon reducedImageIcon;
+    private final JButton spellButton;
+    private final JProgressBar progressBar;
     TimedAction spellAction;
 
-    private boolean isReset;
 
     public SpellUIElement(ImageIcon imageIcon, Dimension size) {
-        isReset = false;
         this.imageIcon = imageIcon;
         reducedImageIcon = ImageOperations.reducedTransparencyImageIcon(imageIcon);
         this.setPreferredSize(size);
@@ -55,14 +54,17 @@ public class SpellUIElement extends JLayeredPane {
     }
 
     public void activateSpell() {
+        System.out.println("Spell activated");
         spellAction = new MyTimedAction();
         spellAction.start();
     }
 
     public void resetSpellUI() {
+        System.out.println("Spell UI is reset");
         spellButton.setIcon(reducedImageIcon);
         progressBar.setValue(0);
-        spellAction.kill();
+        if(spellAction!= null)spellAction.kill();
+
     }
 
     public void addClickEvent(ActionListener l) {
@@ -75,6 +77,7 @@ public class SpellUIElement extends JLayeredPane {
         }
         @Override
         public void onUpdate() {
+            System.out.println("I am changing progress bar value and you can do nothing dumass");
             setProgressBarValue(progressBar.getMaximum() - getTimePassed());
         }
     }

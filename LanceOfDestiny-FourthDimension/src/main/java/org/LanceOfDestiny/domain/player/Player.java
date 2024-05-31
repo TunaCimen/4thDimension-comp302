@@ -50,10 +50,11 @@ public class Player extends MonoBehaviour {
     }
 
     public void resetSpells(){
-        this.spellContainer.getSpellMap().forEach((a,b)-> b = false);
-        for(SpellType spellType : SpellType.values()){
-            Event.ResetSpells.invoke(spellType);
-        }
+        this.spellContainer.getSpellMap().forEach((a,b)-> b=false);
+        System.out.println("Spells are reset");
+        System.out.println(this.spellContainer.getSpellMap().values());
+        Event.ResetSpells.invoke();
+
     }
 
     public SpellContainer getSpellContainer() {
