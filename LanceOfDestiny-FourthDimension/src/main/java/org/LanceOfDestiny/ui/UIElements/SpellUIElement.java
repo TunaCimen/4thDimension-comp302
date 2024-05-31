@@ -14,10 +14,12 @@ public class SpellUIElement extends JLayeredPane {
     private ImageIcon imageIcon, reducedImageIcon;
     private JButton spellButton;
     private JProgressBar progressBar;
+    TimedAction spellAction;
 
-    private boolean isReset =false;
+    private boolean isReset;
 
     public SpellUIElement(ImageIcon imageIcon, Dimension size) {
+        isReset = false;
         this.imageIcon = imageIcon;
         reducedImageIcon = ImageOperations.reducedTransparencyImageIcon(imageIcon);
         this.setPreferredSize(size);
@@ -53,27 +55,27 @@ public class SpellUIElement extends JLayeredPane {
     }
 
     public void activateSpell() {
-        new TimedAction(progressBar.getMaximum()) {
-            @Override
-            public void onUpdate() {
-                if(isReset){
-                    onFinish();
-                    System.out.println("Here on finished the tiemed event");
-                    isReset = false;
-                }
-                setProgressBarValue(progressBar.getMaximum() - getTimePassed());
-            }
-        }.start();
-
+        spellAction = new MyTimedAction();
+        spellAction.start();
     }
 
     public void resetSpellUI() {
         spellButton.setIcon(reducedImageIcon);
         progressBar.setValue(0);
-        isReset = true;
+        spellAction.kill();
     }
 
     public void addClickEvent(ActionListener l) {
         spellButton.addActionListener(l);
+    }
+
+    private class MyTimedAction extends TimedAction {
+        public MyTimedAction() {
+            super(SpellUIElement.this.progressBar.getMaximum());
+        }
+        @Override
+        public void onUpdate() {
+            setProgressBarValue(progressBar.getMaximum() - getTimePassed());
+        }
     }
 }

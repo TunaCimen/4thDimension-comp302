@@ -143,7 +143,7 @@ public class GameView extends JFrame implements Window {
             SessionManager.getInstance().getDrawCanvas().foregroundList.add(countdown);
         });
 
-        countdown.setAnimationBehaviourOnEvent(new CountdownAnimation(5, countdown::setText, () -> {
+        countdown.setAnimationBehaviourOnEvent(new CountdownAnimation(3, countdown::setText, () -> {
             AudioManager.getInstance().startBackgroundMusic();
             Event.StartGame.invoke();
             buttonPause.setEnabled(true);

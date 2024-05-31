@@ -1,5 +1,6 @@
 package org.LanceOfDestiny.domain.behaviours;
 
+import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.SessionManager;
 
 public abstract class TimedAction extends MonoBehaviour {
@@ -10,10 +11,15 @@ public abstract class TimedAction extends MonoBehaviour {
     private final int duration;
 
     private int startTime;
+
+    private boolean isKilled;
     private int timePassed;
+
+    Boolean resetFlag;
 
     public TimedAction(int duration){
         isStarted = false;
+        isKilled = false;
         this.duration = duration;
         timePassed = 0;
     }
@@ -22,6 +28,7 @@ public abstract class TimedAction extends MonoBehaviour {
 
     @Override
     public void update() {
+        if(isKilled)onFinish();
         if(isStarted && timePassed<=duration){
             onUpdate();
             timePassed = SessionManager.getInstance().getLoopExecutor().getSecondsPassed()- startTime;;
@@ -30,18 +37,22 @@ public abstract class TimedAction extends MonoBehaviour {
             onFinish();
         }
     }
-
     public void onFinish(){
         destroy();
     };
 
     public void start() {
+        isKilled = false;
         isStarted = true;
         startTime = SessionManager.getInstance().getLoopExecutor().getSecondsPassed();
     }
 
     public void stop(){
         isStarted = false;
+        startTime = SessionManager.getInstance().getLoopExecutor().getSecondsPassed();
+    }
+    public void kill(){
+        isKilled = true;
         startTime = SessionManager.getInstance().getLoopExecutor().getSecondsPassed();
     }
 
