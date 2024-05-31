@@ -77,7 +77,6 @@ public class SpellUIElement extends JLayeredPane {
         }
         @Override
         public void onUpdate() {
-            System.out.println("I am changing progress bar value and you can do nothing dumass");
             setProgressBarValue(progressBar.getMaximum() - getTimePassed());
         }
     }
