@@ -26,6 +26,18 @@ public class SaveView extends JFrame implements Window {
         this.sesManager = SessionManager.getInstance();
         this.barManager = BarrierManager.getInstance();
         this.scoreManager = ScoreManager.getInstance();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
+        // Calculate the new location of the frame
+        int frameWidth = getSize().width;
+        int frameHeight = getSize().height;
+        int x = (screenWidth - frameWidth) / 2;
+        int y = (screenHeight - frameHeight) / 2;
+
+        // Set the location of the frame
+        setLocation(x, y);
     }
 
     public void createAndShowUI() {

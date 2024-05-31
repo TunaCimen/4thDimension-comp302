@@ -21,6 +21,18 @@ public class PauseView extends JFrame implements Window {
         addComponents();
         Event.ResumeGame.addRunnableListener(this::dispose);
         Event.EndGame.addListener(c->dispose());
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
+        // Calculate the new location of the frame
+        int frameWidth = getSize().width;
+        int frameHeight = getSize().height;
+        int x = (screenWidth - frameWidth) / 2;
+        int y = (screenHeight - frameHeight) / 2;
+
+        // Set the location of the frame
+        setLocation(x, y);
     }
 
     private void configureWindow() {

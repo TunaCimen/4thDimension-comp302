@@ -7,6 +7,7 @@ import org.LanceOfDestiny.ui.UIUtilities.Windows;
 
 import javax.swing.*;
 
+import java.awt.*;
 import java.sql.SQLException;
 
 public class LogInView extends javax.swing.JFrame implements Window {
@@ -34,12 +35,28 @@ public class LogInView extends javax.swing.JFrame implements Window {
         jLabel4 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Lance of Destiny");
-        setPreferredSize(new java.awt.Dimension(800, 500));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Lance of Destiny");
+        setSize(new java.awt.Dimension(800, 500));
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
+        // Calculate the new location of the frame
+        int frameWidth = getSize().width;
+        int frameHeight = getSize().height;
+        int x = (screenWidth - frameWidth) / 2;
+        int y = (screenHeight - frameHeight) / 2;
+
+        // Set the location of the frame
+        setLocation(x, y);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Lance of Destiny");
+        setPreferredSize(new java.awt.Dimension(800, 500));
         jPanel1.setLayout(null);
 
         Right.setBackground(new java.awt.Color(0, 102, 102));

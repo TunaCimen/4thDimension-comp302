@@ -5,6 +5,7 @@ import org.LanceOfDestiny.ui.UIUtilities.WindowManager;
 
 import javax.swing.*;
 
+import java.awt.*;
 import java.sql.SQLException;
 
 public class SignUpView extends javax.swing.JFrame implements Window {
@@ -34,7 +35,18 @@ public class SignUpView extends javax.swing.JFrame implements Window {
         jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
 
+        // Calculate the new location of the frame
+        int frameWidth = getSize().width;
+        int frameHeight = getSize().height;
+        int x = (screenWidth - frameWidth) / 2;
+        int y = (screenHeight - frameHeight) / 2;
+
+        // Set the location of the frame
+        setLocation(x, y);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Lance of Destiny");
         setPreferredSize(new java.awt.Dimension(800, 500));

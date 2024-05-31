@@ -63,6 +63,21 @@ public class GameView extends JFrame implements Window {
         initializeComponents();
         decorateCardPanel();
         subscribeMethods();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
+        // Calculate the new location of the frame
+        int frameWidth = getSize().width;
+        int frameHeight = getSize().height;
+        int x = (screenWidth - frameWidth) / 2;
+        int y = (screenHeight - frameHeight) / 2;
+
+        // Set the location of the frame
+        setLocation(x, y);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Lance of Destiny");
+        setPreferredSize(new java.awt.Dimension(800, 500));
     }
 
     private void decorateCardPanel() {
