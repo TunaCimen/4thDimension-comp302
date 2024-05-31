@@ -24,7 +24,7 @@ public class EndGamePanel extends BackgroundJPanel {
         JLabel endLabel = UILibrary.createLabel("");
         Event.EndGame.addListener(e -> endLabel.setText((String) e));
         JButton mainScreenButton = UILibrary.createButton("Main Menu", Event.ShowInitGame::invoke);
-        JLabel scoreLabel = new JLabel();
+        JLabel scoreLabel = UILibrary.createLabel("");
         scoreLabel.setFont(new Font("Impact", Font.BOLD, 24));
         endLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         endLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
