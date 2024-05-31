@@ -2,6 +2,7 @@ package org.LanceOfDestiny.ui.UIElements;
 
 import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.events.Event;
+import org.LanceOfDestiny.domain.managers.SessionManager;
 import org.LanceOfDestiny.domain.spells.SpellType;
 import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.domain.sprite.ImageOperations;
@@ -33,8 +34,9 @@ public class SpellInventory extends JPanel {
         Event.GainSpell.addListener(e -> gainSpell((SpellType) e));
         Event.ResetSpells.addListener(e -> resetSpellUI());
         activateSpellByClickEvents();
-        Event.MultiplayerSelected.addRunnableListener(this::loseSpellEventsMulti);
-        Event.SingleplayerSelected.addRunnableListener(this::loseSpellEventsSingle);
+        loseGoodSpellEvents();
+        loseSpellEventsMulti();
+        loseSpellEventsSingle();
 
         add(canonSpell);
         add(overwhelmingSpell);
@@ -72,26 +74,24 @@ public class SpellInventory extends JPanel {
     }
 
     private void loseSpellEventsMulti() {
-        loseGoodSpellEvents();
-        Event.SendDoubleAccelUpdate.addRunnableListener(() -> doubleAccelSpell.disableSpell());
+        Event.SendDoubleAccelUpdate.addRunnableListener(() -> {if (SessionManager.getInstance().isMultiPlayer())doubleAccelSpell.disableSpell();});
 
-        Event.SendHollowPurpleUpdate.addRunnableListener(() -> hollowSpell.disableSpell());
+        Event.SendHollowPurpleUpdate.addRunnableListener(() -> {if (SessionManager.getInstance().isMultiPlayer())hollowSpell.disableSpell();});
 
-        Event.SendInfiniteVoidUpdate.addRunnableListener(() -> infiniteVoidSpell.disableSpell());
+        Event.SendInfiniteVoidUpdate.addRunnableListener(() -> {if (SessionManager.getInstance().isMultiPlayer())infiniteVoidSpell.disableSpell();});
     }
 
     public void loseSpellEventsSingle() {
-        loseGoodSpellEvents();
         Event.ActivateDoubleAccel.addListener(e -> {
-            if ((boolean) e) doubleAccelSpell.disableSpell();
+            if ((boolean) e && SessionManager.getInstance().isSinglePlayer()) doubleAccelSpell.disableSpell();
         });
 
         Event.ActivateHollowPurple.addListener(e -> {
-            if ((boolean) e) hollowSpell.disableSpell();
+            if ((boolean) e && SessionManager.getInstance().isSinglePlayer()) hollowSpell.disableSpell();
         });
 
         Event.ActivateInfiniteVoid.addListener(e -> {
-            if ((boolean) e) infiniteVoidSpell.disableSpell();
+            if ((boolean) e && SessionManager.getInstance().isSinglePlayer()) infiniteVoidSpell.disableSpell();
         });
     }
 
