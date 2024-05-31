@@ -103,6 +103,10 @@ public class NetworkManager {
     public void joinGame(String ip, int port) throws IOException {
         socket = new Socket(ip, port);
         setupStreams();
+        if (out == null) {
+            Event.ErrorOccured.invoke("Failed to join session. Please check the IP address and try again.");
+            return;
+        }
         Event.Reset.invoke();
         Event.JoinedTheHost.invoke();
         BarrierManager.getInstance().loadBarriersFromString(in.readLine());
