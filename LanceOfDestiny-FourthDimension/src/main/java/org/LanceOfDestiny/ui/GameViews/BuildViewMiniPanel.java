@@ -28,6 +28,7 @@ public class BuildViewMiniPanel extends JFrame implements Window {
 
     @Override
     public void createAndShowUI() {
+        setAlwaysOnTop(true);
         setDefaultLookAndFeelDecorated(true);
         setSize(350, 250);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
