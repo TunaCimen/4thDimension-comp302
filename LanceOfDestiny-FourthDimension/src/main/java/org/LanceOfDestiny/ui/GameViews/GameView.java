@@ -4,6 +4,7 @@ import org.LanceOfDestiny.domain.Constants;
 import org.LanceOfDestiny.domain.barriers.BarrierTypes;
 import org.LanceOfDestiny.domain.events.Event;
 import org.LanceOfDestiny.domain.managers.*;
+import org.LanceOfDestiny.domain.sprite.ImageLibrary;
 import org.LanceOfDestiny.ui.Animation.CountdownAnimation;
 import org.LanceOfDestiny.ui.Animation.LinearInterpolation;
 import org.LanceOfDestiny.ui.UIElements.*;
@@ -241,6 +242,7 @@ public class GameView extends JFrame implements Window {
         controlPanel.add(Box.createRigidArea(new Dimension(25, 10)));
         //controlPanel.add(healthBarDisplay);
         //controlPanel.add(scoreBar);
+        controlPanel.add(new MuteButton(new ImageIcon(ImageLibrary.RegularSpeaker.getImage()), new ImageIcon(ImageLibrary.MutedSpeaker.getImage()), new Dimension(50,50)));
         ipLabel = new JLabel();
         Event.SendIPAddress.addListener((e) -> ipLabel.setText((String) e));
         hostButton = new JButton("Host");

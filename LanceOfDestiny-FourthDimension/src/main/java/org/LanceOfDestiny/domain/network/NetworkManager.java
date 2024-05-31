@@ -24,6 +24,7 @@ public class NetworkManager {
         Event.SendGameStarted.addRunnableListener(() -> out.println("STARTED"));
         Event.SingleplayerSelected.addRunnableListener(this::closeConnection);
         Event.ShowInitGame.addRunnableListener(this::closeConnection);
+        Event.EndGame.addRunnableListener(this::closeConnection);
     }
 
     public static NetworkManager getInstance() {

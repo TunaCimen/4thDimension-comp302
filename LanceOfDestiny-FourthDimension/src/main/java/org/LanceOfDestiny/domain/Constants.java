@@ -16,7 +16,7 @@ public class Constants {
     public static final Vector STAFF_POSITION = new Vector((double) SCREEN_WIDTH / 2 - ((double) STAFF_WIDTH / 2), SCREEN_HEIGHT-180);
     public static final double STAFF_ANGULAR_SPEED = UPDATE_RATE * 50 * Math.PI / 180;
     // FIREBALL
-    public static final Vector FIREBALL_POSITION = new Vector((double) SCREEN_WIDTH / 2, SCREEN_HEIGHT - 120);
+    public static final Vector FIREBALL_POSITION = new Vector((double) SCREEN_WIDTH / 2, SCREEN_HEIGHT - 187);
     public static final int FIREBALL_RADIUS = 8;
     public static final int FIREBALL_SPEED = -8;
     // BARRIERS

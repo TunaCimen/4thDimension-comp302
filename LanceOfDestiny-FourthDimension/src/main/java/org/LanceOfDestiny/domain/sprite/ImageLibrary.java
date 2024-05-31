@@ -28,6 +28,9 @@ public enum ImageLibrary {
     Canon("Image/Canon.png"),
     Background("Image/Background.png"),
 
+    RegularSpeaker("Image/speaker.png"),
+    MutedSpeaker("Image/mutedSpeaker.png"),
+
     Ymir("Image/Ymir.png"),
     HollowBarrier("Image/HollowBarrier.png"),
     FrozenBarrierCircle("Image/FrozenExplosive.png"),
