@@ -36,7 +36,7 @@ public enum ImageLibrary {
     FrozenBarrierCircle("Image/FrozenExplosive.png"),
     FrozenBarrierRectangle("Image/FrozenBarrier.png"),
 
-    HelpScreen("Image/HelpScr.png");
+    HelpScreen("Image/HelpScreen.png");
 
 
 
