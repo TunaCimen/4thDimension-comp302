@@ -60,7 +60,7 @@ public class FireBall extends GameObject {
     }
 
     private Vector getAttachedPosition(int staffWidth) {
-        return new Vector(magicalStaff.getPosition().getX() + staffWidth / 2f + (Constants.STAFF_WIDTH / 4f) * Math.sin(magicalStaff.getAngle()), magicalStaff.getPosition().getY() + Constants.FIREBALL_RADIUS * 3.5 + (staffWidth / 4f) * Math.cos(magicalStaff.getAngle() + Math.PI));
+        return new Vector(magicalStaff.getPosition().getX() + staffWidth / 2f + (Constants.STAFF_WIDTH / 4f) * Math.sin(magicalStaff.getAngle()), magicalStaff.getPosition().getY() + Constants.FIREBALL_RADIUS * 3.5 + (staffWidth / (magicalStaff.isExpanded ? 8f : 4f)) * Math.cos(magicalStaff.getAngle() + Math.PI));
     }
 
     private void shootBall() {
