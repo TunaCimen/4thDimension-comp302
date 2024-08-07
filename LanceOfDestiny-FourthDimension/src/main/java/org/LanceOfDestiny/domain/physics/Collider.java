@@ -10,12 +10,15 @@ public abstract class Collider {
     private boolean isEnabled;
     private boolean isTrigger;
 
+    private boolean isMovable;
+
     protected Collider(Vector velocity, ColliderType colliderType, GameObject gameObject) {
         this.velocity = velocity;
         this.colliderType = colliderType;
         this.gameObject = gameObject;
         this.isEnabled = true;
         this.isTrigger = false;
+        isMovable = true;
     }
 
     protected Collider(Vector velocity, ColliderType colliderType, GameObject gameObject, boolean isEnabled) {
@@ -69,6 +72,13 @@ public abstract class Collider {
 
     public void setTrigger(boolean trigger) {
         isTrigger = trigger;
+    }
+
+    public void setMovable(boolean isMovable){
+        this.isMovable = isMovable;
+    }
+    public boolean isMovable(){
+        return isMovable;
     }
 
 

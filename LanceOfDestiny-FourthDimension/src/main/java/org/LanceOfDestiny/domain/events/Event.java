@@ -50,6 +50,7 @@ public enum Event {
     UpdateBarrierCount(Integer.class, SendBarrierCountUpdate),
     UpdateChance(Integer.class, SendChanceUpdate),
     UpdateScore(Object.class, SendScoreUpdate),
+
     EndGame(String.class),
     SendGameWon(Object.class),
     SendGameLost(Object.class),
@@ -93,6 +94,7 @@ public enum Event {
     JoinedTheHost(Object.class),
     SendGameStarted(Object.class),
     SendIPAddress(String.class),
+
     ShowInitGame(Object.class),
     ResetGameMode(Object.class), // todo: delete it, no usage
     StartCounting(Object.class,SendGameStarted),

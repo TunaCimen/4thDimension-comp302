@@ -82,6 +82,7 @@ public class InputManager implements KeyListener {
     private void updateMovement() {
         if (moveKey == KeyEvent.VK_LEFT) Event.MoveStaff.invoke(-1);
         if (moveKey == KeyEvent.VK_RIGHT) Event.MoveStaff.invoke(1);
+        if(moveKey == -1)Event.MoveStaff.invoke(0);
         if (isShootFlag) Event.ShootBall.invoke();
     }
 

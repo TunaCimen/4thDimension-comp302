@@ -23,6 +23,8 @@ public abstract class Behaviour {
         behaviours.remove(this);
     }
 
+
+
     public static List<Behaviour> getBehaviours() {
         return behaviours;
     }

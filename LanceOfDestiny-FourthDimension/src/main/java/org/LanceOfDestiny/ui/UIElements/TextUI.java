@@ -29,7 +29,6 @@ public class TextUI implements Animatable, Drawable {
             g2d.setFont(font);
             FontMetrics metrics = g2d.getFontMetrics(font);
             int textWidth = metrics.stringWidth(text);
-
             g2d.setColor(color);
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity / 100f));
             g2d.drawString(text, locX - textWidth/2, locY);

@@ -115,8 +115,9 @@ public class SessionManager {
     }
 
     public void initializeYmir() {
-        System.out.println("Ymir initialized");
+
         if (!(ymir == null)) return;
+        System.out.println("Ymir initialized");
         ymir = new Ymir();
     }
 

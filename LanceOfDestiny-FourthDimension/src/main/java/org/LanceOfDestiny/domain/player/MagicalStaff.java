@@ -52,10 +52,12 @@ public class MagicalStaff extends GameObject {
         this.sprite.setImage(ImageOperations.resizeImageToSprite(ImageLibrary.MagicalStaff.getImage(),this.sprite));
         this.defaultCollider = ColliderFactory.createRectangleCollider(this, new Vector(0, 0), ColliderType.STATIC, WIDTH, HEIGHT);
         this.collider = defaultCollider;
+        this.collider.setMovable(false);
         this.expandedSprite = new RectangleSprite(this, new Color(0,0,0,0), WIDTH * 2, HEIGHT);
         this.expandedSprite.setImage(ImageOperations.resizeImageToSprite(ImageLibrary.MagicalStaff.getImage(), expandedSprite));
         this.expandedCollider = ColliderFactory.createRectangleCollider(this, new Vector(0, 0), ColliderType.STATIC, WIDTH * 2, HEIGHT);
         expandedCollider.setEnabled(false);
+        this.expandedCollider.setMovable(false);
     }
 
     @Override
@@ -82,7 +84,14 @@ public class MagicalStaff extends GameObject {
      *                - Updates the positions of `canonLeft` and `canonRight` according to staff's new position. <p>
      */
     public void moveRight(Object integer) {
-        int sign = ((Integer) integer) > 0 ? 1 : -1;
+        int sign;
+        if(((Integer) integer) == 0) {
+            sign = 0;
+        }
+        else{
+            sign = ((Integer) integer) > 0 ? 1 : -1;
+        }
+        this.collider.setVelocity(new Vector(0.3*sign,0));
         var minX = 0;
         var staffWidth = (isExpanded ? WIDTH * 2 : WIDTH);
         var maxX = Constants.SCREEN_WIDTH - staffWidth;

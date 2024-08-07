@@ -39,6 +39,7 @@ public abstract class GameObject extends Behaviour {
     @Override
     public void update() {
         super.update();
+        if(!this.collider.isMovable())return;
         setPosition((getPosition().add(getCollider().getVelocity())));
     }
 

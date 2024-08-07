@@ -60,6 +60,7 @@ public class GameView extends JFrame implements Window {
         this.countdown = new TextUI("5", Color.orange, new Font("IMPACT", Font.PLAIN, 20), 100f, Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2, 100);
         add(cardPanel, BorderLayout.CENTER);
         setLayout(cardLayout);
+
         initializeComponents();
         decorateCardPanel();
         subscribeMethods();
@@ -186,6 +187,18 @@ public class GameView extends JFrame implements Window {
         setDefaultLookAndFeelDecorated(true);
         addKeyListener(InputManager.getInstance());
         setResizable(false);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenWidth = screenSize.width;
+        int screenHeight = screenSize.height;
+
+        // Calculate the new location of the frame
+        int frameWidth = getSize().width;
+        int frameHeight = getSize().height;
+        int x = (screenWidth - frameWidth) / 2;
+        int y = (screenHeight - frameHeight) / 2;
+
+        // Set the location of the frame
+        setLocation(x, y);
 
         // Initialize enemy status panel
         enemyStatusPanel = createEnemyStatusPanel();

@@ -56,6 +56,7 @@ public abstract class TimedAction extends MonoBehaviour {
         startTime = SessionManager.getInstance().getLoopExecutor().getSecondsPassed();
     }
     public void kill(){
+        System.out.println("Destroying this daaamn timed event");
         destroy();
         isKilled = true;
     }

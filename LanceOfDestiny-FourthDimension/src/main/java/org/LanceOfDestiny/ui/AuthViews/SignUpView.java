@@ -35,6 +35,10 @@ public class SignUpView extends javax.swing.JFrame implements Window {
         jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Lance of Destiny");
+        setSize(new java.awt.Dimension(800, 500));
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int screenWidth = screenSize.width;
         int screenHeight = screenSize.height;
@@ -47,8 +51,6 @@ public class SignUpView extends javax.swing.JFrame implements Window {
 
         // Set the location of the frame
         setLocation(x, y);
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Lance of Destiny");
         setPreferredSize(new java.awt.Dimension(800, 500));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
